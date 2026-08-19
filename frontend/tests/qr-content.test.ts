@@ -1,0 +1,11 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { buildQrContent } from "../lib/qr/content";
+import { defaultQrValues } from "../lib/qr/types";
+test("builds URL QR content", () => assert.equal(buildQrContent("url", { ...defaultQrValues, url: "https://example.com/path" }).value, "https://example.com/path"));
+test("builds text QR content", () => assert.equal(buildQrContent("text", { ...defaultQrValues, text: "Hello QR" }).value, "Hello QR"));
+test("builds WiFi QR content", () => assert.equal(buildQrContent("wifi", { ...defaultQrValues, wifiSsid: "Cafe;Net", wifiPassword: "pass" }).value, "WIFI:T:WPA;S:Cafe\\;Net;P:pass;;"));
+test("builds email QR content", () => assert.equal(buildQrContent("email", { ...defaultQrValues, email: "hello@example.com", emailSubject: "Hi" }).value, "mailto:hello@example.com?subject=Hi"));
+test("builds phone QR content", () => assert.equal(buildQrContent("phone", { ...defaultQrValues, phone: "+66 81 234 5678" }).value, "tel:+66812345678"));
+test("builds SMS QR content", () => assert.equal(buildQrContent("sms", { ...defaultQrValues, smsPhone: "+66 81 234 5678", smsMessage: "Hello" }).value, "SMSTO:+66812345678:Hello"));
+test("rejects invalid required input", () => assert.ok(buildQrContent("url", { ...defaultQrValues, url: "not-a-url" }).error));

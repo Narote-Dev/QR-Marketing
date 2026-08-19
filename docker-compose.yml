@@ -1,0 +1,36 @@
+services:
+  database:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-qrmarketing}
+      POSTGRES_USER: ${POSTGRES_USER:-qrmarketing}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-in-development}
+    ports: ["${POSTGRES_PORT:-5432}:5432"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  backend:
+    build: ./backend
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Host=database;Port=5432;Database=${POSTGRES_DB:-qrmarketing};Username=${POSTGRES_USER:-qrmarketing};Password=${POSTGRES_PASSWORD:-change-me-in-development}
+      Cors__AllowedOrigins__0: http://localhost:3000
+    ports: ["${BACKEND_PORT:-8080}:8080"]
+    depends_on:
+      database:
+        condition: service_healthy
+  frontend:
+    build: ./frontend
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:${BACKEND_PORT:-8080}
+    ports: ["${FRONTEND_PORT:-3000}:3000"]
+    depends_on: [backend]
+volumes:
+  postgres_data:
