@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-export const siteName = "QR Marketing";
+// Change: Rename the public product brand to Build Your QR.
+export const siteName = "Build Your QR";
 export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
 
 export type SeoPage = { slug: string; title: string; description: string; h1: string; introduction: string; howTo: string[]; faqs: { question: string; answer: string }[]; related: string[] };

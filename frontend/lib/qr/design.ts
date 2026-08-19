@@ -5,7 +5,8 @@ export type GradientType = "linear" | "radial";
 import type QRCodeStyling from "qr-code-styling";
 
 export type ErrorCorrectionLevel = "L" | "M" | "Q" | "H";
-export type QrDesign = { foregroundColor: string; backgroundColor: string; dotStyle: DotStyle; innerEyeStyle: EyeStyle; outerEyeStyle: EyeStyle; logo?: string; logoSize: number; frame: FrameStyle; frameText: string; gradientEnabled: boolean; gradientColor: string; gradientType: GradientType; errorCorrectionLevel: ErrorCorrectionLevel; size: number };
+// Change: Add optional composed background image for template presets (not passed to qr-code-styling).
+export type QrDesign = { foregroundColor: string; backgroundColor: string; dotStyle: DotStyle; innerEyeStyle: EyeStyle; outerEyeStyle: EyeStyle; logo?: string; logoSize: number; frame: FrameStyle; frameText: string; gradientEnabled: boolean; gradientColor: string; gradientType: GradientType; errorCorrectionLevel: ErrorCorrectionLevel; size: number; backgroundImage?: string };
 export const defaultQrDesign: QrDesign = { foregroundColor: "#0f172a", backgroundColor: "#ffffff", dotStyle: "rounded", innerEyeStyle: "dot", outerEyeStyle: "square", logoSize: 0.25, frame: "none", frameText: "Scan me", gradientEnabled: false, gradientColor: "#2563eb", gradientType: "linear", errorCorrectionLevel: "M", size: 280 };
 
 type StylingOptions = ConstructorParameters<typeof QRCodeStyling>[0];
