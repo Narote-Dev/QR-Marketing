@@ -49,10 +49,12 @@ test("sitemap contains curated QR and template pages for every locale", () => {
     ...Object.values(qrPages).map((page) => `/qr-code/${page.slug}`),
     "/templates",
     ...Object.values(templateCategoryPages).map((page) => `/templates/${page.slug}`),
+    "/privacy-policy",
+    "/terms-of-service",
   ];
   const expected = barePaths.flatMap((bare) => locales.map((locale) => new URL(localizedPath(locale, bare), siteUrl).toString()));
   assert.equal(entries.length, expected.length);
-  assert.equal(entries.length, 36);
+  assert.equal(entries.length, 42);
   assert.deepEqual(entries.map((entry) => entry.url).sort(), expected.slice().sort());
 });
 

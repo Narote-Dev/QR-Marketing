@@ -35,6 +35,9 @@ export type Dictionary = {
     templatesCrumb: string;
     language: string;
     advertisement: string;
+    privacyPolicy: string;
+    termsOfService: string;
+    footerRights: string;
   };
   relatedToolBlurbs: Record<"url" | "wifi" | "email" | "phone" | "sms", string>;
   generator: {

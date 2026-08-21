@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
 import { QrGenerator } from "@/components/qr-generator";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TemplateBreadcrumbs } from "@/components/templates/template-breadcrumbs";
 import type { Locale } from "@/lib/i18n/config";
@@ -151,6 +152,7 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
           </div>
         </div>
       </article>
+      <SiteFooter locale={locale} dictionary={dictionary} />
     </main>
   );
 }

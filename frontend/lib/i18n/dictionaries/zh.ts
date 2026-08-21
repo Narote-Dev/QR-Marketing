@@ -23,6 +23,9 @@ export const zh: Dictionary = {
     templatesCrumb: "模板",
     language: "语言",
     advertisement: "广告",
+    privacyPolicy: "隐私政策",
+    termsOfService: "服务条款",
+    footerRights: "保留所有权利。",
   },
   relatedToolBlurbs: {
     url: "为网站链接创建二维码。",

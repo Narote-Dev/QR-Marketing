@@ -23,6 +23,9 @@ export const en: Dictionary = {
     templatesCrumb: "Templates",
     language: "Language",
     advertisement: "Advertisement",
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
+    footerRights: "All rights reserved.",
   },
   relatedToolBlurbs: {
     url: "Create a QR code for a website link.",

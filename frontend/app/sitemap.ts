@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...Object.values(qrPages).map((page) => `/qr-code/${page.slug}`),
     getTemplatePageBarePath(templateIndexPage),
     ...Object.values(templateCategoryPages).map((page) => getTemplatePageBarePath(page)),
+    // Change: Make localized Privacy Policy and Terms pages discoverable.
+    "/privacy-policy",
+    "/terms-of-service",
   ];
 
   return barePaths.flatMap((bare) => {

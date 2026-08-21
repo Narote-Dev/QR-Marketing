@@ -23,6 +23,9 @@ export const th: Dictionary = {
     templatesCrumb: "เทมเพลต",
     language: "ภาษา",
     advertisement: "โฆษณา",
+    privacyPolicy: "นโยบายความเป็นส่วนตัว",
+    termsOfService: "ข้อกำหนดการให้บริการ",
+    footerRights: "สงวนลิขสิทธิ์",
   },
   relatedToolBlurbs: {
     url: "สร้างคิวอาร์โค้ดสำหรับลิงก์เว็บไซต์",

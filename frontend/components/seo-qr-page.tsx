@@ -5,6 +5,7 @@ import { FaqSection } from "@/components/faq-section";
 import { QrGenerator } from "@/components/qr-generator";
 import { RelatedQrTools } from "@/components/related-qr-tools";
 import { SeoJsonLd } from "@/components/seo-json-ld";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/types";
@@ -63,6 +64,7 @@ export function SeoQrPage({ page, initialType = "url", locale, dictionary }: Pro
           </div>
         </div>
       </article>
+      <SiteFooter locale={locale} dictionary={dictionary} />
     </main>
   );
 }
