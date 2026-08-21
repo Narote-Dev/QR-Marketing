@@ -25,6 +25,9 @@ export const en: Dictionary = {
     advertisement: "Advertisement",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
+    about: "About",
+    contact: "Contact",
+    footerNavAria: "Footer",
     footerRights: "All rights reserved.",
   },
   relatedToolBlurbs: {
@@ -33,6 +36,14 @@ export const en: Dictionary = {
     email: "Create a QR code for email.",
     phone: "Create a QR code for phone.",
     sms: "Create a QR code for SMS.",
+  },
+  consent: {
+    title: "We value your privacy",
+    message:
+      "We use cookies and similar technologies to show relevant ads and measure how the site is used. You can accept all, or reject non-essential cookies.",
+    acceptAll: "Accept all",
+    rejectAll: "Reject all",
+    privacyPolicy: "Privacy Policy",
   },
   generator: {
     eyebrow: "Free static QR code generator",

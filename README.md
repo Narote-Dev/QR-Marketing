@@ -108,6 +108,14 @@ $env:NEXT_PUBLIC_ADSENSE_SLOT_SEO_AFTER_TOOL = 'your-slot-id'
 
 Add the other placement slot IDs only when those placements are approved for use. To disable ads in development, leave `NEXT_PUBLIC_ENABLE_ADSENSE=false` (the default) or omit the publisher ID. The AdSense client script is not included and no ad containers are rendered unless both are configured.
 
+`ads.txt` is generated at `/ads.txt` from the configured publisher ID, so it stays consistent with the ad script. When AdSense is not configured it returns an empty file.
+
+## Google Analytics and consent
+
+GA4 and a consent banner follow the same opt-in pattern. Set `NEXT_PUBLIC_ENABLE_ANALYTICS=true` plus `NEXT_PUBLIC_GA_MEASUREMENT_ID` to load Google Analytics 4. Set `NEXT_PUBLIC_ENABLE_CONSENT=true` to activate Google Consent Mode v2 defaults plus a three-language consent banner.
+
+When consent is enabled, ad and analytics storage are denied by default and only updated after the visitor accepts. The AdSlot component also waits for advertising consent before requesting an ad. For full EU/UK personalized-ads compliance, replace the built-in banner with a Google-certified CMP that supports the TCF v2.0 framework.
+
 ## Docker
 
 ```powershell

@@ -19,7 +19,7 @@ test("SEO pages have unique metadata and locale canonical URLs", () => {
       assert.equal(metadata.alternates?.canonical, path);
       assert.equal(metadata.openGraph?.url, new URL(path, siteUrl).toString());
       assert.ok(metadata.alternates?.languages);
-      assert.equal(metadata.twitter?.card, "summary");
+      assert.equal((metadata.twitter as { card?: string } | null | undefined)?.card, "summary");
     }
   }
 });
@@ -51,10 +51,12 @@ test("sitemap contains curated QR and template pages for every locale", () => {
     ...Object.values(templateCategoryPages).map((page) => `/templates/${page.slug}`),
     "/privacy-policy",
     "/terms-of-service",
+    "/about",
+    "/contact",
   ];
   const expected = barePaths.flatMap((bare) => locales.map((locale) => new URL(localizedPath(locale, bare), siteUrl).toString()));
   assert.equal(entries.length, expected.length);
-  assert.equal(entries.length, 42);
+  assert.equal(entries.length, 48);
   assert.deepEqual(entries.map((entry) => entry.url).sort(), expected.slice().sort());
 });
 

@@ -37,9 +37,19 @@ export type Dictionary = {
     advertisement: string;
     privacyPolicy: string;
     termsOfService: string;
+    about: string;
+    contact: string;
+    footerNavAria: string;
     footerRights: string;
   };
   relatedToolBlurbs: Record<"url" | "wifi" | "email" | "phone" | "sms", string>;
+  consent: {
+    title: string;
+    message: string;
+    acceptAll: string;
+    rejectAll: string;
+    privacyPolicy: string;
+  };
   generator: {
     eyebrow: string;
     heading: string;

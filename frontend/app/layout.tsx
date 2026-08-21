@@ -1,4 +1,6 @@
 import { AdSenseScript } from "@/components/adsense-script";
+import { ConsentModeScript } from "@/components/consent-mode-script";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import { siteUrl } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -19,7 +21,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html suppressHydrationWarning>
       <body>
+        <ConsentModeScript />
         <AdSenseScript />
+        <GoogleAnalytics />
         {children}
       </body>
     </html>

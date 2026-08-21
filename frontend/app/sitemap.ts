@@ -16,6 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Change: Make localized Privacy Policy and Terms pages discoverable.
     "/privacy-policy",
     "/terms-of-service",
+    // Change: Make localized About and Contact pages discoverable.
+    "/about",
+    "/contact",
   ];
 
   return barePaths.flatMap((bare) => {

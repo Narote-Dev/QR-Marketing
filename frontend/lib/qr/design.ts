@@ -9,7 +9,8 @@ export type ErrorCorrectionLevel = "L" | "M" | "Q" | "H";
 export type QrDesign = { foregroundColor: string; backgroundColor: string; dotStyle: DotStyle; innerEyeStyle: EyeStyle; outerEyeStyle: EyeStyle; logo?: string; logoSize: number; frame: FrameStyle; frameText: string; gradientEnabled: boolean; gradientColor: string; gradientType: GradientType; errorCorrectionLevel: ErrorCorrectionLevel; size: number; backgroundImage?: string };
 export const defaultQrDesign: QrDesign = { foregroundColor: "#0f172a", backgroundColor: "#ffffff", dotStyle: "rounded", innerEyeStyle: "dot", outerEyeStyle: "square", logoSize: 0.25, frame: "none", frameText: "Scan me", gradientEnabled: false, gradientColor: "#2563eb", gradientType: "linear", errorCorrectionLevel: "M", size: 280 };
 
-type StylingOptions = ConstructorParameters<typeof QRCodeStyling>[0];
+// Change: The constructor parameter is optional, but this helper always returns a full options object.
+type StylingOptions = NonNullable<ConstructorParameters<typeof QRCodeStyling>[0]>;
 export function createQrStylingOptions(data: string, design: QrDesign): StylingOptions {
   const gradient = design.gradientEnabled ? { type: design.gradientType, rotation: 0, colorStops: [{ offset: 0, color: design.foregroundColor }, { offset: 1, color: design.gradientColor }] } : undefined;
   return {

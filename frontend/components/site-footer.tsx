@@ -14,7 +14,19 @@ export function SiteFooter({ locale, dictionary }: Props) {
     <footer className="mt-14 border-t py-8 text-sm text-slate-600">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <p>© 2026 genmyQRCode.com. {dictionary.chrome.footerRights}</p>
-        <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label={`${dictionary.chrome.privacyPolicy} / ${dictionary.chrome.termsOfService}`}>
+        <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label={dictionary.chrome.footerNavAria}>
+          <Link
+            href={localizedPath(locale, "/about")}
+            className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+          >
+            {dictionary.chrome.about}
+          </Link>
+          <Link
+            href={localizedPath(locale, "/contact")}
+            className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+          >
+            {dictionary.chrome.contact}
+          </Link>
           <Link
             href={localizedPath(locale, "/privacy-policy")}
             className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"

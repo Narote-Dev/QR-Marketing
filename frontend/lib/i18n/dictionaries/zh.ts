@@ -25,6 +25,9 @@ export const zh: Dictionary = {
     advertisement: "广告",
     privacyPolicy: "隐私政策",
     termsOfService: "服务条款",
+    about: "关于我们",
+    contact: "联系我们",
+    footerNavAria: "页脚",
     footerRights: "保留所有权利。",
   },
   relatedToolBlurbs: {
@@ -33,6 +36,14 @@ export const zh: Dictionary = {
     email: "为电子邮件创建二维码。",
     phone: "为电话创建二维码。",
     sms: "为短信创建二维码。",
+  },
+  consent: {
+    title: "我们重视您的隐私",
+    message:
+      "我们使用 Cookie 和类似技术来展示相关广告并衡量网站使用情况。您可以全部接受，或拒绝非必要的 Cookie。",
+    acceptAll: "全部接受",
+    rejectAll: "全部拒绝",
+    privacyPolicy: "隐私政策",
   },
   generator: {
     eyebrow: "免费静态二维码生成器",

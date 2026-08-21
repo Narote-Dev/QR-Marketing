@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ConsentBanner } from "@/components/consent-banner";
 import { I18nProvider } from "@/components/i18n-provider";
 import { htmlLang, isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -34,6 +35,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <div lang={htmlLang[locale]}>
       <I18nProvider locale={locale} dictionary={dictionary}>
         {children}
+        <ConsentBanner />
       </I18nProvider>
       <script
         dangerouslySetInnerHTML={{
