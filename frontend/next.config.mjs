@@ -1,2 +1,5 @@
 /** @type {import('next').NextConfig} */
-export default { reactStrictMode: true };
+// Change: Host canonicalization moved into middleware so locale redirects stay one hop.
+export default {
+  reactStrictMode: true,
+};

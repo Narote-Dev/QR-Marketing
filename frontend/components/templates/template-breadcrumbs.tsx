@@ -1,15 +1,24 @@
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/config";
+import { localizedPath } from "@/lib/i18n/paths";
+import type { Dictionary } from "@/lib/i18n/types";
 import { siteUrl } from "@/lib/seo/site";
 import { getTemplatePagePath, type TemplateSeoPage } from "@/lib/seo/templates";
 
 type Crumb = { label: string; href: string };
 
-export function TemplateBreadcrumbs({ page }: { page: TemplateSeoPage }) {
-  // Step 1: Build Home → Templates → Category crumbs for curated template SEO pages.
+type Props = {
+  page: TemplateSeoPage;
+  locale: Locale;
+  dictionary: Dictionary;
+};
+
+export function TemplateBreadcrumbs({ page, locale, dictionary }: Props) {
+  // Step 1: Build Home → Templates → Category crumbs on the active locale.
   const items: Crumb[] = [
-    { label: "Home", href: "/" },
-    { label: "Templates", href: "/templates" },
-    ...(page.slug === "templates" ? [] : [{ label: page.title, href: getTemplatePagePath(page) }]),
+    { label: dictionary.chrome.home, href: localizedPath(locale, "/qr-code-generator") },
+    { label: dictionary.chrome.templatesCrumb, href: localizedPath(locale, "/templates") },
+    ...(page.slug === "templates" ? [] : [{ label: page.title, href: getTemplatePagePath(page, locale) }]),
   ];
 
   const jsonLd = {
@@ -25,7 +34,7 @@ export function TemplateBreadcrumbs({ page }: { page: TemplateSeoPage }) {
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-600">
+      <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
         <ol className="flex flex-wrap gap-2">
           {items.map((item, index) => (
             <li key={`${item.href}-${item.label}`} className="flex items-center gap-2">
@@ -33,7 +42,9 @@ export function TemplateBreadcrumbs({ page }: { page: TemplateSeoPage }) {
               {index === items.length - 1 ? (
                 <span aria-current="page">{item.label}</span>
               ) : (
-                <Link className="hover:text-blue-700 hover:underline" href={item.href}>{item.label}</Link>
+                <Link className="hover:text-blue-700 hover:underline" href={item.href}>
+                  {item.label}
+                </Link>
               )}
             </li>
           ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import { AssetSelector } from "@/components/assets/asset-selector";
+import { useDictionary } from "@/components/i18n-provider";
 import type { AssetCategory, PresetAsset } from "@/lib/assets/types";
 
 type Props = {
@@ -16,6 +17,8 @@ type Props = {
  * Step 1: Forward selection as a public asset path the design state can store.
  */
 export function PresetImageSelector({ category, selectedPath, onSelect, onClear, label }: Props) {
+  // Step 2: Resolve Clear button label from the designer dictionary.
+  const dictionary = useDictionary();
   const handleSelect = (asset: PresetAsset) => onSelect(asset.path);
 
   return (
@@ -24,7 +27,7 @@ export function PresetImageSelector({ category, selectedPath, onSelect, onClear,
         <p className="text-sm font-semibold text-slate-800">{label}</p>
         {selectedPath && onClear && (
           <button type="button" className="text-xs font-semibold text-blue-700 underline" onClick={onClear}>
-            Clear
+            {dictionary.designer.clear}
           </button>
         )}
       </div>

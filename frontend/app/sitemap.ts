@@ -1,24 +1,32 @@
 import type { MetadataRoute } from "next";
+import { defaultLocale, htmlLang, locales } from "@/lib/i18n/config";
+import { localizedPath } from "@/lib/i18n/paths";
 import { qrPages, siteUrl } from "@/lib/seo/site";
-import { getTemplatePagePath, templateCategoryPages, templateIndexPage } from "@/lib/seo/templates";
+import { getTemplatePageBarePath, templateCategoryPages, templateIndexPage } from "@/lib/seo/templates";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  // Step 1: Keep the sitemap curated — QR tool pages plus six template SEO pages only.
-  return [
-    { url: new URL("/qr-code-generator", siteUrl).toString(), lastModified: now, changeFrequency: "weekly", priority: 1 },
-    ...Object.values(qrPages).map((page) => ({
-      url: new URL(`/qr-code/${page.slug}`, siteUrl).toString(),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    { url: new URL(getTemplatePagePath(templateIndexPage), siteUrl).toString(), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    ...Object.values(templateCategoryPages).map((page) => ({
-      url: new URL(getTemplatePagePath(page), siteUrl).toString(),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+
+  // Step 1: Publish every locale URL while attaching hreflang alternates.
+  const barePaths = [
+    "/qr-code-generator",
+    ...Object.values(qrPages).map((page) => `/qr-code/${page.slug}`),
+    getTemplatePageBarePath(templateIndexPage),
+    ...Object.values(templateCategoryPages).map((page) => getTemplatePageBarePath(page)),
   ];
+
+  return barePaths.flatMap((bare) => {
+    const languages = Object.fromEntries([
+      ...locales.map((locale) => [htmlLang[locale], new URL(localizedPath(locale, bare), siteUrl).toString()]),
+      ["x-default", new URL(localizedPath(defaultLocale, bare), siteUrl).toString()],
+    ]);
+
+    return locales.map((locale) => ({
+      url: new URL(localizedPath(locale, bare), siteUrl).toString(),
+      lastModified: now,
+      changeFrequency: (bare.includes("generator") || bare === "/templates" ? "weekly" : "monthly") as "weekly" | "monthly",
+      priority: bare === "/qr-code-generator" ? 1 : bare === "/templates" ? 0.9 : 0.8,
+      alternates: { languages },
+    }));
+  });
 }

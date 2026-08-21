@@ -1,26 +1,91 @@
 import type { Metadata } from "next";
+import { defaultLocale, htmlLang, locales, openGraphLocale, type Locale } from "@/lib/i18n/config";
+import { en } from "@/lib/i18n/dictionaries/en";
+import { localizedPath, pagePathForSlug } from "@/lib/i18n/paths";
+import type { Dictionary, SeoPageCopy } from "@/lib/i18n/types";
 
 // Change: Rename the public product brand to Build Your QR.
 export const siteName = "Build Your QR";
-export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
+// Change: Use the production domain as the SEO fallback when no environment override exists.
+// Step 1: Keep canonical URLs, structured data, robots, and sitemap on one origin.
+export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://genmyqrcode.com");
 
-export type SeoPage = { slug: string; title: string; description: string; h1: string; introduction: string; howTo: string[]; faqs: { question: string; answer: string }[]; related: string[] };
+export type SeoPage = {
+  slug: string;
+  title: string;
+  description: string;
+  h1: string;
+  introduction: string;
+  howTo: string[];
+  faqs: { question: string; answer: string }[];
+  related: string[];
+};
 
-export const qrPages = {
-  url: { slug: "url", title: "URL QR Code Generator", description: "Create a free URL QR code for a website, landing page, menu, or campaign link. Customize it and preview it instantly.", h1: "Create a QR code for any URL", introduction: "Turn a web address into a scannable QR code that helps people reach a page without typing a long link. It is useful for posters, product packaging, business cards, event signs, and printed menus.", howTo: ["Paste a complete website address, including https://.", "Check the live QR preview and adjust its appearance if needed.", "Test-scan the code with a phone before using it in print."], faqs: [{ question: "Will this QR code expire?", answer: "No. A static URL QR code continues to work as long as the linked website remains available." }, { question: "Can I change the destination later?", answer: "A static QR code cannot be changed after it is printed. Create a new code if the URL changes." }], related: ["wifi", "email", "phone"] },
-  wifi: { slug: "wifi", title: "WiFi QR Code Generator", description: "Create a free WiFi QR code so guests can join your network without typing the password. Supports WPA, WEP, and open networks.", h1: "Share WiFi access with a QR code", introduction: "Let guests connect to a wireless network by scanning a code instead of reading or entering a password. This is especially helpful for cafés, homes, hotels, and reception desks.", howTo: ["Enter the WiFi network name exactly as it appears on a device.", "Select the matching security type and enter the password, if one is required.", "Scan it on a phone near the network to confirm the connection prompt."], faqs: [{ question: "Does the QR code reveal my WiFi password?", answer: "The password is encoded in the QR data, so only share the code with people who may access the network." }, { question: "Which security type should I choose?", answer: "Most modern networks use WPA or WPA2. Choose WEP only for older networks, or No password for open networks." }], related: ["url", "sms", "email"] },
-  email: { slug: "email", title: "Email QR Code Generator", description: "Create a free email QR code with a recipient, optional subject, and message. Make contacting your business faster from print materials.", h1: "Start an email with a QR code", introduction: "An email QR code opens the scanner’s email app with the recipient already filled in. Add a suggested subject or message to make enquiries, support requests, and event RSVPs easier to send.", howTo: ["Enter the email address that should receive messages.", "Optionally add a subject and a short starter message.", "Scan the preview and confirm that the mail app opens with the intended details."], faqs: [{ question: "Will scanning send an email automatically?", answer: "No. It only opens a prepared email draft; the visitor reviews it and chooses whether to send." }, { question: "Can I include a message?", answer: "Yes. A subject and message are optional and can help guide the person contacting you." }], related: ["phone", "sms", "url"] },
-  phone: { slug: "phone", title: "Phone Number QR Code Generator", description: "Create a free phone QR code that opens a call prompt when scanned. Ideal for storefronts, service vehicles, and printed promotions.", h1: "Make a phone call from a QR code", introduction: "A phone QR code launches the dialer with your number ready to call. It shortens the path between seeing a printed message and speaking with your business or service team.", howTo: ["Enter the phone number, preferably with its country code.", "Review the live preview after changing the number or styling.", "Scan with a phone to check that the correct number appears in the dialer."], faqs: [{ question: "Does scanning call the number immediately?", answer: "No. The phone opens a call screen and the visitor confirms the call." }, { question: "Should I use a country code?", answer: "Yes. Including a country code helps the code work reliably for international visitors." }], related: ["sms", "email", "url"] },
-  sms: { slug: "sms", title: "SMS QR Code Generator", description: "Create a free SMS QR code with a recipient and optional prefilled message. Help customers start a text conversation with one scan.", h1: "Start an SMS message with a QR code", introduction: "An SMS QR code opens a text-message draft addressed to your chosen number. Use it for appointment requests, simple orders, support questions, or an easy way to reply to a promotion.", howTo: ["Enter the mobile number, including the country code where appropriate.", "Add an optional message that visitors can edit before sending.", "Scan the QR code to verify that the message app opens correctly."], faqs: [{ question: "Will the QR code send a text automatically?", answer: "No. It prepares a message; the visitor decides whether to send it." }, { question: "Can visitors change the prefilled message?", answer: "Yes. The text remains editable in the messaging app." }], related: ["phone", "wifi", "email"] }
-} as const satisfies Record<string, SeoPage>;
+const qrRelated: Record<"url" | "wifi" | "email" | "phone" | "sms", string[]> = {
+  url: ["wifi", "email", "phone"],
+  wifi: ["url", "sms", "email"],
+  email: ["phone", "sms", "url"],
+  phone: ["sms", "email", "url"],
+  sms: ["phone", "wifi", "email"],
+};
 
-export type QrSeoSlug = keyof typeof qrPages;
-export const qrSeoSlugs = Object.keys(qrPages) as QrSeoSlug[];
+function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
+  return {
+    slug,
+    title: copy.title,
+    description: copy.description,
+    h1: copy.h1,
+    introduction: copy.introduction,
+    howTo: copy.howTo,
+    faqs: copy.faqs,
+    related,
+  };
+}
 
-export const generatorPage: SeoPage = { slug: "qr-code-generator", title: "Free QR Code Generator", description: "Create free static QR codes for URLs, text, WiFi, email, phone numbers, and SMS. Customize your code and preview it instantly.", h1: "Free QR code generator", introduction: "Create a practical, static QR code in your browser. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it.", howTo: ["Choose the QR type that matches what people should do after scanning.", "Enter the required details and review the live preview.", "Customize colors, eyes, logo, frame, size, and error correction, then test-scan it."], faqs: [{ question: "Do I need an account to create a static QR code?", answer: "No. Static QR code creation is available without signing in and the entered content is not saved." }, { question: "What can I encode?", answer: "You can create codes for URLs, plain text, WiFi network access, email, phone calls, and SMS messages." }], related: ["url", "wifi", "email", "phone", "sms"] };
+// Step 2: Build SEO page objects from a locale dictionary.
+export function getGeneratorPage(dictionary: Dictionary): SeoPage {
+  return fromCopy("qr-code-generator", dictionary.seo.generator, ["url", "wifi", "email", "phone", "sms"]);
+}
 
-export function getPageMetadata(page: SeoPage): Metadata {
-  const path = page.slug === "qr-code-generator" ? "/qr-code-generator" : `/qr-code/${page.slug}`;
+export function getQrPages(dictionary: Dictionary): Record<"url" | "wifi" | "email" | "phone" | "sms", SeoPage> {
+  return {
+    url: fromCopy("url", dictionary.seo.qr.url, qrRelated.url),
+    wifi: fromCopy("wifi", dictionary.seo.qr.wifi, qrRelated.wifi),
+    email: fromCopy("email", dictionary.seo.qr.email, qrRelated.email),
+    phone: fromCopy("phone", dictionary.seo.qr.phone, qrRelated.phone),
+    sms: fromCopy("sms", dictionary.seo.qr.sms, qrRelated.sms),
+  };
+}
+
+export type QrSeoSlug = keyof ReturnType<typeof getQrPages>;
+export const qrSeoSlugs = ["url", "wifi", "email", "phone", "sms"] as const satisfies readonly QrSeoSlug[];
+
+// English defaults kept for tests and non-localized helpers.
+export const generatorPage = getGeneratorPage(en);
+export const qrPages = getQrPages(en);
+
+// Step 3: Emit locale-aware metadata with self-canonical and hreflang alternates.
+export function getPageMetadata(page: SeoPage, locale: Locale = defaultLocale): Metadata {
+  const bare = pagePathForSlug(page.slug);
+  const path = localizedPath(locale, bare);
   const url = new URL(path, siteUrl).toString();
-  return { title: page.title, description: page.description, alternates: { canonical: path }, openGraph: { type: "website", url, siteName, title: page.title, description: page.description }, twitter: { card: "summary", title: page.title, description: page.description } };
+  const languages = Object.fromEntries([
+    ...locales.map((item) => [htmlLang[item], localizedPath(item, bare)]),
+    ["x-default", localizedPath(defaultLocale, bare)],
+  ]);
+
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: path, languages },
+    openGraph: {
+      type: "website",
+      url,
+      siteName,
+      title: page.title,
+      description: page.description,
+      locale: openGraphLocale[locale],
+    },
+    twitter: { card: "summary", title: page.title, description: page.description },
+  };
 }

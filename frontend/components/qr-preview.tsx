@@ -2,6 +2,7 @@
 
 import QRCodeStyling from "qr-code-styling";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { useDictionary } from "@/components/i18n-provider";
 import { createQrStylingOptions, type QrDesign } from "@/lib/qr/design";
 import { composeQrPng, downloadBlob } from "@/lib/qr/export";
 
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({ value, design }, ref) {
+  const dictionary = useDictionary();
   const hostRef = useRef<HTMLDivElement>(null);
   const qrCode = useRef<QRCodeStyling>();
   const [exportError, setExportError] = useState<string>();
@@ -37,15 +39,15 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
   // Step 2: Expose a composite PNG download that includes frame and background.
   useImperativeHandle(ref, () => ({
     async downloadPng(fileName = "qr-code.png") {
-      if (!value || !qrCode.current) throw new Error("Enter QR content before downloading.");
+      if (!value || !qrCode.current) throw new Error(dictionary.export.noContent);
       try {
         const raw = await qrCode.current.getRawData("png");
-        if (!raw || !(raw instanceof Blob)) throw new Error("Could not render QR data.");
+        if (!raw || !(raw instanceof Blob)) throw new Error(dictionary.export.renderFailed);
         const composed = await composeQrPng(raw, design);
         downloadBlob(composed, fileName);
         setExportError(undefined);
       } catch (error) {
-        const message = error instanceof Error ? error.message : "Download failed.";
+        const message = error instanceof Error ? error.message : dictionary.export.downloadFailed;
         setExportError(message);
         throw error;
       }
@@ -66,14 +68,18 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
         style={design.backgroundImage ? { backgroundImage: `url(${design.backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
       >
         <div className={`relative z-10 max-w-full rounded-xl shadow-sm ${frameClass}`}>
-          <div ref={hostRef} aria-label={value ? "Generated QR code preview" : undefined} />
+          <div ref={hostRef} aria-label={value ? dictionary.preview.aria : undefined} />
           {design.frame === "label" && value && (
-            <p className="mt-2 text-center text-sm font-semibold text-slate-800">{design.frameText || "Scan me"}</p>
+            <p className="mt-2 text-center text-sm font-semibold text-slate-800">{design.frameText || dictionary.preview.scanMe}</p>
           )}
         </div>
-        {!value && <p className="relative z-10 max-w-52 text-center text-sm text-slate-500">Complete the required fields to preview your QR code.</p>}
+        {!value && <p className="relative z-10 max-w-52 text-center text-sm text-slate-500">{dictionary.preview.empty}</p>}
       </div>
-      {exportError && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{exportError}</p>}
+      {exportError && (
+        <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+          {exportError}
+        </p>
+      )}
     </div>
   );
 });

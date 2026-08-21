@@ -42,3 +42,14 @@ export function getAssetsByCategory(category: AssetCategory): PresetAsset[] {
 export function getAssetPath(id: string): string | undefined {
   return getAssetById(id)?.path;
 }
+
+/** Step 4: Overlay translated asset labels for UI cards. */
+export function localizeAsset(asset: PresetAsset, dictionary: import("@/lib/i18n/types").Dictionary): PresetAsset {
+  const copy = dictionary.assetCopy[asset.id];
+  if (!copy) return asset;
+  return { ...asset, name: copy.name, description: copy.description };
+}
+
+export function localizeAssets(list: PresetAsset[], dictionary: import("@/lib/i18n/types").Dictionary): PresetAsset[] {
+  return list.map((asset) => localizeAsset(asset, dictionary));
+}

@@ -1,2 +1,6 @@
 import { redirect } from "next/navigation";
-export default function HomePage() { redirect("/qr-code-generator"); }
+
+// Change: Bare root is handled by middleware; keep a safe English fallback for static builds.
+export default function RootPage() {
+  redirect("/en/qr-code-generator");
+}

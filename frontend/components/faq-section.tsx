@@ -1,9 +1,16 @@
 type FaqPage = { faqs: { question: string; answer: string }[] };
 
-export function FaqSection({ page }: { page: FaqPage }) {
+type Props = {
+  page: FaqPage;
+  heading: string;
+};
+
+export function FaqSection({ page, heading }: Props) {
   return (
     <section className="mt-12" aria-labelledby="faq-heading">
-      <h2 id="faq-heading" className="text-2xl font-bold tracking-tight">Frequently asked questions</h2>
+      <h2 id="faq-heading" className="text-2xl font-bold tracking-tight">
+        {heading}
+      </h2>
       <div className="mt-5 grid gap-3">
         {page.faqs.map((faq) => (
           <details key={faq.question} className="rounded-xl border bg-white p-4">

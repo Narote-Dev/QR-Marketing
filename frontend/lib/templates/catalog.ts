@@ -1,5 +1,6 @@
 import { getAssetPath } from "@/lib/assets/catalog";
 import { presetPreviewPath } from "@/lib/assets/paths";
+import type { Dictionary } from "@/lib/i18n/types";
 import type { QrTemplate, TemplateCategory } from "@/lib/templates/types";
 
 function requireAsset(id: string): string {
@@ -186,4 +187,21 @@ export function getRelatedTemplates(category: TemplateCategory, limit = 3): QrTe
   if (same.length >= limit) return same.slice(0, limit);
   const others = templates.filter((template) => template.category !== category);
   return [...same, ...others].slice(0, limit);
+}
+
+/** Step 5: Overlay translated name/description/frame text while keeping ids and assets. */
+export function localizeTemplate(template: QrTemplate | undefined, dictionary: Dictionary): QrTemplate | undefined {
+  if (!template) return undefined;
+  const copy = dictionary.templateCopy[template.id];
+  if (!copy) return template;
+  return {
+    ...template,
+    name: copy.name,
+    description: copy.description,
+    defaultFrameText: copy.defaultFrameText,
+  };
+}
+
+export function localizeTemplates(list: QrTemplate[], dictionary: Dictionary): QrTemplate[] {
+  return list.map((template) => localizeTemplate(template, dictionary) ?? template);
 }
