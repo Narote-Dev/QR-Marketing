@@ -63,7 +63,7 @@ export function QrGenerator({ initialType = "url", initialTemplateCategory }: Pr
     // Change: Reduce narrow-screen padding and allow nested grid columns to shrink.
     <section aria-labelledby="generator-heading" className="min-w-0 rounded-3xl border bg-white p-4 shadow-sm sm:p-8">
       <div className="mb-7">
-        <p className="text-sm font-semibold text-blue-700">{dictionary.generator.eyebrow}</p>
+        <p className="text-sm font-semibold text-brand-teal-dark">{dictionary.generator.eyebrow}</p>
         <h2 id="generator-heading" className="mt-1 text-2xl font-bold tracking-tight">
           {dictionary.generator.heading}
         </h2>
@@ -91,7 +91,7 @@ export function QrGenerator({ initialType = "url", initialTemplateCategory }: Pr
             type="button"
             onClick={handleDownload}
             disabled={!result.value || Boolean(result.error) || downloading}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-teal px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-teal-dark disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             <Download className="h-4 w-4" aria-hidden="true" />
             {downloading ? dictionary.generator.preparingDownload : dictionary.generator.downloadPng}

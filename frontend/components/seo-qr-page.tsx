@@ -47,7 +47,7 @@ export function SeoQrPage({ page, initialType = "url", locale, dictionary }: Pro
               <ol className="mt-5 space-y-3">
                 {page.howTo.map((step, index) => (
                   <li key={step} className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-800">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-teal-light/20 text-sm font-bold text-brand-teal-dark">
                       {index + 1}
                     </span>
                     <p className="pt-0.5 text-slate-700">{step}</p>

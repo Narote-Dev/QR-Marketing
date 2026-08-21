@@ -26,7 +26,7 @@ export function PresetImageSelector({ category, selectedPath, onSelect, onClear,
       <div className="mb-2 flex items-center justify-between gap-2">
         <p className="text-sm font-semibold text-slate-800">{label}</p>
         {selectedPath && onClear && (
-          <button type="button" className="text-xs font-semibold text-blue-700 underline" onClick={onClear}>
+          <button type="button" className="text-xs font-semibold text-brand-teal-dark underline" onClick={onClear}>
             {dictionary.designer.clear}
           </button>
         )}

@@ -7,7 +7,7 @@ import { useDictionary } from "@/components/i18n-provider";
 import type { QrDesign } from "@/lib/qr/design";
 
 type Props = { design: QrDesign; onChange: (design: QrDesign) => void };
-const selectStyle = "mt-1 min-w-0 w-full max-w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100";
+const selectStyle = "mt-1 min-w-0 w-full max-w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal-light/30";
 function Label({ children }: { children: ReactNode }) { return <label className="block min-w-0 text-sm font-medium text-slate-700">{children}</label>; }
 
 // Change: Keep the color row shrinkable on narrow mobile screens.
@@ -47,7 +47,7 @@ export function QrDesigner({ design, onChange }: Props) {
   return (
     <section aria-labelledby="designer-heading" className="mt-8 min-w-0 border-t pt-8">
       <div className="mb-5 flex items-center gap-2">
-        <SlidersHorizontal size={20} className="text-blue-700" aria-hidden="true" />
+        <SlidersHorizontal size={20} className="text-brand-teal-dark" aria-hidden="true" />
         <div>
           <h3 id="designer-heading" className="font-bold">{d.heading}</h3>
           <p className="text-sm text-slate-600">{d.intro}</p>
@@ -97,11 +97,11 @@ export function QrDesigner({ design, onChange }: Props) {
         </Label>
         <Label>
           {d.qrSize} <output className="float-right text-slate-500">{design.size}px</output>
-          <input className="mt-3 w-full accent-blue-600" type="range" min="160" max="480" step="10" value={design.size} onChange={(event) => set("size", Number(event.target.value))} />
+          <input className="mt-3 w-full accent-brand-teal" type="range" min="160" max="480" step="10" value={design.size} onChange={(event) => set("size", Number(event.target.value))} />
         </Label>
         <Label>
           {d.logoSize} <output className="float-right text-slate-500">{Math.round(design.logoSize * 100)}%</output>
-          <input className="mt-3 w-full accent-blue-600" type="range" min="0.1" max="0.4" step="0.05" value={design.logoSize} onChange={(event) => set("logoSize", Number(event.target.value))} disabled={!design.logo} />
+          <input className="mt-3 w-full accent-brand-teal" type="range" min="0.1" max="0.4" step="0.05" value={design.logoSize} onChange={(event) => set("logoSize", Number(event.target.value))} disabled={!design.logo} />
         </Label>
       </div>
 
@@ -110,7 +110,7 @@ export function QrDesigner({ design, onChange }: Props) {
         <Label>
           <span className="flex items-center justify-between">
             <span className="flex items-center gap-2"><ImagePlus size={17} aria-hidden="true" />{d.logo}</span>
-            {design.logo && <button type="button" className="text-sm text-blue-700 underline" onClick={() => set("logo", undefined)}>{d.remove}</button>}
+            {design.logo && <button type="button" className="text-sm text-brand-teal-dark underline" onClick={() => set("logo", undefined)}>{d.remove}</button>}
           </span>
           <input className="mt-2 block min-w-0 max-w-full text-sm" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={uploadLogo} />
         </Label>
@@ -139,7 +139,7 @@ export function QrDesigner({ design, onChange }: Props) {
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-semibold">{d.gradient}</h4>
           <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" className="h-4 w-4 accent-blue-600" checked={design.gradientEnabled} onChange={(event) => set("gradientEnabled", event.target.checked)} />
+            <input type="checkbox" className="h-4 w-4 accent-brand-teal" checked={design.gradientEnabled} onChange={(event) => set("gradientEnabled", event.target.checked)} />
             {d.enable}
           </label>
         </div>
@@ -161,7 +161,7 @@ export function QrDesigner({ design, onChange }: Props) {
         <h4 className="text-sm font-semibold">{d.frame}</h4>
         <div className="mt-3 grid grid-cols-3 gap-2" role="radiogroup" aria-label={d.frameStyleAria}>
           {(["none", "border", "label"] as const).map((frame) => (
-            <button key={frame} type="button" role="radio" aria-checked={design.frame === frame} onClick={() => set("frame", frame)} className={`rounded-lg border px-2 py-2 text-sm ${design.frame === frame ? "border-blue-600 bg-blue-600 text-white" : "bg-white"}`}>
+            <button key={frame} type="button" role="radio" aria-checked={design.frame === frame} onClick={() => set("frame", frame)} className={`rounded-lg border px-2 py-2 text-sm ${design.frame === frame ? "border-brand-teal bg-brand-teal text-white" : "bg-white"}`}>
               {frameLabels[frame]}
             </button>
           ))}

@@ -28,9 +28,9 @@ export function RelatedQrTools({ slugs, locale, dictionary }: Props) {
             <Link
               key={slug}
               href={localizedPath(locale, `/qr-code/${page.slug}`)}
-              className="rounded-xl border bg-white p-4 transition hover:border-blue-400 hover:shadow-sm"
+              className="rounded-xl border bg-white p-4 transition hover:border-brand-teal hover:shadow-sm"
             >
-              <h3 className="font-semibold text-blue-700">{page.title}</h3>
+              <h3 className="font-semibold text-brand-teal-dark">{page.title}</h3>
               <p className="mt-1 text-sm text-slate-600">{blurb}</p>
             </Link>
           );

@@ -18,8 +18,8 @@ export function TemplateCard({ template, selected = false, onSelect }: Props) {
       onClick={() => onSelect(template)}
       aria-pressed={selected}
       className={cn(
-        "flex w-full flex-col overflow-hidden rounded-2xl border bg-white text-left shadow-sm transition hover:border-blue-400 hover:shadow",
-        selected ? "border-blue-600 ring-2 ring-blue-100" : "border-slate-200",
+        "flex w-full flex-col overflow-hidden rounded-2xl border bg-white text-left shadow-sm transition hover:border-brand-teal hover:shadow",
+        selected ? "border-brand-teal ring-2 ring-brand-teal-light/30" : "border-slate-200",
       )}
     >
       <div className="relative aspect-square bg-slate-50">

@@ -67,8 +67,8 @@ function RelatedTemplateLinks({
           const href = seoPage ? getTemplatePagePath(seoPage, locale) : localizedPath(locale, "/templates");
           const sample = localizeTemplate(getTemplatesByCategory(category)[0] ?? getRelatedTemplates(category, 1)[0], dictionary);
           return (
-            <Link key={category} href={href} className="rounded-2xl border bg-white p-4 shadow-sm transition hover:border-blue-400">
-              <p className="text-sm font-semibold text-blue-700">{dictionary.categories[category]}</p>
+            <Link key={category} href={href} className="rounded-2xl border bg-white p-4 shadow-sm transition hover:border-brand-teal">
+              <p className="text-sm font-semibold text-brand-teal-dark">{dictionary.categories[category]}</p>
               <h3 className="mt-1 text-lg font-bold text-slate-900">{sample?.name ?? dictionary.categories[category]}</h3>
               <p className="mt-2 text-sm text-slate-600">{sample?.description ?? dictionary.chrome.browseCategory}</p>
             </Link>
@@ -135,7 +135,7 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
               <ol className="mt-5 space-y-3">
                 {page.howTo.map((step, index) => (
                   <li key={step} className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-800">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-teal-light/20 text-sm font-bold text-brand-teal-dark">
                       {index + 1}
                     </span>
                     <p className="pt-0.5 text-slate-700">{step}</p>

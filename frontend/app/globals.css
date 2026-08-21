@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
-  :root { --background: 210 40% 98%; --foreground: 222 47% 11%; --card: 0 0% 100%; --border: 214 32% 91%; }
+  /* Change: Match the site canvas and contrast to the supplied brand artwork. */
+  :root { --background: 42 38% 96%; --foreground: 187 45% 16%; --card: 0 0% 100%; --border: 168 18% 84%; }
   * { @apply border-border; }
-  body { @apply bg-background text-foreground antialiased; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(circle at 10% 0%, rgb(101 191 176 / 0.12), transparent 28rem),
+      radial-gradient(circle at 90% 8%, rgb(243 198 61 / 0.12), transparent 24rem);
+  }
+  ::selection { background: rgb(243 198 61 / 0.55); color: #16363a; }
 }

@@ -21,7 +21,7 @@ export function QrTypeSelector({ type, onChange }: { type: QrType; onChange: (ty
             role="tab"
             aria-selected={selected}
             onClick={() => onChange(item)}
-            className={`flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl border px-2 text-sm font-medium transition ${selected ? "border-blue-600 bg-blue-600 text-white" : "bg-white text-slate-600 hover:border-blue-300 hover:bg-blue-50"}`}
+            className={`flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl border px-2 text-sm font-medium transition ${selected ? "border-brand-teal bg-brand-teal text-white" : "bg-white text-slate-600 hover:border-brand-teal-light hover:bg-brand-cream"}`}
           >
             <Icon size={19} aria-hidden="true" />
             {dictionary.types[item]}

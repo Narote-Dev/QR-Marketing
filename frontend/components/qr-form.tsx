@@ -8,7 +8,7 @@ import type { QrFormValues, QrType } from "@/lib/qr/types";
 type Props = { type: QrType; values: QrFormValues; onChange: (values: QrFormValues) => void; error?: string };
 
 const inputStyle =
-  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-100";
+  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal-light/30";
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -67,7 +67,7 @@ export function QrForm({ type, values, onChange, error }: Props) {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 mt-1 flex w-11 items-center justify-center text-slate-500 transition hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-600"
+                  className="absolute inset-y-0 right-0 mt-1 flex w-11 items-center justify-center text-slate-500 transition hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-teal"
                   onClick={() => setShowWifiPassword((visible) => !visible)}
                   aria-label={showWifiPassword ? dictionary.form.hidePassword : dictionary.form.showPassword}
                   aria-pressed={showWifiPassword}

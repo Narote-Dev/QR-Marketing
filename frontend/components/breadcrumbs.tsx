@@ -43,7 +43,7 @@ export function Breadcrumbs({ page, locale, dictionary }: Props) {
               {index === items.length - 1 ? (
                 <span aria-current="page">{item.label}</span>
               ) : (
-                <Link className="hover:text-blue-700 hover:underline" href={item.href}>
+                <Link className="hover:text-brand-coral hover:underline" href={item.href}>
                   {item.label}
                 </Link>
               )}

@@ -56,7 +56,7 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
 
   const frameClass =
     design.frame === "label"
-      ? "border-2 border-blue-700 bg-white p-4"
+      ? "border-2 border-brand-teal-dark bg-white p-4"
       : design.frame === "border"
         ? "border-8 border-slate-900 bg-white p-3"
         : "bg-white p-3";

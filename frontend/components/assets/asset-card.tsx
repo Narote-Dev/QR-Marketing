@@ -19,8 +19,8 @@ export function AssetCard({ asset, selected = false, onSelect }: Props) {
       aria-pressed={selected}
       title={asset.description}
       className={cn(
-        "overflow-hidden rounded-xl border bg-white p-2 text-left transition hover:border-blue-400",
-        selected ? "border-blue-600 ring-2 ring-blue-100" : "border-slate-200",
+        "overflow-hidden rounded-xl border bg-white p-2 text-left transition hover:border-brand-teal",
+        selected ? "border-brand-teal ring-2 ring-brand-teal-light/30" : "border-slate-200",
       )}
     >
       <div className="relative aspect-square rounded-lg bg-slate-50">

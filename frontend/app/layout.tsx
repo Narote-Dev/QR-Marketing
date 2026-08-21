@@ -6,6 +6,12 @@ import "./globals.css";
 export const metadata = {
   metadataBase: siteUrl,
   robots: { index: true, follow: true },
+  // Change: Use the supplied square logo across browser and mobile icons.
+  icons: {
+    icon: "/brand/icon.png",
+    shortcut: "/brand/icon.png",
+    apple: "/brand/icon.png",
+  },
   verification: { google: "t2hsInTVnL66_-4pnR4Qo9cLc5ccKqWiVqCqPhgFqko" },
 };
 

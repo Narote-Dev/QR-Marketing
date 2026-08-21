@@ -22,10 +22,10 @@ export function LanguageSelector({ locale, label }: Props) {
 
   return (
     <label className="relative inline-flex items-center gap-2 text-sm font-semibold text-slate-700">
-      <Globe className="h-4 w-4 text-blue-700" aria-hidden="true" />
+      <Globe className="h-4 w-4 text-brand-teal-dark" aria-hidden="true" />
       <span className="sr-only">{label}</span>
       <select
-        className="rounded-lg border border-slate-300 bg-white py-1.5 pl-2 pr-8 text-sm font-semibold text-slate-800 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        className="rounded-lg border border-slate-300 bg-white py-1.5 pl-2 pr-8 text-sm font-semibold text-slate-800 outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal-light/30"
         value={locale}
         aria-label={label}
         onChange={(event) => onChange(event.target.value as Locale)}

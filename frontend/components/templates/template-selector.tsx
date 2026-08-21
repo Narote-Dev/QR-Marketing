@@ -39,12 +39,12 @@ export function TemplateSelector({ selectedId, initialCategory = "restaurant", o
       <div className="flex flex-wrap items-start justify-between gap-3">
         <button
           type="button"
-          className="flex min-w-0 flex-1 items-start gap-2 rounded-xl text-left outline-none transition hover:opacity-90 focus-visible:ring-2 focus-visible:ring-blue-600"
+          className="flex min-w-0 flex-1 items-start gap-2 rounded-xl text-left outline-none transition hover:opacity-90 focus-visible:ring-2 focus-visible:ring-brand-teal"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="template-panel"
         >
-          <LayoutTemplate className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" aria-hidden="true" />
+          <LayoutTemplate className="mt-0.5 h-5 w-5 shrink-0 text-brand-teal-dark" aria-hidden="true" />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <h3 id="template-heading" className="font-bold text-slate-900">{ui.title}</h3>
@@ -60,7 +60,7 @@ export function TemplateSelector({ selectedId, initialCategory = "restaurant", o
           </div>
         </button>
         {selectedId && onClear && (
-          <button type="button" className="text-sm font-semibold text-blue-700 underline" onClick={onClear}>
+          <button type="button" className="text-sm font-semibold text-brand-teal-dark underline" onClick={onClear}>
             {ui.clear}
           </button>
         )}
@@ -79,7 +79,7 @@ export function TemplateSelector({ selectedId, initialCategory = "restaurant", o
                 onClick={() => setCategory(item)}
                 className={cn(
                   "shrink-0 rounded-full border px-3 py-1.5 text-sm font-medium transition",
-                  category === item ? "border-blue-600 bg-blue-600 text-white" : "border-slate-300 bg-white text-slate-700 hover:border-blue-400",
+                  category === item ? "border-brand-teal bg-brand-teal text-white" : "border-slate-300 bg-white text-slate-700 hover:border-brand-teal",
                 )}
               >
                 {dictionary.categories[item]}
