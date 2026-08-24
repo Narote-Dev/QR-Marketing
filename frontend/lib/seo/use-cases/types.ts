@@ -13,6 +13,7 @@ export const useCaseSlugs = [
   "event-poster",
   "line-contact",
   "restaurant-table-tent",
+  "gmail-email",
 ] as const;
 
 export type UseCaseSlug = (typeof useCaseSlugs)[number];

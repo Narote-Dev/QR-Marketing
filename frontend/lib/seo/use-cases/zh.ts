@@ -204,6 +204,41 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     frameText: "桌边扫码",
     downloadFileName: "qr-table-tent.png",
   },
+  "gmail-email": {
+    title: "免费 Gmail / 邮件二维码",
+    description: "免费创建 Gmail 或邮件二维码，无需注册。扫描后打开写邮件页面，并填好收件人、主题和正文。",
+    h1: "免费 Gmail / 邮件二维码",
+    introduction:
+      "让客户或合作伙伴扫码后立刻打开邮件应用，收件人已填好。可添加主题和提示正文，适合名片、海报和店招。",
+    promise: "只打开草稿，不会自动发送。支持 Gmail 和其他邮件应用。无需注册。",
+    body: [
+      "搜索 mail QR code 或 Gmail to QR code 的人，通常想要扫码后开始写邮件，而不是打开网页。",
+      "本工具会生成带收件人、主题和正文的 mailto 二维码，因此手机上的 Gmail 和其他邮件应用都能打开草稿。",
+    ],
+    examples: ["打开销售邮箱的名片", "带 Resume 主题的招聘海报", "方便顾客提问的店内标识"],
+    howTo: [
+      "输入收件人邮箱",
+      "按需要添加主题和提示正文",
+      "用手机试扫，确认 Gmail 或默认邮件应用打开草稿，然后下载打印",
+    ],
+    faqs: [
+      {
+        question: "扫描后会立即发送邮件吗？",
+        answer: "不会。只会打开草稿，用户仍需确认后再发送。",
+      },
+      {
+        question: "支持 Gmail 吗？",
+        answer: "支持。如果手机将 Gmail 设为默认邮件应用，扫描会打开 Gmail 写邮件界面。",
+      },
+      {
+        question: "和网站二维码有何不同？",
+        answer: "邮件二维码会打开邮件应用并填好收件人，而不会带用户去网页。",
+      },
+    ],
+    helperHint: "输入收件人邮箱，并添加简短主题，例如咨询服务。",
+    frameText: "发送邮件",
+    downloadFileName: "qr-gmail-email.png",
+  },
 };
 
 export const useCasesZh: Record<UseCaseSlug, UseCasePage> = Object.fromEntries(

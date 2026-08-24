@@ -48,7 +48,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
     recommendedQrType: "url",
     templateCategory: "business",
     templateId: "business-navy",
-    related: ["line-contact", "google-review-shop", "storefront-promo"],
+    related: ["gmail-email", "line-contact", "google-review-shop"],
   },
   "storefront-promo": {
     slug: "storefront-promo",
@@ -72,7 +72,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
     recommendedQrType: "url",
     templateCategory: "business",
     templateId: "business-navy",
-    related: ["business-contact-card", "storefront-promo", "google-review-shop"],
+    related: ["gmail-email", "business-contact-card", "google-review-shop"],
   },
   "restaurant-table-tent": {
     slug: "restaurant-table-tent",
@@ -81,6 +81,14 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
     templateCategory: "restaurant",
     templateId: "restaurant-warm",
     related: ["thai-restaurant-menu", "cafe-menu", "free-wifi-no-signup"],
+  },
+  "gmail-email": {
+    slug: "gmail-email",
+    cluster: "local-business",
+    recommendedQrType: "email",
+    templateCategory: "business",
+    templateId: "business-navy",
+    related: ["business-contact-card", "line-contact", "google-review-shop"],
   },
 };
 

@@ -65,8 +65,18 @@ export function getUseCaseMetadata(locale: Locale, slug: UseCaseSlug): Metadata 
 }
 
 export function getFeaturedUseCasePages(locale: Locale, limit = 6): UseCasePage[] {
-  // Step 1: Surface a short featured set for hub internal linking.
-  return getAllUseCasePages(locale).slice(0, limit);
+  // Step 1: Surface a short featured set, leading with Gmail/email because Search Console already shows that intent.
+  const featuredSlugs: UseCaseSlug[] = [
+    "gmail-email",
+    "thai-restaurant-menu",
+    "free-wifi-no-signup",
+    "google-review-shop",
+    "cafe-menu",
+    "line-contact",
+    "business-contact-card",
+    "hotel-wifi",
+  ];
+  return featuredSlugs.slice(0, limit).map((slug) => getUseCasePage(locale, slug));
 }
 
 // Keep English defaults available for sitemap and non-locale helpers.

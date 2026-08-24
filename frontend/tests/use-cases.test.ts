@@ -15,7 +15,7 @@ import { getTemplateById } from "../lib/templates/catalog";
 test("use-case pages are complete in every locale", () => {
   for (const locale of locales) {
     const pages = getAllUseCasePages(locale);
-    assert.equal(pages.length, 10);
+    assert.equal(pages.length, 11);
     assert.equal(new Set(pages.map((page) => page.title)).size, pages.length);
     assert.equal(new Set(pages.map((page) => page.description)).size, pages.length);
     for (const page of pages) {

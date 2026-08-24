@@ -329,6 +329,46 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     frameText: "Scan at the table",
     downloadFileName: "qr-table-tent.png",
   },
+  "gmail-email": {
+    title: "Free Gmail / Email QR Code",
+    description:
+      "Create a free Gmail or email QR code with no signup. Scanning opens a draft with recipient, subject, and message ready.",
+    h1: "Free Gmail / Email QR Code",
+    introduction:
+      "Let customers or partners scan a code and open their email app with the recipient already filled in. Add an optional subject and message for business cards, posters, and store signs.",
+    promise: "Opens a draft, does not send automatically. Works with Gmail and other mail apps. No signup.",
+    body: [
+      "Searches like mail QR code and Gmail to QR code usually want a scan that starts an email, not a website link.",
+      "This tool builds a mailto QR with recipient, subject, and body, so Gmail on phones and other mail apps can open a ready draft.",
+    ],
+    examples: [
+      "Business cards that open a sales inbox",
+      "Hiring posters with a Resume subject line",
+      "Store signs for product questions",
+    ],
+    howTo: [
+      "Enter the recipient email address",
+      "Add an optional subject and helper message",
+      "Test-scan on a phone, confirm Gmail or the default mail app opens a draft, then download for print",
+    ],
+    faqs: [
+      {
+        question: "Does scanning send the email immediately?",
+        answer: "No. It only opens a draft. The person still reviews and taps send.",
+      },
+      {
+        question: "Does it work with Gmail?",
+        answer: "Yes. If Gmail is the default mail app, the scan opens a Gmail compose screen.",
+      },
+      {
+        question: "How is this different from a website QR?",
+        answer: "An email QR opens the mail app with a recipient. It does not take people to a web page.",
+      },
+    ],
+    helperHint: "Enter the recipient email, then add a short subject such as Service enquiry.",
+    frameText: "Email us",
+    downloadFileName: "qr-gmail-email.png",
+  },
 };
 
 export const useCasesEn: Record<UseCaseSlug, UseCasePage> = Object.fromEntries(
