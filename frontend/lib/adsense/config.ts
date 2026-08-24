@@ -8,4 +8,10 @@ export function getAdSenseConfig(environment: Record<string, string | undefined>
   return { enabled, publisherId, slots: { "blog-inline": environment.NEXT_PUBLIC_ADSENSE_SLOT_BLOG_INLINE?.trim(), "blog-bottom": environment.NEXT_PUBLIC_ADSENSE_SLOT_BLOG_BOTTOM?.trim(), "seo-after-tool": environment.NEXT_PUBLIC_ADSENSE_SLOT_SEO_AFTER_TOOL?.trim(), "seo-sidebar": environment.NEXT_PUBLIC_ADSENSE_SLOT_SEO_SIDEBAR?.trim() } };
 }
 
+// Change: ads.txt uses pub-..., while the AdSense script client uses ca-pub-...
+export function toAdsTxtPublisherId(publisherId: string): string {
+  // Step 1: Strip the script-only ca- prefix so Google can authorize the seller record.
+  return publisherId.replace(/^ca-/, "");
+}
+
 export const adSenseConfig = getAdSenseConfig(process.env);
