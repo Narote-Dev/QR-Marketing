@@ -3,6 +3,7 @@ import { defaultLocale, htmlLang, locales } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/paths";
 import { qrPages, siteUrl } from "@/lib/seo/site";
 import { getTemplatePageBarePath, templateCategoryPages, templateIndexPage } from "@/lib/seo/templates";
+import { useCasePathForSlug, useCaseSlugs } from "@/lib/seo/use-cases";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -19,6 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Change: Make localized About and Contact pages discoverable.
     "/about",
     "/contact",
+    // Change: Include first-wave long-tail use-case landing pages.
+    ...useCaseSlugs.map((slug) => useCasePathForSlug(slug)),
   ];
 
   return barePaths.flatMap((bare) => {

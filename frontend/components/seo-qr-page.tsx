@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
+import { PopularUseCases } from "@/components/popular-use-cases";
 import { QrGenerator } from "@/components/qr-generator";
 import { RelatedQrTools } from "@/components/related-qr-tools";
 import { SeoJsonLd } from "@/components/seo-json-ld";
@@ -58,6 +58,8 @@ export function SeoQrPage({ page, initialType = "url", locale, dictionary }: Pro
             </section>
             <FaqSection page={page} heading={dictionary.chrome.faqs} />
             <RelatedQrTools slugs={page.related} locale={locale} dictionary={dictionary} />
+            {/* Change: Link hub pages into long-tail use-case clusters for crawl depth. */}
+            <PopularUseCases locale={locale} dictionary={dictionary} />
           </div>
           <div className="hidden xl:block">
             <AdSlot placement="seo-sidebar" minHeight={600} />

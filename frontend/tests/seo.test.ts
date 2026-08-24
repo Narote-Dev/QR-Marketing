@@ -6,6 +6,7 @@ import { locales } from "../lib/i18n/config";
 import { localizedPath } from "../lib/i18n/paths";
 import { generatorPage, getPageMetadata, qrPages, siteUrl } from "../lib/seo/site";
 import { getTemplatePageBarePath, getTemplatePageMetadata, templateCategoryPages, templateIndexPage } from "../lib/seo/templates";
+import { useCasePathForSlug, useCaseSlugs } from "../lib/seo/use-cases";
 
 test("SEO pages have unique metadata and locale canonical URLs", () => {
   const pages = [generatorPage, ...Object.values(qrPages)];
@@ -53,10 +54,11 @@ test("sitemap contains curated QR and template pages for every locale", () => {
     "/terms-of-service",
     "/about",
     "/contact",
+    ...useCaseSlugs.map((slug) => useCasePathForSlug(slug)),
   ];
   const expected = barePaths.flatMap((bare) => locales.map((locale) => new URL(localizedPath(locale, bare), siteUrl).toString()));
   assert.equal(entries.length, expected.length);
-  assert.equal(entries.length, 48);
+  assert.equal(entries.length, 78);
   assert.deepEqual(entries.map((entry) => entry.url).sort(), expected.slice().sort());
 });
 

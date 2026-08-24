@@ -41,6 +41,15 @@ export type Dictionary = {
     contact: string;
     footerNavAria: string;
     footerRights: string;
+    popularUseCases: string;
+    useCasesCrumb: string;
+    howToUseCase: string;
+    useCaseExamples: string;
+    relatedUseCases: string;
+    whyThisWorks: string;
+    trustNoSignup: string;
+    trustBrowserOnly: string;
+    trustLocalized: string;
   };
   relatedToolBlurbs: Record<"url" | "wifi" | "email" | "phone" | "sms", string>;
   consent: {

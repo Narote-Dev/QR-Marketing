@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
+import { PopularUseCases } from "@/components/popular-use-cases";
 import { QrGenerator } from "@/components/qr-generator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -146,6 +147,8 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
             </section>
             <FaqSection page={page} heading={dictionary.chrome.faqs} />
             <RelatedTemplateLinks categories={page.related} locale={locale} dictionary={dictionary} />
+            {/* Change: Connect template hubs to specialized long-tail use cases. */}
+            <PopularUseCases locale={locale} dictionary={dictionary} />
           </div>
           <div className="hidden xl:block">
             <AdSlot placement="seo-sidebar" minHeight={600} />
