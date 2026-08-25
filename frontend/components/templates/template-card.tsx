@@ -11,24 +11,21 @@ type Props = {
 };
 
 export function TemplateCard({ template, selected = false, onSelect }: Props) {
-  // Step 1: Apply the template immediately when the card is activated.
+  // Step 1: Compact thumbnail + name — description stays on the live preview path.
   return (
     <button
       type="button"
       onClick={() => onSelect(template)}
       aria-pressed={selected}
       className={cn(
-        "flex w-full flex-col overflow-hidden rounded-2xl border bg-white text-left shadow-sm transition hover:border-brand-teal hover:shadow",
-        selected ? "border-brand-teal ring-2 ring-brand-teal-light/30" : "border-slate-200",
+        "flex w-[7.5rem] shrink-0 flex-col overflow-hidden rounded-xl border bg-white text-left transition",
+        selected ? "border-brand-teal bg-brand-cream/40" : "border-slate-200 hover:border-brand-teal-light",
       )}
     >
       <div className="relative aspect-square bg-slate-50">
-        <Image src={template.thumbnail} alt="" fill className="object-cover" sizes="160px" unoptimized />
+        <Image src={template.thumbnail} alt="" fill className="object-cover" sizes="120px" unoptimized />
       </div>
-      <div className="space-y-1 p-3">
-        <p className="text-sm font-semibold text-slate-900">{template.name}</p>
-        <p className="line-clamp-2 text-xs text-slate-500">{template.description}</p>
-      </div>
+      <p className="truncate px-2.5 py-2 text-xs font-medium text-slate-800">{template.name}</p>
     </button>
   );
 }

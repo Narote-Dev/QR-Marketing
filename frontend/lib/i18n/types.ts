@@ -66,6 +66,13 @@ export type Dictionary = {
     eyebrow: string;
     heading: string;
     intro: string;
+    startersTitle: string;
+    startersHint: string;
+    startersAria: string;
+    starterConfirm: string;
+    starterContinue: string;
+    starterCancel: string;
+    starterLabels: Record<"restaurant-menu" | "hotel-wifi" | "google-review" | "line" | "business-card", string>;
     step1Title: string;
     step2Title: string;
     step3Title: string;

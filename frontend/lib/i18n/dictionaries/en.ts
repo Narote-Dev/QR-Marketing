@@ -62,7 +62,21 @@ export const en: Dictionary = {
     eyebrow: "Free static QR code generator",
     heading: "Create a QR code in seconds",
     intro:
-      "Choose a type, enter your details, customize the look, and download a composite preview. Nothing is saved.",
+      "Start from a common use, or choose a type, customize the look, and download. Nothing is saved.",
+    startersTitle: "Quick start",
+    startersHint: "One tap sets the QR type, template, and frame label. Your details stay in the form.",
+    startersAria: "Quick-start presets",
+    starterConfirm:
+      "This starter uses a different QR type. Your current details stay saved, but the form will switch.",
+    starterContinue: "Use this starter",
+    starterCancel: "Keep current",
+    starterLabels: {
+      "restaurant-menu": "Restaurant menu",
+      "hotel-wifi": "Hotel WiFi",
+      "google-review": "Google Review",
+      line: "LINE",
+      "business-card": "Business card",
+    },
     step1Title: "1. Add content",
     step2Title: "2. Customize",
     step3Title: "3. Preview & download",
@@ -241,7 +255,7 @@ export const en: Dictionary = {
   },
   templatesUi: {
     title: "Templates",
-    openHint: "Pick a visual preset, then enter your QR content and customize further.",
+    openHint: "Pick a preset — the live preview updates instantly.",
     closedSelected: "Using {name}. Open to change templates.",
     closedNone: "Closed. Open to pick a visual preset.",
     clear: "Clear template",
@@ -404,12 +418,12 @@ export const en: Dictionary = {
   },
   seo: {
     generator: {
-      title: "Free QR Code Generator",
+      title: "Free QR Code Generator — No Signup",
       description:
         "Free QR code generator in your browser—no signup. Create static codes for URLs, WiFi, vCard, WhatsApp, LINE, menus, and more, then customize and download instantly.",
-      h1: "Free QR code generator",
+      h1: "Free QR code generator — no signup",
       introduction:
-        "Create a practical, static QR code in your browser. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it.",
+        "Create a practical, static QR code in your browser for free. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it.",
       howTo: [
         "Choose the QR type that matches what people should do after scanning.",
         "Enter the required details and review the live preview.",

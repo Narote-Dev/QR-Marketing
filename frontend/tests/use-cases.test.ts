@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { htmlLang, locales } from "../lib/i18n/config";
+import { getDictionary } from "../lib/i18n/get-dictionary";
 import { localizedPath } from "../lib/i18n/paths";
 import { siteUrl } from "../lib/seo/site";
 import {
@@ -42,4 +43,20 @@ test("use-case metadata publishes canonical and hreflang URLs", () => {
       assert.equal(getUseCasePage(locale, slug).related.length >= 2, true);
     }
   }
+});
+
+test("Phase E1 SEO copy targets proven GSC queries", async () => {
+  assert.match(getUseCasePage("en", "thai-restaurant-menu").title, /menu design/i);
+  assert.match(getUseCasePage("en", "cafe-menu").title, /menu design/i);
+  assert.match(getUseCasePage("en", "restaurant-table-tent").title, /menu design/i);
+  assert.match(getUseCasePage("en", "hotel-wifi").title, /hotel qr code/i);
+  assert.match(getUseCasePage("th", "hotel-wifi").title, /hotel qr code/i);
+  assert.match(getUseCasePage("th", "thai-restaurant-menu").title, /QR เมนู|ออกแบบ/);
+
+  const th = await getDictionary("th");
+  const en = await getDictionary("en");
+  assert.match(th.seo.generator.title, /ทำตัวอาร์โค้ดฟรี/);
+  assert.match(en.seo.generator.title, /free qr code generator/i);
+  assert.match(en.seo.templates.menu.title, /menu design/i);
+  assert.match(en.seo.templates.hotel.title, /hotel qr code/i);
 });

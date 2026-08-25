@@ -3,16 +3,16 @@ import type { UseCaseCopy, UseCasePage, UseCaseSlug } from "@/lib/seo/use-cases/
 
 const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "thai-restaurant-menu": {
-    title: "QR Code for Thai Restaurant Menus",
+    title: "QR Menu Design for Thai Restaurants",
     description:
-      "Create a free QR code for Thai restaurant menus. No signup. Link to a digital menu, customize the design, and download instantly.",
-    h1: "QR Code for Thai Restaurant Menus",
+      "Free QR menu design for Thai restaurants. No signup. Link a digital menu, customize the look, and download a print-ready code.",
+    h1: "QR menu design for Thai restaurants",
     introduction:
-      "Let guests open your Thai-language menu on their phone instead of flipping paper pages. Ideal for Thai restaurants that update dishes and prices often.",
+      "Design a scannable menu QR so guests open your Thai-language menu on their phone instead of flipping paper pages. Ideal for Thai restaurants that update dishes and prices often.",
     promise: "Free in the browser. No account. Works with Thai links and frame text.",
     body: [
-      "A menu QR code lowers reprint costs and lets you refresh prices by updating the linked page.",
-      "This page targets restaurant-menu intent and menu QR design needs instead of competing only on broad QR generator keywords.",
+      "QR menu design lowers reprint costs and lets you refresh prices by updating the linked page.",
+      "This page targets restaurant-menu and QR menu design searches instead of competing only on broad QR generator keywords.",
     ],
     examples: ["Google Sheet or website menu pages", "Menu PDFs hosted online", "Lunch-set and seasonal specials pages"],
     howTo: [
@@ -39,14 +39,15 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     downloadFileName: "qr-menu-thai-restaurant.png",
   },
   "cafe-menu": {
-    title: "Free Cafe Menu QR Code",
-    description: "Create a free cafe menu QR code with no signup. Design a scannable menu QR for drinks, desserts, and counter promotions.",
-    h1: "Free Cafe Menu QR Code",
+    title: "Cafe QR Menu Design — Free",
+    description:
+      "Free cafe QR menu design with no signup. Build a scannable menu QR for drinks, desserts, and counter promotions.",
+    h1: "Free cafe QR menu design",
     introduction:
-      "Let customers open your drink and dessert menu from the table or counter. Apply a cafe-ready style and download a print-ready PNG.",
+      "Design a cafe menu QR so customers open drinks and desserts from the table or counter. Apply a cafe-ready style and download a print-ready PNG.",
     promise: "Free, no signup, with cafe templates and live preview.",
     body: [
-      "Cafes change seasonal drinks often. A QR code helps you switch the linked menu without reprinting every page.",
+      "Cafes change seasonal drinks often. A menu QR design helps you switch the linked page without reprinting every sheet.",
       "Use separate campaign links for morning deals or member menus when needed.",
     ],
     examples: ["Drink and dessert web menus", "Morning promo pages", "Preorder or table-booking links"],
@@ -106,15 +107,15 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     downloadFileName: "qr-wifi-free.png",
   },
   "hotel-wifi": {
-    title: "Hotel WiFi QR Code",
+    title: "Hotel QR Code for Guest WiFi",
     description:
-      "Create a hotel QR code for WiFi so guests can join room or lobby internet without asking the front desk.",
-    h1: "Hotel WiFi QR Code",
+      "Create a free hotel QR code for guest WiFi so visitors join room or lobby internet without asking the front desk. No signup.",
+    h1: "Hotel QR code for guest WiFi",
     introduction:
-      "Reduce front-desk questions and improve guest experience with WiFi QR codes on room cards, welcome packs, or lobby signs.",
+      "Use a hotel QR code on room cards, welcome packs, or lobby signs so guests connect themselves and front-desk WiFi questions drop.",
     promise: "Hospitality-ready styling. Ready immediately. No signup.",
     body: [
-      "Hotels often repeat WiFi instructions. A QR code lets guests connect themselves after check-in.",
+      "Hotel QR code searches often mean guest WiFi, room cards, and lobby signs—not a generic generator page.",
       "Use a guest network and test Android and iOS scans before large print runs.",
     ],
     examples: ["In-room WiFi cards", "Lobby signs", "Welcome booklet inserts"],
@@ -298,15 +299,15 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     downloadFileName: "qr-line-contact.png",
   },
   "restaurant-table-tent": {
-    title: "Restaurant Table-Tent QR Code",
+    title: "Table Tent QR Menu Design",
     description:
-      "Create a QR code for restaurant table tents that opens a menu, WiFi, or review page from the table.",
-    h1: "Restaurant Table-Tent QR Code",
+      "Create table-tent QR menu design for restaurants. Open a menu, WiFi, or review page from the table—free, no signup.",
+    h1: "Table tent QR menu design",
     introduction:
-      "Design a QR for acrylic stands or folded cards so guests can open the menu, join WiFi, or leave a review without calling staff.",
+      "Design a table-tent QR for acrylic stands or folded cards so guests can open the menu, join WiFi, or leave a review without calling staff.",
     promise: "Sized for small table cards with clear frame text. No signup.",
     body: [
-      "Table tents are high-touch. One clear destination per card works better than packing many actions into one scan.",
+      "Table-tent QR menu design works best with one clear destination per card instead of packing many actions into one scan.",
       "Restaurants can separate menu and review cards, or use a hub page when multiple actions are required.",
     ],
     examples: ["Acrylic menu stands", "Folded cards with menu and WiFi", "Thank-you cards with review links"],

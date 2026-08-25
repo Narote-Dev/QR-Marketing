@@ -61,7 +61,20 @@ export const zh: Dictionary = {
   generator: {
     eyebrow: "免费静态二维码生成器",
     heading: "几秒内创建二维码",
-    intro: "选择类型、填写信息、自定义外观，然后下载合成预览。不会保存任何内容。",
+    intro: "可从常用场景开始，或自行选择类型并自定义外观后下载。不会保存任何内容。",
+    startersTitle: "快速开始",
+    startersHint: "一键套用类型、模板和边框文字。已填写的内容会保留。",
+    startersAria: "快速开始预设",
+    starterConfirm: "此快捷方案会切换二维码类型。当前填写的内容仍会保留，但表单会更换。",
+    starterContinue: "使用此方案",
+    starterCancel: "保持当前",
+    starterLabels: {
+      "restaurant-menu": "餐厅菜单",
+      "hotel-wifi": "酒店 WiFi",
+      "google-review": "Google 评价",
+      line: "LINE",
+      "business-card": "名片",
+    },
     step1Title: "1. 添加内容",
     step2Title: "2. 自定义",
     step3Title: "3. 预览并下载",
@@ -240,7 +253,7 @@ export const zh: Dictionary = {
   },
   templatesUi: {
     title: "模板",
-    openHint: "选择视觉预设，然后输入二维码内容并继续自定义。",
+    openHint: "选择预设后，右侧实时预览会立即更新。",
     closedSelected: "正在使用 {name}。打开可更换模板。",
     closedNone: "已收起。打开以选择视觉预设。",
     clear: "清除模板",
@@ -403,12 +416,12 @@ export const zh: Dictionary = {
   },
   seo: {
     generator: {
-      title: "免费二维码生成器",
+      title: "免费二维码生成器（无需注册）",
       description:
         "免费二维码生成器，无需注册。在浏览器中创建静态码，支持网址、WiFi、名片、WhatsApp、LINE、菜单等，自定义后即时下载。",
-      h1: "免费二维码生成器",
+      h1: "免费二维码生成器，无需注册",
       introduction:
-        "在浏览器中创建实用的静态二维码。选择内容类型、填写详情、自定义视觉设计，并在分享前测试实时预览。",
+        "在浏览器中免费创建实用的静态二维码，无需账号。选择内容类型、填写详情、自定义视觉设计，并在分享前测试实时预览。",
       howTo: [
         "选择与扫码后操作匹配的二维码类型。",
         "填写必填信息并查看实时预览。",

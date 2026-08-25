@@ -98,6 +98,14 @@ Each new type: form fields → `buildQrContent` string → existing `qr-code-sty
 
 ## Priority backlog
 
+### Done — Growth phases (2026-08-25)
+
+| Phase | Status | Notes |
+|-------|--------|--------|
+| D Quick-start starters | Done | Generator chips reuse use-case type/template/frame; confirm on dirty type switch |
+| E1 GSC SEO polish | Done | Strengthened menu design / hotel QR / Thai free-QR copy on existing pages |
+| E2 New long-tail slugs | Deferred | Only if E1 CTR stays flat after 2+ weeks of impressions |
+
 ### P1 — Static product gaps (no backend required)
 
 | Feature | Why | Notes |
