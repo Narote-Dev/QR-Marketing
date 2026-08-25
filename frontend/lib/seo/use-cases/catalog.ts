@@ -37,7 +37,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
   "google-review-shop": {
     slug: "google-review-shop",
     cluster: "local-business",
-    recommendedQrType: "url",
+    recommendedQrType: "google-review",
     templateCategory: "google-review",
     templateId: "review-star",
     related: ["storefront-promo", "business-contact-card", "thai-restaurant-menu"],
@@ -45,7 +45,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
   "business-contact-card": {
     slug: "business-contact-card",
     cluster: "local-business",
-    recommendedQrType: "url",
+    recommendedQrType: "vcard",
     templateCategory: "business",
     templateId: "business-navy",
     related: ["gmail-email", "line-contact", "google-review-shop"],
@@ -69,7 +69,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
   "line-contact": {
     slug: "line-contact",
     cluster: "local-business",
-    recommendedQrType: "url",
+    recommendedQrType: "line",
     templateCategory: "business",
     templateId: "business-navy",
     related: ["gmail-email", "business-contact-card", "google-review-shop"],

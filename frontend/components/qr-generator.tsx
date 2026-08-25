@@ -53,7 +53,7 @@ export function QrGenerator({
     return { ...defaultQrDesign, frameText: initialFrameText ?? dictionary.preview.scanMe };
   });
   const [selectedTemplateId, setSelectedTemplateId] = useState<string | undefined>(starterTemplate?.id);
-  const [downloading, setDownloading] = useState(false);
+  const [downloading, setDownloading] = useState<"png" | "svg" | false>(false);
   const [downloadError, setDownloadError] = useState<string>();
   const previewRef = useRef<QrPreviewHandle>(null);
   const result = useMemo(() => buildQrContent(type, values, dictionary), [type, values, dictionary]);
@@ -70,13 +70,18 @@ export function QrGenerator({
     setDesign({ ...clearTemplateDesign(), frameText: initialFrameText ?? dictionary.preview.scanMe });
   };
 
-  // Step 4: Download a full composite PNG when the QR payload is valid.
-  const handleDownload = async () => {
+  // Step 4: Download PNG (composite) or SVG (vector QR) when the payload is valid.
+  const handleDownload = async (format: "png" | "svg") => {
     if (!result.value || result.error) return;
-    setDownloading(true);
+    setDownloading(format);
     setDownloadError(undefined);
     try {
-      await previewRef.current?.downloadPng(downloadFileName ?? `qr-${type}.png`);
+      const baseName = downloadFileName ?? `qr-${type}`;
+      if (format === "png") {
+        await previewRef.current?.downloadPng(baseName);
+      } else {
+        await previewRef.current?.downloadSvg(baseName);
+      }
     } catch (error) {
       setDownloadError(error instanceof Error ? error.message : dictionary.generator.downloadFailed);
     } finally {
@@ -96,39 +101,69 @@ export function QrGenerator({
         {helperHint && <p className="mt-3 rounded-xl bg-brand-cream px-3 py-2 text-sm text-brand-ink">{helperHint}</p>}
       </div>
 
-      <TemplateSelector
-        selectedId={selectedTemplateId}
-        initialCategory={initialTemplateCategory ?? starterTemplate?.category}
-        onSelect={handleSelectTemplate}
-        onClear={handleClearTemplate}
-      />
+      {/* Change: ME-QR-style sequence — 1 content, 2 customize (templates+designer), 3 sticky preview. */}
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+        <div className="min-w-0 space-y-10">
+          <section aria-labelledby="generator-step-1" className="min-w-0">
+            <h3 id="generator-step-1" className="mb-4 text-lg font-bold tracking-tight text-slate-900">
+              {dictionary.generator.step1Title}
+            </h3>
+            <QrTypeSelector type={type} onChange={setType} />
+            <div className="mt-6">
+              <QrForm type={type} values={values} onChange={setValues} error={result.error} />
+            </div>
+          </section>
 
-      <QrTypeSelector type={type} onChange={setType} />
-
-      <div className="mt-8 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="min-w-0">
-          <QrForm type={type} values={values} onChange={setValues} error={result.error} />
-          <QrDesigner design={design} onChange={setDesign} />
+          <section aria-labelledby="generator-step-2" className="min-w-0 border-t pt-10">
+            <h3 id="generator-step-2" className="mb-4 text-lg font-bold tracking-tight text-slate-900">
+              {dictionary.generator.step2Title}
+            </h3>
+            <TemplateSelector
+              selectedId={selectedTemplateId}
+              initialCategory={initialTemplateCategory ?? starterTemplate?.category}
+              onSelect={handleSelectTemplate}
+              onClear={handleClearTemplate}
+            />
+            <QrDesigner design={design} onChange={setDesign} />
+          </section>
         </div>
-        <div className="min-w-0 space-y-3">
+
+        <section
+          aria-labelledby="generator-step-3"
+          className="min-w-0 space-y-3 lg:sticky lg:top-6 lg:self-start"
+        >
+          <h3 id="generator-step-3" className="text-lg font-bold tracking-tight text-slate-900">
+            {dictionary.generator.step3Title}
+          </h3>
           <p className="text-sm font-semibold text-slate-700">{dictionary.generator.livePreview}</p>
           <QrPreview ref={previewRef} value={result.value} design={design} />
-          <button
-            type="button"
-            onClick={handleDownload}
-            disabled={!result.value || Boolean(result.error) || downloading}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-teal px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-teal-dark disabled:cursor-not-allowed disabled:bg-slate-300"
-          >
-            <Download className="h-4 w-4" aria-hidden="true" />
-            {downloading ? dictionary.generator.preparingDownload : dictionary.generator.downloadPng}
-          </button>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <button
+              type="button"
+              onClick={() => handleDownload("png")}
+              disabled={!result.value || Boolean(result.error) || Boolean(downloading)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-teal px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-teal-dark disabled:cursor-not-allowed disabled:bg-slate-300"
+            >
+              <Download className="h-4 w-4" aria-hidden="true" />
+              {downloading === "png" ? dictionary.generator.preparingDownload : dictionary.generator.downloadPng}
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDownload("svg")}
+              disabled={!result.value || Boolean(result.error) || Boolean(downloading)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-brand-teal bg-white px-4 py-3 text-sm font-semibold text-brand-teal-dark transition hover:bg-brand-cream disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400"
+            >
+              <Download className="h-4 w-4" aria-hidden="true" />
+              {downloading === "svg" ? dictionary.generator.preparingDownload : dictionary.generator.downloadSvg}
+            </button>
+          </div>
           {downloadError && (
             <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
               {downloadError}
             </p>
           )}
           <p className="text-xs text-slate-500">{dictionary.generator.downloadHint}</p>
-        </div>
+        </section>
       </div>
     </section>
   );

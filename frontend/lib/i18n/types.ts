@@ -51,7 +51,10 @@ export type Dictionary = {
     trustBrowserOnly: string;
     trustLocalized: string;
   };
-  relatedToolBlurbs: Record<"url" | "wifi" | "email" | "phone" | "sms", string>;
+  relatedToolBlurbs: Record<
+    "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+    string
+  >;
   consent: {
     title: string;
     message: string;
@@ -63,8 +66,12 @@ export type Dictionary = {
     eyebrow: string;
     heading: string;
     intro: string;
+    step1Title: string;
+    step2Title: string;
+    step3Title: string;
     livePreview: string;
     downloadPng: string;
+    downloadSvg: string;
     preparingDownload: string;
     downloadFailed: string;
     downloadHint: string;
@@ -96,6 +103,46 @@ export type Dictionary = {
     smsPhonePlaceholder: string;
     smsMessage: string;
     smsMessagePlaceholder: string;
+    vcardFirstName: string;
+    vcardFirstNamePlaceholder: string;
+    vcardLastName: string;
+    vcardLastNamePlaceholder: string;
+    vcardOrganization: string;
+    vcardOrganizationPlaceholder: string;
+    vcardPhone: string;
+    vcardPhonePlaceholder: string;
+    vcardEmail: string;
+    vcardEmailPlaceholder: string;
+    vcardWebsite: string;
+    vcardWebsitePlaceholder: string;
+    whatsappPhone: string;
+    whatsappPhonePlaceholder: string;
+    whatsappMessage: string;
+    whatsappMessagePlaceholder: string;
+    lineId: string;
+    lineIdPlaceholder: string;
+    googleReviewUrl: string;
+    googleReviewUrlPlaceholder: string;
+    locationLatitude: string;
+    locationLatitudePlaceholder: string;
+    locationLongitude: string;
+    locationLongitudePlaceholder: string;
+    locationLabel: string;
+    locationLabelPlaceholder: string;
+    eventTitle: string;
+    eventTitlePlaceholder: string;
+    eventLocation: string;
+    eventLocationPlaceholder: string;
+    eventStart: string;
+    eventEnd: string;
+    telegramId: string;
+    telegramIdPlaceholder: string;
+    socialNetwork: string;
+    socialFacebook: string;
+    socialInstagram: string;
+    socialX: string;
+    socialHandleOrUrl: string;
+    socialHandleOrUrlPlaceholder: string;
   };
   designer: {
     heading: string;
@@ -147,8 +194,26 @@ export type Dictionary = {
   };
   typeSelector: {
     aria: string;
+    scrollPrev: string;
+    scrollNext: string;
   };
-  types: Record<"url" | "text" | "wifi" | "email" | "phone" | "sms", string>;
+  types: Record<
+    | "url"
+    | "text"
+    | "wifi"
+    | "email"
+    | "phone"
+    | "sms"
+    | "vcard"
+    | "whatsapp"
+    | "line"
+    | "google-review"
+    | "location"
+    | "event"
+    | "telegram"
+    | "social",
+    string
+  >;
   errors: {
     urlInvalidProtocol: string;
     urlInvalid: string;
@@ -157,6 +222,17 @@ export type Dictionary = {
     wifiPasswordRequired: string;
     emailInvalid: string;
     phoneInvalid: string;
+    vcardNameRequired: string;
+    lineIdRequired: string;
+    lineIdInvalid: string;
+    locationCoordsInvalid: string;
+    eventTitleRequired: string;
+    eventStartInvalid: string;
+    eventEndInvalid: string;
+    telegramIdRequired: string;
+    telegramIdInvalid: string;
+    socialHandleRequired: string;
+    socialHandleInvalid: string;
   };
   export: {
     noContent: string;
@@ -193,7 +269,10 @@ export type Dictionary = {
   assetCopy: Record<string, { name: string; description: string }>;
   seo: {
     generator: SeoPageCopy;
-    qr: Record<"url" | "wifi" | "email" | "phone" | "sms", SeoPageCopy>;
+    qr: Record<
+      "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+      SeoPageCopy
+    >;
     templatesIndex: TemplateSeoCopy;
     templates: Record<"restaurant" | "cafe" | "hotel" | "menu" | "wifi", TemplateSeoCopy>;
   };

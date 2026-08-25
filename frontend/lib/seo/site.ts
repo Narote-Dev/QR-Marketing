@@ -21,12 +21,20 @@ export type SeoPage = {
   related: string[];
 };
 
-const qrRelated: Record<"url" | "wifi" | "email" | "phone" | "sms", string[]> = {
-  url: ["wifi", "email", "phone"],
+// Change: Phase A SEO slugs include vCard, WhatsApp, LINE, and Google Review.
+const qrRelated: Record<
+  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+  string[]
+> = {
+  url: ["wifi", "email", "vcard", "google-review"],
   wifi: ["url", "sms", "email"],
-  email: ["phone", "sms", "url"],
-  phone: ["sms", "email", "url"],
-  sms: ["phone", "wifi", "email"],
+  email: ["phone", "sms", "vcard"],
+  phone: ["sms", "whatsapp", "vcard"],
+  sms: ["phone", "whatsapp", "email"],
+  vcard: ["whatsapp", "line", "phone", "email"],
+  whatsapp: ["line", "vcard", "sms", "phone"],
+  line: ["whatsapp", "vcard", "phone", "url"],
+  "google-review": ["url", "vcard", "whatsapp", "wifi"],
 };
 
 function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
@@ -44,21 +52,45 @@ function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
 
 // Step 2: Build SEO page objects from a locale dictionary.
 export function getGeneratorPage(dictionary: Dictionary): SeoPage {
-  return fromCopy("qr-code-generator", dictionary.seo.generator, ["url", "wifi", "email", "phone", "sms"]);
+  return fromCopy("qr-code-generator", dictionary.seo.generator, [
+    "url",
+    "wifi",
+    "vcard",
+    "whatsapp",
+    "line",
+    "google-review",
+  ]);
 }
 
-export function getQrPages(dictionary: Dictionary): Record<"url" | "wifi" | "email" | "phone" | "sms", SeoPage> {
+export function getQrPages(dictionary: Dictionary): Record<
+  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+  SeoPage
+> {
   return {
     url: fromCopy("url", dictionary.seo.qr.url, qrRelated.url),
     wifi: fromCopy("wifi", dictionary.seo.qr.wifi, qrRelated.wifi),
     email: fromCopy("email", dictionary.seo.qr.email, qrRelated.email),
     phone: fromCopy("phone", dictionary.seo.qr.phone, qrRelated.phone),
     sms: fromCopy("sms", dictionary.seo.qr.sms, qrRelated.sms),
+    vcard: fromCopy("vcard", dictionary.seo.qr.vcard, qrRelated.vcard),
+    whatsapp: fromCopy("whatsapp", dictionary.seo.qr.whatsapp, qrRelated.whatsapp),
+    line: fromCopy("line", dictionary.seo.qr.line, qrRelated.line),
+    "google-review": fromCopy("google-review", dictionary.seo.qr["google-review"], qrRelated["google-review"]),
   };
 }
 
 export type QrSeoSlug = keyof ReturnType<typeof getQrPages>;
-export const qrSeoSlugs = ["url", "wifi", "email", "phone", "sms"] as const satisfies readonly QrSeoSlug[];
+export const qrSeoSlugs = [
+  "url",
+  "wifi",
+  "email",
+  "phone",
+  "sms",
+  "vcard",
+  "whatsapp",
+  "line",
+  "google-review",
+] as const satisfies readonly QrSeoSlug[];
 
 // English defaults kept for tests and non-localized helpers.
 export const generatorPage = getGeneratorPage(en);

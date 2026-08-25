@@ -4,10 +4,12 @@ import QRCodeStyling from "qr-code-styling";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useDictionary } from "@/components/i18n-provider";
 import { createQrStylingOptions, type QrDesign } from "@/lib/qr/design";
-import { composeQrPng, downloadBlob } from "@/lib/qr/export";
+import { composeQrPng, downloadBlob, withDownloadExtension } from "@/lib/qr/export";
 
 export type QrPreviewHandle = {
   downloadPng: (fileName?: string) => Promise<void>;
+  // Change: Expose scalable SVG download of the styled QR (no composite frame/background).
+  downloadSvg: (fileName?: string) => Promise<void>;
 };
 
 type Props = {
@@ -36,7 +38,7 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
     qrCode.current.append(hostRef.current);
   }, [value, design]);
 
-  // Step 2: Expose a composite PNG download that includes frame and background.
+  // Step 2: Expose PNG (composite) and SVG (vector QR) downloads.
   useImperativeHandle(ref, () => ({
     async downloadPng(fileName = "qr-code.png") {
       if (!value || !qrCode.current) throw new Error(dictionary.export.noContent);
@@ -44,7 +46,23 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
         const raw = await qrCode.current.getRawData("png");
         if (!raw || !(raw instanceof Blob)) throw new Error(dictionary.export.renderFailed);
         const composed = await composeQrPng(raw, design);
-        downloadBlob(composed, fileName);
+        downloadBlob(composed, withDownloadExtension(fileName, "png"));
+        setExportError(undefined);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : dictionary.export.downloadFailed;
+        setExportError(message);
+        throw error;
+      }
+    },
+    async downloadSvg(fileName = "qr-code.svg") {
+      if (!value || !qrCode.current) throw new Error(dictionary.export.noContent);
+      try {
+        // Step 3: Export the styled QR matrix as SVG for print/edit workflows.
+        const raw = await qrCode.current.getRawData("svg");
+        if (!raw || !(raw instanceof Blob)) throw new Error(dictionary.export.renderFailed);
+        const svgBlob =
+          raw.type === "image/svg+xml" ? raw : new Blob([await raw.arrayBuffer()], { type: "image/svg+xml" });
+        downloadBlob(svgBlob, withDownloadExtension(fileName, "svg"));
         setExportError(undefined);
       } catch (error) {
         const message = error instanceof Error ? error.message : dictionary.export.downloadFailed;

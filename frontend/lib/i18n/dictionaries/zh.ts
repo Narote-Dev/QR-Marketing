@@ -45,6 +45,10 @@ export const zh: Dictionary = {
     email: "为电子邮件创建二维码。",
     phone: "为电话创建二维码。",
     sms: "为短信创建二维码。",
+    vcard: "为电子名片创建二维码。",
+    whatsapp: "创建可打开 WhatsApp 聊天的二维码。",
+    line: "创建可打开 LINE 主页的二维码。",
+    "google-review": "为 Google 评价链接创建二维码。",
   },
   consent: {
     title: "我们重视您的隐私",
@@ -57,12 +61,17 @@ export const zh: Dictionary = {
   generator: {
     eyebrow: "免费静态二维码生成器",
     heading: "几秒内创建二维码",
-    intro: "选择模板、填写信息、自定义设计，然后下载合成预览。不会保存任何内容。",
+    intro: "选择类型、填写信息、自定义外观，然后下载合成预览。不会保存任何内容。",
+    step1Title: "1. 添加内容",
+    step2Title: "2. 自定义",
+    step3Title: "3. 预览并下载",
     livePreview: "实时预览",
     downloadPng: "下载 PNG",
+    downloadSvg: "下载 SVG",
     preparingDownload: "正在准备下载…",
     downloadFailed: "下载失败。",
-    downloadHint: "下载内容包含二维码，以及所选的边框、标签文字和背景。",
+    downloadHint:
+      "PNG 在选择时包含边框、标签和背景。SVG 导出可缩放的二维码图形，便于印刷与编辑。",
   },
   form: {
     websiteAddress: "网站地址",
@@ -91,6 +100,46 @@ export const zh: Dictionary = {
     smsPhonePlaceholder: "+66 81 234 5678",
     smsMessage: "短信内容（可选）",
     smsMessagePlaceholder: "您的短信内容",
+    vcardFirstName: "名",
+    vcardFirstNamePlaceholder: "Alex",
+    vcardLastName: "姓",
+    vcardLastNamePlaceholder: "Rivera",
+    vcardOrganization: "组织（可选）",
+    vcardOrganizationPlaceholder: "公司名称",
+    vcardPhone: "电话（可选）",
+    vcardPhonePlaceholder: "+66 81 234 5678",
+    vcardEmail: "邮箱（可选）",
+    vcardEmailPlaceholder: "hello@example.com",
+    vcardWebsite: "网站（可选）",
+    vcardWebsitePlaceholder: "https://example.com",
+    whatsappPhone: "WhatsApp 号码",
+    whatsappPhonePlaceholder: "+66 81 234 5678",
+    whatsappMessage: "消息（可选）",
+    whatsappMessagePlaceholder: "你好！我扫描了你的二维码。",
+    lineId: "LINE ID 或主页链接",
+    lineIdPlaceholder: "@yourshop 或 https://line.me/...",
+    googleReviewUrl: "Google 评价或地图链接",
+    googleReviewUrlPlaceholder: "https://g.page/r/...",
+    locationLatitude: "纬度",
+    locationLatitudePlaceholder: "13.7563",
+    locationLongitude: "经度",
+    locationLongitudePlaceholder: "100.5018",
+    locationLabel: "地点名称（可选）",
+    locationLabelPlaceholder: "曼谷办公室",
+    eventTitle: "活动标题",
+    eventTitlePlaceholder: "产品发布会",
+    eventLocation: "地点（可选）",
+    eventLocationPlaceholder: "主会场",
+    eventStart: "开始",
+    eventEnd: "结束（可选）",
+    telegramId: "Telegram 用户名或链接",
+    telegramIdPlaceholder: "@channel 或 https://t.me/...",
+    socialNetwork: "社交网络",
+    socialFacebook: "Facebook",
+    socialInstagram: "Instagram",
+    socialX: "X（Twitter）",
+    socialHandleOrUrl: "用户名或主页链接",
+    socialHandleOrUrlPlaceholder: "@brand 或 https://...",
   },
   designer: {
     heading: "二维码设计器",
@@ -142,6 +191,8 @@ export const zh: Dictionary = {
   },
   typeSelector: {
     aria: "二维码类型",
+    scrollPrev: "查看上一段类型",
+    scrollNext: "查看更多类型",
   },
   types: {
     url: "网址",
@@ -150,6 +201,14 @@ export const zh: Dictionary = {
     email: "邮件",
     phone: "电话",
     sms: "短信",
+    vcard: "名片",
+    whatsapp: "WhatsApp",
+    line: "LINE",
+    "google-review": "评价",
+    location: "位置",
+    event: "活动",
+    telegram: "Telegram",
+    social: "社交",
   },
   errors: {
     urlInvalidProtocol: "请输入有效的 http 或 https 网址。",
@@ -159,6 +218,17 @@ export const zh: Dictionary = {
     wifiPasswordRequired: "请输入 WiFi 密码。",
     emailInvalid: "请输入有效的电子邮箱地址。",
     phoneInvalid: "请输入有效的电话号码。",
+    vcardNameRequired: "请输入名或姓。",
+    lineIdRequired: "请输入 LINE ID 或主页链接。",
+    lineIdInvalid: "请输入有效的 LINE ID 或 https://line.me 链接。",
+    locationCoordsInvalid: "请输入有效的纬度和经度。",
+    eventTitleRequired: "请输入活动标题。",
+    eventStartInvalid: "请输入有效的开始日期和时间。",
+    eventEndInvalid: "请输入有效的结束日期和时间。",
+    telegramIdRequired: "请输入 Telegram 用户名或链接。",
+    telegramIdInvalid: "请输入有效的 Telegram 用户名或 https://t.me 链接。",
+    socialHandleRequired: "请输入主页链接或用户名。",
+    socialHandleInvalid: "请输入有效的用户名或 https 主页链接。",
   },
   export: {
     noContent: "下载前请先输入二维码内容。",
@@ -335,7 +405,7 @@ export const zh: Dictionary = {
     generator: {
       title: "免费二维码生成器",
       description:
-        "免费创建静态二维码，支持网址、文本、WiFi、电子邮件、电话号码和短信。自定义样式并即时预览。",
+        "免费二维码生成器，无需注册。在浏览器中创建静态码，支持网址、WiFi、名片、WhatsApp、LINE、菜单等，自定义后即时下载。",
       h1: "免费二维码生成器",
       introduction:
         "在浏览器中创建实用的静态二维码。选择内容类型、填写详情、自定义视觉设计，并在分享前测试实时预览。",
@@ -351,7 +421,8 @@ export const zh: Dictionary = {
         },
         {
           question: "可以编码哪些内容？",
-          answer: "可为网址、纯文本、WiFi 网络接入、电子邮件、电话拨号和短信消息创建二维码。",
+          answer:
+            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram 和社交主页创建二维码。",
         },
       ],
     },
@@ -472,6 +543,99 @@ export const zh: Dictionary = {
           },
         ],
       },
+      vcard: {
+        title: "vCard 二维码生成器",
+        description:
+          "免费创建可将姓名、电话、邮箱和网站保存到通讯录的 vCard 二维码。适合名片与社交场合。",
+        h1: "用二维码分享电子名片",
+        introduction:
+          "vCard 二维码让对方一扫即可添加你的联系方式。印在名片、胸牌或展位标识上，无需反复输入电话和邮箱。",
+        howTo: [
+          "至少填写名或姓。",
+          "按需添加组织、电话、邮箱和网站。",
+          "扫描预览，确认手机会提示保存联系人。",
+        ],
+        faqs: [
+          {
+            question: "每部手机保存联系人的方式都一样吗？",
+            answer: "大多数手机支持 vCard 3.0，但保存界面会因设备和相机应用而异。",
+          },
+          {
+            question: "打印后还能更新信息吗？",
+            answer: "不能。这是静态二维码。信息变更后请创建并重新印刷新码。",
+          },
+        ],
+      },
+      whatsapp: {
+        title: "WhatsApp 二维码生成器",
+        description:
+          "免费创建可打开 WhatsApp 聊天并可选预填消息的二维码。适合客服台与店面。",
+        h1: "用二维码开始 WhatsApp 聊天",
+        introduction:
+          "WhatsApp 二维码会打开 wa.me 并填入你的号码。可添加简短起始消息，方便顾客询问营业时间、订单或预约。",
+        howTo: [
+          "输入含国家/地区代码的 WhatsApp 号码。",
+          "可选添加访客发送前可编辑的消息。",
+          "扫描预览，确认 WhatsApp 打开目标聊天。",
+        ],
+        faqs: [
+          {
+            question: "扫描后会自动发送 WhatsApp 消息吗？",
+            answer: "不会。只会打开聊天草稿，是否发送由访客决定。",
+          },
+          {
+            question: "电话号码需要加号吗？",
+            answer: "请包含国家/地区代码。生成 wa.me 链接前会自动去掉空格。",
+          },
+        ],
+      },
+      line: {
+        title: "LINE 二维码生成器",
+        description:
+          "免费为 LINE ID、官方账号或主页链接创建 LINE 二维码，方便顾客从印刷物料添加好友。",
+        h1: "用二维码打开 LINE 主页",
+        introduction:
+          "LINE 在泰国和东亚广泛使用。编码官方账号（@handle）、LINE ID 或完整 line.me 链接，让扫码者无需输入 ID 即可添加聊天。",
+        howTo: [
+          "输入 @官方账号、LINE ID，或粘贴完整 https://line.me 链接。",
+          "更改 ID 或设计后查看实时预览。",
+          "用已安装 LINE 的手机扫描，确认主页正确打开。",
+        ],
+        faqs: [
+          {
+            question: "官方账号应填写什么？",
+            answer: "使用 @handle 格式，例如 @yourshop，或粘贴官方 LINE 邀请链接。",
+          },
+          {
+            question: "扫码者需要安装 LINE 吗？",
+            answer: "需要。打开 LINE 主页要求扫码设备已安装 LINE 应用。",
+          },
+        ],
+      },
+      "google-review": {
+        title: "Google 评价二维码生成器",
+        description:
+          "用地图或评价分享链接免费创建 Google 评价二维码，方便顾客到店后留下反馈。",
+        h1: "用二维码收集 Google 评价",
+        introduction:
+          "把评价二维码放在小票、桌牌或结账柜台。顾客扫码即可到达 Google 评价或地图页，无需搜索商家名称。",
+        howTo: [
+          "从 Google 商家资料复制评价或地图分享链接。",
+          "将完整 https 链接粘贴到生成器。",
+          "试扫确认评价页打开后再印刷。",
+        ],
+        faqs: [
+          {
+            question: "在哪里找到 Google 评价链接？",
+            answer:
+              "打开 Google 商家资料或 Google 地图，然后复制该地点的分享链接或“请求评价”链接。",
+          },
+          {
+            question: "这是动态二维码吗？",
+            answer: "不是。评价网址直接编码在静态二维码中。链接变更后请创建新码。",
+          },
+        ],
+      },
     },
     templatesIndex: {
       title: "二维码模板",
@@ -560,12 +724,12 @@ export const zh: Dictionary = {
         ],
       },
       hotel: {
-        title: "酒店二维码模板",
+        title: "酒店二维码",
         description:
-          "酒店二维码模板，适用于访客 WiFi、礼宾链接和大堂立牌。自定义「大堂蓝」外观并下载合成 PNG。",
-        h1: "酒店二维码模板",
+          "创建酒店二维码，用于访客 WiFi、礼宾链接和大堂立牌。应用酒店风格外观，下载可打印的静态码。",
+        h1: "酒店二维码",
         introduction:
-          "酒店常需精致二维码用于房卡和大堂前台。「大堂蓝」保持沉稳藏青配色，并在室内灯光下易于扫描。",
+          "酒店常需精致的酒店二维码用于房卡和大堂前台。「大堂蓝」保持沉稳藏青配色，并在室内灯光下易于扫描。",
         body: [
           "酒店模板可用于访客 WiFi、楼内导航页，或水疗预约等增值体验。",
           "房卡适合使用标签边框，让宾客扫码前就清楚用途。",
@@ -589,12 +753,12 @@ export const zh: Dictionary = {
         ],
       },
       menu: {
-        title: "菜单二维码模板",
+        title: "菜单二维码设计模板",
         description:
-          "面向餐厅和咖啡馆的数字菜单二维码模板。应用易读菜牌风格，链接菜单网址，并下载可打印的静态二维码。",
-        h1: "菜单二维码模板",
+          "设计餐厅与咖啡馆的菜单二维码。应用易读菜牌风格，链接数字菜单网址，并下载可打印的静态码。",
+        h1: "菜单二维码设计模板",
         introduction:
-          "菜单二维码应在桌边清晰可读，且用途一目了然。「特惠菜牌」使用清晰边框与叶绿配色，适合纸质菜单。",
+          "菜单二维码设计应在桌边清晰可读，且用途一目了然。「特惠菜牌」使用清晰边框与叶绿配色，适合纸质菜单。",
         body: [
           "链接到移动端友好、在蜂窝网络上也能快速加载的菜单页。",
           "不要把整份菜单文字放进二维码载荷——请改用网址。",

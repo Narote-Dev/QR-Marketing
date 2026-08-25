@@ -12,7 +12,7 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     promise: "Free in the browser. No account. Works with Thai links and frame text.",
     body: [
       "A menu QR code lowers reprint costs and lets you refresh prices by updating the linked page.",
-      "This page targets restaurant-menu intent instead of competing only on broad QR generator keywords.",
+      "This page targets restaurant-menu intent and menu QR design needs instead of competing only on broad QR generator keywords.",
     ],
     examples: ["Google Sheet or website menu pages", "Menu PDFs hosted online", "Lunch-set and seasonal specials pages"],
     howTo: [
@@ -40,7 +40,7 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   },
   "cafe-menu": {
     title: "Free Cafe Menu QR Code",
-    description: "Create a free cafe menu QR code with no signup. Great for drinks, desserts, and counter promotions.",
+    description: "Create a free cafe menu QR code with no signup. Design a scannable menu QR for drinks, desserts, and counter promotions.",
     h1: "Free Cafe Menu QR Code",
     introduction:
       "Let customers open your drink and dessert menu from the table or counter. Apply a cafe-ready style and download a print-ready PNG.",
@@ -108,7 +108,7 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "hotel-wifi": {
     title: "Hotel WiFi QR Code",
     description:
-      "Create a hotel WiFi QR code so guests can join room or lobby internet without asking the front desk.",
+      "Create a hotel QR code for WiFi so guests can join room or lobby internet without asking the front desk.",
     h1: "Hotel WiFi QR Code",
     introduction:
       "Reduce front-desk questions and improve guest experience with WiFi QR codes on room cards, welcome packs, or lobby signs.",

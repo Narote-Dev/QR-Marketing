@@ -45,6 +45,10 @@ export const en: Dictionary = {
     email: "Create a QR code for email.",
     phone: "Create a QR code for phone.",
     sms: "Create a QR code for SMS.",
+    vcard: "Create a QR code for a digital contact card.",
+    whatsapp: "Create a QR code that opens WhatsApp chat.",
+    line: "Create a QR code that opens a LINE profile.",
+    "google-review": "Create a QR code for a Google review link.",
   },
   consent: {
     title: "We value your privacy",
@@ -58,13 +62,17 @@ export const en: Dictionary = {
     eyebrow: "Free static QR code generator",
     heading: "Create a QR code in seconds",
     intro:
-      "Choose a template, enter your details, customize the design, and download a composite preview. Nothing is saved.",
+      "Choose a type, enter your details, customize the look, and download a composite preview. Nothing is saved.",
+    step1Title: "1. Add content",
+    step2Title: "2. Customize",
+    step3Title: "3. Preview & download",
     livePreview: "Live preview",
     downloadPng: "Download PNG",
+    downloadSvg: "Download SVG",
     preparingDownload: "Preparing download…",
     downloadFailed: "Download failed.",
     downloadHint:
-      "Downloads include the QR code plus frame, label text, and background when selected.",
+      "PNG includes the frame, label, and background when selected. SVG exports the scalable QR artwork for print and editing.",
   },
   form: {
     websiteAddress: "Website address",
@@ -93,6 +101,46 @@ export const en: Dictionary = {
     smsPhonePlaceholder: "+66 81 234 5678",
     smsMessage: "Message (optional)",
     smsMessagePlaceholder: "Your SMS message",
+    vcardFirstName: "First name",
+    vcardFirstNamePlaceholder: "Alex",
+    vcardLastName: "Last name",
+    vcardLastNamePlaceholder: "Rivera",
+    vcardOrganization: "Organization (optional)",
+    vcardOrganizationPlaceholder: "Company name",
+    vcardPhone: "Phone (optional)",
+    vcardPhonePlaceholder: "+66 81 234 5678",
+    vcardEmail: "Email (optional)",
+    vcardEmailPlaceholder: "hello@example.com",
+    vcardWebsite: "Website (optional)",
+    vcardWebsitePlaceholder: "https://example.com",
+    whatsappPhone: "WhatsApp number",
+    whatsappPhonePlaceholder: "+66 81 234 5678",
+    whatsappMessage: "Message (optional)",
+    whatsappMessagePlaceholder: "Hi! I scanned your QR code.",
+    lineId: "LINE ID or profile URL",
+    lineIdPlaceholder: "@yourshop or https://line.me/...",
+    googleReviewUrl: "Google review or Maps URL",
+    googleReviewUrlPlaceholder: "https://g.page/r/...",
+    locationLatitude: "Latitude",
+    locationLatitudePlaceholder: "13.7563",
+    locationLongitude: "Longitude",
+    locationLongitudePlaceholder: "100.5018",
+    locationLabel: "Place name (optional)",
+    locationLabelPlaceholder: "Bangkok office",
+    eventTitle: "Event title",
+    eventTitlePlaceholder: "Product launch",
+    eventLocation: "Location (optional)",
+    eventLocationPlaceholder: "Main hall",
+    eventStart: "Start",
+    eventEnd: "End (optional)",
+    telegramId: "Telegram username or URL",
+    telegramIdPlaceholder: "@channel or https://t.me/...",
+    socialNetwork: "Network",
+    socialFacebook: "Facebook",
+    socialInstagram: "Instagram",
+    socialX: "X (Twitter)",
+    socialHandleOrUrl: "Username or profile URL",
+    socialHandleOrUrlPlaceholder: "@brand or https://...",
   },
   designer: {
     heading: "QR designer",
@@ -144,6 +192,8 @@ export const en: Dictionary = {
   },
   typeSelector: {
     aria: "QR code type",
+    scrollPrev: "Show previous QR types",
+    scrollNext: "Show more QR types",
   },
   types: {
     url: "URL",
@@ -152,6 +202,14 @@ export const en: Dictionary = {
     email: "Email",
     phone: "Phone",
     sms: "SMS",
+    vcard: "vCard",
+    whatsapp: "WhatsApp",
+    line: "LINE",
+    "google-review": "Review",
+    location: "Location",
+    event: "Event",
+    telegram: "Telegram",
+    social: "Social",
   },
   errors: {
     urlInvalidProtocol: "Enter a valid http or https URL.",
@@ -161,6 +219,17 @@ export const en: Dictionary = {
     wifiPasswordRequired: "Enter the WiFi password.",
     emailInvalid: "Enter a valid email address.",
     phoneInvalid: "Enter a valid phone number.",
+    vcardNameRequired: "Enter a first or last name.",
+    lineIdRequired: "Enter a LINE ID or profile URL.",
+    lineIdInvalid: "Enter a valid LINE ID or https://line.me URL.",
+    locationCoordsInvalid: "Enter valid latitude and longitude.",
+    eventTitleRequired: "Enter an event title.",
+    eventStartInvalid: "Enter a valid start date and time.",
+    eventEndInvalid: "Enter a valid end date and time.",
+    telegramIdRequired: "Enter a Telegram username or URL.",
+    telegramIdInvalid: "Enter a valid Telegram username or https://t.me URL.",
+    socialHandleRequired: "Enter a profile URL or username.",
+    socialHandleInvalid: "Enter a valid username or https profile URL.",
   },
   export: {
     noContent: "Enter QR content before downloading.",
@@ -337,7 +406,7 @@ export const en: Dictionary = {
     generator: {
       title: "Free QR Code Generator",
       description:
-        "Create free static QR codes for URLs, text, WiFi, email, phone numbers, and SMS. Customize your code and preview it instantly.",
+        "Free QR code generator in your browser—no signup. Create static codes for URLs, WiFi, vCard, WhatsApp, LINE, menus, and more, then customize and download instantly.",
       h1: "Free QR code generator",
       introduction:
         "Create a practical, static QR code in your browser. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it.",
@@ -355,7 +424,7 @@ export const en: Dictionary = {
         {
           question: "What can I encode?",
           answer:
-            "You can create codes for URLs, plain text, WiFi network access, email, phone calls, and SMS messages.",
+            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles.",
         },
       ],
     },
@@ -482,6 +551,104 @@ export const en: Dictionary = {
           },
         ],
       },
+      vcard: {
+        title: "vCard QR Code Generator",
+        description:
+          "Create a free vCard QR code that saves your name, phone, email, and website to a phone contact list. Ideal for business cards and networking events.",
+        h1: "Share a digital contact card with a QR code",
+        introduction:
+          "A vCard QR code lets someone add your contact details with one scan. Put it on a business card, badge, or booth sign so people save the right phone number and email without retyping.",
+        howTo: [
+          "Enter at least a first or last name for the contact card.",
+          "Add optional organization, phone, email, and website details.",
+          "Scan the preview and confirm the phone offers to save the contact.",
+        ],
+        faqs: [
+          {
+            question: "Will every phone save the contact the same way?",
+            answer:
+              "Most phones understand vCard 3.0, but the save screen can differ by device and camera app.",
+          },
+          {
+            question: "Can I update the details after printing?",
+            answer:
+              "No. This is a static QR code. If your details change, create and print a new code.",
+          },
+        ],
+      },
+      whatsapp: {
+        title: "WhatsApp QR Code Generator",
+        description:
+          "Create a free WhatsApp QR code that opens a chat with your number and an optional prefilled message. Great for support desks and storefronts.",
+        h1: "Start a WhatsApp chat from a QR code",
+        introduction:
+          "A WhatsApp QR code opens wa.me with your number ready. Add a short starter message so customers can ask about hours, orders, or bookings without hunting for your chat handle.",
+        howTo: [
+          "Enter the WhatsApp number with country code.",
+          "Optionally add a message visitors can edit before sending.",
+          "Scan the preview and confirm WhatsApp opens the intended chat.",
+        ],
+        faqs: [
+          {
+            question: "Does scanning send a WhatsApp message automatically?",
+            answer: "No. It opens a chat draft; the visitor chooses whether to send.",
+          },
+          {
+            question: "Do I need the plus sign in the phone number?",
+            answer:
+              "Include the country code. Formatting spaces are removed automatically before building the wa.me link.",
+          },
+        ],
+      },
+      line: {
+        title: "LINE QR Code Generator",
+        description:
+          "Create a free LINE QR code for a LINE ID, Official Account, or profile URL. Help customers add you on LINE from print materials.",
+        h1: "Open a LINE profile with a QR code",
+        introduction:
+          "LINE is widely used across Thailand and East Asia. Encode an Official Account (@handle), LINE ID, or full line.me link so scanners can add your chat without typing the ID.",
+        howTo: [
+          "Enter an @Official Account, LINE ID, or paste a full https://line.me URL.",
+          "Check the live preview after changing the ID or design.",
+          "Scan with a phone that has LINE installed to confirm the profile opens.",
+        ],
+        faqs: [
+          {
+            question: "What should I enter for an Official Account?",
+            answer: "Use the @handle format, for example @yourshop, or paste the official LINE invite URL.",
+          },
+          {
+            question: "Does the scanner need the LINE app?",
+            answer:
+              "Yes. Opening a LINE profile requires the LINE app on the device that scans the code.",
+          },
+        ],
+      },
+      "google-review": {
+        title: "Google Review QR Code Generator",
+        description:
+          "Create a free Google review QR code from your Maps or review share link. Make it easy for customers to leave feedback after a visit.",
+        h1: "Collect Google reviews with a QR code",
+        introduction:
+          "Place a review QR code on receipts, table tents, or checkout counters. Customers scan and land on your Google review or Maps page without searching for your business name.",
+        howTo: [
+          "Copy your Google review or Maps share URL from Google Business Profile.",
+          "Paste the full https link into the generator.",
+          "Test-scan the code and confirm the review page opens before printing.",
+        ],
+        faqs: [
+          {
+            question: "Where do I find my Google review link?",
+            answer:
+              "Open Google Business Profile or Google Maps, then copy the share or “Ask for reviews” link provided for your location.",
+          },
+          {
+            question: "Is this a dynamic QR code?",
+            answer:
+              "No. The review URL is encoded directly in a static QR code. If the link changes, create a new code.",
+          },
+        ],
+      },
     },
     templatesIndex: {
       title: "QR Code Templates",
@@ -571,12 +738,12 @@ export const en: Dictionary = {
         ],
       },
       hotel: {
-        title: "Hotel QR Code Templates",
+        title: "Hotel QR Code",
         description:
-          "Hospitality QR templates for guest WiFi, concierge links, and lobby stands. Customize the Lobby Blue look and download a composite PNG.",
-        h1: "Hotel QR templates",
+          "Create a hotel QR code for guest WiFi, concierge links, and lobby stands. Apply a hospitality-ready look and download a print-ready static code.",
+        h1: "Hotel QR codes",
         introduction:
-          "Hotels often need polished codes for room cards and lobby desks. Lobby Blue keeps a calm navy palette while remaining easy to scan under indoor lighting.",
+          "Hotels often need polished hotel QR codes for room cards and lobby desks. Lobby Blue keeps a calm navy palette while remaining easy to scan under indoor lighting.",
         body: [
           "Use hotel templates for guest WiFi, house directory pages, or upsell experiences such as spa bookings.",
           "Room cards benefit from the label frame so guests know what the code does before scanning.",
@@ -600,12 +767,12 @@ export const en: Dictionary = {
         ],
       },
       menu: {
-        title: "Menu QR Code Templates",
+        title: "QR Menu Design Templates",
         description:
-          "Digital menu QR templates for restaurants and cafes. Apply a readable board style, link your menu URL, and download a print-ready static code.",
-        h1: "Menu QR templates",
+          "Design a menu QR code for restaurants and cafes. Apply a readable board style, link your digital menu URL, and download a print-ready static code.",
+        h1: "QR menu design templates",
         introduction:
-          "Menu QR codes should be readable from a table edge and obvious in purpose. Board Specials uses a clear border and leafy green palette suited to printed menus.",
+          "Menu QR design should stay readable from a table edge and obvious in purpose. Board Specials uses a clear border and leafy green palette suited to printed menus.",
         body: [
           "Link to a mobile-friendly menu page that loads quickly on cellular networks.",
           "Avoid putting the entire menu text inside the QR payload — use a URL instead.",

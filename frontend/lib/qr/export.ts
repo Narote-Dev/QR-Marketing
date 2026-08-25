@@ -101,3 +101,10 @@ export function downloadBlob(blob: Blob, fileName: string): void {
   anchor.click();
   URL.revokeObjectURL(url);
 }
+
+/** Step 1: Force a download name onto the requested extension (png/svg). */
+export function withDownloadExtension(fileName: string, extension: "png" | "svg"): string {
+  const trimmed = fileName.trim() || `qr-code.${extension}`;
+  const withoutExt = trimmed.replace(/\.(png|svg|jpe?g|webp)$/i, "");
+  return `${withoutExt || "qr-code"}.${extension}`;
+}

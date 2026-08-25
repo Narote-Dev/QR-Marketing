@@ -38,7 +38,7 @@ test("use-case metadata publishes canonical and hreflang URLs", () => {
       const canonical = new URL(path, siteUrl).toString();
       assert.equal(metadata.alternates?.canonical, canonical);
       assert.equal(metadata.openGraph?.url, canonical);
-      assert.ok(metadata.alternates?.languages?.[htmlLang[locale]]);
+      assert.ok(metadata.alternates?.languages && htmlLang[locale] in metadata.alternates.languages);
       assert.equal(getUseCasePage(locale, slug).related.length >= 2, true);
     }
   }

@@ -34,7 +34,7 @@ export function TemplateSelector({ selectedId, initialCategory = "restaurant", o
   const selectedLabel = selected ? selected.name : undefined;
 
   return (
-    <section aria-labelledby="template-heading" className="mb-8 min-w-0 rounded-2xl border bg-slate-50/80 p-4 sm:p-5">
+    <section aria-labelledby="template-heading" className="mb-6 min-w-0 rounded-2xl border bg-slate-50/80 p-4 sm:p-5">
       {/* Change: Make the whole Templates panel collapsible. */}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <button

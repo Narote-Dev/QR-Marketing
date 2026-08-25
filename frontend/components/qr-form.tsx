@@ -97,6 +97,79 @@ export function QrForm({ type, values, onChange, error }: Props) {
           </Field>
         </>
       )}
+      {type === "vcard" && (
+        <>
+          {input(dictionary.form.vcardFirstName, "vcardFirstName", dictionary.form.vcardFirstNamePlaceholder)}
+          {input(dictionary.form.vcardLastName, "vcardLastName", dictionary.form.vcardLastNamePlaceholder)}
+          {input(dictionary.form.vcardOrganization, "vcardOrganization", dictionary.form.vcardOrganizationPlaceholder)}
+          {input(dictionary.form.vcardPhone, "vcardPhone", dictionary.form.vcardPhonePlaceholder, "tel")}
+          {input(dictionary.form.vcardEmail, "vcardEmail", dictionary.form.vcardEmailPlaceholder, "email")}
+          {input(dictionary.form.vcardWebsite, "vcardWebsite", dictionary.form.vcardWebsitePlaceholder, "url")}
+        </>
+      )}
+      {type === "whatsapp" && (
+        <>
+          {input(dictionary.form.whatsappPhone, "whatsappPhone", dictionary.form.whatsappPhonePlaceholder, "tel")}
+          <Field label={dictionary.form.whatsappMessage}>
+            <textarea
+              className={inputStyle}
+              value={values.whatsappMessage}
+              onChange={(event) => set("whatsappMessage", event.target.value)}
+              placeholder={dictionary.form.whatsappMessagePlaceholder}
+              rows={3}
+            />
+          </Field>
+        </>
+      )}
+      {type === "line" && input(dictionary.form.lineId, "lineId", dictionary.form.lineIdPlaceholder)}
+      {type === "google-review" &&
+        input(dictionary.form.googleReviewUrl, "googleReviewUrl", dictionary.form.googleReviewUrlPlaceholder, "url")}
+      {type === "location" && (
+        <>
+          {input(dictionary.form.locationLatitude, "locationLatitude", dictionary.form.locationLatitudePlaceholder)}
+          {input(dictionary.form.locationLongitude, "locationLongitude", dictionary.form.locationLongitudePlaceholder)}
+          {input(dictionary.form.locationLabel, "locationLabel", dictionary.form.locationLabelPlaceholder)}
+        </>
+      )}
+      {type === "event" && (
+        <>
+          {input(dictionary.form.eventTitle, "eventTitle", dictionary.form.eventTitlePlaceholder)}
+          {input(dictionary.form.eventLocation, "eventLocation", dictionary.form.eventLocationPlaceholder)}
+          <Field label={dictionary.form.eventStart}>
+            <input
+              className={inputStyle}
+              type="datetime-local"
+              value={values.eventStart}
+              onChange={(event) => set("eventStart", event.target.value)}
+            />
+          </Field>
+          <Field label={dictionary.form.eventEnd}>
+            <input
+              className={inputStyle}
+              type="datetime-local"
+              value={values.eventEnd}
+              onChange={(event) => set("eventEnd", event.target.value)}
+            />
+          </Field>
+        </>
+      )}
+      {type === "telegram" && input(dictionary.form.telegramId, "telegramId", dictionary.form.telegramIdPlaceholder)}
+      {type === "social" && (
+        <>
+          <Field label={dictionary.form.socialNetwork}>
+            <select
+              className={inputStyle}
+              value={values.socialNetwork}
+              onChange={(event) => onChange({ ...values, socialNetwork: event.target.value as QrFormValues["socialNetwork"] })}
+            >
+              <option value="facebook">{dictionary.form.socialFacebook}</option>
+              <option value="instagram">{dictionary.form.socialInstagram}</option>
+              <option value="x">{dictionary.form.socialX}</option>
+            </select>
+          </Field>
+          {input(dictionary.form.socialHandleOrUrl, "socialHandleOrUrl", dictionary.form.socialHandleOrUrlPlaceholder)}
+        </>
+      )}
       {error && (
         <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
           {error}

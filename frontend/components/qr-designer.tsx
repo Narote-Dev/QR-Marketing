@@ -45,7 +45,7 @@ export function QrDesigner({ design, onChange }: Props) {
   const frameLabels = { none: d.frameNone, border: d.frameBorder, label: d.frameLabel } as const;
 
   return (
-    <section aria-labelledby="designer-heading" className="mt-8 min-w-0 border-t pt-8">
+    <section aria-labelledby="designer-heading" className="mt-2 min-w-0 border-t pt-8">
       <div className="mb-5 flex items-center gap-2">
         <SlidersHorizontal size={20} className="text-brand-teal-dark" aria-hidden="true" />
         <div>
