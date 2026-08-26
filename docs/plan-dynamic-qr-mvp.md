@@ -132,12 +132,12 @@ When `NEXT_PUBLIC_ENABLE_DYNAMIC_QR=true` (local/staging):
 
 ### Phase 5 — Production go-live (explicit approval only)
 
-1. Merge `feature/dynamic-qr` after review
-2. Run migrations on prod DB
-3. Deploy API with redirect
-4. Deploy frontend with flag **still false**; smoke static
-5. Enable flag; update Privacy/Terms
-6. Monitor redirect errors / DB
+1. [x] Merge `feature/dynamic-qr` into `main` + `cursor/static-qr-types-svg-seo` (flags remain **off**)
+2. [ ] Run migrations on prod DB (requires hosted Postgres)
+3. [ ] Deploy API with redirect on production origin
+4. [x] Frontend can deploy with Dynamic flags still false; static + SEO Dynamic page live
+5. [ ] Enable flags after API is healthy; confirm Privacy/Terms already updated
+6. [ ] Monitor redirect errors / DB
 
 ---
 
