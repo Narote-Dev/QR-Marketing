@@ -14,4 +14,10 @@ export function toAdsTxtPublisherId(publisherId: string): string {
   return publisherId.replace(/^ca-/, "");
 }
 
+/** Step 1: Emit AdSense account meta when a publisher ID is configured (matches ads.txt). */
+export function getAdSenseAccountMeta(publisherId?: string): Record<string, string> | undefined {
+  if (!publisherId) return undefined;
+  return { "google-adsense-account": publisherId };
+}
+
 export const adSenseConfig = getAdSenseConfig(process.env);
