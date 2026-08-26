@@ -1,0 +1,33 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { DynamicQrManageForm } from "@/components/dynamic-qr-manage-form";
+import { isDynamicQrEnabled } from "@/lib/dynamic-qr/config";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { isLocale, type Locale } from "@/lib/i18n/config";
+
+type Props = {
+  params: { locale: string };
+  searchParams?: { code?: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!isLocale(params.locale)) return {};
+  const dictionary = await getDictionary(params.locale);
+  return {
+    title: dictionary.dynamicQr.manageTitle,
+    robots: { index: false, follow: false },
+  };
+}
+
+export default async function DynamicQrManagePage({ params, searchParams }: Props) {
+  if (!isLocale(params.locale)) notFound();
+  if (!isDynamicQrEnabled()) notFound();
+  const locale = params.locale as Locale;
+  const dictionary = await getDictionary(locale);
+  return (
+    <main className="mx-auto max-w-5xl px-4 py-10">
+      <DynamicQrManageForm initialCode={searchParams?.code ?? ""} />
+      <p className="mx-auto mt-6 max-w-xl text-center text-xs text-slate-500">{dictionary.dynamicQr.stagingOnlyNote}</p>
+    </main>
+  );
+}

@@ -1,0 +1,32 @@
+---
+description: Isolate Dynamic QR work from production; branch + flag + no accidental prod deploy
+alwaysApply: true
+---
+
+# Dynamic QR — Production Isolation
+
+Production today is **static QR only**. Dynamic QR must not break or silently change the live product.
+
+## Hard rules
+
+1. Do **all** Dynamic QR implementation on branch `feature/dynamic-qr` (or a child branch of it). Never commit Dynamic QR feature work directly to the production deploy branch (`main` / current prod branch) unless the user explicitly requests a merge.
+2. Do **not** deploy Dynamic QR to production until the user explicitly approves merge + release.
+3. Keep static generator behavior unchanged when Dynamic is off. Prefer a feature flag (e.g. `NEXT_PUBLIC_ENABLE_DYNAMIC_QR` / `EnableDynamicQr`) defaulting to **false**.
+4. Short URLs on staging must use a **staging origin**, never bind test codes permanently to the production domain until go-live.
+5. Database work = **new tables only** (`dynamic_qr`, `scan_events`). No destructive migrations against unrelated schema. Prefer soft-disable (`is_active`) over hard delete in MVP.
+6. MVP destination = **HTTP(S) URL redirect only**. Do not implement dynamic WiFi/vCard/SMS payloads via HTTP 302.
+7. Do not update production Privacy/Terms copy on the live site until Dynamic is ready to enable; draft changes on the feature branch is OK.
+8. After merge readiness: enable in production in layers — API + migrations → redirect → UI flag on. Never flip UI on before redirect works.
+
+## Allowed without prod impact
+
+- Local / Docker / staging testing of create → scan → edit destination → scan count
+- Docs and plans under `docs/`
+- Scaffold behind flags on `feature/dynamic-qr`
+
+## Forbidden without explicit user approval
+
+- Force-push or rewrite of the production branch history
+- Pointing production DNS / short-link base URL at incomplete Dynamic infra
+- Merging `feature/dynamic-qr` into the production branch
+- Enabling Dynamic flags in production env

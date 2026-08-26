@@ -1,6 +1,6 @@
 # Build Your QR — Phase 3.5 Templates
 
-This repository contains the Phase 3.5 foundation for Build Your QR: client-side static QR generation, curated SEO pages, visual templates, local preset assets, and composite PNG download. Authentication, analytics, dynamic QR codes, payments, and persistence are not included yet.
+This repository contains Build Your QR: client-side static QR generation, curated SEO pages (including Dynamic QR education), visual templates, local preset assets, and composite PNG/SVG download. Dynamic QR APIs exist behind feature flags and require a deployed API + PostgreSQL before enabling in production.
 
 ## Structure
 

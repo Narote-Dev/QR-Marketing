@@ -49,6 +49,7 @@ export const zh: Dictionary = {
     whatsapp: "创建可打开 WhatsApp 聊天的二维码。",
     line: "创建可打开 LINE 主页的二维码。",
     "google-review": "为 Google 评价链接创建二维码。",
+    dynamic: "了解可在印刷后修改目标的动态二维码。",
   },
   consent: {
     title: "我们重视您的隐私",
@@ -85,6 +86,43 @@ export const zh: Dictionary = {
     downloadFailed: "下载失败。",
     downloadHint:
       "PNG 在选择时包含边框、标签和背景。SVG 导出可缩放的二维码图形，便于印刷与编辑。",
+    modeStatic: "静态",
+    modeDynamic: "动态",
+    modeAria: "二维码模式",
+  },
+  dynamicQr: {
+    creatorTitle: "动态二维码（预发）",
+    creatorIntro: "打印后的码指向可稍后修改的短链。目标地址必须是 http 或 https。",
+    destinationLabel: "目标 URL",
+    destinationPlaceholder: "https://example.com/menu",
+    labelField: "名称（可选）",
+    labelPlaceholder: "5号桌菜单",
+    createButton: "创建动态二维码",
+    creating: "创建中…",
+    createFailed: "无法创建动态二维码。",
+    shortUrlLabel: "短链",
+    tokenSavedHint: "管理令牌已保存在本浏览器。如需在其他设备编辑请自行备份。",
+    manageLink: "打开管理页",
+    manageTitle: "管理动态二维码",
+    manageIntro: "无需重印即可更改目标或暂停。",
+    ownedCodes: "本浏览器中的代码",
+    shortCodeLabel: "短码",
+    manageTokenLabel: "管理令牌",
+    manageTokenHint: "有本地存储时会自动加载。",
+    loadButton: "加载",
+    loadFailed: "无法加载此代码。",
+    scansLabel: "扫描总数",
+    statusLabel: "状态",
+    statusActive: "启用",
+    statusInactive: "已暂停",
+    saveButton: "保存更改",
+    saved: "已保存。",
+    saveFailed: "无法保存。",
+    activateButton: "启用",
+    deactivateButton: "暂停",
+    activated: "已启用。",
+    deactivated: "已暂停。",
+    stagingOnlyNote: "仅功能开关 — 上线前请在生产环境保持关闭。",
   },
   form: {
     websiteAddress: "网站地址",
@@ -459,7 +497,7 @@ export const zh: Dictionary = {
           },
           {
             question: "之后还能更改跳转目标吗？",
-            answer: "静态二维码打印后无法更改。若网址变更，请创建新的二维码。",
+            answer: "静态二维码打印后无法更改。若需要可编辑目标，请参阅动态二维码页面（在启用 Dynamic 模式时）。",
           },
         ],
       },
@@ -645,7 +683,39 @@ export const zh: Dictionary = {
           },
           {
             question: "这是动态二维码吗？",
-            answer: "不是。评价网址直接编码在静态二维码中。链接变更后请创建新码。",
+            answer: "不是。评价网址直接编码在静态二维码中。链接变更后请创建新码，或查看动态二维码页面了解可编辑目标。",
+          },
+        ],
+      },
+      dynamic: {
+        title: "动态二维码生成器 — 印刷后可改目标",
+        description:
+          "了解动态二维码如何在印刷后更改目标网址。对比静态与动态二维码、查看菜单与活动场景，并用 Build Your QR 创建二维码。",
+        h1: "可稍后更新目标的动态二维码",
+        introduction:
+          "动态二维码指向我们平台上的短链，因此您可以更改目标网址、暂停活动或查看扫描次数，而无需重印海报、菜单或包装。静态二维码仍将内容直接编码在图像中，适合永不需要修改的永久链接，并保持免费。",
+        howTo: [
+          "在功能启用时于生成器中选择 Dynamic 模式，然后输入希望扫码打开的 https 目标。",
+          "下载并打印编码短链的二维码——不是最终网站 URL。",
+          "使用管理令牌打开管理页，以更改目标、暂停代码或查看基础扫描统计。",
+        ],
+        faqs: [
+          {
+            question: "静态与动态二维码有何区别？",
+            answer:
+              "静态码把内容存在图像里；动态码存短链以便重定向，因此可在印刷后修改目标。WiFi、vCard 或永久链接用静态；活动与常改菜单用动态。",
+          },
+          {
+            question: "需要注册账号吗？",
+            answer: "动态 MVP 使用保存在浏览器中的管理令牌。请妥善保存。完整账号系统可能稍后推出。",
+          },
+          {
+            question: "二维码创建区是否仍然无广告？",
+            answer: "是。广告可能出现在工具周围的 SEO 说明页，但二维码创建区本身保持无广告。",
+          },
+          {
+            question: "动态二维码能编码 WiFi 或 vCard 吗？",
+            answer: "不能通过 HTTP 重定向。动态模式仅支持 http/https 目标。WiFi、vCard、短信等请使用静态模式。",
           },
         ],
       },

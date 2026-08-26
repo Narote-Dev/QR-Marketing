@@ -1,8 +1,9 @@
 # Plan: Future Feature Updates
 
-Status: **backlog only** — do not implement until explicitly requested.  
-Current product phase: **3.5** (static QR + templates + SEO).  
-**Decision (2026-08-25):** Stay on **static-only** for now. Expand content types and static UX first (P1 → P2). **Defer Dynamic QR (P3)** until the static content surface is broader.  
+Status: Static backlog + Dynamic MVP tracked separately.  
+Current product phase: **3.5** (static QR + templates + SEO) on production.  
+**Decision (2026-08-26):** Dynamic QR MVP is **in progress on isolated branch `feature/dynamic-qr` only**. Production stays static until explicit merge + layered enable. See [`plan-dynamic-qr-mvp.md`](./plan-dynamic-qr-mvp.md) and `.cursor/rules/dynamic-qr-isolation.mdc`.  
+**Prior decision (2026-08-25):** Expanded static content types first (P1 → P2); that work largely shipped before Dynamic started.  
 **Scope lock (content expansion):**
 1. **1A** — Skip server-dependent types for now (no file upload, no OS-smart App Store, no multi-link hosted page). Only payloads that encode in the QR image.
 2. **2A** — Ship in generator first; curated SEO pages only for high-value types: vCard, WhatsApp, LINE, Google Review.
@@ -152,9 +153,9 @@ Dependencies for P3: auth (or anonymous owned codes), redirect service, PostgreS
 
 ## Suggested sequence when work resumes
 
-1. **Stay static:** ship more content types and static polish (P1 → P2). No Dynamic work until that surface is clearly richer.
-2. Revisit **Dynamic QR** (P3) only after P1/P2 content coverage feels competitive enough — then as its own phase (API + DB).
-3. Keep Rule.md: do not implement future phases unless explicitly requested.
+1. Continue Dynamic MVP **only** on `feature/dynamic-qr` per [`plan-dynamic-qr-mvp.md`](./plan-dynamic-qr-mvp.md); do not merge/deploy to production without explicit approval.
+2. Keep static polish (e.g. scannability warning) on separate branches if needed.
+3. Keep Rule.md: do not ship incomplete Dynamic to production by accident.
 
 ---
 

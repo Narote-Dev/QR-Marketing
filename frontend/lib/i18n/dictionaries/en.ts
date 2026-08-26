@@ -49,6 +49,7 @@ export const en: Dictionary = {
     whatsapp: "Create a QR code that opens WhatsApp chat.",
     line: "Create a QR code that opens a LINE profile.",
     "google-review": "Create a QR code for a Google review link.",
+    dynamic: "Learn how editable Dynamic QR codes work.",
   },
   consent: {
     title: "We value your privacy",
@@ -87,6 +88,44 @@ export const en: Dictionary = {
     downloadFailed: "Download failed.",
     downloadHint:
       "PNG includes the frame, label, and background when selected. SVG exports the scalable QR artwork for print and editing.",
+    modeStatic: "Static",
+    modeDynamic: "Dynamic",
+    modeAria: "QR mode",
+  },
+  dynamicQr: {
+    creatorTitle: "Dynamic QR (staging)",
+    creatorIntro:
+      "The printed code points to a short link you can edit later. Destination must be http or https.",
+    destinationLabel: "Destination URL",
+    destinationPlaceholder: "https://example.com/menu",
+    labelField: "Label (optional)",
+    labelPlaceholder: "Menu table 5",
+    createButton: "Create dynamic QR",
+    creating: "Creating…",
+    createFailed: "Could not create dynamic QR.",
+    shortUrlLabel: "Short URL",
+    tokenSavedHint: "Manage token saved in this browser. Keep it if you need to edit from another device.",
+    manageLink: "Open manage page",
+    manageTitle: "Manage dynamic QR",
+    manageIntro: "Update the destination or pause a code without reprinting.",
+    ownedCodes: "Codes in this browser",
+    shortCodeLabel: "Short code",
+    manageTokenLabel: "Manage token",
+    manageTokenHint: "Loaded from local storage when available.",
+    loadButton: "Load",
+    loadFailed: "Could not load this code.",
+    scansLabel: "Total scans",
+    statusLabel: "Status",
+    statusActive: "Active",
+    statusInactive: "Paused",
+    saveButton: "Save changes",
+    saved: "Saved.",
+    saveFailed: "Could not save changes.",
+    activateButton: "Activate",
+    deactivateButton: "Pause",
+    activated: "Code activated.",
+    deactivated: "Code paused.",
+    stagingOnlyNote: "Feature flag only — keep disabled on production until go-live.",
   },
   form: {
     websiteAddress: "Website address",
@@ -464,7 +503,7 @@ export const en: Dictionary = {
           {
             question: "Can I change the destination later?",
             answer:
-              "A static QR code cannot be changed after it is printed. Create a new code if the URL changes.",
+              "A static QR code cannot be changed after it is printed. If you need an editable destination, use our Dynamic QR guide and tool when Dynamic mode is enabled.",
           },
         ],
       },
@@ -659,7 +698,42 @@ export const en: Dictionary = {
           {
             question: "Is this a dynamic QR code?",
             answer:
-              "No. The review URL is encoded directly in a static QR code. If the link changes, create a new code.",
+              "No. The review URL is encoded directly in a static QR code. If the link changes, create a new code or see our Dynamic QR page for editable destinations.",
+          },
+        ],
+      },
+      dynamic: {
+        title: "Dynamic QR Code Generator — Edit After Print",
+        description:
+          "Learn how Dynamic QR codes let you change a destination URL after printing. Compare static vs dynamic QR, see use cases for menus and campaigns, and create codes with Build Your QR.",
+        h1: "Dynamic QR codes you can update later",
+        introduction:
+          "A Dynamic QR code points to a short link on our platform, so you can change the destination URL, pause a campaign, or track scans without reprinting posters, menus, or packaging. Static QR codes still encode content directly in the image and remain free for forever links that never need editing.",
+        howTo: [
+          "Choose Dynamic mode in the generator when the feature is enabled, then enter the https destination you want scanners to open.",
+          "Download and print the QR that encodes the short link—not the final website URL.",
+          "Open the manage page with your manage token to change the destination, pause the code, or review basic scan counts.",
+        ],
+        faqs: [
+          {
+            question: "What is the difference between static and Dynamic QR?",
+            answer:
+              "Static QR stores the payload inside the image. Dynamic QR stores a short redirect URL so you can edit the destination after printing. Use static for WiFi, vCard, or permanent links; use Dynamic for campaigns and menus that change.",
+          },
+          {
+            question: "Do I need an account?",
+            answer:
+              "The Dynamic MVP uses a manage token stored in your browser. Keep that token safe. A full account system may arrive later.",
+          },
+          {
+            question: "Is the QR creator still ad-free?",
+            answer:
+              "Yes. Ads may appear on educational SEO pages around the tool, but the QR creator surface itself stays ad-free.",
+          },
+          {
+            question: "Can Dynamic QR encode WiFi or vCard?",
+            answer:
+              "Not via HTTP redirect. Dynamic mode supports http and https destinations only. Use static mode for WiFi, vCard, SMS, and similar payloads.",
           },
         ],
       },

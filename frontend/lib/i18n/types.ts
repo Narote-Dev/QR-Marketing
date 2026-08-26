@@ -52,7 +52,7 @@ export type Dictionary = {
     trustLocalized: string;
   };
   relatedToolBlurbs: Record<
-    "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+    "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
     string
   >;
   consent: {
@@ -82,6 +82,43 @@ export type Dictionary = {
     preparingDownload: string;
     downloadFailed: string;
     downloadHint: string;
+    modeStatic: string;
+    modeDynamic: string;
+    modeAria: string;
+  };
+  dynamicQr: {
+    creatorTitle: string;
+    creatorIntro: string;
+    destinationLabel: string;
+    destinationPlaceholder: string;
+    labelField: string;
+    labelPlaceholder: string;
+    createButton: string;
+    creating: string;
+    createFailed: string;
+    shortUrlLabel: string;
+    tokenSavedHint: string;
+    manageLink: string;
+    manageTitle: string;
+    manageIntro: string;
+    ownedCodes: string;
+    shortCodeLabel: string;
+    manageTokenLabel: string;
+    manageTokenHint: string;
+    loadButton: string;
+    loadFailed: string;
+    scansLabel: string;
+    statusLabel: string;
+    statusActive: string;
+    statusInactive: string;
+    saveButton: string;
+    saved: string;
+    saveFailed: string;
+    activateButton: string;
+    deactivateButton: string;
+    activated: string;
+    deactivated: string;
+    stagingOnlyNote: string;
   };
   form: {
     websiteAddress: string;
@@ -277,7 +314,7 @@ export type Dictionary = {
   seo: {
     generator: SeoPageCopy;
     qr: Record<
-      "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+      "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
       SeoPageCopy
     >;
     templatesIndex: TemplateSeoCopy;

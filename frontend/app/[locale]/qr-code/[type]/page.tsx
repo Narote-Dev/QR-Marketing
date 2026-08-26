@@ -25,5 +25,7 @@ export default async function QrCodeTypePage({ params }: Props) {
   const type = params.type as QrSeoSlug;
   const page = getQrPages(dictionary)[type];
   if (!page) notFound();
-  return <SeoQrPage page={page} initialType={type} locale={locale} dictionary={dictionary} />;
+  // Change: Dynamic SEO page uses URL generator; Dynamic mode appears when feature flag is on.
+  const initialType = type === "dynamic" ? "url" : type;
+  return <SeoQrPage page={page} initialType={initialType} locale={locale} dictionary={dictionary} />;
 }

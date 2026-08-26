@@ -3,12 +3,14 @@
 import { useMemo, useRef, useState } from "react";
 import { Download } from "lucide-react";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
+import { DynamicQrCreator } from "@/components/dynamic-qr-creator";
 import { QrForm } from "@/components/qr-form";
 import { QrPreview, type QrPreviewHandle } from "@/components/qr-preview";
 import { QrStarterStrip } from "@/components/qr-starter-strip";
 import { QrTypeSelector } from "@/components/qr-type-selector";
 import { QrDesigner } from "@/components/qr-designer";
 import { TemplateSelector } from "@/components/templates/template-selector";
+import { isDynamicQrEnabled } from "@/lib/dynamic-qr/config";
 import { buildQrContent } from "@/lib/qr/content";
 import { defaultQrValues, type QrFormValues, type QrType } from "@/lib/qr/types";
 import { defaultQrDesign, type QrDesign } from "@/lib/qr/design";
@@ -33,6 +35,8 @@ type Props = {
   helperHint?: string;
 };
 
+type GeneratorMode = "static" | "dynamic";
+
 export function QrGenerator({
   initialType = "url",
   initialTemplateCategory,
@@ -43,6 +47,7 @@ export function QrGenerator({
 }: Props) {
   const dictionary = useDictionary();
   const locale = useLocale();
+  const dynamicEnabled = isDynamicQrEnabled();
 
   // Step 1: Resolve an optional starter template for intent-matched landing pages.
   const starterTemplate = useMemo(() => {
@@ -70,10 +75,15 @@ export function QrGenerator({
   const [starterDownloadName, setStarterDownloadName] = useState<string>();
   const [downloading, setDownloading] = useState<"png" | "svg" | false>(false);
   const [downloadError, setDownloadError] = useState<string>();
+  const [mode, setMode] = useState<GeneratorMode>("static");
+  const [dynamicShortUrl, setDynamicShortUrl] = useState<string>();
   const previewRef = useRef<QrPreviewHandle>(null);
   const result = useMemo(() => buildQrContent(type, values, dictionary), [type, values, dictionary]);
+  // Change: Dynamic mode encodes the short URL returned by the API, not the destination.
+  const previewValue = mode === "dynamic" ? dynamicShortUrl : result.value;
+  const previewError = mode === "dynamic" ? undefined : result.error;
   // Change: Hide starters on use-case landings that already apply a template.
-  const showStarters = !initialTemplateId;
+  const showStarters = !initialTemplateId && mode === "static";
 
   const selectedStarterId = useMemo(() => {
     if (!showStarters || !selectedTemplateId) return undefined;
@@ -131,13 +141,21 @@ export function QrGenerator({
     setPendingStarterId(undefined);
   };
 
+  const handleModeChange = (nextMode: GeneratorMode) => {
+    setMode(nextMode);
+    setPendingStarterId(undefined);
+    if (nextMode === "static") {
+      setDynamicShortUrl(undefined);
+    }
+  };
+
   // Step 4: Download PNG (composite) or SVG (vector QR) when the payload is valid.
   const handleDownload = async (format: "png" | "svg") => {
-    if (!result.value || result.error) return;
+    if (!previewValue || previewError) return;
     setDownloading(format);
     setDownloadError(undefined);
     try {
-      const baseName = starterDownloadName ?? downloadFileName ?? `qr-${type}`;
+      const baseName = starterDownloadName ?? downloadFileName ?? (mode === "dynamic" ? "qr-dynamic" : `qr-${type}`);
       if (format === "png") {
         await previewRef.current?.downloadPng(baseName);
       } else {
@@ -164,6 +182,33 @@ export function QrGenerator({
         )}
       </div>
 
+      {dynamicEnabled && (
+        <div
+          role="group"
+          aria-label={dictionary.generator.modeAria}
+          className="mb-6 inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1"
+        >
+          <button
+            type="button"
+            onClick={() => handleModeChange("static")}
+            className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${
+              mode === "static" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"
+            }`}
+          >
+            {dictionary.generator.modeStatic}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleModeChange("dynamic")}
+            className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${
+              mode === "dynamic" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"
+            }`}
+          >
+            {dictionary.generator.modeDynamic}
+          </button>
+        </div>
+      )}
+
       {showStarters && (
         <QrStarterStrip
           selectedId={selectedStarterId}
@@ -181,10 +226,20 @@ export function QrGenerator({
             <h3 id="generator-step-1" className="mb-4 text-lg font-bold tracking-tight text-slate-900">
               {dictionary.generator.step1Title}
             </h3>
-            <QrTypeSelector type={type} onChange={handleTypeChange} />
-            <div className="mt-6">
-              <QrForm type={type} values={values} onChange={setValues} error={result.error} />
-            </div>
+            {mode === "dynamic" && dynamicEnabled ? (
+              <DynamicQrCreator
+                onCreated={(shortUrl) => {
+                  setDynamicShortUrl(shortUrl);
+                }}
+              />
+            ) : (
+              <>
+                <QrTypeSelector type={type} onChange={handleTypeChange} />
+                <div className="mt-6">
+                  <QrForm type={type} values={values} onChange={setValues} error={result.error} />
+                </div>
+              </>
+            )}
           </section>
 
           <section aria-labelledby="generator-step-2" className="min-w-0 border-t pt-10">
@@ -209,12 +264,12 @@ export function QrGenerator({
             {dictionary.generator.step3Title}
           </h3>
           <p className="text-sm font-semibold text-slate-700">{dictionary.generator.livePreview}</p>
-          <QrPreview ref={previewRef} value={result.value} design={design} />
+          <QrPreview ref={previewRef} value={previewValue} design={design} />
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <button
               type="button"
               onClick={() => handleDownload("png")}
-              disabled={!result.value || Boolean(result.error) || Boolean(downloading)}
+              disabled={!previewValue || Boolean(previewError) || Boolean(downloading)}
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-teal px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-teal-dark disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
@@ -223,7 +278,7 @@ export function QrGenerator({
             <button
               type="button"
               onClick={() => handleDownload("svg")}
-              disabled={!result.value || Boolean(result.error) || Boolean(downloading)}
+              disabled={!previewValue || Boolean(previewError) || Boolean(downloading)}
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-brand-teal bg-white px-4 py-3 text-sm font-semibold text-brand-teal-dark transition hover:bg-brand-cream disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400"
             >
               <Download className="h-4 w-4" aria-hidden="true" />

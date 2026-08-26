@@ -49,6 +49,7 @@ export const th: Dictionary = {
     whatsapp: "สร้างคิวอาร์โค้ดเปิดแชท WhatsApp",
     line: "สร้างคิวอาร์โค้ดเปิดโปรไฟล์ LINE",
     "google-review": "สร้างคิวอาร์โค้ดลิงก์รีวิว Google",
+    dynamic: "เรียนรู้คิวอาร์ไดนามิกที่แก้ลิงก์หลังพิมพ์ได้",
   },
   consent: {
     title: "เราให้ความสำคัญกับความเป็นส่วนตัวของคุณ",
@@ -86,6 +87,43 @@ export const th: Dictionary = {
     downloadFailed: "ดาวน์โหลดไม่สำเร็จ",
     downloadHint:
       "PNG รวมกรอบ ป้าย และพื้นหลังเมื่อเลือกไว้ SVG คือคิวอาร์โค้ดแบบเวกเตอร์สำหรับพิมพ์และแก้ไข",
+    modeStatic: "สแตติก",
+    modeDynamic: "ไดนามิก",
+    modeAria: "โหมด QR",
+  },
+  dynamicQr: {
+    creatorTitle: "Dynamic QR (staging)",
+    creatorIntro: "โค้ดที่พิมพ์ชี้ไปลิงก์สั้นที่แก้ปลายทางทีหลังได้ ปลายทางต้องเป็น http หรือ https",
+    destinationLabel: "URL ปลายทาง",
+    destinationPlaceholder: "https://example.com/menu",
+    labelField: "ชื่อเรียก (ไม่บังคับ)",
+    labelPlaceholder: "เมนูโต๊ะ 5",
+    createButton: "สร้าง Dynamic QR",
+    creating: "กำลังสร้าง…",
+    createFailed: "สร้าง Dynamic QR ไม่สำเร็จ",
+    shortUrlLabel: "ลิงก์สั้น",
+    tokenSavedHint: "บันทึก manage token ไว้ในเบราว์เซอร์นี้แล้ว เก็บไว้ถ้าต้องแก้จากเครื่องอื่น",
+    manageLink: "เปิดหน้าจัดการ",
+    manageTitle: "จัดการ Dynamic QR",
+    manageIntro: "เปลี่ยนปลายทางหรือพักโค้ดได้โดยไม่ต้องพิมพ์ใหม่",
+    ownedCodes: "โค้ดในเบราว์เซอร์นี้",
+    shortCodeLabel: "รหัสสั้น",
+    manageTokenLabel: "Manage token",
+    manageTokenHint: "โหลดจาก local storage เมื่อมี",
+    loadButton: "โหลด",
+    loadFailed: "โหลดโค้ดนี้ไม่สำเร็จ",
+    scansLabel: "ยอดสแกน",
+    statusLabel: "สถานะ",
+    statusActive: "ใช้งาน",
+    statusInactive: "พักไว้",
+    saveButton: "บันทึก",
+    saved: "บันทึกแล้ว",
+    saveFailed: "บันทึกไม่สำเร็จ",
+    activateButton: "เปิดใช้",
+    deactivateButton: "พักโค้ด",
+    activated: "เปิดใช้แล้ว",
+    deactivated: "พักโค้ดแล้ว",
+    stagingOnlyNote: "เปิดด้วย feature flag เท่านั้น — ปิดบน production จนกว่าจะ go-live",
   },
   form: {
     websiteAddress: "ที่อยู่เว็บไซต์",
@@ -463,7 +501,7 @@ export const th: Dictionary = {
           {
             question: "เปลี่ยนปลายทางทีหลังได้หรือไม่?",
             answer:
-              "คิวอาร์โค้ดแบบสแตติกเปลี่ยนหลังพิมพ์ไม่ได้ หาก URL เปลี่ยน ให้สร้างโค้ดใหม่",
+              "คิวอาร์โค้ดแบบสแตติกเปลี่ยนหลังพิมพ์ไม่ได้ หากต้องการแก้ลิงก์ได้ ดูหน้า Dynamic QR เมื่อเปิดโหมดไดนามิก",
           },
         ],
       },
@@ -658,7 +696,42 @@ export const th: Dictionary = {
           {
             question: "นี่คือคิวอาร์โค้ดแบบไดนามิกหรือไม่?",
             answer:
-              "ไม่ใช่ URL รีวิวถูกเข้ารหัสในคิวอาร์โค้ดแบบสแตติก หากลิงก์เปลี่ยน ให้สร้างโค้ดใหม่",
+              "ไม่ใช่ URL รีวิวถูกเข้ารหัสในคิวอาร์โค้ดแบบสแตติก หากลิงก์เปลี่ยน ให้สร้างโค้ดใหม่ หรือดูหน้า Dynamic QR สำหรับปลายทางที่แก้ได้",
+          },
+        ],
+      },
+      dynamic: {
+        title: "เครื่องมือ Dynamic QR — แก้ลิงก์หลังพิมพ์",
+        description:
+          "เรียนรู้ Dynamic QR ที่เปลี่ยน URL ปลายทางหลังพิมพ์ได้ เปรียบเทียบสแตติกกับไดนามิก ใช้กับเมนูและแคมเปญ และสร้างโค้ดกับ Build Your QR",
+        h1: "Dynamic QR ที่อัปเดตปลายทางทีหลังได้",
+        introduction:
+          "Dynamic QR ชี้ไปลิงก์สั้นบนแพลตฟอร์มของเรา จึงเปลี่ยน URL ปลายทาง พักแคมเปญ หรือดูยอดสแกนได้โดยไม่ต้องพิมพ์โปสเตอร์ เมนู หรือบรรจุภัณฑ์ใหม่ ส่วน Static QR ยังเข้ารหัสเนื้อหาในภาพโดยตรง และเหมาะกับลิงก์ถาวรที่ไม่ต้องแก้",
+        howTo: [
+          "เลือกโหมด Dynamic ในเครื่องมือเมื่อฟีเจอร์เปิดอยู่ แล้วใส่ปลายทาง https ที่ต้องการให้ผู้สแกนเปิด",
+          "ดาวน์โหลดและพิมพ์คิวอาร์ที่เข้ารหัสลิงก์สั้น ไม่ใช่ URL เว็บสุดท้าย",
+          "เปิดหน้าจัดการด้วย manage token เพื่อแก้ปลายทาง พักโค้ด หรือดูยอดสแกนเบื้องต้น",
+        ],
+        faqs: [
+          {
+            question: "Static กับ Dynamic ต่างกันอย่างไร?",
+            answer:
+              "Static เก็บ payload ในภาพ Dynamic เก็บลิงก์สั้นสำหรับ redirect จึงแก้ปลายทางหลังพิมพ์ได้ ใช้ Static สำหรับ WiFi, vCard หรือลิงก์ถาวร และใช้ Dynamic สำหรับแคมเปญกับเมนูที่เปลี่ยนบ่อย",
+          },
+          {
+            question: "ต้องสมัครบัญชีไหม?",
+            answer:
+              "MVP ของ Dynamic ใช้ manage token ในเบราว์เซอร์ เก็บ token นี้ไว้ให้ดี ระบบบัญชีเต็มรูปแบบอาจมาทีหลัง",
+          },
+          {
+            question: "ตัวสร้าง QR ยังไม่มีโฆษณาใช่ไหม?",
+            answer:
+              "ใช่ โฆษณาอาจอยู่บนหน้า SEO รอบเครื่องมือ แต่พื้นผิวตัวสร้าง QR ยังไม่มีโฆษณา",
+          },
+          {
+            question: "Dynamic เข้ารหัส WiFi หรือ vCard ได้ไหม?",
+            answer:
+              "ผ่าน HTTP redirect ไม่ได้ Dynamic รองรับปลายทาง http/https เท่านั้น ใช้โหมด Static สำหรับ WiFi, vCard, SMS และ payload คล้ายกัน",
           },
         ],
       },

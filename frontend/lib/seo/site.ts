@@ -23,10 +23,10 @@ export type SeoPage = {
 
 // Change: Phase A SEO slugs include vCard, WhatsApp, LINE, and Google Review.
 const qrRelated: Record<
-  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
   string[]
 > = {
-  url: ["wifi", "email", "vcard", "google-review"],
+  url: ["dynamic", "wifi", "email", "vcard", "google-review"],
   wifi: ["url", "sms", "email"],
   email: ["phone", "sms", "vcard"],
   phone: ["sms", "whatsapp", "vcard"],
@@ -34,7 +34,8 @@ const qrRelated: Record<
   vcard: ["whatsapp", "line", "phone", "email"],
   whatsapp: ["line", "vcard", "sms", "phone"],
   line: ["whatsapp", "vcard", "phone", "url"],
-  "google-review": ["url", "vcard", "whatsapp", "wifi"],
+  "google-review": ["url", "dynamic", "vcard", "whatsapp"],
+  dynamic: ["url", "google-review", "vcard", "whatsapp", "wifi"],
 };
 
 function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
@@ -63,7 +64,7 @@ export function getGeneratorPage(dictionary: Dictionary): SeoPage {
 }
 
 export function getQrPages(dictionary: Dictionary): Record<
-  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review",
+  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
   SeoPage
 > {
   return {
@@ -76,6 +77,7 @@ export function getQrPages(dictionary: Dictionary): Record<
     whatsapp: fromCopy("whatsapp", dictionary.seo.qr.whatsapp, qrRelated.whatsapp),
     line: fromCopy("line", dictionary.seo.qr.line, qrRelated.line),
     "google-review": fromCopy("google-review", dictionary.seo.qr["google-review"], qrRelated["google-review"]),
+    dynamic: fromCopy("dynamic", dictionary.seo.qr.dynamic, qrRelated.dynamic),
   };
 }
 
@@ -90,6 +92,7 @@ export const qrSeoSlugs = [
   "whatsapp",
   "line",
   "google-review",
+  "dynamic",
 ] as const satisfies readonly QrSeoSlug[];
 
 // English defaults kept for tests and non-localized helpers.

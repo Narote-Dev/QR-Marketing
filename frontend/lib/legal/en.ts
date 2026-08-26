@@ -10,13 +10,13 @@ export const legalEn: LegalDocuments = {
       'genmyQRCode.com ("we", "us", or "this website") respects your privacy. This policy explains how information is handled when you use our QR code generator.',
     websiteLabel: "Website",
     updatedLabel: "Last updated",
-    updatedDate: "August 21, 2026",
+    updatedDate: "August 26, 2026",
     sections: [
       {
         title: "1. Information entered to create QR codes",
         paragraphs: [
-          "Content you enter to create a QR code, including URLs, text, WiFi credentials, email addresses, phone numbers, and SMS messages, is processed only in your browser (client-side). We do not save this content on our servers or send it to third parties for unrelated purposes.",
-          "If server-side features are added later, such as dynamic QR codes with scan analytics, we will update this policy before those features are introduced.",
+          "Static QR content you enter in the generator, including URLs, text, WiFi credentials, email addresses, phone numbers, SMS, vCard, and similar payloads, is processed in your browser (client-side) by default. We do not save that static content on our servers for unrelated purposes.",
+          "When Dynamic QR is enabled, short codes, destination URLs you choose, optional labels, and basic scan metadata (such as time, coarse device type, and country when available from the edge network) are stored so redirects and manage features can work. We do not require an account for the Dynamic MVP; ownership uses a manage token you keep in your browser. Do not share that token.",
         ],
       },
       {
@@ -99,12 +99,13 @@ export const legalEn: LegalDocuments = {
       'Please read these Terms of Service before using genmyQRCode.com ("we", "us", or "the website"). By accessing the website, you agree to these terms.',
     websiteLabel: "Website",
     updatedLabel: "Last updated",
-    updatedDate: "August 21, 2026",
+    updatedDate: "August 26, 2026",
     sections: [
       {
         title: "1. Service description",
         paragraphs: [
-          "The website provides a free static QR code generator for URLs, text, WiFi, email, phone numbers, and SMS. No account or sign-in is required.",
+          "The website provides a free static QR code generator for URLs, text, WiFi, email, phone, SMS, vCard, messaging links, and similar client-side payloads. No account or sign-in is required for static codes.",
+          "When Dynamic QR is enabled, you may create editable URL redirects with a manage token. Dynamic destinations must be http or https. You are responsible for destinations you configure and for keeping your manage token secure.",
         ],
       },
       {
