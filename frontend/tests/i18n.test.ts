@@ -31,6 +31,8 @@ test("localized path helpers preserve tool paths", () => {
   assert.equal(isExemptPath("/sitemap.xml"), true);
   assert.equal(isExemptPath("/robots.txt"), true);
   assert.equal(isExemptPath("/google916c8d25fc4de77f.html"), true);
+  assert.equal(isExemptPath("/r/SZHRJeME"), true);
+  assert.equal(isExemptPath("/api/dynamic-qr"), true);
 });
 
 test("dictionaries expose unique SEO titles per locale", async () => {

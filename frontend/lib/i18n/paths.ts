@@ -28,6 +28,8 @@ export function isExemptPath(pathname: string): boolean {
     return true;
   }
   if (path === "/api" || path.startsWith("/api/")) return true;
+  // Change: Dynamic QR short links must stay unprefixed so rewrites can proxy to the API.
+  if (path === "/r" || path.startsWith("/r/")) return true;
   // Step 2: Any path with a file extension is treated as a static asset.
   const last = path.split("/").pop() ?? "";
   return last.includes(".");
