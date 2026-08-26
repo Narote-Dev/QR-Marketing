@@ -12,8 +12,10 @@ if (!string.IsNullOrWhiteSpace(port))
     builder.WebHost.UseUrls($"http://+:{port}");
 }
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+var connectionString =
+    Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
     ?? Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' (or DATABASE_URL) is required.");
 
 // Step 2: Normalize Neon/Railway postgres URL schemes for Npgsql when needed.
