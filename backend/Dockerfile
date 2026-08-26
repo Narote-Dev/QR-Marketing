@@ -1,3 +1,4 @@
+# Local docker-compose: build context is ./backend
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY QrMarketing.Api/QrMarketing.Api.csproj QrMarketing.Api/
