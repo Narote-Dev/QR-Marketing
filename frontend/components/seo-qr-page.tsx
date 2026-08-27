@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Layers } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
@@ -41,11 +42,25 @@ export function SeoQrPage({
         languageLabel={dictionary.chrome.language}
         secondaryHref="/qr-code-generator"
         secondaryLabel={dictionary.chrome.allQrTools}
+        bulkHref={page.slug === "qr-code-generator" ? "/bulk-qr-generator" : undefined}
+        bulkLabel={page.slug === "qr-code-generator" ? dictionary.chrome.bulkQrGenerator : undefined}
       />
       <Breadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{page.introduction}</p>
+        {page.slug === "qr-code-generator" && (
+          <div className="mt-6 max-w-3xl rounded-2xl border border-brand-teal/30 bg-brand-cream/40 p-4 sm:flex sm:items-center sm:justify-between sm:gap-4">
+            <p className="text-sm text-slate-700">{dictionary.generator.bulkPromo}</p>
+            <Link
+              href={localizedPath(locale, "/bulk-qr-generator")}
+              className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-teal-dark sm:mt-0 sm:w-auto"
+            >
+              <Layers className="h-4 w-4" aria-hidden="true" />
+              {dictionary.chrome.bulkQrGenerator}
+            </Link>
+          </div>
+        )}
         <div className="mt-9">
           <QrGenerator
             initialType={initialType}
@@ -53,17 +68,6 @@ export function SeoQrPage({
             initialPaymentProvider={initialPaymentProvider}
           />
         </div>
-        {page.slug === "qr-code-generator" && (
-          <p className="mt-6 max-w-3xl rounded-2xl border border-brand-teal/30 bg-brand-cream/40 px-4 py-3 text-sm text-slate-700">
-            {dictionary.generator.bulkPromo}{" "}
-            <Link
-              href={localizedPath(locale, "/bulk-qr-generator")}
-              className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
-            >
-              {dictionary.generator.bulkPromoLink} →
-            </Link>
-          </p>
-        )}
         <AdSlot placement="seo-after-tool" minHeight={180} />
         <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10">
           <div>
