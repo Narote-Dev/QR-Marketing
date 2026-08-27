@@ -78,7 +78,7 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
 
       <article>
         <p className="text-sm font-semibold text-brand-teal-dark">{page.promise}</p>
-        <h1 className="mt-2 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{page.introduction}</p>
 
         <ul className="mt-6 grid gap-3 sm:grid-cols-3">
