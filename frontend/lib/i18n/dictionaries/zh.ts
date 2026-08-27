@@ -91,8 +91,8 @@ export const zh: Dictionary = {
     modeAria: "二维码模式",
   },
   dynamicQr: {
-    creatorTitle: "动态二维码（预发）",
-    creatorIntro: "打印后的码指向可稍后修改的短链。目标地址必须是 http 或 https。",
+    creatorTitle: "动态二维码",
+    creatorIntro: "在 genmyqrcode.com 创建可稍后修改的短链。目标地址必须是 http 或 https。",
     destinationLabel: "目标 URL",
     destinationPlaceholder: "https://example.com/menu",
     labelField: "名称（可选）",
@@ -101,14 +101,14 @@ export const zh: Dictionary = {
     creating: "创建中…",
     createFailed: "无法创建动态二维码。",
     shortUrlLabel: "短链",
-    tokenSavedHint: "管理令牌已保存在本浏览器。如需在其他设备编辑请自行备份。",
+    tokenSavedHint: "管理令牌已保存在本浏览器。如需在其他设备编辑请自行备份——丢失后无法找回。",
     manageLink: "打开管理页",
     manageTitle: "管理动态二维码",
-    manageIntro: "无需重印即可更改目标或暂停。",
+    manageIntro: "无需重印即可更改目标、暂停代码或查看扫描次数。",
     ownedCodes: "本浏览器中的代码",
     shortCodeLabel: "短码",
     manageTokenLabel: "管理令牌",
-    manageTokenHint: "有本地存储时会自动加载。",
+    manageTokenHint: "有本地存储时会自动加载；也可粘贴你备份的令牌。",
     loadButton: "加载",
     loadFailed: "无法加载此代码。",
     scansLabel: "扫描总数",
@@ -122,7 +122,7 @@ export const zh: Dictionary = {
     deactivateButton: "暂停",
     activated: "已启用。",
     deactivated: "已暂停。",
-    stagingOnlyNote: "仅功能开关 — 上线前请在生产环境保持关闭。",
+    manageFooterNote: "请妥善保管管理令牌。持有者可更改目标或暂停代码。",
   },
   form: {
     websiteAddress: "网站地址",
@@ -497,7 +497,7 @@ export const zh: Dictionary = {
           },
           {
             question: "之后还能更改跳转目标吗？",
-            answer: "静态二维码打印后无法更改。若需要可编辑目标，请参阅动态二维码页面（在启用 Dynamic 模式时）。",
+            answer: "静态二维码打印后无法更改。若需要可编辑目标，请在生成器切换到 Dynamic 模式，或打开动态二维码指南。",
           },
         ],
       },
@@ -690,24 +690,31 @@ export const zh: Dictionary = {
       dynamic: {
         title: "动态二维码生成器 — 印刷后可改目标",
         description:
-          "了解动态二维码如何在印刷后更改目标网址。对比静态与动态二维码、查看菜单与活动场景，并用 Build Your QR 创建二维码。",
+          "在 genmyqrcode.com 创建动态二维码。印刷后可更改目标网址、暂停活动并查看扫描次数——免费，无需账号。",
         h1: "可稍后更新目标的动态二维码",
         introduction:
-          "动态二维码指向我们平台上的短链，因此您可以更改目标网址、暂停活动或查看扫描次数，而无需重印海报、菜单或包装。静态二维码仍将内容直接编码在图像中，适合永不需要修改的永久链接，并保持免费。",
+          "动态二维码指向 genmyqrcode.com 上的短链（例如 /r/yourCode）。扫码者会打开你当前的目标网址。你可以更改该网址、暂停代码或查看扫描次数，而无需重印海报、菜单或包装。静态二维码仍将内容直接编码在图像中，适合 WiFi、vCard 以及永不需要修改的永久链接。",
         howTo: [
-          "在功能启用时于生成器中选择 Dynamic 模式，然后输入希望扫码打开的 https 目标。",
-          "下载并打印编码短链的二维码——不是最终网站 URL。",
-          "使用管理令牌打开管理页，以更改目标、暂停代码或查看基础扫描统计。",
+          "打开二维码生成器，切换到 Dynamic 模式。",
+          "输入 http 或 https 目标网址（可选名称便于日后识别），然后创建动态二维码。",
+          "按需自定义设计，下载图片并印刷——二维码编码的是短链，不是最终网站 URL。",
+          "稍后编辑时，使用管理令牌（已保存在本浏览器）打开管理页，更新目标、暂停或重新启用，并查看扫描次数。",
         ],
         faqs: [
           {
             question: "静态与动态二维码有何区别？",
             answer:
-              "静态码把内容存在图像里；动态码存短链以便重定向，因此可在印刷后修改目标。WiFi、vCard 或永久链接用静态；活动与常改菜单用动态。",
+              "静态码把内容存在图像里；动态码在 genmyqrcode.com 存短链以便重定向，因此可在印刷后修改目标。WiFi、vCard 或永久链接用静态；活动与常改菜单用动态。",
           },
           {
             question: "需要注册账号吗？",
-            answer: "动态 MVP 使用保存在浏览器中的管理令牌。请妥善保存。完整账号系统可能稍后推出。",
+            answer:
+              "不需要。所有权使用保存在浏览器中的管理令牌。如需在其他设备编辑请自行备份——丢失后无法找回。完整账号系统可能稍后推出。",
+          },
+          {
+            question: "短链指向哪里？",
+            answer:
+              "印刷的动态码使用 https://genmyqrcode.com/r/{code}，并以 HTTP 302 重定向到当前目标。暂停后扫码会收到 gone，直到重新启用。",
           },
           {
             question: "二维码创建区是否仍然无广告？",

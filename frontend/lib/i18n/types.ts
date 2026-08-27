@@ -118,7 +118,7 @@ export type Dictionary = {
     deactivateButton: string;
     activated: string;
     deactivated: string;
-    stagingOnlyNote: string;
+    manageFooterNote: string;
   };
   form: {
     websiteAddress: string;

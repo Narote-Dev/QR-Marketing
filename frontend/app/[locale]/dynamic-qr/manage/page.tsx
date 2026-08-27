@@ -27,7 +27,7 @@ export default async function DynamicQrManagePage({ params, searchParams }: Prop
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
       <DynamicQrManageForm initialCode={searchParams?.code ?? ""} />
-      <p className="mx-auto mt-6 max-w-xl text-center text-xs text-slate-500">{dictionary.dynamicQr.stagingOnlyNote}</p>
+      <p className="mx-auto mt-6 max-w-xl text-center text-xs text-slate-500">{dictionary.dynamicQr.manageFooterNote}</p>
     </main>
   );
 }

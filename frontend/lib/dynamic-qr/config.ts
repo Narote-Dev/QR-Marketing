@@ -1,4 +1,4 @@
-/** Dynamic QR is off unless explicitly enabled (production must stay false until go-live). */
+/** Dynamic QR is off unless NEXT_PUBLIC_ENABLE_DYNAMIC_QR=true (enabled in production). */
 export function isDynamicQrEnabled(): boolean {
   return process.env.NEXT_PUBLIC_ENABLE_DYNAMIC_QR === "true";
 }

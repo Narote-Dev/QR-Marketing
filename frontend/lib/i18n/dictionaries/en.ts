@@ -93,9 +93,9 @@ export const en: Dictionary = {
     modeAria: "QR mode",
   },
   dynamicQr: {
-    creatorTitle: "Dynamic QR (staging)",
+    creatorTitle: "Dynamic QR",
     creatorIntro:
-      "The printed code points to a short link you can edit later. Destination must be http or https.",
+      "Create a short link on genmyqrcode.com that you can edit later. Destination must be http or https.",
     destinationLabel: "Destination URL",
     destinationPlaceholder: "https://example.com/menu",
     labelField: "Label (optional)",
@@ -104,14 +104,15 @@ export const en: Dictionary = {
     creating: "Creating…",
     createFailed: "Could not create dynamic QR.",
     shortUrlLabel: "Short URL",
-    tokenSavedHint: "Manage token saved in this browser. Keep it if you need to edit from another device.",
+    tokenSavedHint:
+      "Manage token saved in this browser. Copy it if you need to edit from another device—we cannot recover a lost token.",
     manageLink: "Open manage page",
     manageTitle: "Manage dynamic QR",
-    manageIntro: "Update the destination or pause a code without reprinting.",
+    manageIntro: "Update the destination, pause a code, or check scan counts—without reprinting.",
     ownedCodes: "Codes in this browser",
     shortCodeLabel: "Short code",
     manageTokenLabel: "Manage token",
-    manageTokenHint: "Loaded from local storage when available.",
+    manageTokenHint: "Loaded from this browser’s storage when available. Paste a token if you saved one elsewhere.",
     loadButton: "Load",
     loadFailed: "Could not load this code.",
     scansLabel: "Total scans",
@@ -125,7 +126,8 @@ export const en: Dictionary = {
     deactivateButton: "Pause",
     activated: "Code activated.",
     deactivated: "Code paused.",
-    stagingOnlyNote: "Feature flag only — keep disabled on production until go-live.",
+    manageFooterNote:
+      "Keep your manage token private. Anyone with it can change the destination or pause the code.",
   },
   form: {
     websiteAddress: "Website address",
@@ -503,7 +505,7 @@ export const en: Dictionary = {
           {
             question: "Can I change the destination later?",
             answer:
-              "A static QR code cannot be changed after it is printed. If you need an editable destination, use our Dynamic QR guide and tool when Dynamic mode is enabled.",
+              "A static QR code cannot be changed after it is printed. If you need an editable destination, switch to Dynamic mode in the generator or open our Dynamic QR guide.",
           },
         ],
       },
@@ -705,25 +707,31 @@ export const en: Dictionary = {
       dynamic: {
         title: "Dynamic QR Code Generator — Edit After Print",
         description:
-          "Learn how Dynamic QR codes let you change a destination URL after printing. Compare static vs dynamic QR, see use cases for menus and campaigns, and create codes with Build Your QR.",
+          "Create Dynamic QR codes on genmyqrcode.com. Change the destination URL after printing, pause campaigns, and view scan counts—free, no account required.",
         h1: "Dynamic QR codes you can update later",
         introduction:
-          "A Dynamic QR code points to a short link on our platform, so you can change the destination URL, pause a campaign, or track scans without reprinting posters, menus, or packaging. Static QR codes still encode content directly in the image and remain free for forever links that never need editing.",
+          "A Dynamic QR code points to a short link on genmyqrcode.com (for example /r/yourCode). Scanners open your current destination URL. You can change that URL, pause the code, or check scan counts without reprinting posters, menus, or packaging. Static QR codes still encode content directly in the image and stay ideal for WiFi, vCard, and forever links that never need editing.",
         howTo: [
-          "Choose Dynamic mode in the generator when the feature is enabled, then enter the https destination you want scanners to open.",
-          "Download and print the QR that encodes the short link—not the final website URL.",
-          "Open the manage page with your manage token to change the destination, pause the code, or review basic scan counts.",
+          "Open the QR generator and switch to Dynamic mode.",
+          "Enter an http or https destination URL (optional label helps you recognize the code later), then create the Dynamic QR.",
+          "Customize the design if you like, download the image, and print it—the QR encodes the short link, not the final website URL.",
+          "To edit later, open the manage page with your manage token (saved in this browser). Update the destination, pause or reactivate, and review scan counts.",
         ],
         faqs: [
           {
             question: "What is the difference between static and Dynamic QR?",
             answer:
-              "Static QR stores the payload inside the image. Dynamic QR stores a short redirect URL so you can edit the destination after printing. Use static for WiFi, vCard, or permanent links; use Dynamic for campaigns and menus that change.",
+              "Static QR stores the payload inside the image. Dynamic QR stores a short redirect URL on genmyqrcode.com so you can edit the destination after printing. Use static for WiFi, vCard, or permanent links; use Dynamic for campaigns and menus that change.",
           },
           {
             question: "Do I need an account?",
             answer:
-              "The Dynamic MVP uses a manage token stored in your browser. Keep that token safe. A full account system may arrive later.",
+              "No. Ownership uses a manage token stored in your browser. Copy and keep that token if you may edit from another device—we cannot recover a lost token. A full account system may arrive later.",
+          },
+          {
+            question: "Where does the short link go?",
+            answer:
+              "Printed Dynamic codes use https://genmyqrcode.com/r/{code}. That path redirects (HTTP 302) to your current destination. If you pause a code, scanners receive a gone response until you activate it again.",
           },
           {
             question: "Is the QR creator still ad-free?",
