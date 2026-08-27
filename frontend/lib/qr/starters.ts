@@ -53,6 +53,7 @@ const qrTypeContentKeys: Record<QrType, readonly (keyof QrFormValues)[]> = {
   event: ["eventTitle", "eventLocation", "eventStart", "eventEnd"],
   telegram: ["telegramId"],
   social: ["socialNetwork", "socialHandleOrUrl"],
+  payment: ["paymentProvider", "paymentHandleOrUrl"],
 };
 
 /** Step 1: Treat only the visible type's fields as user-entered content. */

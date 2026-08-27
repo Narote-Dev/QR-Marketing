@@ -1,4 +1,4 @@
-import type { QrFormValues, QrType, SocialNetwork } from "@/lib/qr/types";
+import type { PaymentProvider, QrFormValues, QrType, SocialNetwork } from "@/lib/qr/types";
 import type { Dictionary } from "@/lib/i18n/types";
 
 export type QrContentResult = { value: string; error?: never } | { value?: never; error: string };
@@ -43,19 +43,72 @@ function toIcalLocalStamp(raw: string): string | null {
 }
 
 function socialProfileUrl(network: SocialNetwork, handleOrUrl: string, errors?: Dictionary["errors"]): QrContentResult {
+  // Step 1: Prefer a pasted https URL; otherwise map a username to a known profile base.
   const raw = handleOrUrl.trim();
   if (!raw) return { error: errors?.socialHandleRequired ?? "Enter a profile URL or username." };
   if (/^https?:\/\//i.test(raw)) return buildHttpsUrl(raw, errors);
+
+  // Change: Reddit accepts r/subreddit as well as a user handle.
+  if (network === "reddit") {
+    const sub = raw.match(/^\/?r\/([A-Za-z0-9_]+)$/i);
+    if (sub) return { value: `https://www.reddit.com/r/${sub[1]}` };
+    const user = raw.replace(/^\/?u(ser)?\//i, "").replace(/^@/, "");
+    if (!/^[A-Za-z0-9._-]+$/.test(user)) {
+      return { error: errors?.socialHandleInvalid ?? "Enter a valid username or https profile URL." };
+    }
+    return { value: `https://www.reddit.com/user/${user}` };
+  }
+
+  // Change: Discord invite codes map to discord.gg; full URLs still win above.
+  if (network === "discord") {
+    const code = raw.replace(/^@/, "").replace(/^\/+/, "");
+    if (!/^[A-Za-z0-9-]+$/.test(code)) {
+      return { error: errors?.socialHandleInvalid ?? "Enter a valid username or https profile URL." };
+    }
+    return { value: `https://discord.gg/${code}` };
+  }
+
   const handle = raw.replace(/^@/, "").replace(/^\/+/, "");
   if (!/^[A-Za-z0-9._-]+$/.test(handle)) {
     return { error: errors?.socialHandleInvalid ?? "Enter a valid username or https profile URL." };
   }
-  const bases: Record<SocialNetwork, string> = {
+  const bases: Record<Exclude<SocialNetwork, "reddit" | "discord">, string> = {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
     x: "https://x.com/",
+    youtube: "https://www.youtube.com/@",
+    tiktok: "https://www.tiktok.com/@",
+    linkedin: "https://www.linkedin.com/in/",
+    snapchat: "https://www.snapchat.com/add/",
+    spotify: "https://open.spotify.com/user/",
+    soundcloud: "https://soundcloud.com/",
+    kakaotalk: "https://open.kakao.com/o/",
   };
   return { value: `${bases[network]}${handle}` };
+}
+
+function paymentLink(provider: PaymentProvider, handleOrUrl: string, errors?: Dictionary["errors"]): QrContentResult {
+  // Step 1: Accept http(s) for every provider; Amazon/crypto also accept common payment URIs.
+  const raw = handleOrUrl.trim();
+  if (!raw) return { error: errors?.paymentHandleRequired ?? "Enter a payment link or username." };
+  if (/^https?:\/\//i.test(raw)) return buildHttpsUrl(raw, errors);
+  if (provider === "crypto" && /^(bitcoin|ethereum|litecoin|bitcoincash):/i.test(raw)) {
+    return { value: raw };
+  }
+  if (provider === "amazon" || provider === "crypto") {
+    return { error: errors?.paymentUrlRequired ?? "Paste a full http(s) payment or store URL." };
+  }
+  const handle = raw.replace(/^@/, "").replace(/^\/+/, "");
+  if (!/^[A-Za-z0-9._-]+$/.test(handle)) {
+    return { error: errors?.paymentHandleInvalid ?? "Enter a valid username or https payment URL." };
+  }
+  const bases: Record<Exclude<PaymentProvider, "amazon" | "crypto">, string> = {
+    paypal: "https://paypal.me/",
+    venmo: "https://venmo.com/",
+    etsy: "https://www.etsy.com/shop/",
+    revolut: "https://revolut.me/",
+  };
+  return { value: `${bases[provider]}${handle}` };
 }
 
 // Step 1: Build QR payloads while returning localized validation errors when a dictionary is provided.
@@ -195,7 +248,10 @@ export function buildQrContent(type: QrType, values: QrFormValues, dictionary?: 
       return { value: `https://t.me/${username}` };
     }
     case "social":
-      // Step 9: Build a Facebook / Instagram / X profile URL from a handle or pasted link.
+      // Step 9: Build a social profile URL from a handle or pasted link.
       return socialProfileUrl(values.socialNetwork, values.socialHandleOrUrl, errors);
+    case "payment":
+      // Step 10: Build a static payment or shop deep link (no hosted checkout).
+      return paymentLink(values.paymentProvider, values.paymentHandleOrUrl, errors);
   }
 }

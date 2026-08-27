@@ -3,7 +3,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useDictionary } from "@/components/i18n-provider";
-import type { QrFormValues, QrType } from "@/lib/qr/types";
+import { paymentProviders, socialNetworks, type QrFormValues, type QrType } from "@/lib/qr/types";
 
 type Props = { type: QrType; values: QrFormValues; onChange: (values: QrFormValues) => void; error?: string };
 
@@ -162,12 +162,34 @@ export function QrForm({ type, values, onChange, error }: Props) {
               value={values.socialNetwork}
               onChange={(event) => onChange({ ...values, socialNetwork: event.target.value as QrFormValues["socialNetwork"] })}
             >
-              <option value="facebook">{dictionary.form.socialFacebook}</option>
-              <option value="instagram">{dictionary.form.socialInstagram}</option>
-              <option value="x">{dictionary.form.socialX}</option>
+              {socialNetworks.map((network) => (
+                <option key={network} value={network}>
+                  {dictionary.form.socialNetworks[network]}
+                </option>
+              ))}
             </select>
           </Field>
           {input(dictionary.form.socialHandleOrUrl, "socialHandleOrUrl", dictionary.form.socialHandleOrUrlPlaceholder)}
+        </>
+      )}
+      {type === "payment" && (
+        <>
+          <Field label={dictionary.form.paymentProvider}>
+            <select
+              className={inputStyle}
+              value={values.paymentProvider}
+              onChange={(event) =>
+                onChange({ ...values, paymentProvider: event.target.value as QrFormValues["paymentProvider"] })
+              }
+            >
+              {paymentProviders.map((provider) => (
+                <option key={provider} value={provider}>
+                  {dictionary.form.paymentProviders[provider]}
+                </option>
+              ))}
+            </select>
+          </Field>
+          {input(dictionary.form.paymentHandleOrUrl, "paymentHandleOrUrl", dictionary.form.paymentHandleOrUrlPlaceholder)}
         </>
       )}
       {error && (

@@ -182,11 +182,27 @@ export type Dictionary = {
     telegramId: string;
     telegramIdPlaceholder: string;
     socialNetwork: string;
-    socialFacebook: string;
-    socialInstagram: string;
-    socialX: string;
+    socialNetworks: Record<
+      | "facebook"
+      | "instagram"
+      | "x"
+      | "youtube"
+      | "tiktok"
+      | "linkedin"
+      | "snapchat"
+      | "reddit"
+      | "discord"
+      | "spotify"
+      | "soundcloud"
+      | "kakaotalk",
+      string
+    >;
     socialHandleOrUrl: string;
     socialHandleOrUrlPlaceholder: string;
+    paymentProvider: string;
+    paymentProviders: Record<"paypal" | "venmo" | "etsy" | "revolut" | "amazon" | "crypto", string>;
+    paymentHandleOrUrl: string;
+    paymentHandleOrUrlPlaceholder: string;
   };
   designer: {
     heading: string;
@@ -255,7 +271,8 @@ export type Dictionary = {
     | "location"
     | "event"
     | "telegram"
-    | "social",
+    | "social"
+    | "payment",
     string
   >;
   errors: {
@@ -277,6 +294,9 @@ export type Dictionary = {
     telegramIdInvalid: string;
     socialHandleRequired: string;
     socialHandleInvalid: string;
+    paymentHandleRequired: string;
+    paymentHandleInvalid: string;
+    paymentUrlRequired: string;
   };
   export: {
     noContent: string;

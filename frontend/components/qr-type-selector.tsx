@@ -15,6 +15,7 @@ import {
   Phone,
   Share2,
   Star,
+  Wallet,
   Wifi,
 } from "lucide-react";
 import { useDictionary } from "@/components/i18n-provider";
@@ -35,6 +36,7 @@ const icons: Record<QrType, typeof Link2> = {
   event: Calendar,
   telegram: MessageCircle,
   social: Share2,
+  payment: Wallet,
 };
 
 export function QrTypeSelector({ type, onChange }: { type: QrType; onChange: (type: QrType) => void }) {

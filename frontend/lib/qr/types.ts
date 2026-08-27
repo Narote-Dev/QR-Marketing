@@ -1,4 +1,5 @@
 // Change: Phase A/B static QR content types (generator); SEO only for Phase A slugs.
+// Change: Expand Social networks + add Payment type for static deep links (no hosting).
 export const qrTypes = [
   "url",
   "text",
@@ -14,10 +15,28 @@ export const qrTypes = [
   "event",
   "telegram",
   "social",
+  "payment",
 ] as const;
 export type QrType = (typeof qrTypes)[number];
 
-export type SocialNetwork = "facebook" | "instagram" | "x";
+export const socialNetworks = [
+  "facebook",
+  "instagram",
+  "x",
+  "youtube",
+  "tiktok",
+  "linkedin",
+  "snapchat",
+  "reddit",
+  "discord",
+  "spotify",
+  "soundcloud",
+  "kakaotalk",
+] as const;
+export type SocialNetwork = (typeof socialNetworks)[number];
+
+export const paymentProviders = ["paypal", "venmo", "etsy", "revolut", "amazon", "crypto"] as const;
+export type PaymentProvider = (typeof paymentProviders)[number];
 
 export type QrFormValues = {
   url: string;
@@ -51,6 +70,8 @@ export type QrFormValues = {
   telegramId: string;
   socialNetwork: SocialNetwork;
   socialHandleOrUrl: string;
+  paymentProvider: PaymentProvider;
+  paymentHandleOrUrl: string;
 };
 
 export const defaultQrValues: QrFormValues = {
@@ -85,6 +106,8 @@ export const defaultQrValues: QrFormValues = {
   telegramId: "",
   socialNetwork: "instagram",
   socialHandleOrUrl: "",
+  paymentProvider: "paypal",
+  paymentHandleOrUrl: "",
 };
 
 export const qrTypeLabels: Record<QrType, string> = {
@@ -102,4 +125,5 @@ export const qrTypeLabels: Record<QrType, string> = {
   event: "Event",
   telegram: "Telegram",
   social: "Social",
+  payment: "Payment",
 };

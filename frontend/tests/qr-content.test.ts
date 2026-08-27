@@ -79,6 +79,44 @@ test("builds social X QR content from URL", () =>
     }).value,
     "https://x.com/brand",
   ));
+test("builds social YouTube QR content", () =>
+  assert.equal(
+    buildQrContent("social", { ...defaultQrValues, socialNetwork: "youtube", socialHandleOrUrl: "@channel" }).value,
+    "https://www.youtube.com/@channel",
+  ));
+test("builds social TikTok QR content", () =>
+  assert.equal(
+    buildQrContent("social", { ...defaultQrValues, socialNetwork: "tiktok", socialHandleOrUrl: "creator" }).value,
+    "https://www.tiktok.com/@creator",
+  ));
+test("builds social Reddit subreddit QR content", () =>
+  assert.equal(
+    buildQrContent("social", { ...defaultQrValues, socialNetwork: "reddit", socialHandleOrUrl: "r/qrcode" }).value,
+    "https://www.reddit.com/r/qrcode",
+  ));
+test("builds social Discord invite QR content", () =>
+  assert.equal(
+    buildQrContent("social", { ...defaultQrValues, socialNetwork: "discord", socialHandleOrUrl: "my-server" }).value,
+    "https://discord.gg/my-server",
+  ));
+test("builds PayPal payment QR content", () =>
+  assert.equal(
+    buildQrContent("payment", { ...defaultQrValues, paymentProvider: "paypal", paymentHandleOrUrl: "shop" }).value,
+    "https://paypal.me/shop",
+  ));
+test("builds crypto payment QR from bitcoin URI", () =>
+  assert.equal(
+    buildQrContent("payment", {
+      ...defaultQrValues,
+      paymentProvider: "crypto",
+      paymentHandleOrUrl: "bitcoin:bc1qexample",
+    }).value,
+    "bitcoin:bc1qexample",
+  ));
+test("rejects Amazon payment without full URL", () =>
+  assert.ok(
+    buildQrContent("payment", { ...defaultQrValues, paymentProvider: "amazon", paymentHandleOrUrl: "store" }).error,
+  ));
 test("rejects invalid required input", () => assert.ok(buildQrContent("url", { ...defaultQrValues, url: "not-a-url" }).error));
 test("rejects empty vCard name", () => assert.ok(buildQrContent("vcard", { ...defaultQrValues }).error));
 test("rejects empty LINE id", () => assert.ok(buildQrContent("line", { ...defaultQrValues, lineId: "" }).error));
