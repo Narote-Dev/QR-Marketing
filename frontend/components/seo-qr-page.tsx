@@ -37,7 +37,7 @@ export function SeoQrPage({
       <SiteHeader locale={locale} dictionary={dictionary} currentPath={pagePathForSlug(page.slug)} />
       <Breadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
-        <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{page.introduction}</p>
         <div className="mt-9">
           <QrGenerator
