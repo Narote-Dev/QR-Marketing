@@ -131,7 +131,7 @@ export const en: Dictionary = {
       "Upload a CSV, apply one shared design, and download a ZIP of PNG files. Everything runs in your browser — up to 50 codes per batch.",
     step1Title: "1. Upload CSV",
     step2Title: "2. Customize design",
-    step3Title: "3. Download ZIP",
+    step3Title: "3. Preview & download ZIP",
     csvHint:
       "Use a CSV with columns url, filename, and optional label. Maximum {max} rows per batch. Invalid rows are skipped from the ZIP.",
     csvUpload: "Upload CSV",
@@ -159,6 +159,9 @@ export const en: Dictionary = {
     progressLabel: "Rendering {done} of {total}…",
     previewLimitNote: "Showing first {shown} of {total} rows.",
     guideLink: "Read the full bulk QR guide ↓",
+    livePreview: "Live design preview",
+    livePreviewSample: "Sample URL — upload a CSV to preview your first ready row.",
+    livePreviewFromCsv: "Previewing the first ready row: {file}",
   },
   bulkQrGuide: {
     heading: "Bulk QR code guide — CSV to ZIP",

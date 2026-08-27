@@ -159,6 +159,9 @@ export type Dictionary = {
     progressLabel: string;
     previewLimitNote: string;
     guideLink: string;
+    livePreview: string;
+    livePreviewSample: string;
+    livePreviewFromCsv: string;
   };
   bulkQrGuide: {
     heading: string;

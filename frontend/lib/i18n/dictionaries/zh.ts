@@ -129,7 +129,7 @@ export const zh: Dictionary = {
       "上传 CSV，应用统一设计，下载 PNG 压缩包。全部在浏览器中完成，每批最多 50 个。",
     step1Title: "1. 上传 CSV",
     step2Title: "2. 自定义设计",
-    step3Title: "3. 下载 ZIP",
+    step3Title: "3. 预览并下载 ZIP",
     csvHint:
       "CSV 需包含 url、filename 列，label 可选。每批最多 {max} 行。无效行不会包含在 ZIP 中。",
     csvUpload: "上传 CSV",
@@ -157,6 +157,9 @@ export const zh: Dictionary = {
     progressLabel: "正在渲染 {done} / {total}…",
     previewLimitNote: "显示前 {shown} 行，共 {total} 行。",
     guideLink: "阅读完整批量指南 ↓",
+    livePreview: "实时设计预览",
+    livePreviewSample: "当前为示例网址 — 上传 CSV 后可预览第一个就绪行。",
+    livePreviewFromCsv: "正在预览第一个就绪行：{file}",
   },
   bulkQrGuide: {
     heading: "批量二维码指南 — 从 CSV 到 ZIP",

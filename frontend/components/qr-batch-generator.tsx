@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { Download, FileUp } from "lucide-react";
 import { useDictionary } from "@/components/i18n-provider";
 import { QrDesigner } from "@/components/qr-designer";
+import { QrPreview } from "@/components/qr-preview";
 import { TemplateSelector } from "@/components/templates/template-selector";
 import { buildSampleCsv, parseBatchCsv } from "@/lib/qr/batch/csv";
 import { BATCH_MAX_ROWS, BATCH_PREVIEW_ROWS, type BatchRowValidated } from "@/lib/qr/batch/types";
@@ -12,8 +13,10 @@ import { partitionBatchRows, validateBatchRows } from "@/lib/qr/batch/validate";
 import { defaultQrDesign, type QrDesign } from "@/lib/qr/design";
 import { downloadBlob } from "@/lib/qr/export";
 import { applyTemplate, clearTemplateDesign } from "@/lib/templates/apply";
-import { getTemplateById, localizeTemplate } from "@/lib/templates/catalog";
+import { localizeTemplate } from "@/lib/templates/catalog";
 import type { QrTemplate, TemplateCategory } from "@/lib/templates/types";
+
+const SAMPLE_PREVIEW_URL = "https://example.com/menu";
 
 export function QrBatchGenerator() {
   const dictionary = useDictionary();
@@ -33,6 +36,14 @@ export function QrBatchGenerator() {
 
   const { valid, invalid } = useMemo(() => partitionBatchRows(rows), [rows]);
   const previewRows = rows.slice(0, BATCH_PREVIEW_ROWS);
+
+  // Step 1: Prefer the first ready CSV row for live preview; otherwise show a sample URL.
+  const previewSource = valid[0];
+  const previewValue = previewSource?.payload ?? SAMPLE_PREVIEW_URL;
+  const previewDesign = useMemo(
+    () => (previewSource?.label ? { ...design, frameText: previewSource.label } : design),
+    [design, previewSource?.label],
+  );
 
   const handleSelectTemplate = (template: QrTemplate) => {
     const localized = localizeTemplate(template, dictionary) ?? template;
@@ -220,6 +231,17 @@ export function QrBatchGenerator() {
           <h3 id="bulk-step-3" className="text-lg font-bold tracking-tight text-slate-900">
             {copy.step3Title}
           </h3>
+
+          {/* Change: Live QR sample so template/design changes are visible before ZIP export. */}
+          <div className="space-y-2">
+            <p className="text-sm font-semibold text-slate-700">{copy.livePreview}</p>
+            <QrPreview value={previewValue} design={previewDesign} />
+            <p className="text-xs text-slate-500">
+              {previewSource
+                ? copy.livePreviewFromCsv.replace("{file}", previewSource.fileName)
+                : copy.livePreviewSample}
+            </p>
+          </div>
 
           <div className="rounded-2xl border bg-slate-50 p-4 text-sm text-slate-700">
             <p>{copy.rowsSummary.replace("{valid}", String(valid.length)).replace("{total}", String(rows.length))}</p>

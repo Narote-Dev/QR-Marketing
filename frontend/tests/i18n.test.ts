@@ -59,6 +59,8 @@ test("bulk QR copy is complete and localized labels stay aligned", async () => {
 
   for (const [locale, dictionary] of Object.entries(dictionaries)) {
     assert.ok(dictionary.bulkQr.heading, `${locale} bulkQr heading`);
+    assert.ok(dictionary.bulkQr.livePreview, `${locale} bulkQr livePreview`);
+    assert.ok(dictionary.bulkQr.livePreviewSample, `${locale} bulkQr livePreviewSample`);
     assert.ok(dictionary.bulkQrGuide.heading, `${locale} bulkQrGuide heading`);
     assert.ok(dictionary.seo.bulk.h1, `${locale} seo.bulk h1`);
     assert.ok(dictionary.chrome.bulkQrGenerator, `${locale} chrome.bulkQrGenerator`);
