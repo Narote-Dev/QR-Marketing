@@ -10,9 +10,19 @@ type Props = {
   languageLabel: string;
   secondaryHref: string;
   secondaryLabel: string;
+  bulkHref?: string;
+  bulkLabel?: string;
 };
 
-export function SiteHeader({ locale, siteName, languageLabel, secondaryHref, secondaryLabel }: Props) {
+export function SiteHeader({
+  locale,
+  siteName,
+  languageLabel,
+  secondaryHref,
+  secondaryLabel,
+  bulkHref,
+  bulkLabel,
+}: Props) {
   // Change: Replace the text brand with the supplied genmyQRCode.com wordmark.
   return (
     <header className="mb-8 flex flex-wrap items-center justify-between gap-3">
@@ -28,6 +38,14 @@ export function SiteHeader({ locale, siteName, languageLabel, secondaryHref, sec
       </Link>
       <div className="flex flex-wrap items-center gap-4">
         <LanguageSelector locale={locale} label={languageLabel} />
+        {bulkHref && bulkLabel && (
+          <Link
+            href={localizedPath(locale, bulkHref)}
+            className="rounded-lg border border-brand-teal bg-brand-cream/60 px-3 py-1.5 text-sm font-semibold text-brand-teal-dark transition hover:bg-brand-cream"
+          >
+            {bulkLabel}
+          </Link>
+        )}
         <Link href={localizedPath(locale, secondaryHref)} className="text-sm font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline">
           {secondaryLabel}
         </Link>
