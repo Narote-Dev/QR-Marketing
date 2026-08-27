@@ -99,6 +99,8 @@ export type Dictionary = {
     starterLabels: Record<"restaurant-menu" | "hotel-wifi" | "google-review" | "line" | "business-card", string>;
     step1Title: string;
     step2Title: string;
+    step2Optional: string;
+    step2Hint: string;
     step3Title: string;
     livePreview: string;
     downloadPng: string;

@@ -96,7 +96,7 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
       <TemplateBreadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{page.introduction}</p>
+        <p className="mt-4 text-lg leading-8 text-slate-600">{page.introduction}</p>
 
         <div className="mt-8 space-y-3 rounded-2xl border bg-slate-50 p-5">
           <h2 className="text-lg font-bold text-slate-900">{dictionary.chrome.featuredCollection}</h2>

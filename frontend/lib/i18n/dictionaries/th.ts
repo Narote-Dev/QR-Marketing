@@ -94,6 +94,8 @@ export const th: Dictionary = {
     },
     step1Title: "1. ใส่เนื้อหา",
     step2Title: "2. ปรับแต่ง",
+    step2Optional: "ไม่บังคับ",
+    step2Hint: "ขยายเฉพาะเมื่ออยากเลือกเทมเพลต สี หรือโลโก้",
     step3Title: "3. ดูตัวอย่างและดาวน์โหลด",
     livePreview: "ตัวอย่างแบบสด",
     downloadPng: "ดาวน์โหลด PNG",
