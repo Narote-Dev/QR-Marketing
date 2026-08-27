@@ -26,7 +26,8 @@ export type { QrSeoSlug };
 export { qrSeoSlugs, getQrSeoGeneratorSeed } from "@/lib/seo/qr-seo-seed";
 
 // Change: Related links for Phase A tools plus new Social brand and Payment SEO pages.
-const qrRelated: Record<QrSeoSlug, QrSeoSlug[]> = {
+// Change: Allow hub slugs (bulk) alongside QR type pages in related lists.
+const qrRelated: Record<QrSeoSlug, Array<QrSeoSlug | "bulk-qr-generator">> = {
   // Change: Surface bulk hub next to URL tool for stronger primary internal linking.
   url: ["dynamic", "wifi", "email", "vcard", "payment", "bulk-qr-generator"],
   wifi: ["url", "sms", "email"],
