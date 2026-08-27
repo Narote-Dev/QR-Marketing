@@ -93,6 +93,8 @@ export const zh: Dictionary = {
     },
     step1Title: "1. 添加内容",
     step2Title: "2. 自定义",
+    step2Optional: "可选",
+    step2Hint: "仅在需要模板、颜色或标志样式时展开。",
     step3Title: "3. 预览并下载",
     livePreview: "实时预览",
     downloadPng: "下载 PNG",

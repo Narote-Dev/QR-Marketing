@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Download, Layers } from "lucide-react";
+import { ChevronDown, Download, Layers } from "lucide-react";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrCreator } from "@/components/dynamic-qr-creator";
 import { GeneratorFeedback } from "@/components/generator-feedback";
@@ -27,6 +27,7 @@ import { applyTemplate, clearTemplateDesign } from "@/lib/templates/apply";
 import { getTemplateById, localizeTemplate } from "@/lib/templates/catalog";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { QrTemplate, TemplateCategory } from "@/lib/templates/types";
+import { cn } from "@/lib/utils";
 
 type Props = {
   initialType?: QrType;
@@ -88,6 +89,8 @@ export function QrGenerator({
   const [downloadError, setDownloadError] = useState<string>();
   const [mode, setMode] = useState<GeneratorMode>("static");
   const [dynamicShortUrl, setDynamicShortUrl] = useState<string>();
+  // Change: Keep customize collapsed by default for fast create; open when a landing template is preselected.
+  const [customizeOpen, setCustomizeOpen] = useState(() => Boolean(initialTemplateId));
   const previewRef = useRef<QrPreviewHandle>(null);
   const result = useMemo(() => buildQrContent(type, values, dictionary), [type, values, dictionary]);
   // Change: Dynamic mode encodes the short URL returned by the API, not the destination.
@@ -265,16 +268,41 @@ export function QrGenerator({
           </section>
 
           <section aria-labelledby="generator-step-2" className="min-w-0 border-t pt-10">
-            <h3 id="generator-step-2" className="mb-4 text-lg font-bold tracking-tight text-slate-900">
-              {dictionary.generator.step2Title}
-            </h3>
-            <TemplateSelector
-              selectedId={selectedTemplateId}
-              initialCategory={templateCategory}
-              onSelect={handleSelectTemplate}
-              onClear={handleClearTemplate}
-            />
-            <QrDesigner design={design} onChange={setDesign} />
+            <button
+              type="button"
+              className="flex w-full items-center justify-between gap-3 rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+              aria-expanded={customizeOpen}
+              aria-controls="generator-step-2-panel"
+              onClick={() => setCustomizeOpen((open) => !open)}
+            >
+              <span className="min-w-0">
+                <span id="generator-step-2" className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="text-lg font-bold tracking-tight text-slate-900">{dictionary.generator.step2Title}</span>
+                  <span className="text-sm font-medium text-slate-500">{dictionary.generator.step2Optional}</span>
+                </span>
+                {!customizeOpen && (
+                  <span className="mt-1 block text-sm text-slate-500">{dictionary.generator.step2Hint}</span>
+                )}
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-5 w-5 shrink-0 text-slate-500 transition-transform duration-200",
+                  customizeOpen && "rotate-180",
+                )}
+                aria-hidden="true"
+              />
+            </button>
+            {customizeOpen && (
+              <div id="generator-step-2-panel" className="mt-4">
+                <TemplateSelector
+                  selectedId={selectedTemplateId}
+                  initialCategory={templateCategory}
+                  onSelect={handleSelectTemplate}
+                  onClear={handleClearTemplate}
+                />
+                <QrDesigner design={design} onChange={setDesign} />
+              </div>
+            )}
           </section>
         </div>
 

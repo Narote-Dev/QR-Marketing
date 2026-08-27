@@ -95,6 +95,8 @@ export const en: Dictionary = {
     },
     step1Title: "1. Add content",
     step2Title: "2. Customize",
+    step2Optional: "Optional",
+    step2Hint: "Expand only if you want templates, colors, or logo styling.",
     step3Title: "3. Preview & download",
     livePreview: "Live preview",
     downloadPng: "Download PNG",
