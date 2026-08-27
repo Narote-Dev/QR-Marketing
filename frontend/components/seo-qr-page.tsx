@@ -8,6 +8,7 @@ import { SeoJsonLd } from "@/components/seo-json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Locale } from "@/lib/i18n/config";
+import { pagePathForSlug } from "@/lib/i18n/paths";
 import type { Dictionary } from "@/lib/i18n/types";
 import type { SeoPage } from "@/lib/seo/site";
 import type { PaymentProvider, QrType, SocialNetwork } from "@/lib/qr/types";
@@ -33,15 +34,7 @@ export function SeoQrPage({
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
       <SeoJsonLd page={page} locale={locale} />
-      <SiteHeader
-        locale={locale}
-        siteName={dictionary.site.name}
-        languageLabel={dictionary.chrome.language}
-        secondaryHref="/qr-code-generator"
-        secondaryLabel={dictionary.chrome.allQrTools}
-        bulkHref="/bulk-qr-generator"
-        bulkLabel={dictionary.chrome.bulkQrGenerator}
-      />
+      <SiteHeader locale={locale} dictionary={dictionary} currentPath={pagePathForSlug(page.slug)} />
       <Breadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>

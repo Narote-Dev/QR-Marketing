@@ -90,10 +90,8 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
       <TemplateJsonLd page={page} locale={locale} />
       <SiteHeader
         locale={locale}
-        siteName={dictionary.site.name}
-        languageLabel={dictionary.chrome.language}
-        secondaryHref="/templates"
-        secondaryLabel={dictionary.chrome.allTemplates}
+        dictionary={dictionary}
+        currentPath={page.category ? `/templates/${page.category}` : "/templates"}
       />
       <TemplateBreadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>

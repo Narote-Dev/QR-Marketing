@@ -33,13 +33,7 @@ export function LegalPage({ locale, dictionary, document }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteHeader
-        locale={locale}
-        siteName={dictionary.site.name}
-        languageLabel={dictionary.chrome.language}
-        secondaryHref="/qr-code-generator"
-        secondaryLabel={dictionary.chrome.allQrTools}
-      />
+      <SiteHeader locale={locale} dictionary={dictionary} currentPath={`/${document.slug}`} />
 
       <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
         <Link

@@ -61,15 +61,7 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
       <UseCaseJsonLd page={page} locale={locale} />
-      <SiteHeader
-        locale={locale}
-        siteName={dictionary.site.name}
-        languageLabel={dictionary.chrome.language}
-        secondaryHref="/qr-code-generator"
-        secondaryLabel={dictionary.chrome.allQrTools}
-        bulkHref="/bulk-qr-generator"
-        bulkLabel={dictionary.chrome.bulkQrGenerator}
-      />
+      <SiteHeader locale={locale} dictionary={dictionary} currentPath={useCasePathForSlug(page.slug)} />
 
       <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
         <Link

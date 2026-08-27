@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ConsentBanner } from "@/components/consent-banner";
 import { I18nProvider } from "@/components/i18n-provider";
+import { SiteNavJsonLd } from "@/components/site-nav-json-ld";
 import { htmlLang, isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
@@ -33,6 +34,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Next.js only allows one <html>; set lang through a scriptless approach on the body parent.
   return (
     <div lang={htmlLang[locale]}>
+      <SiteNavJsonLd locale={locale} dictionary={dictionary} />
       <I18nProvider locale={locale} dictionary={dictionary}>
         {children}
         <ConsentBanner />

@@ -28,6 +28,10 @@ export const en: Dictionary = {
     about: "About",
     contact: "Contact",
     bulkQrGenerator: "Bulk QR codes",
+    navGenerator: "Create QR",
+    navMenu: "Open menu",
+    navClose: "Close menu",
+    navAria: "Main navigation",
     footerNavAria: "Footer",
     footerRights: "All rights reserved.",
     popularUseCases: "Popular specialized use cases",
@@ -666,10 +670,10 @@ export const en: Dictionary = {
     generator: {
       title: "Free QR Code Generator — No Signup",
       description:
-        "Free QR code generator in your browser—no signup. Create static codes for URLs, WiFi, vCard, WhatsApp, LINE, menus, and more, then customize and download instantly.",
+        "Free QR code generator in your browser—no signup. Create static codes for URLs, WiFi, vCard, WhatsApp, LINE, and more. Customize, download, or jump to bulk CSV and templates.",
       h1: "Free QR code generator — no signup",
       introduction:
-        "Create a practical, static QR code in your browser for free. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it.",
+        "Create a practical, static QR code in your browser for free. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it. Need many URL codes? Use bulk CSV. Prefer a ready look? Start from templates.",
       howTo: [
         "Choose the QR type that matches what people should do after scanning.",
         "Enter the required details and review the live preview.",
@@ -684,17 +688,17 @@ export const en: Dictionary = {
         {
           question: "What can I encode?",
           answer:
-            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles. For many URL codes at once, use the bulk CSV generator.",
+            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles. For many URL codes at once, use the bulk CSV generator. For ready-made designs, browse templates.",
         },
       ],
     },
     bulk: {
       title: "Bulk QR Code Generator — CSV Upload, Up to 50 Codes",
       description:
-        "Create many URL QR codes at once from a CSV file. Apply one design, preview rows, and download a ZIP of PNG files in your browser — no signup.",
+        "Create many URL QR codes at once from a CSV file. Apply one design from templates or customize, preview rows, and download a ZIP of PNG files — no signup.",
       h1: "Bulk QR code generator from CSV",
       introduction:
-        "Upload a spreadsheet of links, customize the visual design once, and export up to fifty ready-to-print QR codes as PNG files in a single ZIP download.",
+        "Upload a spreadsheet of links, customize the visual design once (or start from a template), and export up to fifty ready-to-print QR codes as PNG files in a single ZIP download. For a single code, use the free QR generator.",
       howTo: [
         "Prepare a CSV with url, filename, and optional label columns, then upload it.",
         "Pick a template or customize colors, logo, frame, and size for the whole batch.",

@@ -2,7 +2,8 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Dictionary } from "@/lib/i18n/types";
-import { getBulkPage, getQrPages, type QrSeoSlug } from "@/lib/seo/site";
+import { getBulkPage, getGeneratorPage, getQrPages, type QrSeoSlug } from "@/lib/seo/site";
+import { getTemplateIndexPage } from "@/lib/seo/templates";
 
 type Props = {
   slugs: string[];
@@ -14,6 +15,8 @@ export function RelatedQrTools({ slugs, locale, dictionary }: Props) {
   // Step 1: Resolve related tools from the active locale dictionary.
   const pages = getQrPages(dictionary);
   const bulkPage = getBulkPage(dictionary);
+  const generatorPage = getGeneratorPage(dictionary);
+  const templatesPage = getTemplateIndexPage(dictionary);
 
   return (
     <section className="mt-12" aria-labelledby="related-heading">
@@ -31,6 +34,32 @@ export function RelatedQrTools({ slugs, locale, dictionary }: Props) {
               >
                 <h3 className="font-semibold text-brand-teal-dark">{bulkPage.title}</h3>
                 <p className="mt-1 text-sm text-slate-600">{dictionary.seo.bulk.description}</p>
+              </Link>
+            );
+          }
+
+          if (slug === "qr-code-generator") {
+            return (
+              <Link
+                key={slug}
+                href={localizedPath(locale, "/qr-code-generator")}
+                className="rounded-xl border bg-white p-4 transition hover:border-brand-teal hover:shadow-sm"
+              >
+                <h3 className="font-semibold text-brand-teal-dark">{generatorPage.title}</h3>
+                <p className="mt-1 text-sm text-slate-600">{dictionary.seo.generator.description}</p>
+              </Link>
+            );
+          }
+
+          if (slug === "templates") {
+            return (
+              <Link
+                key={slug}
+                href={localizedPath(locale, "/templates")}
+                className="rounded-xl border bg-white p-4 transition hover:border-brand-teal hover:shadow-sm"
+              >
+                <h3 className="font-semibold text-brand-teal-dark">{templatesPage.title}</h3>
+                <p className="mt-1 text-sm text-slate-600">{templatesPage.description}</p>
               </Link>
             );
           }
