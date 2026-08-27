@@ -4,7 +4,7 @@ import type { Dictionary } from "@/lib/i18n/types";
 export const en: Dictionary = {
   site: {
     name: "Build Your QR",
-    description: "Free static QR code generator, visual templates, and practical QR tools.",
+    description: "Free static QR code generator, visual templates, bulk CSV export, and practical QR tools.",
   },
   chrome: {
     allQrTools: "All QR tools",
@@ -27,6 +27,7 @@ export const en: Dictionary = {
     termsOfService: "Terms of Service",
     about: "About",
     contact: "Contact",
+    bulkQrGenerator: "Bulk QR generator",
     footerNavAria: "Footer",
     footerRights: "All rights reserved.",
     popularUseCases: "Popular specialized use cases",
@@ -98,6 +99,8 @@ export const en: Dictionary = {
     downloadFailed: "Download failed.",
     downloadHint:
       "PNG includes the frame, label, and background when selected. SVG exports the scalable QR artwork for print and editing.",
+    bulkPromo: "Need many URL QR codes with the same design?",
+    bulkPromoLink: "Open the bulk CSV generator",
     modeStatic: "Static",
     modeDynamic: "Dynamic",
     modeAria: "QR mode",
@@ -120,6 +123,150 @@ export const en: Dictionary = {
       modeLine: "Mode",
       typeLine: "QR type",
     },
+  },
+  bulkQr: {
+    eyebrow: "Bulk QR generator",
+    heading: "Create many URL QR codes at once",
+    intro:
+      "Upload a CSV, apply one shared design, and download a ZIP of PNG files. Everything runs in your browser — up to 50 codes per batch.",
+    step1Title: "1. Upload CSV",
+    step2Title: "2. Customize design",
+    step3Title: "3. Download ZIP",
+    csvHint:
+      "Use a CSV with columns url, filename, and optional label. Maximum {max} rows per batch. Invalid rows are skipped from the ZIP.",
+    csvUpload: "Upload CSV",
+    csvSampleDownload: "Download sample CSV",
+    csvSampleFileName: "bulk-qr-sample.csv",
+    csvEmpty: "The CSV file has no usable rows. Add at least one URL.",
+    csvTooMany: "Only the first {max} rows were loaded. Split larger lists into multiple batches.",
+    csvNoUrlColumn: "Could not find a url column in the CSV header.",
+    csvInvalidType: "Please upload a .csv file.",
+    csvLoaded: "Loaded {name}.",
+    rowColumnUrl: "URL",
+    rowColumnFile: "Filename",
+    rowColumnLabel: "Label",
+    rowColumnStatus: "Status",
+    rowValid: "Ready",
+    rowInvalid: "Invalid",
+    rowsSummary: "{valid} of {total} rows are ready to export.",
+    invalidRowsNote: "{count} row(s) have errors and will not be included in the ZIP.",
+    downloadZip: "Download ZIP ({count} PNGs)",
+    preparingZip: "Preparing ZIP…",
+    zipFailed: "ZIP export failed. Try again with fewer rows.",
+    zipHint:
+      "PNG files include your selected frame, label, and background. Codes are rendered one at a time to stay light on memory.",
+    zipFileName: "bulk-qr-codes.zip",
+    progressLabel: "Rendering {done} of {total}…",
+    previewLimitNote: "Showing first {shown} of {total} rows.",
+    guideLink: "Read the full bulk QR guide ↓",
+  },
+  bulkQrGuide: {
+    heading: "Bulk QR code guide — CSV to ZIP",
+    overviewTitle: "What this tool does",
+    overview: [
+      "The bulk generator turns a list of website links into many matching QR codes in one run. You upload a CSV, apply one visual design to every code, and download a ZIP folder of PNG files ready for print or digital use.",
+      "Everything happens in your browser. We do not store your URLs, CSV file, or exported images on a server. No account is required.",
+      "Each batch supports up to 50 URL QR codes so export stays fast and reliable on everyday laptops and phones — including devices with about 4 GB of RAM.",
+    ],
+    csvTitle: "CSV file format",
+    csvIntro:
+      "Prepare a comma-separated file with one QR code per row. A header row is recommended but not required when columns appear in the default order.",
+    csvColumns: [
+      {
+        name: "url",
+        description: "Required. The full website address to encode, starting with https:// or http://.",
+      },
+      {
+        name: "filename",
+        description: "Optional but recommended. Used as the PNG file name inside the ZIP, without the .png extension.",
+      },
+      {
+        name: "label",
+        description:
+          "Optional. Becomes the frame text when your design uses a label frame — useful for table numbers, room names, or product titles.",
+      },
+    ],
+    csvExampleTitle: "Example CSV",
+    csvExample:
+      "url,filename,label\nhttps://example.com/menu,table-01,Scan for menu\nhttps://example.com/promo,table-02,Today's special\nhttps://example.com/wifi,lobby-wifi,Free guest WiFi",
+    csvNotes: [
+      "You can create the file in Excel, Google Sheets, or any spreadsheet app, then export as CSV (UTF-8).",
+      "If a URL contains commas, wrap the cell in double quotes.",
+      "Rows without a valid http or https URL are marked Invalid and skipped from the ZIP.",
+      "Lists longer than 50 rows are trimmed to the first 50 — split very large jobs into multiple batches.",
+    ],
+    stepsTitle: "Step-by-step workflow",
+    steps: [
+      {
+        title: "Prepare and upload your CSV",
+        body:
+          "Click Upload CSV or download the sample file first. After upload, the preview table shows each row, its filename, label, and whether the URL is ready.",
+      },
+      {
+        title: "Choose one design for the whole batch",
+        body:
+          "Pick a template or customize colors, dot style, logo, frame, and size. The same design applies to every valid row. Per-row labels override the default frame text when a label column is present.",
+      },
+      {
+        title: "Review valid rows",
+        body:
+          "Check the summary panel on the right. Only rows marked Ready are included in the export. Fix invalid URLs in your spreadsheet and re-upload if needed.",
+      },
+      {
+        title: "Download the ZIP",
+        body:
+          "Click Download ZIP to render each PNG one at a time and pack them into bulk-qr-codes.zip. PNG files include your frame, label, and background when selected.",
+      },
+      {
+        title: "Test before printing",
+        body:
+          "Open a few PNG files from the ZIP and scan them with your phone at the size you plan to print. Confirm each link opens the correct page.",
+      },
+    ],
+    useCasesTitle: "Common use cases",
+    useCases: [
+      "Restaurant table tents — one menu or promo link per table with a matching label such as Table 12.",
+      "Hotel room cards — WiFi info pages or welcome links per room number.",
+      "Retail shelf tags — product detail pages for many SKUs with consistent branding.",
+      "Event badges or posters — registration or schedule links for multiple sessions.",
+      "Marketing flyers — UTM-tagged campaign URLs exported with readable file names.",
+    ],
+    tipsTitle: "Design and print tips",
+    tips: [
+      "Use error correction level Q or H when adding a logo so codes remain scannable.",
+      "Keep contrast strong between QR dots and the background.",
+      "Prefer short, stable URLs — fewer characters produce easier-to-scan codes.",
+      "Name files clearly (table-01, room-305) so print shops know which PNG goes where.",
+      "For more than 50 codes, export in batches and keep the same design settings each time.",
+    ],
+    troubleshootingTitle: "Troubleshooting",
+    troubleshooting: [
+      {
+        question: "A row shows Invalid — what should I check?",
+        answer:
+          "Make sure the URL starts with http:// or https://, has no stray spaces, and is a complete web address. Re-export the CSV as UTF-8 if special characters look wrong.",
+      },
+      {
+        question: "Why is my ZIP smaller than the number of CSV rows?",
+        answer:
+          "Only valid rows are exported. Invalid URLs, empty rows, and rows beyond the 50-code limit are excluded.",
+      },
+      {
+        question: "Can I use Excel on Windows?",
+        answer:
+          "Yes. Save or export as CSV. If Excel adds a BOM or semicolon separators, open the file in a text editor and confirm commas separate columns and the url header is present.",
+      },
+      {
+        question: "Does the label column work with every frame style?",
+        answer:
+          "The label replaces frame text when your design uses the label frame. Other frame styles ignore the label column but still export the QR correctly.",
+      },
+      {
+        question: "Will these QR codes expire?",
+        answer:
+          "No. Static URL QR codes keep working as long as the destination website stays online. Changing a link later requires generating a new code.",
+      },
+    ],
   },
   dynamicQr: {
     creatorTitle: "Dynamic QR",
@@ -534,7 +681,47 @@ export const en: Dictionary = {
         {
           question: "What can I encode?",
           answer:
-            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles.",
+            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles. For many URL codes at once, use the bulk CSV generator.",
+        },
+      ],
+    },
+    bulk: {
+      title: "Bulk QR Code Generator — CSV Upload, Up to 50 Codes",
+      description:
+        "Create many URL QR codes at once from a CSV file. Apply one design, preview rows, and download a ZIP of PNG files in your browser — no signup.",
+      h1: "Bulk QR code generator from CSV",
+      introduction:
+        "Upload a spreadsheet of links, customize the visual design once, and export up to fifty ready-to-print QR codes as PNG files in a single ZIP download.",
+      howTo: [
+        "Prepare a CSV with url, filename, and optional label columns, then upload it.",
+        "Pick a template or customize colors, logo, frame, and size for the whole batch.",
+        "Review valid rows and download the ZIP when you are ready to print or share.",
+      ],
+      faqs: [
+        {
+          question: "What CSV format should I use?",
+          answer:
+            "Use a header row with url, filename, and optional label. Each row becomes one QR code. The label becomes the frame text when your design uses a label frame.",
+        },
+        {
+          question: "Is there a limit on how many codes I can create?",
+          answer:
+            "Each batch supports up to 50 URL QR codes so export stays fast and reliable on everyday devices, including phones and laptops with about 4 GB of RAM.",
+        },
+        {
+          question: "Do you store my CSV or QR codes?",
+          answer:
+            "No. Parsing, rendering, and ZIP creation run entirely in your browser. Nothing is uploaded to our servers for bulk export.",
+        },
+        {
+          question: "Can I use the same design for every code?",
+          answer:
+            "Yes. Pick one template or customize colors, logo, and frame once — the design applies to the entire batch. Use the label column to vary frame text per row.",
+        },
+        {
+          question: "What file format do I get?",
+          answer:
+            "A ZIP archive of PNG images. Each PNG composites the QR code with your selected frame, label, and background when enabled.",
         },
       ],
     },

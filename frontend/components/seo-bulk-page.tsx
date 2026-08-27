@@ -1,37 +1,24 @@
-import Link from "next/link";
+import { BulkQrGuide } from "@/components/bulk-qr-guide";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
 import { PopularUseCases } from "@/components/popular-use-cases";
-import { QrGenerator } from "@/components/qr-generator";
+import { QrBatchGenerator } from "@/components/qr-batch-generator";
 import { RelatedQrTools } from "@/components/related-qr-tools";
 import { SeoJsonLd } from "@/components/seo-json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Locale } from "@/lib/i18n/config";
-import { localizedPath } from "@/lib/i18n/paths";
 import type { Dictionary } from "@/lib/i18n/types";
 import type { SeoPage } from "@/lib/seo/site";
-import type { PaymentProvider, QrType, SocialNetwork } from "@/lib/qr/types";
 
 type Props = {
   page: SeoPage;
-  initialType?: QrType;
-  initialSocialNetwork?: SocialNetwork;
-  initialPaymentProvider?: PaymentProvider;
   locale: Locale;
   dictionary: Dictionary;
 };
 
-export function SeoQrPage({
-  page,
-  initialType = "url",
-  initialSocialNetwork,
-  initialPaymentProvider,
-  locale,
-  dictionary,
-}: Props) {
-  // Change: Locale-aware chrome, links, and generator copy for SEO QR pages.
+export function SeoBulkPage({ page, locale, dictionary }: Props) {
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
       <SeoJsonLd page={page} locale={locale} />
@@ -47,26 +34,12 @@ export function SeoQrPage({
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{page.introduction}</p>
         <div className="mt-9">
-          <QrGenerator
-            initialType={initialType}
-            initialSocialNetwork={initialSocialNetwork}
-            initialPaymentProvider={initialPaymentProvider}
-          />
+          <QrBatchGenerator />
         </div>
-        {page.slug === "qr-code-generator" && (
-          <p className="mt-6 max-w-3xl rounded-2xl border border-brand-teal/30 bg-brand-cream/40 px-4 py-3 text-sm text-slate-700">
-            {dictionary.generator.bulkPromo}{" "}
-            <Link
-              href={localizedPath(locale, "/bulk-qr-generator")}
-              className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
-            >
-              {dictionary.generator.bulkPromoLink} →
-            </Link>
-          </p>
-        )}
         <AdSlot placement="seo-after-tool" minHeight={180} />
         <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10">
           <div>
+            <BulkQrGuide />
             <section className="mt-12 max-w-3xl" aria-labelledby="how-to-heading">
               <h2 id="how-to-heading" className="text-2xl font-bold tracking-tight">
                 {dictionary.chrome.howToCreate}
@@ -84,7 +57,6 @@ export function SeoQrPage({
             </section>
             <FaqSection page={page} heading={dictionary.chrome.faqs} />
             <RelatedQrTools slugs={page.related} locale={locale} dictionary={dictionary} />
-            {/* Change: Link hub pages into long-tail use-case clusters for crawl depth. */}
             <PopularUseCases locale={locale} dictionary={dictionary} />
           </div>
           <div className="hidden xl:block">

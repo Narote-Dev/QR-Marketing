@@ -40,6 +40,7 @@ test("dictionaries expose unique SEO titles per locale", async () => {
     const dictionary = await getDictionary(locale);
     const titles = [
       dictionary.seo.generator.title,
+      dictionary.seo.bulk.title,
       ...Object.values(dictionary.seo.qr).map((page) => page.title),
       dictionary.seo.templatesIndex.title,
       ...Object.values(dictionary.seo.templates).map((page) => page.title),

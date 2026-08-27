@@ -28,6 +28,12 @@ export function SiteFooter({ locale, dictionary }: Props) {
             {dictionary.chrome.contact}
           </Link>
           <Link
+            href={localizedPath(locale, "/bulk-qr-generator")}
+            className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+          >
+            {dictionary.chrome.bulkQrGenerator}
+          </Link>
+          <Link
             href={localizedPath(locale, "/privacy-policy")}
             className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
           >

@@ -4,7 +4,8 @@ import QRCodeStyling from "qr-code-styling";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useDictionary } from "@/components/i18n-provider";
 import { createQrStylingOptions, type QrDesign } from "@/lib/qr/design";
-import { composeQrPng, downloadBlob, withDownloadExtension } from "@/lib/qr/export";
+import { downloadBlob, withDownloadExtension } from "@/lib/qr/export";
+import { renderQrBlob } from "@/lib/qr/render";
 
 export type QrPreviewHandle = {
   downloadPng: (fileName?: string) => Promise<void>;
@@ -43,9 +44,7 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
     async downloadPng(fileName = "qr-code.png") {
       if (!value || !qrCode.current) throw new Error(dictionary.export.noContent);
       try {
-        const raw = await qrCode.current.getRawData("png");
-        if (!raw || !(raw instanceof Blob)) throw new Error(dictionary.export.renderFailed);
-        const composed = await composeQrPng(raw, design);
+        const composed = await renderQrBlob(value, design, "png");
         downloadBlob(composed, withDownloadExtension(fileName, "png"));
         setExportError(undefined);
       } catch (error) {
@@ -57,11 +56,7 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
     async downloadSvg(fileName = "qr-code.svg") {
       if (!value || !qrCode.current) throw new Error(dictionary.export.noContent);
       try {
-        // Step 3: Export the styled QR matrix as SVG for print/edit workflows.
-        const raw = await qrCode.current.getRawData("svg");
-        if (!raw || !(raw instanceof Blob)) throw new Error(dictionary.export.renderFailed);
-        const svgBlob =
-          raw.type === "image/svg+xml" ? raw : new Blob([await raw.arrayBuffer()], { type: "image/svg+xml" });
+        const svgBlob = await renderQrBlob(value, design, "svg", { composite: false });
         downloadBlob(svgBlob, withDownloadExtension(fileName, "svg"));
         setExportError(undefined);
       } catch (error) {

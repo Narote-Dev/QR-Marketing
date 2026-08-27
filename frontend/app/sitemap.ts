@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Step 1: Publish every locale URL while attaching hreflang alternates.
   const barePaths = [
     "/qr-code-generator",
+    "/bulk-qr-generator",
     ...Object.values(qrPages).map((page) => `/qr-code/${page.slug}`),
     getTemplatePageBarePath(templateIndexPage),
     ...Object.values(templateCategoryPages).map((page) => getTemplatePageBarePath(page)),
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: new URL(localizedPath(locale, bare), siteUrl).toString(),
       lastModified: now,
       changeFrequency: (bare.includes("generator") || bare === "/templates" ? "weekly" : "monthly") as "weekly" | "monthly",
-      priority: bare === "/qr-code-generator" ? 1 : bare === "/templates" ? 0.9 : 0.8,
+      priority: bare === "/qr-code-generator" ? 1 : bare === "/bulk-qr-generator" ? 0.95 : bare === "/templates" ? 0.9 : 0.8,
       alternates: { languages },
     }));
   });

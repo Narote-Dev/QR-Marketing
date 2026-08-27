@@ -4,7 +4,7 @@ import type { Dictionary } from "@/lib/i18n/types";
 export const zh: Dictionary = {
   site: {
     name: "Build Your QR",
-    description: "免费静态二维码生成器，提供视觉模板和实用二维码工具。",
+    description: "免费静态二维码生成器，提供视觉模板、CSV 批量导出和实用二维码工具。",
   },
   chrome: {
     allQrTools: "全部二维码工具",
@@ -27,6 +27,7 @@ export const zh: Dictionary = {
     termsOfService: "服务条款",
     about: "关于我们",
     contact: "联系我们",
+    bulkQrGenerator: "批量二维码",
     footerNavAria: "页脚",
     footerRights: "保留所有权利。",
     popularUseCases: "热门专项用途",
@@ -96,6 +97,8 @@ export const zh: Dictionary = {
     downloadFailed: "下载失败。",
     downloadHint:
       "PNG 在选择时包含边框、标签和背景。SVG 导出可缩放的二维码图形，便于印刷与编辑。",
+    bulkPromo: "需要许多相同设计的网址二维码？",
+    bulkPromoLink: "打开 CSV 批量生成器",
     modeStatic: "静态",
     modeDynamic: "动态",
     modeAria: "二维码模式",
@@ -118,6 +121,140 @@ export const zh: Dictionary = {
       modeLine: "模式",
       typeLine: "二维码类型",
     },
+  },
+  bulkQr: {
+    eyebrow: "批量二维码",
+    heading: "一次创建多个网址二维码",
+    intro:
+      "上传 CSV，应用统一设计，下载 PNG 压缩包。全部在浏览器中完成，每批最多 50 个。",
+    step1Title: "1. 上传 CSV",
+    step2Title: "2. 自定义设计",
+    step3Title: "3. 下载 ZIP",
+    csvHint:
+      "CSV 需包含 url、filename 列，label 可选。每批最多 {max} 行。无效行不会包含在 ZIP 中。",
+    csvUpload: "上传 CSV",
+    csvSampleDownload: "下载示例 CSV",
+    csvSampleFileName: "bulk-qr-sample.csv",
+    csvEmpty: "CSV 中没有可用行。请至少添加一个 URL。",
+    csvTooMany: "仅加载前 {max} 行。请将更大的列表拆成多批。",
+    csvNoUrlColumn: "在 CSV 表头中找不到 url 列。",
+    csvInvalidType: "请上传 .csv 文件。",
+    csvLoaded: "已加载 {name}。",
+    rowColumnUrl: "URL",
+    rowColumnFile: "文件名",
+    rowColumnLabel: "标签",
+    rowColumnStatus: "状态",
+    rowValid: "就绪",
+    rowInvalid: "无效",
+    rowsSummary: "{total} 行中有 {valid} 行可导出。",
+    invalidRowsNote: "有 {count} 行存在错误，不会包含在 ZIP 中。",
+    downloadZip: "下载 ZIP（{count} 个 PNG）",
+    preparingZip: "正在准备 ZIP…",
+    zipFailed: "ZIP 导出失败。请减少行数后重试。",
+    zipHint:
+      "PNG 包含所选边框、标签和背景。为节省内存，二维码会逐个渲染。",
+    zipFileName: "bulk-qr-codes.zip",
+    progressLabel: "正在渲染 {done} / {total}…",
+    previewLimitNote: "显示前 {shown} 行，共 {total} 行。",
+    guideLink: "阅读完整批量指南 ↓",
+  },
+  bulkQrGuide: {
+    heading: "批量二维码指南 — 从 CSV 到 ZIP",
+    overviewTitle: "这个工具做什么",
+    overview: [
+      "批量生成器将网站链接列表一次性转换为多个二维码。上传 CSV，应用统一视觉设计，然后下载包含 PNG 文件的 ZIP，可直接用于打印或数字分发。",
+      "全部在浏览器中完成。我们不会在服务器上存储您的 URL、CSV 文件或导出的图片。无需注册账号。",
+      "每批最多支持 50 个网址二维码，以便在普通笔记本和手机上快速稳定导出，包括约 4 GB 内存的设备。",
+    ],
+    csvTitle: "CSV 文件格式",
+    csvIntro: "准备逗号分隔文件，每行一个二维码。建议使用表头行；若列按默认顺序排列，也可省略表头。",
+    csvColumns: [
+      {
+        name: "url",
+        description: "必填。要编码的完整网址，以 https:// 或 http:// 开头。",
+      },
+      {
+        name: "filename",
+        description: "可选但建议填写。用作 ZIP 内 PNG 文件名，无需 .png 后缀。",
+      },
+      {
+        name: "label",
+        description: "可选。当设计使用标签边框时，作为边框文字 — 适用于桌号、房间名或产品标题。",
+      },
+    ],
+    csvExampleTitle: "CSV 示例",
+    csvExample:
+      "url,filename,label\nhttps://example.com/menu,table-01,Scan for menu\nhttps://example.com/promo,table-02,Today's special\nhttps://example.com/wifi,lobby-wifi,Free guest WiFi",
+    csvNotes: [
+      "可在 Excel、Google 表格等软件中创建，然后导出为 CSV（UTF-8）。",
+      "若 URL 含逗号，请用双引号包裹单元格。",
+      "没有有效 http 或 https URL 的行会标记为无效，不会包含在 ZIP 中。",
+      "超过 50 行的列表会截取前 50 行 — 请将大任务拆成多批。",
+    ],
+    stepsTitle: "分步操作流程",
+    steps: [
+      {
+        title: "准备并上传 CSV",
+        body: "点击上传 CSV，或先下载示例文件。上传后，预览表会显示每行的 URL、文件名、标签及是否就绪。",
+      },
+      {
+        title: "为整批选择一种设计",
+        body: "选择模板或自定义颜色、点样式、徽标、边框和尺寸。同一设计应用于所有有效行。有 label 列时会覆盖默认边框文字。",
+      },
+      {
+        title: "检查有效行",
+        body: "查看右侧摘要。仅标记为“就绪”的行会包含在导出中。若需修正，请在表格中修改 URL 后重新上传。",
+      },
+      {
+        title: "下载 ZIP",
+        body: "点击下载 ZIP，系统会逐个渲染 PNG 并打包为 bulk-qr-codes.zip。PNG 包含所选边框、标签和背景。",
+      },
+      {
+        title: "打印前测试",
+        body: "从 ZIP 中打开几个 PNG，按计划打印尺寸用手机扫描，确认每个链接打开正确页面。",
+      },
+    ],
+    useCasesTitle: "常见使用场景",
+    useCases: [
+      "餐厅桌牌 — 每桌一个菜单或促销链接，标签如“12 号桌”。",
+      "酒店房间卡 — 每间房一个 WiFi 或欢迎页链接。",
+      "零售货架标签 — 多个 SKU 的产品详情页，统一品牌风格。",
+      "活动证件或海报 — 多个场次的注册或日程链接。",
+      "营销传单 — 带 UTM 的活动 URL，文件名清晰易辨。",
+    ],
+    tipsTitle: "设计与打印建议",
+    tips: [
+      "添加徽标时使用 Q 或 H 级纠错，以保持可扫描性。",
+      "确保二维码点与背景对比度足够。",
+      "优先使用短而稳定的 URL — 字符越少越易扫描。",
+      "文件名要清晰（table-01、room-305），方便印刷厂对应摆放。",
+      "超过 50 个码时分批导出，每批保持相同设计设置。",
+    ],
+    troubleshootingTitle: "故障排除",
+    troubleshooting: [
+      {
+        question: "某行显示无效 — 应检查什么？",
+        answer:
+          "确认 URL 以 http:// 或 https:// 开头、无多余空格且为完整网址。若特殊字符异常，请以 UTF-8 重新导出 CSV。",
+      },
+      {
+        question: "为什么 ZIP 文件数少于 CSV 行数？",
+        answer: "仅导出有效行。无效 URL、空行和超过 50 码限制的行会被排除。",
+      },
+      {
+        question: "可以在 Windows 上用 Excel 吗？",
+        answer:
+          "可以。另存或导出为 CSV。若 Excel 使用分号分隔，请在文本编辑器中确认列为逗号分隔且存在 url 表头。",
+      },
+      {
+        question: "label 列适用于所有边框样式吗？",
+        answer: "使用标签边框时，label 会替换边框文字。其他边框样式忽略 label，但 QR 仍会正确导出。",
+      },
+      {
+        question: "这些二维码会过期吗？",
+        answer: "不会。只要目标网站仍可访问，静态网址二维码就会持续有效。更改链接需重新生成。",
+      },
+    ],
   },
   dynamicQr: {
     creatorTitle: "动态二维码",
@@ -528,7 +665,44 @@ export const zh: Dictionary = {
         {
           question: "可以编码哪些内容？",
           answer:
-            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram 和社交主页创建二维码。",
+            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram 和社交主页创建二维码。如需一次创建多个网址码，请使用 CSV 批量生成器。",
+        },
+      ],
+    },
+    bulk: {
+      title: "批量二维码生成器 — CSV 上传，最多 50 个",
+      description:
+        "从 CSV 一次创建多个网址二维码。应用统一设计、预览行，并在浏览器中下载 PNG 压缩包，无需注册。",
+      h1: "从 CSV 批量生成二维码",
+      introduction:
+        "上传链接表格，一次自定义外观，最多导出五十个可打印的 PNG 二维码，打包为单个 ZIP 下载。",
+      howTo: [
+        "准备包含 url、filename 和可选 label 列的 CSV 并上传。",
+        "为整批选择模板或自定义颜色、徽标、边框和尺寸。",
+        "检查有效行，准备好后下载 ZIP。",
+      ],
+      faqs: [
+        {
+          question: "应使用什么 CSV 格式？",
+          answer:
+            "表头使用 url、filename 和可选 label。每行对应一个二维码。若设计使用标签边框，label 会成为边框文字。",
+        },
+        {
+          question: "每批最多可以创建多少个？",
+          answer:
+            "每批最多支持 50 个网址二维码，以便在普通设备（包括约 4 GB 内存的笔记本和手机）上快速稳定导出。",
+        },
+        {
+          question: "会存储我的 CSV 或二维码吗？",
+          answer: "不会。解析、渲染和 ZIP 创建完全在浏览器中进行，批量导出不会上传到我们的服务器。",
+        },
+        {
+          question: "能否对所有码使用相同设计？",
+          answer: "可以。选择一种模板或自定义颜色、徽标和边框一次 — 设计应用于整批。用 label 列可为每行设置不同边框文字。",
+        },
+        {
+          question: "导出是什么文件格式？",
+          answer: "PNG 图片的 ZIP 压缩包。每个 PNG 会合成二维码及所选边框、标签和背景。",
         },
       ],
     },
