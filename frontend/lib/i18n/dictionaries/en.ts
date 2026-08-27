@@ -27,7 +27,7 @@ export const en: Dictionary = {
     termsOfService: "Terms of Service",
     about: "About",
     contact: "Contact",
-    bulkQrGenerator: "Bulk QR generator",
+    bulkQrGenerator: "Bulk QR codes",
     footerNavAria: "Footer",
     footerRights: "All rights reserved.",
     popularUseCases: "Popular specialized use cases",
