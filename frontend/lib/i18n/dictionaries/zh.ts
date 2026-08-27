@@ -28,6 +28,10 @@ export const zh: Dictionary = {
     about: "关于我们",
     contact: "联系我们",
     bulkQrGenerator: "批量生成二维码",
+    navGenerator: "创建二维码",
+    navMenu: "打开菜单",
+    navClose: "关闭菜单",
+    navAria: "主导航",
     footerNavAria: "页脚",
     footerRights: "保留所有权利。",
     popularUseCases: "热门专项用途",
@@ -651,10 +655,10 @@ export const zh: Dictionary = {
     generator: {
       title: "免费二维码生成器（无需注册）",
       description:
-        "免费二维码生成器，无需注册。在浏览器中创建静态码，支持网址、WiFi、名片、WhatsApp、LINE、菜单等，自定义后即时下载。",
+        "免费二维码生成器，无需注册。在浏览器中创建静态码，支持网址、WiFi、名片、WhatsApp、LINE 等；可自定义下载，也可前往 CSV 批量生成与模板。",
       h1: "免费二维码生成器，无需注册",
       introduction:
-        "在浏览器中免费创建实用的静态二维码，无需账号。选择内容类型、填写详情、自定义视觉设计，并在分享前测试实时预览。",
+        "在浏览器中免费创建实用的静态二维码，无需账号。选择内容类型、填写详情、自定义视觉设计，并在分享前测试实时预览。需要多个网址码请用 CSV 批量生成；想要现成外观可从模板开始。",
       howTo: [
         "选择与扫码后操作匹配的二维码类型。",
         "填写必填信息并查看实时预览。",
@@ -668,17 +672,17 @@ export const zh: Dictionary = {
         {
           question: "可以编码哪些内容？",
           answer:
-            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram 和社交主页创建二维码。如需一次创建多个网址码，请使用 CSV 批量生成器。",
+            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram 和社交主页创建二维码。如需一次创建多个网址码，请使用 CSV 批量生成器；现成设计请浏览模板。",
         },
       ],
     },
     bulk: {
       title: "批量二维码生成器 — CSV 上传，最多 50 个",
       description:
-        "从 CSV 一次创建多个网址二维码。应用统一设计、预览行，并在浏览器中下载 PNG 压缩包，无需注册。",
+        "从 CSV 一次创建多个网址二维码。可套用模板或自定义设计、预览行，并下载 PNG 压缩包，无需注册。",
       h1: "从 CSV 批量生成二维码",
       introduction:
-        "上传链接表格，一次自定义外观，最多导出五十个可打印的 PNG 二维码，打包为单个 ZIP 下载。",
+        "上传链接表格，一次自定义外观（或从模板开始），最多导出五十个可打印的 PNG 二维码，打包为单个 ZIP。若只要单个码，请使用免费二维码生成器。",
       howTo: [
         "准备包含 url、filename 和可选 label 列的 CSV 并上传。",
         "为整批选择模板或自定义颜色、徽标、边框和尺寸。",

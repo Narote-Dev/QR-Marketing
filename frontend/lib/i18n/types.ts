@@ -40,6 +40,10 @@ export type Dictionary = {
     about: string;
     contact: string;
     bulkQrGenerator: string;
+    navGenerator: string;
+    navMenu: string;
+    navClose: string;
+    navAria: string;
     footerNavAria: string;
     footerRights: string;
     popularUseCases: string;

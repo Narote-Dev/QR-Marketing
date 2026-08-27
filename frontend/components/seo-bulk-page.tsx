@@ -22,15 +22,7 @@ export function SeoBulkPage({ page, locale, dictionary }: Props) {
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
       <SeoJsonLd page={page} locale={locale} />
-      <SiteHeader
-        locale={locale}
-        siteName={dictionary.site.name}
-        languageLabel={dictionary.chrome.language}
-        secondaryHref="/qr-code-generator"
-        secondaryLabel={dictionary.chrome.allQrTools}
-        bulkHref="/bulk-qr-generator"
-        bulkLabel={dictionary.chrome.bulkQrGenerator}
-      />
+      <SiteHeader locale={locale} dictionary={dictionary} currentPath="/bulk-qr-generator" />
       <Breadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>

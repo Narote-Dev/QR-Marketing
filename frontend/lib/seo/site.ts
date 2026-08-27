@@ -27,7 +27,8 @@ export { qrSeoSlugs, getQrSeoGeneratorSeed } from "@/lib/seo/qr-seo-seed";
 
 // Change: Related links for Phase A tools plus new Social brand and Payment SEO pages.
 const qrRelated: Record<QrSeoSlug, QrSeoSlug[]> = {
-  url: ["dynamic", "wifi", "email", "vcard", "payment"],
+  // Change: Surface bulk hub next to URL tool for stronger primary internal linking.
+  url: ["dynamic", "wifi", "email", "vcard", "payment", "bulk-qr-generator"],
   wifi: ["url", "sms", "email"],
   email: ["phone", "sms", "vcard"],
   phone: ["sms", "whatsapp", "vcard"],
@@ -74,7 +75,14 @@ export function getGeneratorPage(dictionary: Dictionary): SeoPage {
 }
 
 export function getBulkPage(dictionary: Dictionary): SeoPage {
-  return fromCopy("bulk-qr-generator", dictionary.seo.bulk, ["url", "wifi", "vcard", "whatsapp"]);
+  // Change: Cross-link Create QR + Templates hubs from bulk SEO related tools.
+  return fromCopy("bulk-qr-generator", dictionary.seo.bulk, [
+    "qr-code-generator",
+    "templates",
+    "url",
+    "wifi",
+    "vcard",
+  ]);
 }
 
 export function getQrPages(dictionary: Dictionary): Record<QrSeoSlug, SeoPage> {
