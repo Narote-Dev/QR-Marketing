@@ -130,7 +130,7 @@ export const th: Dictionary = {
       "อัปโหลด CSV ใช้ดีไซน์เดียวกันทั้งชุด แล้วดาวน์โหลด ZIP ไฟล์ PNG ทุกอย่างทำงานในเบราว์เซอร์ สูงสุด 50 คิวอาร์โค้ดต่อครั้ง",
     step1Title: "1. อัปโหลด CSV",
     step2Title: "2. ปรับแต่งดีไซน์",
-    step3Title: "3. ดาวน์โหลด ZIP",
+    step3Title: "3. ดูตัวอย่างและดาวน์โหลด ZIP",
     csvHint:
       "ใช้ CSV ที่มีคอลัมน์ url, filename และ label (ไม่บังคับ) สูงสุด {max} แถวต่อครั้ง แถวที่ไม่ถูกต้องจะไม่ถูกใส่ใน ZIP",
     csvUpload: "อัปโหลด CSV",
@@ -158,6 +158,9 @@ export const th: Dictionary = {
     progressLabel: "กำลังเรนเดอร์ {done} จาก {total}…",
     previewLimitNote: "แสดง {shown} แถวแรกจากทั้งหมด {total} แถว",
     guideLink: "อ่านคู่มือสร้างคิวอาร์โค้ดเป็นชุด ↓",
+    livePreview: "ตัวอย่างดีไซน์แบบสด",
+    livePreviewSample: "ใช้ URL ตัวอย่าง — อัปโหลด CSV เพื่อดูตัวอย่างจากแถวแรกที่พร้อม",
+    livePreviewFromCsv: "กำลังแสดงแถวแรกที่พร้อม: {file}",
   },
   bulkQrGuide: {
     heading: "คู่มือสร้างคิวอาร์โค้ดเป็นชุด — จาก CSV เป็น ZIP",
