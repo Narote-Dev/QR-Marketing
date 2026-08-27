@@ -3,7 +3,7 @@ import test from "node:test";
 import { defaultLocale, isLocale, locales } from "../lib/i18n/config";
 import { localeFromAcceptLanguage, localeFromCountry, resolvePreferredLocale } from "../lib/i18n/detect";
 import { getDictionary } from "../lib/i18n/get-dictionary";
-import { isExemptPath, localizedPath, stripLocaleFromPath, switchLocalePath } from "../lib/i18n/paths";
+import { isExemptPath, localizedPath, pagePathForSlug, stripLocaleFromPath, switchLocalePath } from "../lib/i18n/paths";
 
 test("locales are validated and labeled", () => {
   assert.deepEqual(locales, ["en", "th", "zh"]);
@@ -48,4 +48,33 @@ test("dictionaries expose unique SEO titles per locale", async () => {
     assert.equal(new Set(titles).size, titles.length, `duplicate titles in ${locale}`);
     assert.equal(dictionary.site.name, "Build Your QR");
   }
+});
+
+test("bulk QR copy is complete and localized labels stay aligned", async () => {
+  const dictionaries = {
+    en: await getDictionary("en"),
+    th: await getDictionary("th"),
+    zh: await getDictionary("zh"),
+  };
+
+  for (const [locale, dictionary] of Object.entries(dictionaries)) {
+    assert.ok(dictionary.bulkQr.heading, `${locale} bulkQr heading`);
+    assert.ok(dictionary.bulkQrGuide.heading, `${locale} bulkQrGuide heading`);
+    assert.ok(dictionary.seo.bulk.h1, `${locale} seo.bulk h1`);
+    assert.ok(dictionary.chrome.bulkQrGenerator, `${locale} chrome.bulkQrGenerator`);
+    assert.equal(dictionary.bulkQrGuide.steps.length, 5, `${locale} bulk guide steps`);
+    assert.equal(dictionary.seo.bulk.faqs.length, 5, `${locale} bulk faqs`);
+  }
+
+  assert.equal(dictionaries.en.chrome.bulkQrGenerator, "Bulk QR codes");
+  assert.equal(dictionaries.th.chrome.bulkQrGenerator, "สร้างคิวอาร์โค้ดเป็นชุด");
+  assert.equal(dictionaries.zh.chrome.bulkQrGenerator, "批量生成二维码");
+  assert.doesNotMatch(dictionaries.th.chrome.bulkQrGenerator, /\bQR\b/);
+  assert.doesNotMatch(dictionaries.th.bulkQr.eyebrow, /\bQR\b/);
+});
+
+test("bulk QR route resolves localized paths", () => {
+  assert.equal(pagePathForSlug("bulk-qr-generator"), "/bulk-qr-generator");
+  assert.equal(localizedPath("th", "/bulk-qr-generator"), "/th/bulk-qr-generator");
+  assert.equal(localizedPath("en", "/bulk-qr-generator"), "/en/bulk-qr-generator");
 });
