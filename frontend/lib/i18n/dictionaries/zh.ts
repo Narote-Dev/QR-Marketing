@@ -50,6 +50,16 @@ export const zh: Dictionary = {
     line: "创建可打开 LINE 主页的二维码。",
     "google-review": "为 Google 评价链接创建二维码。",
     dynamic: "了解可在印刷后修改目标的动态二维码。",
+    youtube: "为 YouTube 频道或视频创建二维码。",
+    tiktok: "为 TikTok 主页创建二维码。",
+    linkedin: "为 LinkedIn 主页创建二维码。",
+    snapchat: "为 Snapchat 添加好友链接创建二维码。",
+    reddit: "为 Reddit 用户或社区创建二维码。",
+    discord: "为 Discord 邀请链接创建二维码。",
+    spotify: "为 Spotify 主页或播放列表创建二维码。",
+    soundcloud: "为 SoundCloud 主页创建二维码。",
+    kakaotalk: "为 KakaoTalk Open Chat 创建二维码。",
+    payment: "为 PayPal、Venmo、Etsy 等创建支付二维码。",
   },
   consent: {
     title: "我们重视您的隐私",
@@ -749,6 +759,221 @@ export const zh: Dictionary = {
           {
             question: "动态二维码能编码 WiFi 或 vCard 吗？",
             answer: "不能通过 HTTP 重定向。动态模式仅支持 http/https 目标。WiFi、vCard、短信等请使用静态模式。",
+          },
+        ],
+      },
+      youtube: {
+        title: "YouTube 二维码生成器 — 免费频道与视频链接",
+        description: "免费创建 YouTube 频道或视频二维码。输入用户名或网址，自定义样式并在浏览器中下载静态码。",
+        h1: "YouTube 二维码生成器",
+        introduction: "用静态二维码把手机直接带到你的 YouTube 频道或视频。粘贴完整链接或输入 @用户名，在浏览器本地生成，不上传服务器。",
+        howTo: [
+          "打开本页并保持 Social → YouTube。",
+          "输入 @用户名或粘贴 youtube.com / youtu.be 链接。",
+          "按需调整颜色或边框，下载 PNG 或 SVG，印刷前先试扫。",
+        ],
+        faqs: [
+          {
+            question: "可以链接到单个视频吗？",
+            answer: "可以。粘贴完整视频网址。用户名会映射到 youtube.com/@名称 频道页。",
+          },
+          {
+            question: "这是动态二维码吗？",
+            answer: "不是。链接写在图像里。若需印刷后改目标，请使用动态模式。",
+          },
+        ],
+      },
+      tiktok: {
+        title: "TikTok 二维码生成器 — 免费主页链接",
+        description: "免费创建 TikTok 主页二维码。输入用户名或网址，自定义后立即下载，无需注册。",
+        h1: "TikTok 二维码生成器",
+        introduction: "用静态二维码让人关注你的 TikTok。输入用户名或粘贴主页链接，内容编码在图像中。",
+        howTo: [
+          "保持 Social → TikTok。",
+          "输入用户名（可带或不带 @）或粘贴 tiktok.com 主页链接。",
+          "下载并试扫后再印刷贴纸或海报。",
+        ],
+        faqs: [
+          {
+            question: "会打开 TikTok 应用吗？",
+            answer: "手机通常会从二维码中的 https 链接打开应用或移动网页。",
+          },
+          {
+            question: "之后能改主页吗？",
+            answer: "静态码不能改。请新建二维码，或使用动态模式。",
+          },
+        ],
+      },
+      linkedin: {
+        title: "LinkedIn 二维码生成器 — 免费主页链接",
+        description: "免费创建 LinkedIn 二维码，适合名片与活动。输入主页链接或个性网址并下载静态码。",
+        h1: "LinkedIn 二维码生成器",
+        introduction: "无需手打长链接即可分享 LinkedIn 主页。静态码适合名片、胸牌与展位物料。",
+        howTo: [
+          "保持 Social → LinkedIn。",
+          "粘贴 LinkedIn 主页链接，或输入 /in/ 后的个性名称。",
+          "下载 PNG 或 SVG，印名片前先试扫。",
+        ],
+        faqs: [
+          {
+            question: "只有主页链接该怎么填？",
+            answer: "粘贴完整的 https://www.linkedin.com/in/... 链接最稳妥。",
+          },
+          {
+            question: "支持公司主页吗？",
+            answer: "支持——粘贴完整公司页链接。用户名快捷方式面向个人 /in/ 主页。",
+          },
+        ],
+      },
+      snapchat: {
+        title: "Snapchat 二维码生成器 — 免费添加好友链接",
+        description: "免费创建可打开添加好友链接的 Snapchat 二维码。输入用户名或网址并下载静态码。",
+        h1: "Snapchat 二维码生成器",
+        introduction: "让好友扫码添加 Snapchat。我们将 snapchat.com/add 链接编码为静态二维码。",
+        howTo: [
+          "保持 Social → Snapchat。",
+          "输入 Snapchat 用户名或粘贴添加链接。",
+          "按需自定义外观，下载并试扫。",
+        ],
+        faqs: [
+          {
+            question: "这和应用内 Snapcode 一样吗？",
+            answer: "不一样。这是打开网页添加链接的标准二维码；黄色 Snapcode 是应用内格式。",
+          },
+          {
+            question: "需要注册 Build Your QR 账号吗？",
+            answer: "不需要。在浏览器本地生成，不上传内容。",
+          },
+        ],
+      },
+      reddit: {
+        title: "Reddit 二维码生成器 — 免费用户或社区",
+        description: "免费创建 Reddit 用户或社区二维码。输入 u/名称、r/社区或完整链接并立即下载。",
+        h1: "Reddit 二维码生成器",
+        introduction: "用静态二维码指向 Reddit 用户或社区。可用 r/subreddit、用户名或粘贴 reddit.com 链接。",
+        howTo: [
+          "保持 Social → Reddit。",
+          "输入 r/社区、用户名或粘贴完整 Reddit 链接。",
+          "下载并在印刷或幻灯片使用前试扫。",
+        ],
+        faqs: [
+          {
+            question: "如何链接到子版块？",
+            answer: "输入 r/社区名（如 r/qrcode）或粘贴完整子版块链接。",
+          },
+          {
+            question: "印刷后能改链接吗？",
+            answer: "静态码不能。若需可编辑目标，请使用动态模式。",
+          },
+        ],
+      },
+      discord: {
+        title: "Discord 二维码生成器 — 免费邀请链接",
+        description: "免费创建 Discord 服务器邀请二维码。输入邀请码或 discord.gg 链接并下载静态码。",
+        h1: "Discord 二维码生成器",
+        introduction: "用可扫描邀请码壮大 Discord 社区。将 discord.gg 邀请编码为静态二维码，适合海报与活动胸牌。",
+        howTo: [
+          "保持 Social → Discord。",
+          "粘贴 discord.gg / discord.com 邀请链接，或只输入邀请码。",
+          "下载并试扫；轮换邀请时请重新生成二维码。",
+        ],
+        faqs: [
+          {
+            question: "邀请过期怎么办？",
+            answer: "静态码仍指向旧邀请。请用新邀请生成二维码，或使用动态模式更新目标。",
+          },
+          {
+            question: "可以编码 Discord 用户名吗？",
+            answer: "本工具面向邀请链接。粘贴完整邀请 URL 最可靠。",
+          },
+        ],
+      },
+      spotify: {
+        title: "Spotify 二维码生成器 — 免费主页与播放列表",
+        description: "免费创建 Spotify 艺人、用户或播放列表二维码。粘贴 open.spotify.com 链接或输入用户名并下载。",
+        h1: "Spotify 二维码生成器",
+        introduction: "扫码分享音乐。粘贴任意 open.spotify.com 链接最准确，也可输入用户名生成主页链接。",
+        howTo: [
+          "保持 Social → Spotify。",
+          "粘贴曲目、播放列表、艺人或主页链接（推荐），或输入用户名。",
+          "下载 PNG 或 SVG，并在已安装 Spotify 的手机上试扫。",
+        ],
+        faqs: [
+          {
+            question: "应该粘贴完整 Spotify 链接吗？",
+            answer: "尽量粘贴。完整 open.spotify.com 链接对播放列表和曲目最可靠。",
+          },
+          {
+            question: "扫码需要 Spotify 应用吗？",
+            answer: "二维码打开 https 链接。若已安装应用，手机可能跳转到 Spotify。",
+          },
+        ],
+      },
+      soundcloud: {
+        title: "SoundCloud 二维码生成器 — 免费主页链接",
+        description: "免费创建 SoundCloud 主页或曲目页二维码。粘贴链接或用户名并下载静态码。",
+        h1: "SoundCloud 二维码生成器",
+        introduction: "用传单或周边上的静态二维码把粉丝带到 SoundCloud。粘贴 soundcloud.com 链接或输入主页用户名。",
+        howTo: [
+          "保持 Social → SoundCloud。",
+          "输入用户名或粘贴主页/曲目链接。",
+          "按需自定义设计，下载并试扫。",
+        ],
+        faqs: [
+          {
+            question: "可以链接单曲吗？",
+            answer: "可以——粘贴完整曲目链接。用户名快捷方式会生成主页链接。",
+          },
+          {
+            question: "印刷后可编辑吗？",
+            answer: "静态码不可。若需稍后改目标，请使用动态模式。",
+          },
+        ],
+      },
+      kakaotalk: {
+        title: "KakaoTalk 二维码生成器 — 免费 Open Chat 链接",
+        description: "免费创建 KakaoTalk Open Chat 或主页链接二维码。粘贴 Kakao 链接或输入 id 并下载。",
+        h1: "KakaoTalk 二维码生成器",
+        introduction: "让客户一扫即开 KakaoTalk。将 open.kakao.com 链接编码为静态码，适合与 LINE 一起用于面向韩国的物料。",
+        howTo: [
+          "保持 Social → KakaoTalk。",
+          "粘贴 open.kakao.com 链接或输入 Open Chat id。",
+          "下载并用已安装 KakaoTalk 的手机试扫。",
+        ],
+        faqs: [
+          {
+            question: "和 LINE 二维码一样吗？",
+            answer: "不一样。LINE 请用 LINE 工具；KakaoTalk 链接请用本页。",
+          },
+          {
+            question: "需要 Kakao 企业账号吗？",
+            answer: "只需有效的 KakaoTalk 链接即可编码。Build Your QR 不会替你创建聊天。",
+          },
+        ],
+      },
+      payment: {
+        title: "支付二维码生成器 — PayPal、Venmo、Etsy 等",
+        description: "免费创建 PayPal、Venmo、Etsy、Revolut、Amazon 或加密货币链接的支付二维码。浏览器下载静态码，无需注册。",
+        h1: "支付二维码生成器",
+        introduction:
+          "用静态二维码收款或引导到店铺。选择 PayPal、Venmo、Etsy、Revolut、Amazon 或 Crypto，然后输入用户名或粘贴完整支付链接。我们不处理付款——只编码你提供的链接。",
+        howTo: [
+          "在生成器中选择 Payment 并挑选服务商。",
+          "输入用户名（PayPal.me、Venmo、Etsy 店铺、Revolut）或粘贴完整 https 支付/店铺链接。Amazon 与加密货币需完整 URL 或 bitcoin: 等 URI。",
+          "下载二维码，用对应应用试扫，确认支付页正确后再印刷。",
+        ],
+        faqs: [
+          {
+            question: "Build Your QR 会收款吗？",
+            answer: "不会。二维码只编码你提供的链接或支付 URI。结账在 PayPal、Venmo、店铺或钱包应用中完成。",
+          },
+          {
+            question: "印刷后能改支付链接吗？",
+            answer: "静态码不能。请新建码，或使用可稍后编辑的动态 https 目标。",
+          },
+          {
+            question: "支持 UPI 或 PIX 吗？",
+            answer: "可通过 Payment 粘贴完整 URL/URI，或使用 URL 类型。专用 UPI/PIX 构建器可能稍后推出。",
           },
         ],
       },

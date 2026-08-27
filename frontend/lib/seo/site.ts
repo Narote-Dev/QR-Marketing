@@ -3,6 +3,7 @@ import { defaultLocale, htmlLang, locales, openGraphLocale, type Locale } from "
 import { en } from "@/lib/i18n/dictionaries/en";
 import { localizedPath, pagePathForSlug } from "@/lib/i18n/paths";
 import type { Dictionary, SeoPageCopy } from "@/lib/i18n/types";
+import { qrSeoSlugs, type QrSeoSlug } from "@/lib/seo/qr-seo-seed";
 
 // Change: Rename the public product brand to Build Your QR.
 export const siteName = "Build Your QR";
@@ -21,23 +22,32 @@ export type SeoPage = {
   related: string[];
 };
 
-// Change: Phase A SEO slugs include vCard, WhatsApp, LINE, and Google Review.
-const qrRelated: Record<
-  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
-  string[]
-> = {
-  url: ["dynamic", "wifi", "email", "vcard", "google-review"],
+export type { QrSeoSlug };
+export { qrSeoSlugs, getQrSeoGeneratorSeed } from "@/lib/seo/qr-seo-seed";
+
+// Change: Related links for Phase A tools plus new Social brand and Payment SEO pages.
+const qrRelated: Record<QrSeoSlug, QrSeoSlug[]> = {
+  url: ["dynamic", "wifi", "email", "vcard", "payment"],
   wifi: ["url", "sms", "email"],
   email: ["phone", "sms", "vcard"],
   phone: ["sms", "whatsapp", "vcard"],
   sms: ["phone", "whatsapp", "email"],
-  vcard: ["whatsapp", "line", "phone", "email"],
+  vcard: ["whatsapp", "line", "phone", "linkedin"],
   whatsapp: ["line", "vcard", "sms", "phone"],
-  line: ["whatsapp", "vcard", "phone", "url"],
+  line: ["whatsapp", "kakaotalk", "vcard", "phone"],
   "google-review": ["url", "dynamic", "vcard", "whatsapp"],
-  dynamic: ["url", "google-review", "vcard", "whatsapp", "wifi"],
+  dynamic: ["url", "google-review", "vcard", "payment", "wifi"],
+  youtube: ["tiktok", "spotify", "url", "dynamic", "soundcloud"],
+  tiktok: ["youtube", "snapchat", "url", "discord"],
+  linkedin: ["vcard", "url", "whatsapp", "email"],
+  snapchat: ["tiktok", "youtube", "url", "discord"],
+  reddit: ["discord", "url", "youtube", "dynamic"],
+  discord: ["reddit", "url", "spotify", "tiktok"],
+  spotify: ["soundcloud", "youtube", "url", "tiktok"],
+  soundcloud: ["spotify", "youtube", "url", "discord"],
+  kakaotalk: ["line", "whatsapp", "vcard", "url"],
+  payment: ["url", "dynamic", "vcard", "google-review"],
 };
-
 function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
   return {
     slug,
@@ -58,42 +68,16 @@ export function getGeneratorPage(dictionary: Dictionary): SeoPage {
     "wifi",
     "vcard",
     "whatsapp",
-    "line",
-    "google-review",
+    "youtube",
+    "payment",
   ]);
 }
 
-export function getQrPages(dictionary: Dictionary): Record<
-  "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
-  SeoPage
-> {
-  return {
-    url: fromCopy("url", dictionary.seo.qr.url, qrRelated.url),
-    wifi: fromCopy("wifi", dictionary.seo.qr.wifi, qrRelated.wifi),
-    email: fromCopy("email", dictionary.seo.qr.email, qrRelated.email),
-    phone: fromCopy("phone", dictionary.seo.qr.phone, qrRelated.phone),
-    sms: fromCopy("sms", dictionary.seo.qr.sms, qrRelated.sms),
-    vcard: fromCopy("vcard", dictionary.seo.qr.vcard, qrRelated.vcard),
-    whatsapp: fromCopy("whatsapp", dictionary.seo.qr.whatsapp, qrRelated.whatsapp),
-    line: fromCopy("line", dictionary.seo.qr.line, qrRelated.line),
-    "google-review": fromCopy("google-review", dictionary.seo.qr["google-review"], qrRelated["google-review"]),
-    dynamic: fromCopy("dynamic", dictionary.seo.qr.dynamic, qrRelated.dynamic),
-  };
+export function getQrPages(dictionary: Dictionary): Record<QrSeoSlug, SeoPage> {
+  return Object.fromEntries(
+    qrSeoSlugs.map((slug) => [slug, fromCopy(slug, dictionary.seo.qr[slug], qrRelated[slug])]),
+  ) as Record<QrSeoSlug, SeoPage>;
 }
-
-export type QrSeoSlug = keyof ReturnType<typeof getQrPages>;
-export const qrSeoSlugs = [
-  "url",
-  "wifi",
-  "email",
-  "phone",
-  "sms",
-  "vcard",
-  "whatsapp",
-  "line",
-  "google-review",
-  "dynamic",
-] as const satisfies readonly QrSeoSlug[];
 
 // English defaults kept for tests and non-localized helpers.
 export const generatorPage = getGeneratorPage(en);

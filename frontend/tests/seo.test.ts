@@ -58,7 +58,7 @@ test("sitemap contains curated QR and template pages for every locale", () => {
   ];
   const expected = barePaths.flatMap((bare) => locales.map((locale) => new URL(localizedPath(locale, bare), siteUrl).toString()));
   assert.equal(entries.length, expected.length);
-  assert.equal(entries.length, 96);
+  assert.equal(entries.length, 126);
   assert.deepEqual(entries.map((entry) => entry.url).sort(), expected.slice().sort());
 });
 

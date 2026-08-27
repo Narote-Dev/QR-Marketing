@@ -10,16 +10,25 @@ import { SiteHeader } from "@/components/site-header";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/types";
 import type { SeoPage } from "@/lib/seo/site";
-import type { QrType } from "@/lib/qr/types";
+import type { PaymentProvider, QrType, SocialNetwork } from "@/lib/qr/types";
 
 type Props = {
   page: SeoPage;
   initialType?: QrType;
+  initialSocialNetwork?: SocialNetwork;
+  initialPaymentProvider?: PaymentProvider;
   locale: Locale;
   dictionary: Dictionary;
 };
 
-export function SeoQrPage({ page, initialType = "url", locale, dictionary }: Props) {
+export function SeoQrPage({
+  page,
+  initialType = "url",
+  initialSocialNetwork,
+  initialPaymentProvider,
+  locale,
+  dictionary,
+}: Props) {
   // Change: Locale-aware chrome, links, and generator copy for SEO QR pages.
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
@@ -36,7 +45,11 @@ export function SeoQrPage({ page, initialType = "url", locale, dictionary }: Pro
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{page.introduction}</p>
         <div className="mt-9">
-          <QrGenerator initialType={initialType} />
+          <QrGenerator
+            initialType={initialType}
+            initialSocialNetwork={initialSocialNetwork}
+            initialPaymentProvider={initialPaymentProvider}
+          />
         </div>
         <AdSlot placement="seo-after-tool" minHeight={180} />
         <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10">

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { SeoQrPage } from "@/components/seo-qr-page";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
-import { getPageMetadata, getQrPages, qrSeoSlugs, type QrSeoSlug } from "@/lib/seo/site";
+import { getPageMetadata, getQrPages, getQrSeoGeneratorSeed, qrSeoSlugs, type QrSeoSlug } from "@/lib/seo/site";
 
 type Props = { params: { locale: string; type: string } };
 
@@ -25,7 +25,16 @@ export default async function QrCodeTypePage({ params }: Props) {
   const type = params.type as QrSeoSlug;
   const page = getQrPages(dictionary)[type];
   if (!page) notFound();
-  // Change: Dynamic SEO page uses URL generator; Dynamic mode appears when feature flag is on.
-  const initialType = type === "dynamic" ? "url" : type;
-  return <SeoQrPage page={page} initialType={initialType} locale={locale} dictionary={dictionary} />;
+  // Step 1: Seed the generator from the SEO slug (Social brand pages → Social type).
+  const seed = getQrSeoGeneratorSeed(type);
+  return (
+    <SeoQrPage
+      page={page}
+      initialType={seed.initialType}
+      initialSocialNetwork={seed.initialSocialNetwork}
+      initialPaymentProvider={seed.initialPaymentProvider}
+      locale={locale}
+      dictionary={dictionary}
+    />
+  );
 }

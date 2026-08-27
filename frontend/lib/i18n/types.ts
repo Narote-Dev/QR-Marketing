@@ -52,7 +52,26 @@ export type Dictionary = {
     trustLocalized: string;
   };
   relatedToolBlurbs: Record<
-    "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
+    | "url"
+    | "wifi"
+    | "email"
+    | "phone"
+    | "sms"
+    | "vcard"
+    | "whatsapp"
+    | "line"
+    | "google-review"
+    | "dynamic"
+    | "youtube"
+    | "tiktok"
+    | "linkedin"
+    | "snapchat"
+    | "reddit"
+    | "discord"
+    | "spotify"
+    | "soundcloud"
+    | "kakaotalk"
+    | "payment",
     string
   >;
   consent: {
@@ -334,7 +353,26 @@ export type Dictionary = {
   seo: {
     generator: SeoPageCopy;
     qr: Record<
-      "url" | "wifi" | "email" | "phone" | "sms" | "vcard" | "whatsapp" | "line" | "google-review" | "dynamic",
+      | "url"
+      | "wifi"
+      | "email"
+      | "phone"
+      | "sms"
+      | "vcard"
+      | "whatsapp"
+      | "line"
+      | "google-review"
+      | "dynamic"
+      | "youtube"
+      | "tiktok"
+      | "linkedin"
+      | "snapchat"
+      | "reddit"
+      | "discord"
+      | "spotify"
+      | "soundcloud"
+      | "kakaotalk"
+      | "payment",
       SeoPageCopy
     >;
     templatesIndex: TemplateSeoCopy;

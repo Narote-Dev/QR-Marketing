@@ -12,7 +12,7 @@ import { QrDesigner } from "@/components/qr-designer";
 import { TemplateSelector } from "@/components/templates/template-selector";
 import { isDynamicQrEnabled } from "@/lib/dynamic-qr/config";
 import { buildQrContent } from "@/lib/qr/content";
-import { defaultQrValues, type QrFormValues, type QrType } from "@/lib/qr/types";
+import { defaultQrValues, type PaymentProvider, type QrFormValues, type QrType, type SocialNetwork } from "@/lib/qr/types";
 import { defaultQrDesign, type QrDesign } from "@/lib/qr/design";
 import {
   applyStarterSelection,
@@ -27,6 +27,8 @@ import type { QrTemplate, TemplateCategory } from "@/lib/templates/types";
 
 type Props = {
   initialType?: QrType;
+  initialSocialNetwork?: SocialNetwork;
+  initialPaymentProvider?: PaymentProvider;
   initialTemplateCategory?: TemplateCategory;
   // Change: Long-tail pages can preselect a template and frame label.
   initialTemplateId?: string;
@@ -39,6 +41,8 @@ type GeneratorMode = "static" | "dynamic";
 
 export function QrGenerator({
   initialType = "url",
+  initialSocialNetwork,
+  initialPaymentProvider,
   initialTemplateCategory,
   initialTemplateId,
   initialFrameText,
@@ -58,7 +62,11 @@ export function QrGenerator({
 
   // Step 2: Own content, design, and selected template state in one place.
   const [type, setType] = useState<QrType>(initialType);
-  const [values, setValues] = useState<QrFormValues>(defaultQrValues);
+  const [values, setValues] = useState<QrFormValues>(() => ({
+    ...defaultQrValues,
+    ...(initialSocialNetwork ? { socialNetwork: initialSocialNetwork } : {}),
+    ...(initialPaymentProvider ? { paymentProvider: initialPaymentProvider } : {}),
+  }));
   const [design, setDesign] = useState<QrDesign>(() => {
     if (starterTemplate) {
       const next = applyTemplate(starterTemplate);

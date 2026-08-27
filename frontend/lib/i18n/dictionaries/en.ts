@@ -50,6 +50,16 @@ export const en: Dictionary = {
     line: "Create a QR code that opens a LINE profile.",
     "google-review": "Create a QR code for a Google review link.",
     dynamic: "Learn how editable Dynamic QR codes work.",
+    youtube: "Create a QR code for a YouTube channel or video.",
+    tiktok: "Create a QR code for a TikTok profile.",
+    linkedin: "Create a QR code for a LinkedIn profile.",
+    snapchat: "Create a QR code for a Snapchat add link.",
+    reddit: "Create a QR code for a Reddit user or community.",
+    discord: "Create a QR code for a Discord invite.",
+    spotify: "Create a QR code for a Spotify profile or playlist.",
+    soundcloud: "Create a QR code for a SoundCloud profile.",
+    kakaotalk: "Create a QR code for a KakaoTalk open chat.",
+    payment: "Create a QR code for PayPal, Venmo, Etsy, and more.",
   },
   consent: {
     title: "We value your privacy",
@@ -768,6 +778,246 @@ export const en: Dictionary = {
             question: "Can Dynamic QR encode WiFi or vCard?",
             answer:
               "Not via HTTP redirect. Dynamic mode supports http and https destinations only. Use static mode for WiFi, vCard, SMS, and similar payloads.",
+          },
+        ],
+      },
+      youtube: {
+        title: "YouTube QR Code Generator — Free Channel & Video Link",
+        description:
+          "Create a free YouTube QR code for your channel or video. Enter a handle or URL, customize the design, and download a static QR in your browser.",
+        h1: "YouTube QR code generator",
+        introduction:
+          "Point phones straight to your YouTube channel or video with a static QR code. Paste a full YouTube URL or enter a @handle—we build the link in your browser with nothing saved on a server.",
+        howTo: [
+          "Open this page and keep Social → YouTube selected in the generator.",
+          "Enter your @handle or paste a youtube.com / youtu.be URL.",
+          "Customize colors or a frame if you like, then download PNG or SVG and test-scan before printing.",
+        ],
+        faqs: [
+          {
+            question: "Can I link a specific video?",
+            answer: "Yes. Paste the full video URL. Handles map to youtube.com/@yourname channel pages.",
+          },
+          {
+            question: "Is this a Dynamic QR?",
+            answer:
+              "No. The YouTube link is stored in the image. To change the destination later without reprinting, use Dynamic mode with an https URL.",
+          },
+        ],
+      },
+      tiktok: {
+        title: "TikTok QR Code Generator — Free Profile Link",
+        description:
+          "Make a free TikTok QR code for your profile. Enter a username or URL, style the code, and download instantly—no signup.",
+        h1: "TikTok QR code generator",
+        introduction:
+          "Help people follow you on TikTok by scanning a static QR. Use a username or paste a full TikTok profile URL; the payload stays in the image.",
+        howTo: [
+          "Keep Social → TikTok selected.",
+          "Enter your username (with or without @) or paste a tiktok.com profile URL.",
+          "Download and test-scan the code before you print stickers or posters.",
+        ],
+        faqs: [
+          {
+            question: "Does the QR open the TikTok app?",
+            answer: "Phones usually open the TikTok app or the mobile site from the https profile link encoded in the QR.",
+          },
+          {
+            question: "Can I change the profile later?",
+            answer: "Not with a static code. Create a new QR, or use Dynamic mode if you need an editable redirect.",
+          },
+        ],
+      },
+      linkedin: {
+        title: "LinkedIn QR Code Generator — Free Profile Link",
+        description:
+          "Create a free LinkedIn QR code for networking cards and events. Enter a profile URL or vanity name and download a static QR.",
+        h1: "LinkedIn QR code generator",
+        introduction:
+          "Share your LinkedIn profile without typing a long URL. Static QR codes work well on business cards, badges, and booth materials.",
+        howTo: [
+          "Keep Social → LinkedIn selected.",
+          "Paste your LinkedIn profile URL or enter the vanity path name after /in/.",
+          "Download PNG or SVG and test-scan before printing business cards.",
+        ],
+        faqs: [
+          {
+            question: "What should I enter if I only have a profile URL?",
+            answer: "Paste the full https://www.linkedin.com/in/... link. That is the most reliable option.",
+          },
+          {
+            question: "Is company page supported?",
+            answer: "Yes—paste the full company page URL. Username shortcuts target personal /in/ profiles.",
+          },
+        ],
+      },
+      snapchat: {
+        title: "Snapchat QR Code Generator — Free Add Link",
+        description:
+          "Create a free Snapchat QR code that opens an add link. Enter a username or URL and download a static code in your browser.",
+        h1: "Snapchat QR code generator",
+        introduction:
+          "Let friends add you on Snapchat by scanning a printed or on-screen QR. We encode a snapchat.com/add link as a static payload.",
+        howTo: [
+          "Keep Social → Snapchat selected.",
+          "Enter your Snapchat username or paste an add URL.",
+          "Customize the look if needed, then download and test-scan.",
+        ],
+        faqs: [
+          {
+            question: "Is this the same as Snapchat’s in-app Snapcode?",
+            answer:
+              "No. This creates a standard QR that opens a web add link. Snapchat’s yellow Snapcode is a different format from inside the app.",
+          },
+          {
+            question: "Do I need an account on Build Your QR?",
+            answer: "No. Generation stays in your browser and nothing is uploaded.",
+          },
+        ],
+      },
+      reddit: {
+        title: "Reddit QR Code Generator — Free Profile or Community",
+        description:
+          "Create a free Reddit QR code for a user profile or subreddit. Enter u/name, r/community, or a full URL and download instantly.",
+        h1: "Reddit QR code generator",
+        introduction:
+          "Send scanners to a Reddit profile or community with a static QR. Use r/subreddit, a username, or paste any reddit.com URL.",
+        howTo: [
+          "Keep Social → Reddit selected.",
+          "Enter r/community, a username, or paste a full Reddit URL.",
+          "Download the QR and test-scan before sharing on print or slides.",
+        ],
+        faqs: [
+          {
+            question: "How do I link a subreddit?",
+            answer: "Type r/yourcommunity (for example r/qrcode) or paste the full subreddit URL.",
+          },
+          {
+            question: "Can the link change after printing?",
+            answer: "Static codes cannot change. Use Dynamic mode if you need an editable destination.",
+          },
+        ],
+      },
+      discord: {
+        title: "Discord QR Code Generator — Free Invite Link",
+        description:
+          "Create a free Discord QR code for server invites. Enter an invite code or discord.gg URL and download a static QR.",
+        h1: "Discord QR code generator",
+        introduction:
+          "Grow your Discord community with a scannable invite. Encode a discord.gg invite as a static QR for posters, Twitch panels, or event badges.",
+        howTo: [
+          "Keep Social → Discord selected.",
+          "Paste a discord.gg / discord.com invite URL, or enter the invite code only.",
+          "Download and test-scan; replace the QR if you rotate invite links.",
+        ],
+        faqs: [
+          {
+            question: "What if my invite expires?",
+            answer:
+              "Static QR codes keep the old invite. Create a new QR with a fresh invite, or use Dynamic mode to update the destination without reprinting.",
+          },
+          {
+            question: "Can I encode a Discord username?",
+            answer: "This tool targets invite links. Paste a full invite URL for the most reliable result.",
+          },
+        ],
+      },
+      spotify: {
+        title: "Spotify QR Code Generator — Free Profile & Playlist",
+        description:
+          "Create a free Spotify QR code for an artist, user, or playlist. Paste an open.spotify.com link or enter a username and download.",
+        h1: "Spotify QR code generator",
+        introduction:
+          "Share music with a scan. Paste any open.spotify.com link for the most accurate result, or enter a username to build a profile URL.",
+        howTo: [
+          "Keep Social → Spotify selected.",
+          "Paste a Spotify track, playlist, artist, or profile URL (recommended), or enter a username.",
+          "Download PNG or SVG and test-scan on a phone with Spotify installed.",
+        ],
+        faqs: [
+          {
+            question: "Should I paste the full Spotify link?",
+            answer: "Yes when possible. Full open.spotify.com URLs are the most reliable for playlists and tracks.",
+          },
+          {
+            question: "Does scanning require the Spotify app?",
+            answer: "The QR opens an https link. Phones may hand off to the Spotify app when it is installed.",
+          },
+        ],
+      },
+      soundcloud: {
+        title: "SoundCloud QR Code Generator — Free Profile Link",
+        description:
+          "Create a free SoundCloud QR code for your profile or track page. Paste a URL or username and download a static QR.",
+        h1: "SoundCloud QR code generator",
+        introduction:
+          "Point fans to your SoundCloud with a static QR on flyers or merch. Paste a full soundcloud.com URL or enter a profile username.",
+        howTo: [
+          "Keep Social → SoundCloud selected.",
+          "Enter your username or paste a SoundCloud profile or track URL.",
+          "Customize design if you like, then download and test-scan.",
+        ],
+        faqs: [
+          {
+            question: "Can I link a single track?",
+            answer: "Yes—paste the full track URL. Username shortcuts build a profile URL.",
+          },
+          {
+            question: "Is the QR editable after print?",
+            answer: "No for static codes. Use Dynamic mode if you need to change the destination later.",
+          },
+        ],
+      },
+      kakaotalk: {
+        title: "KakaoTalk QR Code Generator — Free Open Chat Link",
+        description:
+          "Create a free KakaoTalk QR code for Open Chat or profile links. Paste a Kakao URL or enter an open chat id and download.",
+        h1: "KakaoTalk QR code generator",
+        introduction:
+          "Help customers open KakaoTalk with one scan. Encode an open.kakao.com link as a static QR—ideal alongside LINE for Korea-focused materials.",
+        howTo: [
+          "Keep Social → KakaoTalk selected.",
+          "Paste an open.kakao.com URL or enter the open chat id segment.",
+          "Download and test-scan with a phone that has KakaoTalk installed.",
+        ],
+        faqs: [
+          {
+            question: "Is this the same as LINE QR?",
+            answer: "No. Use the LINE tool for LINE IDs, and this page for KakaoTalk open links.",
+          },
+          {
+            question: "Do I need a Kakao business account?",
+            answer: "You only need a valid KakaoTalk link to encode. Build Your QR does not create Kakao chats for you.",
+          },
+        ],
+      },
+      payment: {
+        title: "Payment QR Code Generator — PayPal, Venmo, Etsy & More",
+        description:
+          "Create a free payment QR code for PayPal, Venmo, Etsy, Revolut, Amazon, or crypto links. Static codes download in your browser—no signup.",
+        h1: "Payment QR code generator",
+        introduction:
+          "Accept payments or send shoppers to a storefront with a static QR. Choose PayPal, Venmo, Etsy, Revolut, Amazon, or Crypto, then enter a username or paste a full payment URL. We do not process payments—only encode the link you provide.",
+        howTo: [
+          "Select Payment in the generator and pick a provider.",
+          "Enter a username (PayPal.me, Venmo, Etsy shop, Revolut) or paste a full https payment/store URL. Amazon and crypto need a full URL or bitcoin: URI.",
+          "Download the QR, test-scan with the matching app, and print only after the payment page opens correctly.",
+        ],
+        faqs: [
+          {
+            question: "Does Build Your QR take payments?",
+            answer:
+              "No. The QR only encodes a link or payment URI you supply. Checkout happens on PayPal, Venmo, the store, or the wallet app.",
+          },
+          {
+            question: "Can I change the payment link after printing?",
+            answer:
+              "Not with a static QR. Create a new code, or use Dynamic mode with an https destination you can edit later.",
+          },
+          {
+            question: "Is UPI or PIX supported?",
+            answer:
+              "Paste a full payment URL or URI via Payment → Crypto/Amazon-style full link, or use the URL type. Dedicated UPI/PIX builders may come later.",
           },
         ],
       },
