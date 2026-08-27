@@ -67,6 +67,8 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
         languageLabel={dictionary.chrome.language}
         secondaryHref="/qr-code-generator"
         secondaryLabel={dictionary.chrome.allQrTools}
+        bulkHref="/bulk-qr-generator"
+        bulkLabel={dictionary.chrome.bulkQrGenerator}
       />
 
       <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">

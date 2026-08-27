@@ -55,7 +55,7 @@ test("Phase E1 SEO copy targets proven GSC queries", async () => {
 
   const th = await getDictionary("th");
   const en = await getDictionary("en");
-  assert.match(th.seo.generator.title, /ทำตัวอาร์โค้ดฟรี/);
+  assert.match(th.seo.generator.title, /ทำคิวอาร์โค้ดฟรี/);
   assert.match(en.seo.generator.title, /free qr code generator/i);
   assert.match(en.seo.templates.menu.title, /menu design/i);
   assert.match(en.seo.templates.hotel.title, /hotel qr code/i);
