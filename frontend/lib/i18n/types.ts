@@ -39,6 +39,7 @@ export type Dictionary = {
     termsOfService: string;
     about: string;
     contact: string;
+    bulkQrGenerator: string;
     footerNavAria: string;
     footerRights: string;
     popularUseCases: string;
@@ -101,6 +102,8 @@ export type Dictionary = {
     preparingDownload: string;
     downloadFailed: string;
     downloadHint: string;
+    bulkPromo: string;
+    bulkPromoLink: string;
     modeStatic: string;
     modeDynamic: string;
     modeAria: string;
@@ -123,6 +126,58 @@ export type Dictionary = {
       modeLine: string;
       typeLine: string;
     };
+  };
+  bulkQr: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    step1Title: string;
+    step2Title: string;
+    step3Title: string;
+    csvHint: string;
+    csvUpload: string;
+    csvSampleDownload: string;
+    csvSampleFileName: string;
+    csvEmpty: string;
+    csvTooMany: string;
+    csvNoUrlColumn: string;
+    csvInvalidType: string;
+    csvLoaded: string;
+    rowColumnUrl: string;
+    rowColumnFile: string;
+    rowColumnLabel: string;
+    rowColumnStatus: string;
+    rowValid: string;
+    rowInvalid: string;
+    rowsSummary: string;
+    invalidRowsNote: string;
+    downloadZip: string;
+    preparingZip: string;
+    zipFailed: string;
+    zipHint: string;
+    zipFileName: string;
+    progressLabel: string;
+    previewLimitNote: string;
+    guideLink: string;
+  };
+  bulkQrGuide: {
+    heading: string;
+    overviewTitle: string;
+    overview: string[];
+    csvTitle: string;
+    csvIntro: string;
+    csvColumns: { name: string; description: string }[];
+    csvExampleTitle: string;
+    csvExample: string;
+    csvNotes: string[];
+    stepsTitle: string;
+    steps: { title: string; body: string }[];
+    useCasesTitle: string;
+    useCases: string[];
+    tipsTitle: string;
+    tips: string[];
+    troubleshootingTitle: string;
+    troubleshooting: { question: string; answer: string }[];
   };
   dynamicQr: {
     creatorTitle: string;
@@ -371,6 +426,7 @@ export type Dictionary = {
   assetCopy: Record<string, { name: string; description: string }>;
   seo: {
     generator: SeoPageCopy;
+    bulk: SeoPageCopy;
     qr: Record<
       | "url"
       | "wifi"

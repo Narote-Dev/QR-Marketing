@@ -68,9 +68,13 @@ export function getGeneratorPage(dictionary: Dictionary): SeoPage {
     "wifi",
     "vcard",
     "whatsapp",
-    "youtube",
+    "bulk-qr-generator",
     "payment",
   ]);
+}
+
+export function getBulkPage(dictionary: Dictionary): SeoPage {
+  return fromCopy("bulk-qr-generator", dictionary.seo.bulk, ["url", "wifi", "vcard", "whatsapp"]);
 }
 
 export function getQrPages(dictionary: Dictionary): Record<QrSeoSlug, SeoPage> {
@@ -81,6 +85,7 @@ export function getQrPages(dictionary: Dictionary): Record<QrSeoSlug, SeoPage> {
 
 // English defaults kept for tests and non-localized helpers.
 export const generatorPage = getGeneratorPage(en);
+export const bulkPage = getBulkPage(en);
 export const qrPages = getQrPages(en);
 
 // Step 3: Emit locale-aware metadata with self-canonical and hreflang alternates.

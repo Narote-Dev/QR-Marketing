@@ -3,13 +3,14 @@ import { defaultLocale, isLocale, type Locale } from "@/lib/i18n/config";
 /** Public tool paths that exist without a locale prefix (legacy + matcher helpers). */
 export const publicToolPaths = [
   "/qr-code-generator",
+  "/bulk-qr-generator",
   "/qr-code/:type",
   "/templates",
   "/templates/:category",
 ] as const;
 
 const LEGACY_PUBLIC_PATH_REGEX =
-  /^\/(?:qr-code-generator|qr-code\/[^/]+|templates(?:\/[^/]+)?)\/?$/;
+  /^\/(?:qr-code-generator|bulk-qr-generator|qr-code\/[^/]+|templates(?:\/[^/]+)?)\/?$/;
 
 /** Step 1: Normalize a pathname by ensuring a leading slash and dropping a trailing slash (except root). */
 function normalizePathname(pathname: string): string {
@@ -93,7 +94,9 @@ export const legacyPublicPaths = {
 
 /** Step 1: Build a bare QR SEO path from a page slug. */
 export function pagePathForSlug(slug: string): string {
-  return slug === "qr-code-generator" ? "/qr-code-generator" : `/qr-code/${slug}`;
+  if (slug === "qr-code-generator") return "/qr-code-generator";
+  if (slug === "bulk-qr-generator") return "/bulk-qr-generator";
+  return `/qr-code/${slug}`;
 }
 
 /** Step 2: Build a bare template SEO path from a page slug. */
