@@ -28,6 +28,8 @@ export function SeoBulkPage({ page, locale, dictionary }: Props) {
         languageLabel={dictionary.chrome.language}
         secondaryHref="/qr-code-generator"
         secondaryLabel={dictionary.chrome.allQrTools}
+        bulkHref="/bulk-qr-generator"
+        bulkLabel={dictionary.chrome.bulkQrGenerator}
       />
       <Breadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>

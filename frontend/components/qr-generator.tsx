@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { Download } from "lucide-react";
+import Link from "next/link";
+import { Download, Layers } from "lucide-react";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrCreator } from "@/components/dynamic-qr-creator";
 import { GeneratorFeedback } from "@/components/generator-feedback";
@@ -24,6 +25,7 @@ import {
 } from "@/lib/qr/starters";
 import { applyTemplate, clearTemplateDesign } from "@/lib/templates/apply";
 import { getTemplateById, localizeTemplate } from "@/lib/templates/catalog";
+import { localizedPath } from "@/lib/i18n/paths";
 import type { QrTemplate, TemplateCategory } from "@/lib/templates/types";
 
 type Props = {
@@ -186,6 +188,17 @@ export function QrGenerator({
           {dictionary.generator.heading}
         </h2>
         <p className="mt-2 text-sm text-slate-600">{dictionary.generator.intro}</p>
+        {/* Change: Always surface bulk CSV export entry inside the generator card. */}
+        <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-brand-teal/30 bg-brand-cream/50 p-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-slate-700">{dictionary.generator.bulkPromo}</p>
+          <Link
+            href={localizedPath(locale, "/bulk-qr-generator")}
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-teal-dark"
+          >
+            <Layers className="h-4 w-4" aria-hidden="true" />
+            {dictionary.chrome.bulkQrGenerator}
+          </Link>
+        </div>
         {(helperHint || starterHint) && (
           <p className="mt-3 rounded-xl bg-brand-cream px-3 py-2 text-sm text-brand-ink">{helperHint ?? starterHint}</p>
         )}
