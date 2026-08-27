@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { Download } from "lucide-react";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrCreator } from "@/components/dynamic-qr-creator";
+import { GeneratorFeedback } from "@/components/generator-feedback";
 import { QrForm } from "@/components/qr-form";
 import { QrPreview, type QrPreviewHandle } from "@/components/qr-preview";
 import { QrStarterStrip } from "@/components/qr-starter-strip";
@@ -299,6 +300,7 @@ export function QrGenerator({
             </p>
           )}
           <p className="text-xs text-slate-500">{dictionary.generator.downloadHint}</p>
+          <GeneratorFeedback qrMode={mode} qrType={mode === "dynamic" ? "dynamic" : type} />
         </section>
       </div>
     </section>

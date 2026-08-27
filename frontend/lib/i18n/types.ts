@@ -104,6 +104,25 @@ export type Dictionary = {
     modeStatic: string;
     modeDynamic: string;
     modeAria: string;
+    feedback: {
+      button: string;
+      title: string;
+      intro: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      messageLabel: string;
+      messagePlaceholder: string;
+      send: string;
+      cancel: string;
+      close: string;
+      messageRequired: string;
+      mailtoHint: string;
+      mailSubject: string;
+      replyLine: string;
+      pageLine: string;
+      modeLine: string;
+      typeLine: string;
+    };
   };
   dynamicQr: {
     creatorTitle: string;
