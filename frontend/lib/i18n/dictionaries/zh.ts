@@ -27,7 +27,7 @@ export const zh: Dictionary = {
     termsOfService: "服务条款",
     about: "关于我们",
     contact: "联系我们",
-    bulkQrGenerator: "批量二维码",
+    bulkQrGenerator: "批量生成二维码",
     footerNavAria: "页脚",
     footerRights: "保留所有权利。",
     popularUseCases: "热门专项用途",
