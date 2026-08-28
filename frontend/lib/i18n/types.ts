@@ -44,6 +44,10 @@ export type Dictionary = {
     navMenu: string;
     navClose: string;
     navAria: string;
+    navMyDynamicQr: string;
+    navSignIn: string;
+    navSignUp: string;
+    devAuthBadge: string;
     footerNavAria: string;
     footerRights: string;
     popularUseCases: string;
@@ -221,6 +225,16 @@ export type Dictionary = {
     activated: string;
     deactivated: string;
     manageFooterNote: string;
+    signInIntro: string;
+    signInButton: string;
+    myCodesNav: string;
+    dashboardTitle: string;
+    dashboardIntro: string;
+    quotaTitle: string;
+    quotaDynamic: string;
+    quotaScans: string;
+    emptyList: string;
+    loading: string;
   };
   form: {
     websiteAddress: string;

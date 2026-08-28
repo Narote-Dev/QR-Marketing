@@ -4,6 +4,8 @@ Status: **in progress on `feature/dynamic-qr` only**
 Production: **static QR unchanged** until explicit merge + layered enable  
 Isolation rule: [`.cursor/rules/dynamic-qr-isolation.mdc`](../.cursor/rules/dynamic-qr-isolation.mdc)
 
+> **Production go-live superseded by:** [`plan-dynamic-qr-integrated-roadmap.md`](./plan-dynamic-qr-integrated-roadmap.md) + [`spec-dynamic-qr-v1-accounts-scale.md`](./spec-dynamic-qr-v1-accounts-scale.md) — accounts required from day one, free tier 6 QR / 7k scans/year, JWT auth, then Developer API → D365FO pack. MVP token flow below remains valid as implemented code reference and local testing only.
+
 ---
 
 ## Goals

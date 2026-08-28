@@ -4,7 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { DynamicQrAuthChrome } from "@/components/dynamic-qr-auth-chrome";
 import { LanguageSelector } from "@/components/language-selector";
+import { isDynamicQrEnabled } from "@/lib/dynamic-qr/config";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Dictionary } from "@/lib/i18n/types";
@@ -41,6 +43,7 @@ export function SiteHeader({ locale, dictionary, currentPath }: Props) {
     { path: "/qr-code-generator", label: chrome.navGenerator },
     { path: "/bulk-qr-generator", label: chrome.bulkQrGenerator },
     { path: "/templates", label: chrome.allTemplates },
+    ...(isDynamicQrEnabled() ? [{ path: "/my/dynamic-qr", label: chrome.navMyDynamicQr }] : []),
   ];
 
   return (
@@ -102,11 +105,31 @@ export function SiteHeader({ locale, dictionary, currentPath }: Props) {
               className="mx-3 h-4 w-px shrink-0 bg-slate-200"
             />
 
+            {isDynamicQrEnabled() && (
+              <>
+                <DynamicQrAuthChrome
+                  locale={locale}
+                  signInLabel={chrome.navSignIn}
+                  signUpLabel={chrome.navSignUp}
+                  devAuthLabel={chrome.devAuthBadge}
+                />
+                <span aria-hidden="true" className="mx-3 h-4 w-px shrink-0 bg-slate-200" />
+              </>
+            )}
+
             <LanguageSelector locale={locale} label={chrome.language} />
           </div>
 
           {/* Mobile: language + menu toggle */}
           <div className="flex items-center gap-1 md:hidden">
+            {isDynamicQrEnabled() && (
+              <DynamicQrAuthChrome
+                locale={locale}
+                signInLabel={chrome.navSignIn}
+                signUpLabel={chrome.navSignUp}
+                devAuthLabel={chrome.devAuthBadge}
+              />
+            )}
             <LanguageSelector locale={locale} label={chrome.language} />
             <button
               type="button"

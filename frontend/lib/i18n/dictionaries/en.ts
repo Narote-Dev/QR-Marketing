@@ -32,6 +32,10 @@ export const en: Dictionary = {
     navMenu: "Open menu",
     navClose: "Close menu",
     navAria: "Main navigation",
+    navMyDynamicQr: "My dynamic QRs",
+    navSignIn: "Sign in",
+    navSignUp: "Sign up",
+    devAuthBadge: "Dev account",
     footerNavAria: "Footer",
     footerRights: "All rights reserved.",
     popularUseCases: "Popular specialized use cases",
@@ -312,7 +316,17 @@ export const en: Dictionary = {
     activated: "Code activated.",
     deactivated: "Code paused.",
     manageFooterNote:
-      "Keep your manage token private. Anyone with it can change the destination or pause the code.",
+      "Your account owns these codes. Pausing stops new scans from counting when over quota; the short link may still redirect.",
+    signInIntro: "Sign in to create and manage Dynamic QR codes tied to your account.",
+    signInButton: "Sign in",
+    myCodesNav: "My dynamic QRs",
+    dashboardTitle: "My dynamic QRs",
+    dashboardIntro: "Edit destinations, pause codes, and track scan usage for your account.",
+    quotaTitle: "Plan usage",
+    quotaDynamic: "Active codes",
+    quotaScans: "Logged scans",
+    emptyList: "No dynamic QRs yet. Create one from the generator’s Dynamic mode.",
+    loading: "Loading…",
   },
   form: {
     websiteAddress: "Website address",
@@ -958,15 +972,15 @@ export const en: Dictionary = {
       dynamic: {
         title: "Dynamic QR Code Generator — Edit After Print",
         description:
-          "Create Dynamic QR codes on genmyqrcode.com. Change the destination URL after printing, pause campaigns, and view scan counts—free, no account required.",
+          "Create Dynamic QR codes on genmyqrcode.com with a free account. Change the destination URL after printing, pause campaigns, and view scan counts.",
         h1: "Dynamic QR codes you can update later",
         introduction:
           "A Dynamic QR code points to a short link on genmyqrcode.com (for example /r/yourCode). Scanners open your current destination URL. You can change that URL, pause the code, or check scan counts without reprinting posters, menus, or packaging. Static QR codes still encode content directly in the image and stay ideal for WiFi, vCard, and forever links that never need editing.",
         howTo: [
-          "Open the QR generator and switch to Dynamic mode.",
+          "Sign in, open the QR generator, and switch to Dynamic mode.",
           "Enter an http or https destination URL (optional label helps you recognize the code later), then create the Dynamic QR.",
           "Customize the design if you like, download the image, and print it—the QR encodes the short link, not the final website URL.",
-          "To edit later, open the manage page with your manage token (saved in this browser). Update the destination, pause or reactivate, and review scan counts.",
+          "To edit later, open My dynamic QRs in your account. Update the destination, pause or reactivate, and review scan counts.",
         ],
         faqs: [
           {
@@ -977,7 +991,7 @@ export const en: Dictionary = {
           {
             question: "Do I need an account?",
             answer:
-              "No. Ownership uses a manage token stored in your browser. Copy and keep that token if you may edit from another device—we cannot recover a lost token. A full account system may arrive later.",
+              "Yes. Sign in with email or Google to create and manage Dynamic QR codes. Your codes stay tied to your account on any device where you are signed in.",
           },
           {
             question: "Where does the short link go?",

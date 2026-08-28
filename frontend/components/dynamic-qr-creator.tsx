@@ -3,15 +3,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
-import { createDynamicQr } from "@/lib/dynamic-qr/api";
-import { saveOwnerToken } from "@/lib/dynamic-qr/owner-token";
+import { DynamicQrAuthGate } from "@/lib/dynamic-qr/auth-client";
+import { createDynamicQr, getDefaultDevAuthHeaders } from "@/lib/dynamic-qr/api";
+import { isClerkEnabled } from "@/lib/clerk/config";
 import { localizedPath } from "@/lib/i18n/paths";
+import { DynamicQrCreatorClerk } from "@/components/dynamic-qr-creator-clerk";
 
 type Props = {
   onCreated: (shortUrl: string, shortCode: string) => void;
 };
 
-export function DynamicQrCreator({ onCreated }: Props) {
+function DynamicQrCreatorDev({ onCreated }: Props) {
   const dictionary = useDictionary();
   const locale = useLocale();
   const copy = dictionary.dynamicQr;
@@ -25,11 +27,11 @@ export function DynamicQrCreator({ onCreated }: Props) {
     setBusy(true);
     setError(undefined);
     try {
-      const result = await createDynamicQr({
-        destinationUrl,
-        label: label.trim() || undefined,
-      });
-      saveOwnerToken(result.shortCode, result.manageToken);
+      const authHeaders = await getDefaultDevAuthHeaders();
+      const result = await createDynamicQr(
+        { destinationUrl, label: label.trim() || undefined },
+        authHeaders,
+      );
       setCreated({ shortUrl: result.shortUrl, shortCode: result.shortCode });
       onCreated(result.shortUrl, result.shortCode);
     } catch (err) {
@@ -87,15 +89,32 @@ export function DynamicQrCreator({ onCreated }: Props) {
               {created.shortUrl}
             </a>
           </p>
-          <p className="text-xs text-slate-500">{copy.tokenSavedHint}</p>
           <Link
-            href={localizedPath(locale, `/dynamic-qr/manage?code=${encodeURIComponent(created.shortCode)}`)}
+            href={localizedPath(locale, "/my/dynamic-qr")}
             className="inline-flex font-semibold text-brand-teal-dark underline"
           >
-            {copy.manageLink}
+            {copy.myCodesNav}
           </Link>
         </div>
       )}
     </div>
+  );
+}
+
+export function DynamicQrCreator({ onCreated }: Props) {
+  const copy = useDictionary().dynamicQr;
+
+  if (isClerkEnabled()) {
+    return (
+      <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
+        <DynamicQrCreatorClerk onCreated={onCreated} />
+      </DynamicQrAuthGate>
+    );
+  }
+
+  return (
+    <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
+      <DynamicQrCreatorDev onCreated={onCreated} />
+    </DynamicQrAuthGate>
   );
 }

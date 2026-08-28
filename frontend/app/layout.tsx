@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AdSenseScript } from "@/components/adsense-script";
+import { AppProviders } from "@/components/app-providers";
 import { ConsentModeScript } from "@/components/consent-mode-script";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { adSenseConfig, getAdSenseAccountMeta } from "@/lib/adsense/config";
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ConsentModeScript />
         <AdSenseScript />
         <GoogleAnalytics />
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

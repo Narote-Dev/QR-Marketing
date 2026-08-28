@@ -39,3 +39,15 @@ public sealed class DynamicQrStatsResponse
     public string ShortCode { get; set; } = string.Empty;
     public long TotalScans { get; set; }
 }
+
+public sealed class DynamicQrListItemResponse
+{
+    public string ShortCode { get; set; } = string.Empty;
+    public string ShortUrl { get; set; } = string.Empty;
+    public string DestinationUrl { get; set; } = string.Empty;
+    public string? Label { get; set; }
+    public bool IsActive { get; set; }
+    public long TotalScans { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
+}

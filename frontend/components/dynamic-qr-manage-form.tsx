@@ -1,24 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useDictionary } from "@/components/i18n-provider";
+import Link from "next/link";
+import { useDictionary, useLocale } from "@/components/i18n-provider";
+import { DynamicQrAuthGate, useClerkDynamicQrAuth } from "@/lib/dynamic-qr/auth-client";
 import {
+  getDefaultDevAuthHeaders,
   getDynamicQr,
   getDynamicQrStats,
+  listDynamicQrs,
   updateDynamicQr,
   type DynamicQrDetails,
 } from "@/lib/dynamic-qr/api";
-import { getOwnerToken, listOwnedShortCodes, saveOwnerToken } from "@/lib/dynamic-qr/owner-token";
+import { isClerkEnabled } from "@/lib/clerk/config";
+import { localizedPath } from "@/lib/i18n/paths";
 
-type Props = {
-  initialCode?: string;
-};
+type Props = { initialCode?: string };
 
-export function DynamicQrManageForm({ initialCode = "" }: Props) {
+function ManageFormBody({
+  initialCode,
+  getAuthHeaders,
+}: {
+  initialCode: string;
+  getAuthHeaders: () => Promise<Record<string, string>>;
+}) {
   const copy = useDictionary().dynamicQr;
+  const locale = useLocale();
   const [owned, setOwned] = useState<string[]>([]);
   const [shortCode, setShortCode] = useState(initialCode);
-  const [manageToken, setManageToken] = useState("");
   const [details, setDetails] = useState<DynamicQrDetails>();
   const [totalScans, setTotalScans] = useState<number>();
   const [destinationUrl, setDestinationUrl] = useState("");
@@ -28,32 +37,35 @@ export function DynamicQrManageForm({ initialCode = "" }: Props) {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    const codes = listOwnedShortCodes();
-    setOwned(codes);
-    const code = initialCode || codes[0] || "";
-    if (code) {
-      setShortCode(code);
-      setManageToken(getOwnerToken(code) ?? "");
-    }
-  }, [initialCode]);
-
-  useEffect(() => {
-    if (!shortCode) return;
-    const stored = getOwnerToken(shortCode);
-    if (stored) setManageToken(stored);
-  }, [shortCode]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const authHeaders = await getAuthHeaders();
+        const list = await listDynamicQrs(authHeaders);
+        if (cancelled) return;
+        const codes = list.map((x) => x.shortCode);
+        setOwned(codes);
+        const code = initialCode || codes[0] || "";
+        setShortCode(code);
+      } catch {
+        /* list optional on first paint */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [getAuthHeaders, initialCode]);
 
   const load = async () => {
     setBusy(true);
     setError(undefined);
     setMessage(undefined);
     try {
+      const authHeaders = await getAuthHeaders();
       const [nextDetails, stats] = await Promise.all([
-        getDynamicQr(shortCode.trim(), manageToken.trim()),
-        getDynamicQrStats(shortCode.trim(), manageToken.trim()),
+        getDynamicQr(shortCode.trim(), authHeaders),
+        getDynamicQrStats(shortCode.trim(), authHeaders),
       ]);
-      saveOwnerToken(nextDetails.shortCode, manageToken.trim());
-      setOwned(listOwnedShortCodes());
       setDetails(nextDetails);
       setDestinationUrl(nextDetails.destinationUrl);
       setLabel(nextDetails.label ?? "");
@@ -72,7 +84,8 @@ export function DynamicQrManageForm({ initialCode = "" }: Props) {
     setError(undefined);
     setMessage(undefined);
     try {
-      const updated = await updateDynamicQr(details.shortCode, manageToken.trim(), {
+      const authHeaders = await getAuthHeaders();
+      const updated = await updateDynamicQr(details.shortCode, authHeaders, {
         destinationUrl,
         label: label.trim() || null,
       });
@@ -91,7 +104,8 @@ export function DynamicQrManageForm({ initialCode = "" }: Props) {
     setError(undefined);
     setMessage(undefined);
     try {
-      const updated = await updateDynamicQr(details.shortCode, manageToken.trim(), {
+      const authHeaders = await getAuthHeaders();
+      const updated = await updateDynamicQr(details.shortCode, authHeaders, {
         isActive: !details.isActive,
       });
       setDetails(updated);
@@ -108,6 +122,9 @@ export function DynamicQrManageForm({ initialCode = "" }: Props) {
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">{copy.manageTitle}</h1>
         <p className="mt-2 text-sm text-slate-600">{copy.manageIntro}</p>
+        <Link href={localizedPath(locale, "/my/dynamic-qr")} className="mt-2 inline-flex text-sm font-semibold text-brand-teal-dark underline">
+          {copy.myCodesNav}
+        </Link>
       </div>
 
       {owned.length > 0 && (
@@ -135,20 +152,11 @@ export function DynamicQrManageForm({ initialCode = "" }: Props) {
           className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm"
         />
       </label>
-      <label className="block space-y-1.5">
-        <span className="text-sm font-medium text-slate-800">{copy.manageTokenLabel}</span>
-        <input
-          value={manageToken}
-          onChange={(event) => setManageToken(event.target.value)}
-          className="w-full rounded-xl border border-slate-200 px-3 py-2 font-mono text-sm"
-        />
-        <span className="block text-xs text-slate-500">{copy.manageTokenHint}</span>
-      </label>
 
       <button
         type="button"
         onClick={load}
-        disabled={busy || !shortCode.trim() || !manageToken.trim()}
+        disabled={busy || !shortCode.trim()}
         className="inline-flex rounded-xl bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-teal-dark disabled:bg-slate-300"
       >
         {copy.loadButton}
@@ -216,5 +224,24 @@ export function DynamicQrManageForm({ initialCode = "" }: Props) {
         </p>
       )}
     </div>
+  );
+}
+
+function ManageFormClerk({ initialCode }: Props) {
+  const { getAuthHeaders } = useClerkDynamicQrAuth();
+  return <ManageFormBody initialCode={initialCode ?? ""} getAuthHeaders={getAuthHeaders} />;
+}
+
+function ManageFormDev({ initialCode }: Props) {
+  return <ManageFormBody initialCode={initialCode ?? ""} getAuthHeaders={getDefaultDevAuthHeaders} />;
+}
+
+export function DynamicQrManageForm({ initialCode = "" }: Props) {
+  const copy = useDictionary().dynamicQr;
+  const body = isClerkEnabled() ? <ManageFormClerk initialCode={initialCode} /> : <ManageFormDev initialCode={initialCode} />;
+  return (
+    <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
+      {body}
+    </DynamicQrAuthGate>
   );
 }

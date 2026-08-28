@@ -47,8 +47,12 @@ namespace QrMarketing.Api.Data.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("OwnerTokenHash")
-                        .IsRequired()
                         .HasColumnType("char(64)");
+
+                    b.Property<long>("ScanCountCached")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
                     b.Property<string>("ShortCode")
                         .IsRequired()
@@ -58,6 +62,9 @@ namespace QrMarketing.Api.Data.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerTokenHash")
@@ -66,7 +73,53 @@ namespace QrMarketing.Api.Data.Migrations
                     b.HasIndex("ShortCode")
                         .IsUnique();
 
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("idx_dynamic_qr_user_id");
+
+                    b.HasIndex("UserId", "IsActive")
+                        .HasDatabaseName("idx_dynamic_qr_user_status");
+
                     b.ToTable("dynamic_qr", (string)null);
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.PlanEntitlement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("EntitlementKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<string>("PlanCode")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.Property<bool?>("ValueBool")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("ValueInt")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ValueJson")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ValueType")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanCode", "EntitlementKey")
+                        .IsUnique();
+
+                    b.ToTable("plan_entitlements", (string)null);
                 });
 
             modelBuilder.Entity("QrMarketing.Api.Data.Entities.ScanEvent", b =>
@@ -103,6 +156,228 @@ namespace QrMarketing.Api.Data.Migrations
                     b.ToTable("scan_events", (string)null);
                 });
 
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.SubscriptionPlan", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.Property<string>("BillingInterval")
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("char(3)");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("GraceDays")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublic")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MetadataJson")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("PriceCents")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrialDays")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("subscription_plans", (string)null);
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<string>("AuthProviderId")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(320)
+                        .HasColumnType("character varying(320)");
+
+                    b.Property<string>("PlanCode")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasDefaultValue("free");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasDefaultValue("active");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthProviderId")
+                        .IsUnique();
+
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.UserQuotaUsage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("PeriodEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("PeriodStart")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("QuotaKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("UsedAmount")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "QuotaKey", "PeriodStart")
+                        .IsUnique();
+
+                    b.ToTable("user_quota_usage", (string)null);
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.UserSubscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<string>("BillingExternalId")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<string>("BillingProvider")
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.Property<bool>("CancelAtPeriodEnd")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("CanceledAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CurrentPeriodEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CurrentPeriodStart")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("EndedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("GraceEndAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PendingPlanCode")
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.Property<string>("PlanCode")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.Property<DateTimeOffset>("StartedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("character varying(24)");
+
+                    b.Property<DateTimeOffset?>("TrialEndAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanCode");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("idx_user_subscriptions_user_id");
+
+                    b.ToTable("user_subscriptions", (string)null);
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.DynamicQr", b =>
+                {
+                    b.HasOne("QrMarketing.Api.Data.Entities.User", "User")
+                        .WithMany("DynamicQrs")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.PlanEntitlement", b =>
+                {
+                    b.HasOne("QrMarketing.Api.Data.Entities.SubscriptionPlan", "Plan")
+                        .WithMany("Entitlements")
+                        .HasForeignKey("PlanCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
+                });
+
             modelBuilder.Entity("QrMarketing.Api.Data.Entities.ScanEvent", b =>
                 {
                     b.HasOne("QrMarketing.Api.Data.Entities.DynamicQr", "Qr")
@@ -114,9 +389,53 @@ namespace QrMarketing.Api.Data.Migrations
                     b.Navigation("Qr");
                 });
 
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.UserQuotaUsage", b =>
+                {
+                    b.HasOne("QrMarketing.Api.Data.Entities.User", "User")
+                        .WithMany("QuotaUsages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.UserSubscription", b =>
+                {
+                    b.HasOne("QrMarketing.Api.Data.Entities.SubscriptionPlan", "Plan")
+                        .WithMany()
+                        .HasForeignKey("PlanCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QrMarketing.Api.Data.Entities.User", "User")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("QrMarketing.Api.Data.Entities.DynamicQr", b =>
                 {
                     b.Navigation("ScanEvents");
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.SubscriptionPlan", b =>
+                {
+                    b.Navigation("Entitlements");
+                });
+
+            modelBuilder.Entity("QrMarketing.Api.Data.Entities.User", b =>
+                {
+                    b.Navigation("DynamicQrs");
+
+                    b.Navigation("QuotaUsages");
+
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,7 @@ const nextConfig = {
       { source: "/r/:code", destination: `${apiOrigin}/r/:code` },
       { source: "/api/dynamic-qr", destination: `${apiOrigin}/api/dynamic-qr` },
       { source: "/api/dynamic-qr/:path*", destination: `${apiOrigin}/api/dynamic-qr/:path*` },
+      { source: "/api/me/:path*", destination: `${apiOrigin}/api/me/:path*` },
     ];
   },
 };

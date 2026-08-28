@@ -32,6 +32,10 @@ export const zh: Dictionary = {
     navMenu: "打开菜单",
     navClose: "关闭菜单",
     navAria: "主导航",
+    navMyDynamicQr: "我的动态 QR",
+    navSignIn: "登录",
+    navSignUp: "注册",
+    devAuthBadge: "开发账号",
     footerNavAria: "页脚",
     footerRights: "保留所有权利。",
     popularUseCases: "热门专项用途",
@@ -298,6 +302,16 @@ export const zh: Dictionary = {
     activated: "已启用。",
     deactivated: "已暂停。",
     manageFooterNote: "请妥善保管管理令牌。持有者可更改目标或暂停代码。",
+    signInIntro: "登录后即可创建和管理与账户绑定的动态 QR。",
+    signInButton: "登录",
+    myCodesNav: "我的动态 QR",
+    dashboardTitle: "我的动态 QR",
+    dashboardIntro: "编辑目标、暂停代码并查看账户的扫描用量。",
+    quotaTitle: "套餐用量",
+    quotaDynamic: "活跃代码",
+    quotaScans: "已记录扫描",
+    emptyList: "尚无动态 QR — 请在生成器的动态模式中创建。",
+    loading: "加载中…",
   },
   form: {
     websiteAddress: "网站地址",
@@ -928,15 +942,15 @@ export const zh: Dictionary = {
       dynamic: {
         title: "动态二维码生成器 — 印刷后可改目标",
         description:
-          "在 genmyqrcode.com 创建动态二维码。印刷后可更改目标网址、暂停活动并查看扫描次数——免费，无需账号。",
+          "在 genmyqrcode.com 使用免费账号创建动态二维码。印刷后可更改目标网址、暂停活动并查看扫描次数。",
         h1: "可稍后更新目标的动态二维码",
         introduction:
           "动态二维码指向 genmyqrcode.com 上的短链（例如 /r/yourCode）。扫码者会打开你当前的目标网址。你可以更改该网址、暂停代码或查看扫描次数，而无需重印海报、菜单或包装。静态二维码仍将内容直接编码在图像中，适合 WiFi、vCard 以及永不需要修改的永久链接。",
         howTo: [
-          "打开二维码生成器，切换到 Dynamic 模式。",
+          "登录后打开二维码生成器，切换到 Dynamic 模式。",
           "输入 http 或 https 目标网址（可选名称便于日后识别），然后创建动态二维码。",
           "按需自定义设计，下载图片并印刷——二维码编码的是短链，不是最终网站 URL。",
-          "稍后编辑时，使用管理令牌（已保存在本浏览器）打开管理页，更新目标、暂停或重新启用，并查看扫描次数。",
+          "稍后编辑时，在账号中打开“我的动态 QR”，更新目标、暂停或重新启用，并查看扫描次数。",
         ],
         faqs: [
           {
@@ -947,7 +961,7 @@ export const zh: Dictionary = {
           {
             question: "需要注册账号吗？",
             answer:
-              "不需要。所有权使用保存在浏览器中的管理令牌。如需在其他设备编辑请自行备份——丢失后无法找回。完整账号系统可能稍后推出。",
+              "需要。使用邮箱或 Google 登录后即可创建和管理动态二维码。代码与账号绑定，可在任何已登录设备上管理。",
           },
           {
             question: "短链指向哪里？",
