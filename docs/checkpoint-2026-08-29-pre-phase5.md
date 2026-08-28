@@ -1,8 +1,10 @@
-# Checkpoint — 2026-08-29 (ก่อนปรึกษา Phase 5 / away from dev PC)
+# Checkpoint — 2026-08-29 (superseded)
 
-Branch: **`feature/dynamic-qr`**  
-Production: **static QR only** — Dynamic flags ยังไม่เปิดบน prod  
-Rule: ห้าม merge/เปิด Dynamic บน prod โดยไม่ approve ชัดเจน
+**→ ใช้ไฟล์นี้แทน:** [`checkpoint-2026-08-29-cloud-handoff.md`](./checkpoint-2026-08-29-cloud-handoff.md)
+
+ไฟล์นี้เก็บไว้เป็นประวัติก่อน Phase 5 go-live — สถานะล่าสุดอยู่ใน cloud handoff + `phase-5-go-live-status-2026-08-29.md`.
+
+Branch: **`feature/dynamic-qr`** @ `fcc38d6` (pushed to GitHub)
 
 ---
 
