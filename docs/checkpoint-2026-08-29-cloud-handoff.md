@@ -30,7 +30,7 @@ Dynamic QR is **enabled on production** (UI + API + redirect rewrite).
 |-------|--------|
 | 0–4 | Code complete |
 | **5 infra** | **Done** (see `docs/phase-5-go-live-status-2026-08-29.md`) |
-| **5 manual gate** | **Pending** — J0, J1, J2 (user must run on browser + phone) |
+| **5 manual gate** | **Pending** — J0, J1, J2 (user must run on browser + phone); infra smoke ✅ (see phase-5 doc) |
 | 6–8 | Not started (deferred) |
 
 ---

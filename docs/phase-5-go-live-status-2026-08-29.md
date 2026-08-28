@@ -27,6 +27,26 @@ API: **https://qr-api-production-fb1c.up.railway.app**
 
 These cannot be done by AI alone:
 
+### Cloud Agent verification (2026-08-29)
+
+Automated checks run on production without Clerk sign-in:
+
+| Check | Result |
+|-------|--------|
+| `GET /en/my/dynamic-qr` | 200 — auth gate (not 404) |
+| `GET /en/qr-code-generator` | 200 — Static + Dynamic tabs visible |
+| `GET /r/zzzzzz` | 410 — rewrite to Railway OK |
+| `GET /api/me/quota` | 401 — proxy auth OK |
+| Railway `/health` + `/health/ready` | 200 |
+| Railway unauthenticated `POST /api/dynamic-qr` | 401 |
+| Frontend unit tests (76) | pass |
+
+**Fix on branch `cursor/j1-j2-gate-verify-0acd`:** Manage page now auto-loads QR when opened via dashboard link (`/dynamic-qr/manage?code=...`) — removes extra **Load** click for J2 edit step.
+
+**Known / not blocking J1–J2:**
+- Clerk still uses **test** instance keys (documented; rotate before marketing push).
+- React hydration warnings + AdSense `no_div` on generator page (pre-existing static surface).
+
 ### J1 — Sign-up + create
 1. Open https://genmyqrcode.com/en/qr-code-generator
 2. Sign in / sign up (Clerk)
