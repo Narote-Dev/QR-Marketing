@@ -311,6 +311,9 @@ export const zh: Dictionary = {
     quotaDynamic: "活跃代码",
     quotaScans: "已记录扫描",
     emptyList: "尚无动态 QR — 请在生成器的动态模式中创建。",
+    createQrButton: "创建动态 QR",
+    yourCodesTitle: "您的代码",
+    planLabel: "当前套餐",
     loading: "加载中…",
   },
   form: {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { DynamicQrAccountLayout } from "@/components/dynamic-qr-account-layout";
 import { DynamicQrDashboard } from "@/components/dynamic-qr-dashboard";
 import { isDynamicQrEnabled } from "@/lib/dynamic-qr/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -19,9 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function MyDynamicQrPage({ params }: Props) {
   if (!isLocale(params.locale)) notFound();
   if (!isDynamicQrEnabled()) notFound();
+  const locale = params.locale as Locale;
+  const dictionary = await getDictionary(locale);
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
+    <DynamicQrAccountLayout locale={locale} dictionary={dictionary} currentPath="/my/dynamic-qr">
       <DynamicQrDashboard />
-    </main>
+    </DynamicQrAccountLayout>
   );
 }

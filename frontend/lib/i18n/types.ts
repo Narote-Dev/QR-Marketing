@@ -234,6 +234,9 @@ export type Dictionary = {
     quotaDynamic: string;
     quotaScans: string;
     emptyList: string;
+    createQrButton: string;
+    yourCodesTitle: string;
+    planLabel: string;
     loading: string;
   };
   form: {

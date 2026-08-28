@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { DynamicQrAccountLayout } from "@/components/dynamic-qr-account-layout";
 import { DynamicQrManageForm } from "@/components/dynamic-qr-manage-form";
 import { isDynamicQrEnabled } from "@/lib/dynamic-qr/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -25,9 +26,9 @@ export default async function DynamicQrManagePage({ params, searchParams }: Prop
   const locale = params.locale as Locale;
   const dictionary = await getDictionary(locale);
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
+    <DynamicQrAccountLayout locale={locale} dictionary={dictionary} currentPath="/my/dynamic-qr">
       <DynamicQrManageForm initialCode={searchParams?.code ?? ""} />
-      <p className="mx-auto mt-6 max-w-xl text-center text-xs text-slate-500">{dictionary.dynamicQr.manageFooterNote}</p>
-    </main>
+      <p className="mx-auto mt-8 max-w-3xl text-center text-xs text-slate-500">{dictionary.dynamicQr.manageFooterNote}</p>
+    </DynamicQrAccountLayout>
   );
 }

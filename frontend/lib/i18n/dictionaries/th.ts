@@ -323,6 +323,9 @@ export const th: Dictionary = {
     quotaDynamic: "โค้ดที่ใช้งาน",
     quotaScans: "สแกนที่บันทึก",
     emptyList: "ยังไม่มี Dynamic QR — สร้างจากโหมด Dynamic ในตัวสร้าง",
+    createQrButton: "สร้าง Dynamic QR",
+    yourCodesTitle: "โค้ดของคุณ",
+    planLabel: "แผนปัจจุบัน",
     loading: "กำลังโหลด…",
   },
   form: {

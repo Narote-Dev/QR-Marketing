@@ -17,6 +17,8 @@ type Props = {
   dictionary: Dictionary;
   /** Bare path without locale prefix, e.g. "/bulk-qr-generator". */
   currentPath?: string;
+  className?: string;
+  sticky?: boolean;
 };
 
 type NavItem = {
@@ -35,7 +37,7 @@ function isActivePath(currentPath: string | undefined, itemPath: string): boolea
   return currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
 }
 
-export function SiteHeader({ locale, dictionary, currentPath }: Props) {
+export function SiteHeader({ locale, dictionary, currentPath, className, sticky = true }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const chrome = dictionary.chrome;
 
@@ -47,7 +49,14 @@ export function SiteHeader({ locale, dictionary, currentPath }: Props) {
   ];
 
   return (
-    <header className="mb-8 border-b border-slate-200/80 pb-4">
+    <header
+      className={cn(
+        "mb-8 border-b border-slate-200/80 pb-4",
+        sticky &&
+          "sticky top-0 z-40 bg-white/90 pt-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-white/75 sm:pt-5",
+        className,
+      )}
+    >
       <div className="flex items-center justify-between gap-3">
         <Link
           href={localizedPath(locale, "/qr-code-generator")}

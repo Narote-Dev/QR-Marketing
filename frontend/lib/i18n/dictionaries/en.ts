@@ -326,6 +326,9 @@ export const en: Dictionary = {
     quotaDynamic: "Active codes",
     quotaScans: "Logged scans",
     emptyList: "No dynamic QRs yet. Create one from the generator’s Dynamic mode.",
+    createQrButton: "Create dynamic QR",
+    yourCodesTitle: "Your codes",
+    planLabel: "Current plan",
     loading: "Loading…",
   },
   form: {

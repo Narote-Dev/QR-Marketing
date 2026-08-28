@@ -45,12 +45,12 @@ function ClerkSignedInGate({
     <>
       <SignedIn>{children}</SignedIn>
       <SignedOut>
-        <div className="space-y-3 rounded-2xl border border-brand-teal/30 bg-brand-cream/40 p-4">
-          <p className="text-sm text-slate-700">{signInIntro}</p>
+        <div className="mx-auto max-w-xl space-y-4 rounded-3xl border border-brand-teal/30 bg-white/80 p-6 text-center shadow-sm sm:p-8">
+          <p className="text-sm leading-relaxed text-slate-700 sm:text-base">{signInIntro}</p>
           <SignInButton mode="modal">
             <button
               type="button"
-              className="inline-flex rounded-xl bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-teal-dark"
+              className="inline-flex rounded-xl bg-brand-teal px-5 py-3 text-sm font-semibold text-white hover:bg-brand-teal-dark"
             >
               {signInLabel}
             </button>
