@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -27,6 +28,11 @@ public sealed class DynamicQrService(
         }
 
         var label = NormalizeLabel(request.Label);
+        if (!QrDesignValidator.TryNormalize(request.Design, out var designJson, out var designError))
+        {
+            throw new ArgumentException(designError);
+        }
+
         var rawToken = OwnerTokenHasher.CreateRawToken();
         var tokenHash = OwnerTokenHasher.Hash(rawToken);
         var now = DateTimeOffset.UtcNow;
@@ -42,6 +48,7 @@ public sealed class DynamicQrService(
             OwnerTokenHash = tokenHash,
             DestinationUrl = destinationUrl,
             Label = label,
+            DesignJson = designJson,
             IsActive = true,
             CreatedAt = now,
             UpdatedAt = now,
@@ -70,6 +77,11 @@ public sealed class DynamicQrService(
         }
 
         var label = NormalizeLabel(request.Label);
+        if (!QrDesignValidator.TryNormalize(request.Design, out var designJson, out var designError))
+        {
+            throw new ArgumentException(designError);
+        }
+
         var now = DateTimeOffset.UtcNow;
         var shortCode = await AllocateShortCodeAsync(cancellationToken);
 
@@ -81,6 +93,7 @@ public sealed class DynamicQrService(
             ShortCode = shortCode,
             DestinationUrl = destinationUrl,
             Label = label,
+            DesignJson = designJson,
             IsActive = true,
             CreatedAt = now,
             UpdatedAt = now,
@@ -228,6 +241,7 @@ public sealed class DynamicQrService(
             ShortUrl = BuildShortUrl(x.ShortCode),
             DestinationUrl = x.DestinationUrl,
             Label = x.Label,
+            Design = ParseDesignJson(x.DesignJson),
             IsActive = x.IsActive,
             TotalScans = x.ScanCountCached,
             CreatedAt = x.CreatedAt,
@@ -346,10 +360,22 @@ public sealed class DynamicQrService(
         ShortUrl = BuildShortUrl(entity.ShortCode),
         DestinationUrl = entity.DestinationUrl,
         Label = entity.Label,
+        Design = ParseDesignJson(entity.DesignJson),
         IsActive = entity.IsActive,
         CreatedAt = entity.CreatedAt,
         UpdatedAt = entity.UpdatedAt,
     };
+
+    private static JsonElement? ParseDesignJson(string? designJson)
+    {
+        if (string.IsNullOrWhiteSpace(designJson))
+        {
+            return null;
+        }
+
+        using var doc = JsonDocument.Parse(designJson);
+        return doc.RootElement.Clone();
+    }
 
     private async Task<DynamicQrStatsResponse> ToStatsAsync(DynamicQr entity, CancellationToken cancellationToken)
     {

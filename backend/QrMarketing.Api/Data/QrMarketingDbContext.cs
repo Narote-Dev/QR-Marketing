@@ -77,6 +77,7 @@ public sealed class QrMarketingDbContext(DbContextOptions<QrMarketingDbContext> 
         dynamicQr.HasIndex(x => x.OwnerTokenHash).HasDatabaseName("idx_dynamic_qr_owner_token_hash");
         dynamicQr.Property(x => x.DestinationUrl).HasMaxLength(2048).IsRequired();
         dynamicQr.Property(x => x.Label).HasMaxLength(100);
+        dynamicQr.Property(x => x.DesignJson).HasColumnType("jsonb");
         dynamicQr.Property(x => x.IsActive).IsRequired().HasDefaultValue(true);
         dynamicQr.Property(x => x.ScanCountCached).IsRequired().HasDefaultValue(0L);
         dynamicQr.Property(x => x.CreatedAt).IsRequired();

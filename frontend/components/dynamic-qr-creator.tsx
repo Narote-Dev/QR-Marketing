@@ -5,15 +5,18 @@ import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrAuthGate } from "@/lib/dynamic-qr/auth-client";
 import { createDynamicQr, getDefaultDevAuthHeaders } from "@/lib/dynamic-qr/api";
+import { prepareDesignForSave } from "@/lib/dynamic-qr/design-storage";
 import { isClerkEnabled } from "@/lib/clerk/config";
 import { localizedPath } from "@/lib/i18n/paths";
 import { DynamicQrCreatorClerk } from "@/components/dynamic-qr-creator-clerk";
+import type { QrDesign } from "@/lib/qr/design";
 
 type Props = {
+  design: QrDesign;
   onCreated: (shortUrl: string, shortCode: string) => void;
 };
 
-function DynamicQrCreatorDev({ onCreated }: Props) {
+function DynamicQrCreatorDev({ design, onCreated }: Props) {
   const dictionary = useDictionary();
   const locale = useLocale();
   const copy = dictionary.dynamicQr;
@@ -28,14 +31,21 @@ function DynamicQrCreatorDev({ onCreated }: Props) {
     setError(undefined);
     try {
       const authHeaders = await getDefaultDevAuthHeaders();
+      const designSnapshot = prepareDesignForSave(design);
       const result = await createDynamicQr(
-        { destinationUrl, label: label.trim() || undefined },
+        { destinationUrl, label: label.trim() || undefined, design: designSnapshot },
         authHeaders,
       );
       setCreated({ shortUrl: result.shortUrl, shortCode: result.shortCode });
       onCreated(result.shortUrl, result.shortCode);
     } catch (err) {
-      setError(err instanceof Error ? err.message : copy.createFailed);
+      setError(
+        err instanceof Error && err.message === "design.too_large"
+          ? copy.designTooLarge
+          : err instanceof Error
+            ? err.message
+            : copy.createFailed,
+      );
     } finally {
       setBusy(false);
     }
@@ -101,20 +111,20 @@ function DynamicQrCreatorDev({ onCreated }: Props) {
   );
 }
 
-export function DynamicQrCreator({ onCreated }: Props) {
+export function DynamicQrCreator({ design, onCreated }: Props) {
   const copy = useDictionary().dynamicQr;
 
   if (isClerkEnabled()) {
     return (
       <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
-        <DynamicQrCreatorClerk onCreated={onCreated} />
+        <DynamicQrCreatorClerk design={design} onCreated={onCreated} />
       </DynamicQrAuthGate>
     );
   }
 
   return (
     <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
-      <DynamicQrCreatorDev onCreated={onCreated} />
+      <DynamicQrCreatorDev design={design} onCreated={onCreated} />
     </DynamicQrAuthGate>
   );
 }

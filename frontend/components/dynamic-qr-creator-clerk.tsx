@@ -5,13 +5,16 @@ import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { useClerkDynamicQrAuth } from "@/lib/dynamic-qr/auth-client";
 import { createDynamicQr } from "@/lib/dynamic-qr/api";
+import { prepareDesignForSave } from "@/lib/dynamic-qr/design-storage";
 import { localizedPath } from "@/lib/i18n/paths";
+import type { QrDesign } from "@/lib/qr/design";
 
 type Props = {
+  design: QrDesign;
   onCreated: (shortUrl: string, shortCode: string) => void;
 };
 
-export function DynamicQrCreatorClerk({ onCreated }: Props) {
+export function DynamicQrCreatorClerk({ design, onCreated }: Props) {
   const dictionary = useDictionary();
   const locale = useLocale();
   const copy = dictionary.dynamicQr;
@@ -27,14 +30,21 @@ export function DynamicQrCreatorClerk({ onCreated }: Props) {
     setError(undefined);
     try {
       const authHeaders = await getAuthHeaders();
+      const designSnapshot = prepareDesignForSave(design);
       const result = await createDynamicQr(
-        { destinationUrl, label: label.trim() || undefined },
+        { destinationUrl, label: label.trim() || undefined, design: designSnapshot },
         authHeaders,
       );
       setCreated({ shortUrl: result.shortUrl, shortCode: result.shortCode });
       onCreated(result.shortUrl, result.shortCode);
     } catch (err) {
-      setError(err instanceof Error ? err.message : copy.createFailed);
+      setError(
+        err instanceof Error && err.message === "design.too_large"
+          ? copy.designTooLarge
+          : err instanceof Error
+            ? err.message
+            : copy.createFailed,
+      );
     } finally {
       setBusy(false);
     }

@@ -8,6 +8,8 @@ public sealed class DynamicQr
     public string? OwnerTokenHash { get; set; }
     public string DestinationUrl { get; set; } = string.Empty;
     public string? Label { get; set; }
+    /// <summary>Serialized QrDesign JSON snapshot at create time (client re-renders PNG/SVG).</summary>
+    public string? DesignJson { get; set; }
     public bool IsActive { get; set; } = true;
     public long ScanCountCached { get; set; }
     public DateTimeOffset CreatedAt { get; set; }

@@ -253,6 +253,7 @@ export function QrGenerator({
             </h3>
             {mode === "dynamic" && dynamicEnabled ? (
               <DynamicQrCreator
+                design={design}
                 onCreated={(shortUrl) => {
                   setDynamicShortUrl(shortUrl);
                 }}

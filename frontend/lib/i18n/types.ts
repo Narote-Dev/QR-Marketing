@@ -238,6 +238,14 @@ export type Dictionary = {
     yourCodesTitle: string;
     planLabel: string;
     loading: string;
+    downloadPngAgain: string;
+    downloadSvgAgain: string;
+    downloadingPng: string;
+    downloadingSvg: string;
+    downloadAgainTitle: string;
+    downloadAgainIntro: string;
+    designFallbackHint: string;
+    designTooLarge: string;
   };
   form: {
     websiteAddress: string;

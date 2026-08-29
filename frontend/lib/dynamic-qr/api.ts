@@ -1,5 +1,6 @@
 import { getDynamicQrApiBaseUrl } from "@/lib/dynamic-qr/config";
 import { getDevAuthHeaders } from "@/lib/clerk/config";
+import type { QrDesign } from "@/lib/qr/design";
 
 export type CreateDynamicQrResult = {
   shortCode: string;
@@ -15,6 +16,7 @@ export type DynamicQrDetails = {
   shortUrl: string;
   destinationUrl: string;
   label: string | null;
+  design?: QrDesign | null;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -30,6 +32,7 @@ export type DynamicQrListItem = {
   shortUrl: string;
   destinationUrl: string;
   label: string | null;
+  design?: QrDesign | null;
   isActive: boolean;
   totalScans: number;
   createdAt: string;
@@ -69,7 +72,7 @@ function mergeHeaders(authHeaders: Record<string, string>, extra?: HeadersInit):
 }
 
 export async function createDynamicQr(
-  input: { destinationUrl: string; label?: string },
+  input: { destinationUrl: string; label?: string; design?: QrDesign },
   authHeaders: Record<string, string> = {},
 ): Promise<CreateDynamicQrResult> {
   const response = await fetch(`${getDynamicQrApiBaseUrl()}/api/dynamic-qr`, {
@@ -78,6 +81,7 @@ export async function createDynamicQr(
     body: JSON.stringify({
       destinationUrl: input.destinationUrl,
       label: input.label || null,
+      design: input.design ?? null,
     }),
   });
   if (!response.ok) throw new Error(await readError(response));

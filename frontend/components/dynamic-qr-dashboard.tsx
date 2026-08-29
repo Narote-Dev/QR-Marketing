@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ExternalLink, Plus, QrCode } from "lucide-react";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrAuthGate, useClerkDynamicQrAuth } from "@/lib/dynamic-qr/auth-client";
+import { DynamicQrDownloadActions } from "@/components/dynamic-qr-download-actions";
 import {
   getDefaultDevAuthHeaders,
   getQuotaSummary,
@@ -224,6 +225,12 @@ function DynamicQrDashboardBody({
                   <p className="text-xs text-slate-500">
                     {copy.scansLabel}: {item.totalScans.toLocaleString()}
                   </p>
+                  <DynamicQrDownloadActions
+                    shortUrl={item.shortUrl}
+                    design={item.design}
+                    fileBaseName={`qr-${item.shortCode}`}
+                    compact
+                  />
                 </div>
                 <Link
                   href={localizedPath(locale, `/dynamic-qr/manage?code=${encodeURIComponent(item.shortCode)}`)}

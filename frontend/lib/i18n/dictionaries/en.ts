@@ -330,6 +330,15 @@ export const en: Dictionary = {
     yourCodesTitle: "Your codes",
     planLabel: "Current plan",
     loading: "Loading…",
+    downloadPngAgain: "Download PNG again",
+    downloadSvgAgain: "Download SVG again",
+    downloadingPng: "Preparing PNG…",
+    downloadingSvg: "Preparing SVG…",
+    downloadAgainTitle: "Download QR image",
+    downloadAgainIntro: "Re-download the PNG or SVG using the design saved when you created this code.",
+    designFallbackHint: "No saved design for this code — using the default style.",
+    designTooLarge:
+      "Your custom logo makes the saved design too large. Use a smaller image or a preset logo, then create again.",
   },
   form: {
     websiteAddress: "Website address",

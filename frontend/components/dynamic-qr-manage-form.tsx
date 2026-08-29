@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrAuthGate, useClerkDynamicQrAuth } from "@/lib/dynamic-qr/auth-client";
+import { DynamicQrDownloadActions } from "@/components/dynamic-qr-download-actions";
 import {
   getDefaultDevAuthHeaders,
   getDynamicQr,
@@ -178,6 +179,17 @@ function ManageFormBody({
             <span className="font-semibold">{copy.statusLabel}: </span>
             {details.isActive ? copy.statusActive : copy.statusInactive}
           </p>
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm font-semibold text-slate-800">{copy.downloadAgainTitle}</p>
+            <p className="mt-1 text-xs text-slate-500">{copy.downloadAgainIntro}</p>
+            <div className="mt-3">
+              <DynamicQrDownloadActions
+                shortUrl={details.shortUrl}
+                design={details.design}
+                fileBaseName={`qr-${details.shortCode}`}
+              />
+            </div>
+          </div>
           <label className="block space-y-1.5">
             <span className="text-sm font-medium text-slate-800">{copy.destinationLabel}</span>
             <input

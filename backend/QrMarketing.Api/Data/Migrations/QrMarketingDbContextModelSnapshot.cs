@@ -32,6 +32,9 @@ namespace QrMarketing.Api.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("DesignJson")
+                        .HasColumnType("jsonb");
+
                     b.Property<string>("DestinationUrl")
                         .IsRequired()
                         .HasMaxLength(2048)

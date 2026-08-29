@@ -327,6 +327,15 @@ export const th: Dictionary = {
     yourCodesTitle: "โค้ดของคุณ",
     planLabel: "แผนปัจจุบัน",
     loading: "กำลังโหลด…",
+    downloadPngAgain: "ดาวน์โหลด PNG อีกครั้ง",
+    downloadSvgAgain: "ดาวน์โหลด SVG อีกครั้ง",
+    downloadingPng: "กำลังเตรียม PNG…",
+    downloadingSvg: "กำลังเตรียม SVG…",
+    downloadAgainTitle: "ดาวน์โหลดรูปคิวอาร์",
+    downloadAgainIntro: "ดาวน์โหลด PNG หรือ SVG ใหม่จากดีไซน์ที่บันทึกตอนสร้างโค้ด",
+    designFallbackHint: "โค้ดนี้ไม่มีดีไซน์ที่บันทึกไว้ — ใช้สไตล์เริ่มต้น",
+    designTooLarge:
+      "โลโก้ที่อัปโหลดทำให้ดีไซน์ใหญ่เกินไป ใช้รูปที่เล็กลงหรือโลโก้จาก preset แล้วสร้างใหม่",
   },
   form: {
     websiteAddress: "ที่อยู่เว็บไซต์",
