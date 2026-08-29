@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrAuthGate, useClerkDynamicQrAuth } from "@/lib/dynamic-qr/auth-client";
@@ -37,47 +37,59 @@ function ManageFormBody({
   const [message, setMessage] = useState<string>();
   const [error, setError] = useState<string>();
 
+  const loadDetails = useCallback(
+    async (code: string) => {
+      const trimmed = code.trim();
+      if (!trimmed) return;
+      setBusy(true);
+      setError(undefined);
+      setMessage(undefined);
+      try {
+        const authHeaders = await getAuthHeaders();
+        const [nextDetails, stats] = await Promise.all([
+          getDynamicQr(trimmed, authHeaders),
+          getDynamicQrStats(trimmed, authHeaders),
+        ]);
+        setDetails(nextDetails);
+        setDestinationUrl(nextDetails.destinationUrl);
+        setLabel(nextDetails.label ?? "");
+        setTotalScans(stats.totalScans);
+      } catch (err) {
+        setDetails(undefined);
+        setError(err instanceof Error ? err.message : copy.loadFailed);
+      } finally {
+        setBusy(false);
+      }
+    },
+    [copy.loadFailed, getAuthHeaders],
+  );
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         const authHeaders = await getAuthHeaders();
-        const list = await listDynamicQrs(authHeaders);
-        if (cancelled) return;
-        const codes = list.map((x) => x.shortCode);
-        setOwned(codes);
-        const code = initialCode || codes[0] || "";
+        try {
+          const list = await listDynamicQrs(authHeaders);
+          if (cancelled) return;
+          setOwned(list.map((x) => x.shortCode));
+        } catch {
+          /* list optional on first paint */
+        }
+        const code = initialCode.trim();
+        if (!code || cancelled) return;
         setShortCode(code);
+        await loadDetails(code);
       } catch {
-        /* list optional on first paint */
+        /* auth optional until sign-in completes */
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [getAuthHeaders, initialCode]);
+  }, [getAuthHeaders, initialCode, loadDetails]);
 
-  const load = async () => {
-    setBusy(true);
-    setError(undefined);
-    setMessage(undefined);
-    try {
-      const authHeaders = await getAuthHeaders();
-      const [nextDetails, stats] = await Promise.all([
-        getDynamicQr(shortCode.trim(), authHeaders),
-        getDynamicQrStats(shortCode.trim(), authHeaders),
-      ]);
-      setDetails(nextDetails);
-      setDestinationUrl(nextDetails.destinationUrl);
-      setLabel(nextDetails.label ?? "");
-      setTotalScans(stats.totalScans);
-    } catch (err) {
-      setDetails(undefined);
-      setError(err instanceof Error ? err.message : copy.loadFailed);
-    } finally {
-      setBusy(false);
-    }
-  };
+  const load = () => loadDetails(shortCode);
 
   const save = async () => {
     if (!details) return;
