@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
 import { DynamicQrAuthGate, useClerkDynamicQrAuth } from "@/lib/dynamic-qr/auth-client";
 import { DynamicQrDownloadActions } from "@/components/dynamic-qr-download-actions";
@@ -26,7 +27,6 @@ function ManageFormBody({
   getAuthHeaders: () => Promise<Record<string, string>>;
 }) {
   const copy = useDictionary().dynamicQr;
-  const locale = useLocale();
   const [owned, setOwned] = useState<string[]>([]);
   const [shortCode, setShortCode] = useState(initialCode);
   const [details, setDetails] = useState<DynamicQrDetails>();
@@ -51,6 +51,7 @@ function ManageFormBody({
           getDynamicQrStats(trimmed, authHeaders),
         ]);
         setDetails(nextDetails);
+        setShortCode(nextDetails.shortCode);
         setDestinationUrl(nextDetails.destinationUrl);
         setLabel(nextDetails.label ?? "");
         setTotalScans(stats.totalScans);
@@ -90,6 +91,12 @@ function ManageFormBody({
   }, [getAuthHeaders, initialCode, loadDetails]);
 
   const load = () => loadDetails(shortCode);
+  const isLoaded = Boolean(details);
+
+  const handleOwnedCodeChange = (code: string) => {
+    setShortCode(code);
+    void loadDetails(code);
+  };
 
   const save = async () => {
     if (!details) return;
@@ -135,9 +142,6 @@ function ManageFormBody({
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">{copy.manageTitle}</h1>
         <p className="mt-2 text-sm text-slate-600">{copy.manageIntro}</p>
-        <Link href={localizedPath(locale, "/my/dynamic-qr")} className="mt-2 inline-flex text-sm font-semibold text-brand-teal-dark underline">
-          {copy.myCodesNav}
-        </Link>
       </div>
 
       {owned.length > 0 && (
@@ -145,7 +149,7 @@ function ManageFormBody({
           <span className="text-sm font-medium text-slate-800">{copy.ownedCodes}</span>
           <select
             value={shortCode}
-            onChange={(event) => setShortCode(event.target.value)}
+            onChange={(event) => handleOwnedCodeChange(event.target.value)}
             className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
           >
             {owned.map((code) => (
@@ -161,19 +165,25 @@ function ManageFormBody({
         <span className="text-sm font-medium text-slate-800">{copy.shortCodeLabel}</span>
         <input
           value={shortCode}
+          readOnly={isLoaded}
+          aria-readonly={isLoaded}
           onChange={(event) => setShortCode(event.target.value)}
-          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm"
+          className={`w-full rounded-xl border border-slate-200 px-3 py-2 text-sm ${
+            isLoaded ? "cursor-default bg-slate-50 text-slate-700" : "bg-white"
+          }`}
         />
       </label>
 
-      <button
-        type="button"
-        onClick={load}
-        disabled={busy || !shortCode.trim()}
-        className="inline-flex rounded-xl bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-teal-dark disabled:bg-slate-300"
-      >
-        {copy.loadButton}
-      </button>
+      {!isLoaded && (
+        <button
+          type="button"
+          onClick={load}
+          disabled={busy || !shortCode.trim()}
+          className="inline-flex rounded-xl bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-teal-dark disabled:bg-slate-300"
+        >
+          {copy.loadButton}
+        </button>
+      )}
 
       {details && (
         <div className="space-y-4 border-t pt-5">
@@ -262,10 +272,20 @@ function ManageFormDev({ initialCode }: Props) {
 
 export function DynamicQrManageForm({ initialCode = "" }: Props) {
   const copy = useDictionary().dynamicQr;
+  const locale = useLocale();
   const body = isClerkEnabled() ? <ManageFormClerk initialCode={initialCode} /> : <ManageFormDev initialCode={initialCode} />;
   return (
-    <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
-      {body}
-    </DynamicQrAuthGate>
+    <div className="mx-auto max-w-xl space-y-4">
+      <Link
+        href={localizedPath(locale, "/my/dynamic-qr")}
+        className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-teal/35 bg-white px-4 py-2.5 text-sm font-semibold text-brand-teal-dark shadow-sm transition-colors hover:border-brand-teal/55 hover:bg-brand-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal focus-visible:ring-offset-2"
+      >
+        <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
+        {copy.backToDashboard}
+      </Link>
+      <DynamicQrAuthGate signInIntro={copy.signInIntro} signInLabel={copy.signInButton}>
+        {body}
+      </DynamicQrAuthGate>
+    </div>
   );
 }

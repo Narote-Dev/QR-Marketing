@@ -49,18 +49,18 @@ export function SiteHeader({ locale, dictionary, currentPath, className, sticky 
   ];
 
   return (
-    <header
+    <div
       className={cn(
-        "mb-8 border-b border-slate-200/80 pb-4",
-        sticky &&
-          "sticky top-0 z-40 bg-white/90 pt-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-white/75 sm:pt-5",
-        className,
+        "w-full border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-white/75",
+        sticky && "sticky top-0 z-40",
       )}
     >
-      <div className="flex items-center justify-between gap-3">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <header className={cn("py-2 sm:py-2.5", className)}>
+          <div className="flex items-center justify-between gap-3">
         <Link
           href={localizedPath(locale, "/qr-code-generator")}
-          className="inline-flex items-center rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+          className="inline-flex shrink-0 items-center rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
         >
           <Image
             src="/brand/wordmark-transparent.png"
@@ -68,7 +68,7 @@ export function SiteHeader({ locale, dictionary, currentPath, className, sticky 
             width={730}
             height={245}
             priority
-            className="h-auto w-[200px] max-w-[58vw] sm:w-[250px]"
+            className="h-9 w-auto max-w-[140px] sm:h-10 sm:max-w-[175px]"
           />
         </Link>
 
@@ -86,7 +86,7 @@ export function SiteHeader({ locale, dictionary, currentPath, className, sticky 
                         aria-current={active ? "page" : undefined}
                         title={item.label}
                         className={cn(
-                          "group relative inline-flex h-9 items-center px-3 text-sm transition-colors",
+                          "group relative inline-flex h-8 items-center px-2.5 text-sm transition-colors sm:px-3",
                           active
                             ? "font-semibold text-brand-teal-dark"
                             : "font-medium text-slate-600 hover:text-brand-coral",
@@ -142,7 +142,7 @@ export function SiteHeader({ locale, dictionary, currentPath, className, sticky 
             <LanguageSelector locale={locale} label={chrome.language} />
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-50 hover:text-brand-teal-dark"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-50 hover:text-brand-teal-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
               aria-expanded={menuOpen}
               aria-controls="site-mobile-nav"
               aria-label={menuOpen ? chrome.navClose : chrome.navMenu}
@@ -181,6 +181,8 @@ export function SiteHeader({ locale, dictionary, currentPath, className, sticky 
           </ul>
         </nav>
       )}
-    </header>
+        </header>
+      </div>
+    </div>
   );
 }

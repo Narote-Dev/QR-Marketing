@@ -36,12 +36,13 @@ export function CompanyPage({ locale, dictionary, document }: Props) {
         };
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <SiteHeader locale={locale} dictionary={dictionary} currentPath={`/${document.slug}`} />
+      <main className="mx-auto min-h-screen max-w-5xl px-5 pb-8 pt-8 sm:px-8 sm:pb-12">
 
       <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
         <Link
@@ -99,5 +100,6 @@ export function CompanyPage({ locale, dictionary, document }: Props) {
       </article>
       <SiteFooter locale={locale} dictionary={dictionary} />
     </main>
+    </>
   );
 }

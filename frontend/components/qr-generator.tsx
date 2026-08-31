@@ -211,23 +211,29 @@ export function QrGenerator({
         <div
           role="group"
           aria-label={dictionary.generator.modeAria}
-          className="mb-6 inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1"
+          className="mb-6 inline-flex rounded-xl border border-brand-teal/25 bg-brand-cream/60 p-1"
         >
           <button
             type="button"
             onClick={() => handleModeChange("static")}
-            className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${
-              mode === "static" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"
-            }`}
+            className={cn(
+              "rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal",
+              mode === "static"
+                ? "bg-white text-brand-teal-dark shadow-sm"
+                : "text-slate-600 hover:text-brand-teal-dark",
+            )}
           >
             {dictionary.generator.modeStatic}
           </button>
           <button
             type="button"
             onClick={() => handleModeChange("dynamic")}
-            className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${
-              mode === "dynamic" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"
-            }`}
+            className={cn(
+              "rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal",
+              mode === "dynamic"
+                ? "bg-white text-brand-teal-dark shadow-sm"
+                : "text-slate-600 hover:text-brand-teal-dark",
+            )}
           >
             {dictionary.generator.modeDynamic}
           </button>
@@ -309,7 +315,7 @@ export function QrGenerator({
 
         <section
           aria-labelledby="generator-step-3"
-          className="min-w-0 space-y-3 lg:sticky lg:top-6 lg:self-start"
+          className="min-w-0 space-y-3 lg:sticky lg:top-[calc(var(--header-height)+1rem)] lg:self-start"
         >
           <h3 id="generator-step-3" className="text-lg font-bold tracking-tight text-slate-900">
             {dictionary.generator.step3Title}

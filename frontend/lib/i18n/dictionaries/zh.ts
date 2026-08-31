@@ -305,6 +305,7 @@ export const zh: Dictionary = {
     signInIntro: "登录后即可创建和管理与账户绑定的动态 QR。",
     signInButton: "登录",
     myCodesNav: "我的动态 QR",
+    backToDashboard: "返回控制台",
     dashboardTitle: "我的动态 QR",
     dashboardIntro: "编辑目标、暂停代码并查看账户的扫描用量。",
     quotaTitle: "套餐用量",

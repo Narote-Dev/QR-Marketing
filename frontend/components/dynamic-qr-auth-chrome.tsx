@@ -30,14 +30,14 @@ export function DynamicQrAuthChrome({ locale, signInLabel, signUpLabel, devAuthL
           <SignInButton mode="redirect" forceRedirectUrl={generatorPath}>
             <button
               type="button"
-              className="inline-flex h-9 items-center rounded-lg px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 hover:text-brand-teal-dark"
+              className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 hover:text-brand-teal-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal md:min-h-8 md:px-2.5"
             >
               {signInLabel}
             </button>
           </SignInButton>
           <Link
             href={signUpPath}
-            className="hidden h-9 items-center rounded-lg px-3 text-sm font-medium text-slate-600 transition-colors hover:text-brand-coral sm:inline-flex"
+            className="hidden h-8 items-center rounded-lg px-2.5 text-sm font-medium text-slate-600 transition-colors hover:text-brand-coral sm:inline-flex"
           >
             {signUpLabel}
           </Link>

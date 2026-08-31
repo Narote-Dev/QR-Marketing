@@ -3,13 +3,32 @@
 @tailwind utilities;
 @layer base {
   /* Change: Match the site canvas and contrast to the supplied brand artwork. */
-  :root { --background: 42 38% 96%; --foreground: 187 45% 16%; --card: 0 0% 100%; --border: 168 18% 84%; }
+  :root {
+    --background: 42 38% 96%;
+    --foreground: 187 45% 16%;
+    --card: 0 0% 100%;
+    --border: 168 18% 84%;
+    /* Change: Sticky header height for scroll-padding and preview offset. */
+    --header-height: 3.625rem;
+    scroll-padding-top: var(--header-height);
+  }
   * { @apply border-border; }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background font-sans text-foreground antialiased;
     background-image:
       radial-gradient(circle at 10% 0%, rgb(101 191 176 / 0.12), transparent 28rem),
       radial-gradient(circle at 90% 8%, rgb(243 198 61 / 0.12), transparent 24rem);
   }
   ::selection { background: rgb(243 198 61 / 0.55); color: #16363a; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

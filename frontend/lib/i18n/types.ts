@@ -228,6 +228,7 @@ export type Dictionary = {
     signInIntro: string;
     signInButton: string;
     myCodesNav: string;
+    backToDashboard: string;
     dashboardTitle: string;
     dashboardIntro: string;
     quotaTitle: string;

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { AdSenseScript } from "@/components/adsense-script";
 import { AppProviders } from "@/components/app-providers";
 import { ConsentModeScript } from "@/components/consent-mode-script";
@@ -6,6 +7,12 @@ import { GoogleAnalytics } from "@/components/google-analytics";
 import { adSenseConfig, getAdSenseAccountMeta } from "@/lib/adsense/config";
 import { siteUrl } from "@/lib/seo/site";
 import "./globals.css";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 // Change: Root layout stays locale-agnostic; language is set under app/[locale].
 export function generateMetadata(): Metadata {
@@ -32,8 +39,8 @@ export function generateMetadata(): Metadata {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html suppressHydrationWarning>
-      <body>
+    <html lang="en" suppressHydrationWarning className={plusJakartaSans.variable}>
+      <body className="font-sans">
         <ConsentModeScript />
         <AdSenseScript />
         <GoogleAnalytics />

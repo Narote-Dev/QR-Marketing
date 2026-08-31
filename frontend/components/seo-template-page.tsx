@@ -86,13 +86,14 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
   const categoryTemplates = localizeTemplates(page.category ? getTemplatesByCategory(page.category) : templates, dictionary);
 
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+    <>
       <TemplateJsonLd page={page} locale={locale} />
       <SiteHeader
         locale={locale}
         dictionary={dictionary}
         currentPath={page.category ? `/templates/${page.category}` : "/templates"}
       />
+      <main className="mx-auto min-h-screen w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pb-14 lg:px-8">
       <TemplateBreadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{page.h1}</h1>
@@ -155,5 +156,6 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
       </article>
       <SiteFooter locale={locale} dictionary={dictionary} />
     </main>
+    </>
   );
 }

@@ -320,6 +320,7 @@ export const en: Dictionary = {
     signInIntro: "Sign in to create and manage Dynamic QR codes tied to your account.",
     signInButton: "Sign in",
     myCodesNav: "My dynamic QRs",
+    backToDashboard: "Back to dashboard",
     dashboardTitle: "My dynamic QRs",
     dashboardIntro: "Edit destinations, pause codes, and track scan usage for your account.",
     quotaTitle: "Plan usage",

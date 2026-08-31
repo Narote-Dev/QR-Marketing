@@ -317,6 +317,7 @@ export const th: Dictionary = {
     signInIntro: "เข้าสู่ระบบเพื่อสร้างและจัดการ Dynamic QR ที่ผูกกับบัญชีของคุณ",
     signInButton: "เข้าสู่ระบบ",
     myCodesNav: "Dynamic QR ของฉัน",
+    backToDashboard: "กลับไปหน้า Dashboard",
     dashboardTitle: "Dynamic QR ของฉัน",
     dashboardIntro: "แก้ปลายทาง พักโค้ด และดูการใช้โควต้าสำหรับบัญชีของคุณ",
     quotaTitle: "การใช้ตามแผน",

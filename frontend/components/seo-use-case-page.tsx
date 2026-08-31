@@ -59,9 +59,10 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
 
   // Step 2: Render an intent-matched landing page around the shared generator.
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+    <>
       <UseCaseJsonLd page={page} locale={locale} />
       <SiteHeader locale={locale} dictionary={dictionary} currentPath={useCasePathForSlug(page.slug)} />
+      <main className="mx-auto min-h-screen w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pb-14 lg:px-8">
 
       <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
         <Link
@@ -171,5 +172,6 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
       </article>
       <SiteFooter locale={locale} dictionary={dictionary} />
     </main>
+    </>
   );
 }
