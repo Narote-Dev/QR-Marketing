@@ -29,9 +29,8 @@ Dynamic QR is **enabled on production** (UI + API + redirect rewrite).
 | Phase | Status |
 |-------|--------|
 | 0–4 | Code complete |
-| **5 infra** | **Done** (see `docs/phase-5-go-live-status-2026-08-29.md`) |
-| **5 manual gate** | **Pending** — J0, J1, J2 (user must run on browser + phone); infra smoke ✅ (see phase-5 doc) |
-| 6–8 | Not started (deferred) |
+| **5** | **Complete** (2026-08-31) — infra + J0–J5 signed off; see `docs/phase-5-go-live-status-2026-08-29.md` |
+| 6–8 | Not started — Phase 6 deferred until roadmap trigger |
 
 ---
 
@@ -45,13 +44,11 @@ Dynamic QR is **enabled on production** (UI + API + redirect rewrite).
 
 ---
 
-## What's left for the user (~15 min)
+## Current priority (post Phase 5)
 
-1. **J1** — Sign up → create Dynamic QR → see list at `/en/my/dynamic-qr`
-2. **J2** — Download PNG → scan on phone → edit destination → rescan
-3. **J0** — Static QR still works
-
-Full steps: `docs/phase-5-go-live-status-2026-08-29.md`
+1. **Growth** — SEO/use-case pages, GSC monitoring (parallel to Phase 0)
+2. **Ops** — 48h+ stability watch; rotate Clerk test keys before ads/marketing
+3. **Phase 6** — when trigger: pricing page + Stripe Pro (not started)
 
 ---
 

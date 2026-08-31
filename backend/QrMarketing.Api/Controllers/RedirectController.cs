@@ -27,23 +27,37 @@ public sealed class RedirectController(
             ?? Request.Headers["X-Country-Code"].FirstOrDefault();
         var referrer = Request.Headers.Referer.ToString();
 
-        var resolution = await dynamicQrService.ResolveRedirectAsync(
+        var lookup = await dynamicQrService.ResolveRedirectAsync(
             shortCode,
             userAgent,
             country,
             string.IsNullOrWhiteSpace(referrer) ? null : referrer,
             cancellationToken);
 
-        if (resolution is null)
+        if (lookup.Status is RedirectLookupStatus.Inactive or RedirectLookupStatus.NotFound)
         {
+            // Step 1: Prefer a branded landing page over raw JSON for phone scanners.
+            if (options.Value.InactiveRedirectToLandingPage)
+            {
+                var reason = lookup.Status == RedirectLookupStatus.Inactive ? "paused" : "notfound";
+                return Redirect(BuildUnavailableLandingUrl(reason));
+            }
+
             return StatusCode(StatusCodes.Status410Gone);
         }
 
+        var resolution = lookup.Resolution!;
         if (resolution.QuotaExceeded)
         {
             Response.Headers["X-QR-Quota-Exceeded"] = "1";
         }
 
         return Redirect(resolution.DestinationUrl);
+    }
+
+    private string BuildUnavailableLandingUrl(string reason)
+    {
+        var baseUrl = options.Value.PublicBaseUrl.TrimEnd('/');
+        return $"{baseUrl}/r/unavailable?reason={reason}";
     }
 }

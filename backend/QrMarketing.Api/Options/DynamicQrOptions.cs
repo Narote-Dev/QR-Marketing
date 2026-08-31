@@ -14,4 +14,7 @@ public sealed class DynamicQrOptions
     public bool AllowLegacyOwnerToken { get; set; }
 
     public int ShortCodeLength { get; set; } = 8;
+
+    /// <summary>When true, paused/inactive codes redirect to PublicBaseUrl/r/unavailable instead of 410 JSON.</summary>
+    public bool InactiveRedirectToLandingPage { get; set; } = true;
 }

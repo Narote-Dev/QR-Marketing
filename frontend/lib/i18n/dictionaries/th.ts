@@ -313,7 +313,7 @@ export const th: Dictionary = {
     deactivateButton: "พักโค้ด",
     activated: "เปิดใช้แล้ว",
     deactivated: "พักโค้ดแล้ว",
-    manageFooterNote: "เก็บ manage token เป็นความลับ ผู้ที่มี token สามารถแก้ปลายทางหรือพักโค้ดได้",
+    manageFooterNote: "บัญชีของคุณเป็นเจ้าของโค้ดเหล่านี้ การพักโค้ดจะแสดงหน้าแจ้งว่าลิงก์ไม่พร้อมใช้งานแก่ผู้สแกน แทนการ redirect",
     signInIntro: "เข้าสู่ระบบเพื่อสร้างและจัดการ Dynamic QR ที่ผูกกับบัญชีของคุณ",
     signInButton: "เข้าสู่ระบบ",
     myCodesNav: "Dynamic QR ของฉัน",
@@ -1011,7 +1011,7 @@ export const th: Dictionary = {
           {
             question: "ลิงก์สั้นชี้ไปที่ไหน?",
             answer:
-              "โค้ด Dynamic ที่พิมพ์ใช้ https://genmyqrcode.com/r/{code} แล้ว redirect (HTTP 302) ไปปลายทางปัจจุบัน หากพักโค้ด ผู้สแกนจะได้สถานะ gone จนกว่าจะเปิดใช้อีกครั้ง",
+              "โค้ด Dynamic ที่พิมพ์ใช้ https://genmyqrcode.com/r/{code} แล้ว redirect (HTTP 302) ไปปลายทางปัจจุบัน หากพักโค้ด ผู้สแกนจะเห็นหน้าแจ้งว่าลิงก์ถูกปิดใช้งาน จนกว่าจะเปิดใช้อีกครั้ง",
           },
           {
             question: "ตัวสร้าง QR ยังไม่มีโฆษณาใช่ไหม?",

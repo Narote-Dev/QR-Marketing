@@ -51,6 +51,15 @@ export function runLocaleMiddleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
 
   if (isExemptPath(pathname)) {
+    if (pathname === "/r/unavailable" || pathname.startsWith("/r/unavailable/")) {
+      const cookieLocale = request.cookies.get(localeCookieName)?.value;
+      const preferred = resolvePreferredLocale({
+        cookie: cookieLocale,
+        country: requestCountry(request),
+        acceptLanguage: request.headers.get("accept-language"),
+      });
+      return withLocaleContext(NextResponse.next(), preferred);
+    }
     if (request.nextUrl.hostname === `www.${CANONICAL_HOST}`) {
       return redirectPermanent(request, pathname);
     }

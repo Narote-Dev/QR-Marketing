@@ -111,25 +111,30 @@ public sealed class DynamicQrService(
         string? referrer,
         CancellationToken cancellationToken)
     {
-        var resolution = await ResolveRedirectAsync(shortCode, userAgent, country, referrer, cancellationToken);
-        return resolution?.DestinationUrl;
+        var lookup = await ResolveRedirectAsync(shortCode, userAgent, country, referrer, cancellationToken);
+        return lookup.Resolution?.DestinationUrl;
     }
 
-    public async Task<RedirectResolution?> ResolveRedirectAsync(
+    public async Task<RedirectLookupResult> ResolveRedirectAsync(
         string shortCode,
         string? userAgent,
         string? country,
         string? referrer,
         CancellationToken cancellationToken)
     {
-        // Step 1: Lookup active code by short_code (read path must stay fast).
+        // Step 1: Lookup code by short_code (read path must stay fast).
         var entity = await dbContext.DynamicQrs
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.ShortCode == shortCode, cancellationToken);
 
-        if (entity is null || !entity.IsActive)
+        if (entity is null)
         {
-            return null;
+            return RedirectLookupResult.NotFound();
+        }
+
+        if (!entity.IsActive)
+        {
+            return RedirectLookupResult.Inactive();
         }
 
         // Step 2: Decide whether scan logging is allowed (legacy rows without user always log).
@@ -155,12 +160,12 @@ public sealed class DynamicQrService(
             }
         }
 
-        return new RedirectResolution
+        return RedirectLookupResult.Found(new RedirectResolution
         {
             DestinationUrl = entity.DestinationUrl,
             ScanLogged = shouldLog,
             QuotaExceeded = quotaExceeded,
-        };
+        });
     }
 
     public async Task<DynamicQrDetailsResponse?> GetAsync(string shortCode, string rawOwnerToken, CancellationToken cancellationToken)

@@ -23,7 +23,22 @@ API: **https://qr-api-production-fb1c.up.railway.app**
 
 ---
 
-## Manual sign-off still required (you)
+## Manual sign-off — COMPLETE (2026-08-31)
+
+Owner confirmed **J0–J5** pass on production (browser + phone). Dynamic QR MVP is live for real use.
+
+| Journey | Status | Verified |
+|---------|--------|----------|
+| **J0** Static unchanged | ✅ | Static QR create → download → scan |
+| **J1** Sign-up + create | ✅ | Clerk → Dynamic tab → dashboard list + quota |
+| **J2** Phone scan + edit | ✅ | PNG scan → destination → manage PATCH → rescan |
+| **J3** Quota at limit | ✅ | (per owner sign-off) |
+| **J4** 7th create rejected | ✅ | (per owner sign-off) |
+| **J5** Rollback drill | ✅ | (per owner sign-off) |
+
+---
+
+## Manual sign-off checklist (reference)
 
 These cannot be done by AI alone:
 
@@ -95,7 +110,9 @@ Automated checks run on production without Clerk sign-in:
 
 ## Verdict
 
-**Phase 5 automated + operator infra: DONE.**  
-**Phase 5 product gate: PENDING manual J1/J2/J0** (~15 min on phone + browser).
+**Phase 5: COMPLETE** (2026-08-31) — infra + J0–J5 product gate signed off by owner.
 
-After J1/J2 pass, mark Phase 5 complete and start Phase 6 only when triggers in roadmap are met.
+**Post-launch (ongoing):**
+- Monitor 48h+ — Railway logs, Vercel errors, sign-ups (baseline started 2026-08-31)
+- Rotate Clerk from **test** keys before marketing push
+- Phase 6 (Stripe / pricing) — start only when roadmap trigger met (≥200 Dynamic users, ≥5 upgrade requests, or 90 days post Phase 5)

@@ -983,7 +983,7 @@ export const zh: Dictionary = {
           {
             question: "短链指向哪里？",
             answer:
-              "印刷的动态码使用 https://genmyqrcode.com/r/{code}，并以 HTTP 302 重定向到当前目标。暂停后扫码会收到 gone，直到重新启用。",
+              "印刷的动态码使用 https://genmyqrcode.com/r/{code}，并以 HTTP 302 重定向到当前目标。暂停后扫码会看到友好的不可用页面，直到重新启用。",
           },
           {
             question: "二维码创建区是否仍然无广告？",

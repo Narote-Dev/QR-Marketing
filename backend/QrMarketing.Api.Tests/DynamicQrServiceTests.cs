@@ -44,13 +44,13 @@ public class DynamicQrServiceTests
             CancellationToken.None);
 
         Assert.NotNull(resolution);
-        Assert.Equal("https://example.com/menu", resolution!.DestinationUrl);
-        Assert.True(resolution.ScanLogged);
+        Assert.Equal("https://example.com/menu", resolution!.Resolution!.DestinationUrl);
+        Assert.True(resolution.Resolution.ScanLogged);
         Assert.Equal(1, await db.ScanEvents.CountAsync());
     }
 
     [Fact]
-    public async Task ResolveRedirect_returns_null_when_inactive()
+    public async Task ResolveRedirect_returns_inactive_when_paused()
     {
         await using var db = CreateDb();
         var service = TestServiceFactory.CreateDynamicQrService(db);
@@ -68,9 +68,10 @@ public class DynamicQrServiceTests
         Assert.NotNull(updated);
         Assert.False(updated!.IsActive);
 
-        var resolution = await service.ResolveRedirectAsync(
+        var lookup = await service.ResolveRedirectAsync(
             created.ShortCode, null, null, null, CancellationToken.None);
-        Assert.Null(resolution);
+        Assert.Equal(RedirectLookupStatus.Inactive, lookup.Status);
+        Assert.Null(lookup.Resolution);
         Assert.Equal(0, await db.ScanEvents.CountAsync());
     }
 
@@ -170,9 +171,9 @@ public class DynamicQrServiceTests
         var resolution = await service.ResolveRedirectAsync(created.ShortCode, null, null, null, CancellationToken.None);
 
         Assert.NotNull(resolution);
-        Assert.Equal("https://example.com/quota", resolution!.DestinationUrl);
-        Assert.False(resolution.ScanLogged);
-        Assert.True(resolution.QuotaExceeded);
+        Assert.Equal("https://example.com/quota", resolution!.Resolution!.DestinationUrl);
+        Assert.False(resolution.Resolution.ScanLogged);
+        Assert.True(resolution.Resolution.QuotaExceeded);
         Assert.Equal(before, await db.ScanEvents.CountAsync());
     }
 }

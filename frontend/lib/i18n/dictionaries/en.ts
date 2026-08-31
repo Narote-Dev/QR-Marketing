@@ -316,7 +316,7 @@ export const en: Dictionary = {
     activated: "Code activated.",
     deactivated: "Code paused.",
     manageFooterNote:
-      "Your account owns these codes. Pausing stops new scans from counting when over quota; the short link may still redirect.",
+      "Your account owns these codes. Pausing shows a friendly unavailable page to scanners instead of redirecting.",
     signInIntro: "Sign in to create and manage Dynamic QR codes tied to your account.",
     signInButton: "Sign in",
     myCodesNav: "My dynamic QRs",
@@ -1014,7 +1014,7 @@ export const en: Dictionary = {
           {
             question: "Where does the short link go?",
             answer:
-              "Printed Dynamic codes use https://genmyqrcode.com/r/{code}. That path redirects (HTTP 302) to your current destination. If you pause a code, scanners receive a gone response until you activate it again.",
+              "Printed Dynamic codes use https://genmyqrcode.com/r/{code}. That path redirects (HTTP 302) to your current destination. If you pause a code, scanners see a friendly unavailable page until you activate it again.",
           },
           {
             question: "Is the QR creator still ad-free?",
