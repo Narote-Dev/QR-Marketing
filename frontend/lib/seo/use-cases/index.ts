@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { defaultLocale, htmlLang, locales, openGraphLocale, type Locale } from "@/lib/i18n/config";
-import { localizedPath } from "@/lib/i18n/paths";
+import { openGraphLocale, type Locale } from "@/lib/i18n/config";
 import { useCaseMeta, useCasePathForSlug } from "@/lib/seo/use-cases/catalog";
 import { useCasesEn } from "@/lib/seo/use-cases/en";
 import { useCasesTh } from "@/lib/seo/use-cases/th";
 import { useCasesZh } from "@/lib/seo/use-cases/zh";
 import type { UseCasePage, UseCaseSlug } from "@/lib/seo/use-cases/types";
 import { useCaseSlugs } from "@/lib/seo/use-cases/types";
-import { siteName, siteUrl } from "@/lib/seo/site";
+import { buildLocaleAlternates } from "@/lib/seo/hreflang";
+import { siteName } from "@/lib/seo/site";
 
 export * from "@/lib/seo/use-cases/types";
 export { useCaseMeta, useCasePathForSlug } from "@/lib/seo/use-cases/catalog";
@@ -37,11 +37,7 @@ export function getUseCaseMetadata(locale: Locale, slug: UseCaseSlug): Metadata 
   // Step 1: Build canonical and hreflang URLs for this use-case page.
   const page = getUseCasePage(locale, slug);
   const barePath = useCasePathForSlug(slug);
-  const canonical = new URL(localizedPath(locale, barePath), siteUrl).toString();
-  const languages = Object.fromEntries([
-    ...locales.map((item) => [htmlLang[item], new URL(localizedPath(item, barePath), siteUrl).toString()]),
-    ["x-default", new URL(localizedPath(defaultLocale, barePath), siteUrl).toString()],
-  ]);
+  const { canonical, languages } = buildLocaleAlternates(barePath, locale);
 
   // Step 2: Publish intent-specific metadata for long-tail discovery.
   return {

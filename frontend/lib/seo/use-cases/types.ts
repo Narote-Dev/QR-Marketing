@@ -21,6 +21,11 @@ export type UseCaseSlug = (typeof useCaseSlugs)[number];
 export const useCaseClusters = ["food-menu", "wifi", "local-business", "storefront-event"] as const;
 export type UseCaseCluster = (typeof useCaseClusters)[number];
 
+export type UseCaseToolLink = {
+  label: string;
+  barePath: string;
+};
+
 export type UseCaseCopy = {
   title: string;
   description: string;
@@ -34,6 +39,7 @@ export type UseCaseCopy = {
   helperHint: string;
   frameText: string;
   downloadFileName: string;
+  toolLinks?: UseCaseToolLink[];
 };
 
 export type UseCaseMeta = {

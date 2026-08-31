@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { defaultLocale, htmlLang, locales, openGraphLocale, type Locale } from "@/lib/i18n/config";
+import { defaultLocale, locales, openGraphLocale, type Locale } from "@/lib/i18n/config";
 import { en } from "@/lib/i18n/dictionaries/en";
 import { localizedPath, templatePathForSlug } from "@/lib/i18n/paths";
 import type { Dictionary, TemplateSeoCopy } from "@/lib/i18n/types";
-import { siteName, siteUrl } from "@/lib/seo/site";
+import { buildLocaleAlternates } from "@/lib/seo/hreflang";
+import { siteName } from "@/lib/seo/site";
 import type { TemplateCategory } from "@/lib/templates/types";
 
 export type TemplateSeoPage = {
@@ -89,20 +90,15 @@ export function getTemplatePageBarePath(page: TemplateSeoPage): string {
 // Step 1: Locale-aware metadata with hreflang for every curated template page.
 export function getTemplatePageMetadata(page: TemplateSeoPage, locale: Locale = defaultLocale): Metadata {
   const bare = getTemplatePageBarePath(page);
-  const path = localizedPath(locale, bare);
-  const url = new URL(path, siteUrl).toString();
-  const languages = Object.fromEntries([
-    ...locales.map((item) => [htmlLang[item], localizedPath(item, bare)]),
-    ["x-default", localizedPath(defaultLocale, bare)],
-  ]);
+  const { canonical, languages } = buildLocaleAlternates(bare, locale);
 
   return {
     title: page.title,
     description: page.description,
-    alternates: { canonical: path, languages },
+    alternates: { canonical, languages },
     openGraph: {
       type: "website",
-      url,
+      url: canonical,
       siteName,
       title: page.title,
       description: page.description,

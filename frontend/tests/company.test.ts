@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { htmlLang, locales } from "../lib/i18n/config";
+import { locales } from "../lib/i18n/config";
 import { companySlugs, getCompanyDocument, getCompanyMetadata } from "../lib/company";
+import { hreflangKeys } from "../lib/seo/hreflang";
 import { siteUrl } from "../lib/seo/site";
 
 test("company documents are complete in every locale", () => {
@@ -26,8 +27,9 @@ test("company metadata publishes canonical and hreflang URLs", () => {
       const canonical = new URL(`/${locale}/${slug}`, siteUrl).toString();
       assert.equal(metadata.alternates?.canonical, canonical);
       assert.equal(metadata.openGraph?.url, canonical);
-      const languages = metadata.alternates?.languages;
-      assert.ok(languages && htmlLang[locale] in languages);
+      const languages = metadata.alternates?.languages as Record<string, string> | undefined;
+      assert.ok(languages);
+      assert.deepEqual(Object.keys(languages).sort(), [...hreflangKeys].sort());
     }
   }
 });

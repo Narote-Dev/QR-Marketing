@@ -4,7 +4,7 @@ import { FaqSection } from "@/components/faq-section";
 import { QrGenerator } from "@/components/qr-generator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import type { Locale } from "@/lib/i18n/config";
+import { htmlLang, type Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Dictionary } from "@/lib/i18n/types";
 import {
@@ -32,12 +32,12 @@ function UseCaseJsonLd({ page, locale }: { page: UseCasePage; locale: Locale }) 
       operatingSystem: "Web",
       url,
       description: page.description,
-      inLanguage: locale,
+      inLanguage: htmlLang[locale],
       publisher: { "@type": "Organization", name: siteName },
     },
     {
       "@type": "FAQPage",
-      inLanguage: locale,
+      inLanguage: htmlLang[locale],
       mainEntity: page.faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
@@ -146,6 +146,26 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
             </section>
 
             <FaqSection page={page} heading={dictionary.chrome.faqs} />
+
+            {page.toolLinks && page.toolLinks.length > 0 ? (
+              <section className="mt-12 max-w-3xl" aria-labelledby="related-tools-heading">
+                <h2 id="related-tools-heading" className="text-2xl font-bold tracking-tight">
+                  {dictionary.chrome.relatedTools}
+                </h2>
+                <ul className="mt-5 space-y-2">
+                  {page.toolLinks.map((link) => (
+                    <li key={link.barePath}>
+                      <Link
+                        href={localizedPath(locale, link.barePath)}
+                        className="font-medium text-brand-teal-dark hover:text-brand-coral hover:underline"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
 
             <section className="mt-12" aria-labelledby="related-use-cases-heading">
               <h2 id="related-use-cases-heading" className="text-2xl font-bold tracking-tight">

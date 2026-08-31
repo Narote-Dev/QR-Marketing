@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { htmlLang, locales } from "../lib/i18n/config";
+import { locales } from "../lib/i18n/config";
 import { getDictionary } from "../lib/i18n/get-dictionary";
 import { localizedPath } from "../lib/i18n/paths";
+import { hreflangKeys } from "../lib/seo/hreflang";
 import { siteUrl } from "../lib/seo/site";
 import {
   getAllUseCasePages,
@@ -12,6 +13,11 @@ import {
   useCaseSlugs,
 } from "../lib/seo/use-cases";
 import { getTemplateById } from "../lib/templates/catalog";
+
+function assertHreflangLanguages(languages: Record<string, string> | null | undefined) {
+  assert.ok(languages);
+  assert.deepEqual(Object.keys(languages).sort(), [...hreflangKeys].sort());
+}
 
 test("use-case pages are complete in every locale", () => {
   for (const locale of locales) {
@@ -25,6 +31,11 @@ test("use-case pages are complete in every locale", () => {
       assert.ok(page.examples.length >= 2);
       assert.ok(page.howTo.length >= 3);
       assert.ok(page.faqs.length >= 2);
+      if (page.slug === "thai-restaurant-menu" || page.slug === "line-contact") {
+        assert.ok(page.body.length >= 4);
+        assert.ok(page.faqs.length >= 5);
+        assert.ok(page.toolLinks && page.toolLinks.length >= 3);
+      }
       assert.ok(getTemplateById(page.templateId), `missing template ${page.templateId}`);
       assert.ok(useCaseSlugs.includes(page.slug));
     }
@@ -39,7 +50,7 @@ test("use-case metadata publishes canonical and hreflang URLs", () => {
       const canonical = new URL(path, siteUrl).toString();
       assert.equal(metadata.alternates?.canonical, canonical);
       assert.equal(metadata.openGraph?.url, canonical);
-      assert.ok(metadata.alternates?.languages && htmlLang[locale] in metadata.alternates.languages);
+      assertHreflangLanguages(metadata.alternates?.languages as Record<string, string> | undefined);
       assert.equal(getUseCasePage(locale, slug).related.length >= 2, true);
     }
   }
@@ -52,6 +63,8 @@ test("Phase E1 SEO copy targets proven GSC queries", async () => {
   assert.match(getUseCasePage("en", "hotel-wifi").title, /hotel qr code/i);
   assert.match(getUseCasePage("th", "hotel-wifi").title, /hotel qr code/i);
   assert.match(getUseCasePage("th", "thai-restaurant-menu").title, /QR เมนู|ออกแบบ/);
+  assert.match(getUseCasePage("en", "line-contact").title, /LINE OA/i);
+  assert.match(getUseCasePage("th", "line-contact").title, /LINE OA|QR Code LINE/i);
 
   const th = await getDictionary("th");
   const en = await getDictionary("en");

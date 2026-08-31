@@ -5,29 +5,43 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "thai-restaurant-menu": {
     title: "QR Menu Design for Thai Restaurants",
     description:
-      "Free QR menu design for Thai restaurants. No signup. Link a digital menu, customize the look, and download a print-ready code.",
+      "Free QR menu design for Thai restaurants. Link a Google Sheet, PDF, or web menu, customize the look, and download a print-ready code—no signup.",
     h1: "QR menu design for Thai restaurants",
     introduction:
-      "Design a scannable menu QR so guests open your Thai-language menu on their phone instead of flipping paper pages. Ideal for Thai restaurants that update dishes and prices often.",
+      "Design a scannable menu QR so guests open your Thai-language menu on their phone instead of flipping paper pages. Ideal for Thai restaurants that update dishes, lunch sets, and seasonal prices often.",
     promise: "Free in the browser. No account. Works with Thai links and frame text.",
     body: [
-      "QR menu design lowers reprint costs and lets you refresh prices by updating the linked page.",
+      "QR menu design lowers reprint costs and lets you refresh prices by updating the linked page, then printing a new code only when the URL changes.",
       "This page targets restaurant-menu and QR menu design searches instead of competing only on broad QR generator keywords.",
+      "Most Thai restaurants start with a Google Sheet, PDF on Drive, or a simple menu page on their website. Paste that mobile-friendly link here, pick a menu template, and test-scan before laminating table cards.",
+      "For bilingual service, link to a Thai/English menu page or separate lunch and dinner URLs. Pair this with a LINE add-friend QR on the counter if guests order through chat.",
     ],
-    examples: ["Google Sheet or website menu pages", "Menu PDFs hosted online", "Lunch-set and seasonal specials pages"],
+    examples: [
+      "Google Sheet or website menu pages",
+      "Menu PDFs hosted on Drive or your site",
+      "Lunch-set, seasonal specials, or bilingual menu pages",
+    ],
     howTo: [
-      "Prepare a mobile-friendly digital menu link",
-      "Paste the URL and choose a menu template",
-      "Set Thai frame text such as View menu, then test-scan before printing",
+      "Prepare a mobile-friendly digital menu link that loads quickly on 4G",
+      "Paste the URL, choose a menu template, and set Thai frame text such as View menu",
+      "Test-scan from seated distance, then print on table tents or laminated cards",
     ],
     faqs: [
       {
         question: "Do I need my own website?",
-        answer: "No. You can link to Google Docs, Drive, or another digital menu host.",
+        answer: "No. You can link to Google Docs, Drive, Notion, or another digital menu host.",
       },
       {
         question: "Does it support Thai text?",
         answer: "Yes. Links and frame labels can be fully Thai.",
+      },
+      {
+        question: "How do I update prices without reprinting everything?",
+        answer: "Edit the linked menu page first. If the URL stays the same, the printed QR still works. If the URL changes, download a new PNG.",
+      },
+      {
+        question: "What print size works on restaurant tables?",
+        answer: "Make the QR large enough to scan from a seated guest, with quiet space around it and a short Thai label under the code.",
       },
       {
         question: "Is signup required?",
@@ -37,6 +51,11 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     helperHint: "Paste your Thai digital menu link and keep the frame label short.",
     frameText: "View menu",
     downloadFileName: "qr-menu-thai-restaurant.png",
+    toolLinks: [
+      { label: "URL QR code generator", barePath: "/qr-code/url" },
+      { label: "Menu template gallery", barePath: "/templates/menu" },
+      { label: "LINE contact QR for restaurants", barePath: "/use-cases/line-contact" },
+    ],
   },
   "cafe-menu": {
     title: "Cafe QR Menu Design — Free",
@@ -267,36 +286,59 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     downloadFileName: "qr-event-poster.png",
   },
   "line-contact": {
-    title: "LINE or Contact-Channel QR Code",
+    title: "LINE OA QR Code for Shops and Restaurants",
     description:
-      "Create a QR code for LINE OA or other contact channels so customers can add you quickly from the storefront.",
-    h1: "LINE or Contact-Channel QR Code",
+      "Create a free LINE Official Account QR code for Thai shops. Paste your add-friend URL, style the frame, and download for counters, receipts, and menus.",
+    h1: "LINE OA QR code for shops and restaurants",
     introduction:
-      "Let customers scan to add your LINE Official Account or open your preferred contact channel without searching your shop name.",
-    promise: "Built for shops that use LINE as a primary channel. No signup on this site.",
+      "Let customers scan to add your LINE Official Account without searching your shop name. Built for Thai stores that take orders, bookings, and promotions through LINE.",
+    promise: "Built for LINE-first shops. No signup on this site. Style the frame to match your print materials.",
     body: [
-      "Many Thai shops take orders on LINE. A direct add-friend QR removes search friction.",
-      "You can also link to a hub page with LINE, phone, and maps if you need multiple channels.",
+      "Many Thai shops take orders on LINE. A direct add-friend QR removes search friction at the counter, on receipts, and beside menu cards.",
+      "Copy the add-friend URL from LINE Official Account Manager, paste it below, and test-scan with a phone that already has LINE installed.",
+      "Need more than LINE alone? Link to a contact hub page with phone, maps, and chat options, or pair this code with a Thai restaurant menu QR on the table.",
+      "For @handles, you can also use the dedicated LINE QR generator page if you prefer entering an Official Account ID instead of a full URL.",
     ],
-    examples: ["LINE OA add-friend links", "Contact hub pages", "Order or queue chat links"],
+    examples: [
+      "LINE OA add-friend links from Official Account Manager",
+      "Contact hub pages with LINE, phone, and maps",
+      "Order, booking, or queue chat links",
+    ],
     howTo: [
-      "Copy your LINE add-friend or contact URL",
-      "Paste it here and set a short frame label",
-      "Place the code at the counter or on receipts, then test-scan",
+      "Open LINE Official Account Manager and copy the add-friend URL",
+      "Paste the link here, set a short frame label such as Add LINE, and preview the design",
+      "Print for the counter, receipt footer, or packaging, then test-scan before bulk printing",
     ],
     faqs: [
       {
         question: "Can I use an official LINE OA link?",
-        answer: "Yes. Paste the add-friend URL from LINE Official Account.",
+        answer: "Yes. Paste the add-friend URL from LINE Official Account Manager into the link field.",
       },
       {
         question: "How is this different from LINE’s built-in QR?",
-        answer: "You can style the frame and template to match your shop and print materials.",
+        answer: "You can style the frame, colors, and template to match your shop and combine it with other print materials.",
+      },
+      {
+        question: "Should restaurants use this with a menu QR?",
+        answer: "Yes. Many Thai restaurants keep a menu QR on the table and a LINE QR at the counter for orders and promotions.",
+      },
+      {
+        question: "Can I enter an @handle instead of a URL?",
+        answer: "Yes. Use the LINE QR generator page if you want to type an @Official Account or LINE ID directly.",
+      },
+      {
+        question: "Does the scanner need the LINE app?",
+        answer: "Yes. Opening a LINE profile or add-friend page requires LINE on the scanning phone.",
       },
     ],
     helperHint: "Paste your LINE OA add-friend link or a contact hub URL.",
     frameText: "Add LINE",
     downloadFileName: "qr-line-contact.png",
+    toolLinks: [
+      { label: "LINE QR code generator", barePath: "/qr-code/line" },
+      { label: "Thai restaurant menu QR design", barePath: "/use-cases/thai-restaurant-menu" },
+      { label: "Restaurant template gallery", barePath: "/templates/restaurant" },
+    ],
   },
   "restaurant-table-tent": {
     title: "Table Tent QR Menu Design",

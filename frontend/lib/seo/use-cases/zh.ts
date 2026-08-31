@@ -4,24 +4,39 @@ import type { UseCaseCopy, UseCasePage, UseCaseSlug } from "@/lib/seo/use-cases/
 const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "thai-restaurant-menu": {
     title: "泰式餐厅菜单二维码设计",
-    description: "免费设计泰式餐厅菜单二维码，无需注册。链接电子菜单、自定义外观并下载可打印文件。",
+    description:
+      "免费设计泰式餐厅菜单二维码，无需注册。链接 Google 表格、PDF 或网页菜单，自定义外观并下载可打印文件。",
     h1: "泰式餐厅菜单二维码设计",
-    introduction: "设计可扫描的菜单二维码，让客人用手机查看泰语菜单，减少纸质菜单翻阅。适合经常更新菜品和价格的泰式餐厅。",
+    introduction:
+      "设计可扫描的菜单二维码，让客人用手机查看泰语菜单，减少纸质菜单翻阅。适合经常更新菜品、午餐套餐和季节价格的泰式餐厅。",
     promise: "浏览器内免费生成，无需账号，支持泰语链接和边框文字。",
     body: [
-      "菜单二维码设计可降低重印成本，并通过更新链接页面快速调整价格。",
+      "菜单二维码设计可降低重印成本，并通过更新链接页面快速调整价格；仅当 URL 变更时才需要重新下载 PNG。",
       "本页针对餐厅菜单与菜单二维码设计搜索意图，而不是只竞争宽泛的二维码生成词。",
+      "多数泰式餐厅先从 Google 表格、Drive 上的 PDF 或网站菜单页开始。粘贴可在手机上快速打开的链接，选择菜单模板，并在覆膜桌卡前试扫。",
+      "如需双语服务，可链接泰/英菜单页，或分开午餐与晚餐 URL；柜台可搭配 LINE 加好友二维码。",
     ],
-    examples: ["Google 表格或网站菜单页", "在线托管的菜单 PDF", "午餐套餐与季节特选页"],
-    howTo: ["准备适合手机打开的电子菜单链接", "粘贴网址并选择菜单模板", "设置简短边框文字，打印前先试扫"],
+    examples: ["Google 表格或网站菜单页", "Drive 或网站托管的菜单 PDF", "午餐套餐、季节特选或双语菜单页"],
+    howTo: [
+      "准备可在 4G 手机上快速加载的电子菜单链接",
+      "粘贴网址，选择菜单模板，并设置简短边框文字",
+      "从就座距离试扫，然后打印到桌牌或覆膜卡片",
+    ],
     faqs: [
-      { question: "必须有自己的网站吗？", answer: "不必。可以链接到 Google Docs、网盘或其他电子菜单平台。" },
+      { question: "必须有自己的网站吗？", answer: "不必。可以链接到 Google Docs、Drive、Notion 或其他电子菜单平台。" },
       { question: "支持泰文吗？", answer: "支持。链接和边框文字都可以使用泰文。" },
+      { question: "如何在不全部重印的情况下更新价格？", answer: "先编辑链接菜单页。若 URL 不变，已打印二维码仍可用；若 URL 变更，请重新下载 PNG。" },
+      { question: "餐桌上建议多大尺寸？", answer: "应足够大以便就座客人扫描，周围留白，并在码下使用简短泰文标签。" },
       { question: "需要注册吗？", answer: "不需要。可立即创建并下载，内容不会保存到我们的服务器。" },
     ],
     helperHint: "粘贴泰语电子菜单链接，并保持边框文字简短。",
     frameText: "查看菜单",
     downloadFileName: "qr-menu-thai-restaurant.png",
+    toolLinks: [
+      { label: "网址二维码生成器", barePath: "/qr-code/url" },
+      { label: "菜单模板库", barePath: "/templates/menu" },
+      { label: "餐厅 LINE 联系二维码", barePath: "/use-cases/line-contact" },
+    ],
   },
   "cafe-menu": {
     title: "免费咖啡店菜单二维码设计",
@@ -165,24 +180,40 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     downloadFileName: "qr-event-poster.png",
   },
   "line-contact": {
-    title: "LINE 或联系渠道二维码",
-    description: "创建 LINE OA 或其他联系渠道二维码，方便顾客从门店快速加好友并联系。",
-    h1: "LINE 或联系渠道二维码",
-    introduction: "让顾客扫描即可添加 LINE 官方账号，或打开您指定的联系渠道，无需自行搜索店名。",
-    promise: "适合以 LINE 为主渠道的店铺。本站无需注册。",
+    title: "LINE 官方账号二维码（门店与餐厅）",
+    description:
+      "为泰国店铺免费创建 LINE Official Account 二维码。粘贴加好友链接，自定义边框，并下载用于柜台、收据和菜单。",
+    h1: "LINE 官方账号二维码（门店与餐厅）",
+    introduction:
+      "让顾客扫描即可添加 LINE 官方账号，无需搜索店名。适合通过 LINE 接单、预约和推送促销的泰国店铺。",
+    promise: "面向 LINE 主渠道店铺。本站无需注册。可自定义边框以匹配印刷物料。",
     body: [
-      "许多泰国店铺通过 LINE 接单。直达加好友二维码可减少搜索步骤。",
-      "如需多个渠道，也可链接到包含 LINE、电话和地图的汇总页。",
+      "许多泰国店铺通过 LINE 接单。直达加好友二维码可减少柜台、收据和菜单旁的搜索步骤。",
+      "从 LINE Official Account Manager 复制加好友链接，粘贴到下方，并用已安装 LINE 的手机试扫。",
+      "若不止 LINE，可链接到包含电话和地图的联系汇总页，或与泰式餐厅菜单二维码搭配使用。",
+      "若希望直接输入 @Official Account，也可使用专用 LINE 二维码生成页。",
     ],
-    examples: ["LINE OA 加好友链接", "联系渠道汇总页", "点单或排队聊天链接"],
-    howTo: ["复制 LINE 加好友或联系网址", "粘贴到此处并设置短边框文字", "放到柜台或收据上后试扫"],
+    examples: ["来自 Official Account Manager 的 LINE OA 加好友链接", "含 LINE、电话和地图的联系汇总页", "点单、预约或排队聊天链接"],
+    howTo: [
+      "打开 LINE Official Account Manager 并复制加好友链接",
+      "粘贴链接，设置短边框文字（如“添加 LINE”），并预览设计",
+      "打印用于柜台、收据或包装，并在批量印刷前试扫",
+    ],
     faqs: [
-      { question: "可以直接使用 LINE OA 链接吗？", answer: "可以。粘贴 LINE Official Account 的加好友网址即可。" },
-      { question: "与 LINE 自带二维码有何不同？", answer: "您可以自定义边框和模板，使其更贴合店铺与印刷物料。" },
+      { question: "可以直接使用 LINE OA 链接吗？", answer: "可以。将 Official Account Manager 中的加好友 URL 粘贴到链接字段。" },
+      { question: "与 LINE 自带二维码有何不同？", answer: "您可以自定义边框、颜色和模板，并与其他印刷物料统一风格。" },
+      { question: "餐厅是否应与菜单二维码一起使用？", answer: "建议搭配。许多泰国餐厅在桌上放菜单码，在柜台放 LINE 码用于点单和促销。" },
+      { question: "可以输入 @handle 而不是 URL 吗？", answer: "可以。若希望直接输入 @Official Account 或 LINE ID，请使用 LINE 二维码生成页。" },
+      { question: "扫描者需要 LINE 应用吗？", answer: "需要。打开 LINE 个人资料或加好友页面需要扫描手机上已安装 LINE。" },
     ],
     helperHint: "粘贴 LINE OA 加好友链接，或联系渠道汇总页网址。",
     frameText: "添加 LINE",
     downloadFileName: "qr-line-contact.png",
+    toolLinks: [
+      { label: "LINE 二维码生成器", barePath: "/qr-code/line" },
+      { label: "泰式餐厅菜单二维码设计", barePath: "/use-cases/thai-restaurant-menu" },
+      { label: "餐厅模板库", barePath: "/templates/restaurant" },
+    ],
   },
   "restaurant-table-tent": {
     title: "餐厅桌牌菜单二维码设计",

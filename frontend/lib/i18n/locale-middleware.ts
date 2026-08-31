@@ -36,6 +36,16 @@ function setLocaleCookie(response: NextResponse, locale: Locale): NextResponse {
   return response;
 }
 
+/** Step 1: Expose the resolved locale to the root layout for SSR html lang. */
+function setRequestLocaleHeader(response: NextResponse, locale: Locale): NextResponse {
+  response.headers.set("x-locale", locale);
+  return response;
+}
+
+function withLocaleContext(response: NextResponse, locale: Locale): NextResponse {
+  return setRequestLocaleHeader(setLocaleCookie(response, locale), locale);
+}
+
 /** Shared locale/canonical routing used by root middleware (with or without Clerk). */
 export function runLocaleMiddleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
@@ -57,22 +67,22 @@ export function runLocaleMiddleware(request: NextRequest): NextResponse {
 
   if (pathname === "/" || pathname === "") {
     const target = localizedPath(preferred, "/qr-code-generator");
-    return setLocaleCookie(redirectTemporary(request, target), preferred);
+    return withLocaleContext(redirectTemporary(request, target), preferred);
   }
 
   if (!pathLocale) {
     const target = localizedPath(defaultLocale, path === "/" ? "/qr-code-generator" : path);
-    return setLocaleCookie(redirectPermanent(request, target), defaultLocale);
+    return withLocaleContext(redirectPermanent(request, target), defaultLocale);
   }
 
   if (!isLocale(pathLocale)) {
     const target = localizedPath(defaultLocale, path);
-    return setLocaleCookie(redirectPermanent(request, target), defaultLocale);
+    return withLocaleContext(redirectPermanent(request, target), defaultLocale);
   }
 
   if (request.nextUrl.hostname === `www.${CANONICAL_HOST}`) {
-    return setLocaleCookie(redirectPermanent(request, pathname), pathLocale);
+    return withLocaleContext(redirectPermanent(request, pathname), pathLocale);
   }
 
-  return setLocaleCookie(NextResponse.next(), pathLocale);
+  return withLocaleContext(NextResponse.next(), pathLocale);
 }

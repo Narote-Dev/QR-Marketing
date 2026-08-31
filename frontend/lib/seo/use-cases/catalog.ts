@@ -8,7 +8,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
     recommendedQrType: "url",
     templateCategory: "menu",
     templateId: "menu-board",
-    related: ["cafe-menu", "restaurant-table-tent", "google-review-shop"],
+    related: ["cafe-menu", "restaurant-table-tent", "line-contact", "google-review-shop"],
   },
   "cafe-menu": {
     slug: "cafe-menu",
@@ -72,7 +72,7 @@ export const useCaseMeta: Record<UseCaseSlug, UseCaseMeta> = {
     recommendedQrType: "line",
     templateCategory: "business",
     templateId: "business-navy",
-    related: ["gmail-email", "business-contact-card", "google-review-shop"],
+    related: ["thai-restaurant-menu", "cafe-menu", "gmail-email", "business-contact-card"],
   },
   "restaurant-table-tent": {
     slug: "restaurant-table-tent",

@@ -4,9 +4,15 @@ import sitemap from "../app/sitemap";
 import robots from "../app/robots";
 import { locales } from "../lib/i18n/config";
 import { localizedPath } from "../lib/i18n/paths";
+import { hreflangKeys } from "../lib/seo/hreflang";
 import { generatorPage, bulkPage, getPageMetadata, qrPages, siteUrl } from "../lib/seo/site";
 import { getTemplatePageBarePath, getTemplatePageMetadata, templateCategoryPages, templateIndexPage } from "../lib/seo/templates";
 import { useCasePathForSlug, useCaseSlugs } from "../lib/seo/use-cases";
+
+function assertHreflangLanguages(languages: Record<string, string> | null | undefined) {
+  assert.ok(languages);
+  assert.deepEqual(Object.keys(languages).sort(), [...hreflangKeys].sort());
+}
 
 test("SEO pages have unique metadata and locale canonical URLs", () => {
   const pages = [generatorPage, bulkPage, ...Object.values(qrPages)];
@@ -21,10 +27,10 @@ test("SEO pages have unique metadata and locale canonical URLs", () => {
           : `/qr-code/${page.slug}`;
     for (const locale of locales) {
       const metadata = getPageMetadata(page, locale);
-      const path = localizedPath(locale, bare);
-      assert.equal(metadata.alternates?.canonical, path);
-      assert.equal(metadata.openGraph?.url, new URL(path, siteUrl).toString());
-      assert.ok(metadata.alternates?.languages);
+      const canonical = new URL(localizedPath(locale, bare), siteUrl).toString();
+      assert.equal(metadata.alternates?.canonical, canonical);
+      assert.equal(metadata.openGraph?.url, canonical);
+      assertHreflangLanguages(metadata.alternates?.languages as Record<string, string> | undefined);
       assert.equal((metadata.twitter as { card?: string } | null | undefined)?.card, "summary");
     }
   }
@@ -39,9 +45,10 @@ test("template SEO pages have unique metadata and curated locale paths", () => {
     const bare = getTemplatePageBarePath(page);
     for (const locale of locales) {
       const metadata = getTemplatePageMetadata(page, locale);
-      const path = localizedPath(locale, bare);
-      assert.equal(metadata.alternates?.canonical, path);
-      assert.equal(metadata.openGraph?.url, new URL(path, siteUrl).toString());
+      const canonical = new URL(localizedPath(locale, bare), siteUrl).toString();
+      assert.equal(metadata.alternates?.canonical, canonical);
+      assert.equal(metadata.openGraph?.url, canonical);
+      assertHreflangLanguages(metadata.alternates?.languages as Record<string, string> | undefined);
       assert.ok(page.body.length >= 2);
       assert.ok(page.faqs.length >= 2);
     }

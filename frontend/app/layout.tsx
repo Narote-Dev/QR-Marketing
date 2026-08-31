@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { AdSenseScript } from "@/components/adsense-script";
 import { AppProviders } from "@/components/app-providers";
 import { ConsentModeScript } from "@/components/consent-mode-script";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { adSenseConfig, getAdSenseAccountMeta } from "@/lib/adsense/config";
+import { defaultLocale, htmlLang, isLocale } from "@/lib/i18n/config";
 import { siteUrl } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -37,9 +39,14 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // Step 1: Resolve locale from middleware so crawlers get the correct html lang attribute.
+  const headerStore = await headers();
+  const requestedLocale = headerStore.get("x-locale") ?? defaultLocale;
+  const locale = isLocale(requestedLocale) ? requestedLocale : defaultLocale;
+
   return (
-    <html lang="en" suppressHydrationWarning className={plusJakartaSans.variable}>
+    <html lang={htmlLang[locale]} suppressHydrationWarning className={plusJakartaSans.variable}>
       <body className="font-sans">
         <ConsentModeScript />
         <AdSenseScript />

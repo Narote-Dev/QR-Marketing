@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ConsentBanner } from "@/components/consent-banner";
 import { I18nProvider } from "@/components/i18n-provider";
 import { SiteNavJsonLd } from "@/components/site-nav-json-ld";
-import { htmlLang, isLocale, locales, type Locale } from "@/lib/i18n/config";
+import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 type Props = {
@@ -30,20 +30,14 @@ export default async function LocaleLayout({ children, params }: Props) {
   const locale = params.locale as Locale;
   const dictionary = await getDictionary(locale);
 
-  // Step 2: Set html lang via a nested html is invalid — use lang on a wrapper and rely on root.
-  // Next.js only allows one <html>; set lang through a scriptless approach on the body parent.
+  // Step 2: Provide locale context to client components and structured data helpers.
   return (
-    <div lang={htmlLang[locale]}>
+    <>
       <SiteNavJsonLd locale={locale} dictionary={dictionary} />
       <I18nProvider locale={locale} dictionary={dictionary}>
         {children}
         <ConsentBanner />
       </I18nProvider>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang=${JSON.stringify(htmlLang[locale])};`,
-        }}
-      />
-    </div>
+    </>
   );
 }
