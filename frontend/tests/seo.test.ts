@@ -70,6 +70,10 @@ test("sitemap contains curated QR and template pages for every locale", () => {
 
 test("robots allows public pages and points to the sitemap", () => {
   const policy = robots();
-  assert.deepEqual(policy.rules, { userAgent: "*", allow: "/" });
+  assert.deepEqual(policy.rules, {
+    userAgent: "*",
+    allow: "/",
+    disallow: ["/*/my/", "/*/dynamic-qr/", "/*/sign-in", "/*/sign-up", "/r/"],
+  });
   assert.equal(policy.sitemap, new URL("/sitemap.xml", siteUrl).toString());
 });

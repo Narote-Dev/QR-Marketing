@@ -16,6 +16,7 @@ export function SiteNavJsonLd({ locale, dictionary }: Props) {
   const navItems = [
     { name: chrome.navGenerator, path: "/qr-code-generator" },
     { name: chrome.bulkQrGenerator, path: "/bulk-qr-generator" },
+    { name: dictionary.seo.qr.dynamic.h1, path: "/qr-code/dynamic" },
     { name: chrome.allTemplates, path: "/templates" },
   ].map((item) => ({
     "@type": "SiteNavigationElement",

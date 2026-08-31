@@ -67,6 +67,7 @@ function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
 export function getGeneratorPage(dictionary: Dictionary): SeoPage {
   return fromCopy("qr-code-generator", dictionary.seo.generator, [
     "url",
+    "dynamic",
     "wifi",
     "vcard",
     "whatsapp",

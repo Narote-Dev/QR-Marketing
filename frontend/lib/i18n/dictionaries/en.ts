@@ -699,10 +699,10 @@ export const en: Dictionary = {
     generator: {
       title: "Free QR Code Generator — No Signup",
       description:
-        "Free QR code generator in your browser—no signup. Create static codes for URLs, WiFi, vCard, WhatsApp, LINE, and more. Customize, download, or jump to bulk CSV and templates.",
+        "Free QR code generator in your browser—no signup for static codes. Create URL, WiFi, vCard, WhatsApp, and LINE codes, or sign in for Dynamic QR codes you can edit after printing. Customize, download, bulk CSV, or templates.",
       h1: "Free QR code generator — no signup",
       introduction:
-        "Create a practical, static QR code in your browser for free. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it. Need many URL codes? Use bulk CSV. Prefer a ready look? Start from templates.",
+        "Create a practical, static QR code in your browser for free. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it. Need editable short links after print? Switch to Dynamic mode or open our Dynamic QR guide. Need many URL codes? Use bulk CSV. Prefer a ready look? Start from templates.",
       howTo: [
         "Choose the QR type that matches what people should do after scanning.",
         "Enter the required details and review the live preview.",
@@ -718,6 +718,11 @@ export const en: Dictionary = {
           question: "What can I encode?",
           answer:
             "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles. For many URL codes at once, use the bulk CSV generator. For ready-made designs, browse templates.",
+        },
+        {
+          question: "What is Dynamic QR and do I need an account?",
+          answer:
+            "Dynamic QR codes encode a short link on genmyqrcode.com so you can change the destination after printing. Sign in and switch to Dynamic mode in the generator, or read our Dynamic QR guide. Static codes remain free with no account.",
         },
       ],
     },
