@@ -151,9 +151,11 @@ export type Dictionary = {
     csvEmpty: string;
     csvTooMany: string;
     csvNoUrlColumn: string;
+    csvUnsupportedType: string;
     csvInvalidType: string;
     csvLoaded: string;
-    rowColumnUrl: string;
+    rowColumnType: string;
+    rowColumnContent: string;
     rowColumnFile: string;
     rowColumnLabel: string;
     rowColumnStatus: string;

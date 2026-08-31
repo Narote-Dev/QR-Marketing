@@ -1,12 +1,16 @@
 import { buildQrContent } from "@/lib/qr/content";
-import { defaultQrValues } from "@/lib/qr/types";
 import type { Dictionary } from "@/lib/i18n/types";
+import { batchFieldsToFormValues } from "@/lib/qr/batch/schema";
 import type { BatchRowInput, BatchRowValidated } from "@/lib/qr/batch/types";
 
-/** Step 1: Validate each CSV row as a URL QR payload. */
+/** Step 1: Validate each CSV row using the same payload builder as the single generator. */
 export function validateBatchRows(rows: BatchRowInput[], dictionary?: Dictionary): BatchRowValidated[] {
   return rows.map((row, index) => {
-    const result = buildQrContent("url", { ...defaultQrValues, url: row.url }, dictionary);
+    if (row.parseError) {
+      return { ...row, id: `row-${index}`, error: row.parseError };
+    }
+    const values = batchFieldsToFormValues(row.type, row.fields);
+    const result = buildQrContent(row.type, values, dictionary);
     if (result.error) {
       return { ...row, id: `row-${index}`, error: result.error };
     }

@@ -136,23 +136,25 @@ export const en: Dictionary = {
   },
   bulkQr: {
     eyebrow: "Bulk QR generator",
-    heading: "Create many URL QR codes at once",
+    heading: "Create many QR codes at once",
     intro:
-      "Upload a CSV, apply one shared design, and download a ZIP of PNG files. Everything runs in your browser — up to 50 codes per batch.",
+      "Upload a CSV with URL, WiFi, LINE, WhatsApp, or vCard rows. Apply one shared design and download a ZIP of PNG files — up to 50 codes per batch, all in your browser.",
     step1Title: "1. Upload CSV",
     step2Title: "2. Customize design",
     step3Title: "3. Preview & download ZIP",
     csvHint:
-      "Use a CSV with columns url, filename, and optional label. Maximum {max} rows per batch. Invalid rows are skipped from the ZIP.",
+      "Use a type column plus the fields for each QR type (url, wifiSsid, lineId, and more). Legacy url-only CSV still works. Maximum {max} rows per batch.",
     csvUpload: "Upload CSV",
     csvSampleDownload: "Download sample CSV",
     csvSampleFileName: "bulk-qr-sample.csv",
-    csvEmpty: "The CSV file has no usable rows. Add at least one URL.",
+    csvEmpty: "The CSV file has no usable rows. Add at least one valid row.",
     csvTooMany: "Only the first {max} rows were loaded. Split larger lists into multiple batches.",
     csvNoUrlColumn: "Could not find a url column in the CSV header.",
+    csvUnsupportedType: "Unsupported type \"{type}\". Use url, wifi, line, whatsapp, or vcard.",
     csvInvalidType: "Please upload a .csv file.",
     csvLoaded: "Loaded {name}.",
-    rowColumnUrl: "URL",
+    rowColumnType: "Type",
+    rowColumnContent: "Content",
     rowColumnFile: "Filename",
     rowColumnLabel: "Label",
     rowColumnStatus: "Status",
@@ -177,35 +179,54 @@ export const en: Dictionary = {
     heading: "Bulk QR code guide — CSV to ZIP",
     overviewTitle: "What this tool does",
     overview: [
-      "The bulk generator turns a list of website links into many matching QR codes in one run. You upload a CSV, apply one visual design to every code, and download a ZIP folder of PNG files ready for print or digital use.",
-      "Everything happens in your browser. We do not store your URLs, CSV file, or exported images on a server. No account is required.",
-      "Each batch supports up to 50 URL QR codes so export stays fast and reliable on everyday laptops and phones — including devices with about 4 GB of RAM.",
+      "The bulk generator turns a CSV list into many matching QR codes in one run. Supported types in Phase B1: URL, WiFi, LINE, WhatsApp, and vCard. You apply one visual design to every code and download a ZIP of PNG files.",
+      "Everything happens in your browser. We do not store your CSV or exported images on a server. No account is required.",
+      "Each batch supports up to 50 codes so export stays fast on everyday laptops and phones — including devices with about 4 GB of RAM.",
     ],
     csvTitle: "CSV file format",
     csvIntro:
-      "Prepare a comma-separated file with one QR code per row. A header row is recommended but not required when columns appear in the default order.",
+      "Include a type column and the fields needed for that type. Leave unused columns empty. Legacy CSV files with only url, filename, and label still work.",
     csvColumns: [
       {
-        name: "url",
-        description: "Required. The full website address to encode, starting with https:// or http://.",
+        name: "type",
+        description: "Required for mixed batches. One of: url, wifi, line, whatsapp, vcard.",
       },
       {
         name: "filename",
-        description: "Optional but recommended. Used as the PNG file name inside the ZIP, without the .png extension.",
+        description: "Optional but recommended. PNG file name inside the ZIP, without the .png extension.",
       },
       {
         name: "label",
-        description:
-          "Optional. Becomes the frame text when your design uses a label frame — useful for table numbers, room names, or product titles.",
+        description: "Optional. Frame text when your design uses a label frame.",
+      },
+      {
+        name: "url",
+        description: "For type url. Full https:// or http:// address.",
+      },
+      {
+        name: "wifiSsid / wifiPassword / wifiEncryption",
+        description: "For type wifi. Encryption is WPA, WEP, or nopass.",
+      },
+      {
+        name: "lineId",
+        description: "For type line. LINE ID, @official account, or https://line.me URL.",
+      },
+      {
+        name: "whatsappPhone / whatsappMessage",
+        description: "For type whatsapp. Phone in international format; message is optional.",
+      },
+      {
+        name: "vcardFirstName / vcardLastName / …",
+        description: "For type vcard. At least first or last name required; phone, email, and website optional.",
       },
     ],
     csvExampleTitle: "Example CSV",
     csvExample:
-      "url,filename,label\nhttps://example.com/menu,table-01,Scan for menu\nhttps://example.com/promo,table-02,Today's special\nhttps://example.com/wifi,lobby-wifi,Free guest WiFi",
+      "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail\nurl,table-01,Scan menu,https://example.com/menu,,,,,,,,,\nwifi,lobby-wifi,Guest WiFi,,GuestNet,welcome123,WPA,,,,,,",
     csvNotes: [
       "You can create the file in Excel, Google Sheets, or any spreadsheet app, then export as CSV (UTF-8).",
-      "If a URL contains commas, wrap the cell in double quotes.",
-      "Rows without a valid http or https URL are marked Invalid and skipped from the ZIP.",
+      "If a cell contains commas, wrap it in double quotes.",
+      "Rows with missing required fields or invalid values are marked Invalid and skipped from the ZIP.",
       "Lists longer than 50 rows are trimmed to the first 50 — split very large jobs into multiple batches.",
     ],
     stepsTitle: "Step-by-step workflow",
@@ -213,7 +234,7 @@ export const en: Dictionary = {
       {
         title: "Prepare and upload your CSV",
         body:
-          "Click Upload CSV or download the sample file first. After upload, the preview table shows each row, its filename, label, and whether the URL is ready.",
+          "Click Upload CSV or download the sample file first. After upload, the preview table shows type, content, filename, label, and Ready/Invalid status for each row.",
       },
       {
         title: "Choose one design for the whole batch",
@@ -223,7 +244,7 @@ export const en: Dictionary = {
       {
         title: "Review valid rows",
         body:
-          "Check the summary panel on the right. Only rows marked Ready are included in the export. Fix invalid URLs in your spreadsheet and re-upload if needed.",
+          "Check the summary panel on the right. Only rows marked Ready are included in the export. Fix invalid rows in your spreadsheet and re-upload if needed.",
       },
       {
         title: "Download the ZIP",
@@ -233,16 +254,16 @@ export const en: Dictionary = {
       {
         title: "Test before printing",
         body:
-          "Open a few PNG files from the ZIP and scan them with your phone at the size you plan to print. Confirm each link opens the correct page.",
+          "Open a few PNG files from the ZIP and scan them with your phone at the size you plan to print. Confirm WiFi joins, links open, LINE/WhatsApp opens, and vCard saves correctly.",
       },
     ],
     useCasesTitle: "Common use cases",
     useCases: [
-      "Restaurant table tents — one menu or promo link per table with a matching label such as Table 12.",
-      "Hotel room cards — WiFi info pages or welcome links per room number.",
-      "Retail shelf tags — product detail pages for many SKUs with consistent branding.",
-      "Event badges or posters — registration or schedule links for multiple sessions.",
-      "Marketing flyers — UTM-tagged campaign URLs exported with readable file names.",
+      "Restaurant — menu URL per table plus one WiFi row and one LINE row in the same ZIP.",
+      "Hotel room cards — WiFi credentials per room with matching filename (room-305).",
+      "Retail shelf tags — product URLs for many SKUs with consistent branding.",
+      "Event materials — WhatsApp support QR plus registration URLs for each session.",
+      "Staff badges — vCard rows for team contacts with shared frame design.",
     ],
     tipsTitle: "Design and print tips",
     tips: [
@@ -257,12 +278,12 @@ export const en: Dictionary = {
       {
         question: "A row shows Invalid — what should I check?",
         answer:
-          "Make sure the URL starts with http:// or https://, has no stray spaces, and is a complete web address. Re-export the CSV as UTF-8 if special characters look wrong.",
+          "Confirm the type column and required fields: url needs https://; wifi needs ssid and password (unless nopass); line needs an ID or line.me URL; whatsapp needs a valid international phone; vcard needs at least a first or last name. Re-export the CSV as UTF-8 if Thai or Chinese characters look wrong.",
       },
       {
         question: "Why is my ZIP smaller than the number of CSV rows?",
         answer:
-          "Only valid rows are exported. Invalid URLs, empty rows, and rows beyond the 50-code limit are excluded.",
+          "Only valid rows are exported. Invalid rows, empty rows, unsupported types, and rows beyond the 50-code limit are excluded.",
       },
       {
         question: "Can I use Excel on Windows?",
@@ -729,12 +750,12 @@ export const en: Dictionary = {
     bulk: {
       title: "Bulk QR Code Generator — CSV Upload, Up to 50 Codes",
       description:
-        "Create many URL QR codes at once from a CSV file. Apply one design from templates or customize, preview rows, and download a ZIP of PNG files — no signup.",
+        "Create many URL, WiFi, LINE, WhatsApp, or vCard QR codes from one CSV. One shared design, preview rows, ZIP of PNG files — no signup.",
       h1: "Bulk QR code generator from CSV",
       introduction:
-        "Upload a spreadsheet of links, customize the visual design once (or start from a template), and export up to fifty ready-to-print QR codes as PNG files in a single ZIP download. For a single code, use the free QR generator.",
+        "Upload a spreadsheet with a type column (url, wifi, line, whatsapp, vcard), customize the design once, and export up to fifty PNG QR codes in one ZIP. Legacy url-only CSV still works. For a single code, use the free QR generator.",
       howTo: [
-        "Prepare a CSV with url, filename, and optional label columns, then upload it.",
+        "Prepare a CSV with type, filename, optional label, and fields for each QR type, then upload it.",
         "Pick a template or customize colors, logo, frame, and size for the whole batch.",
         "Review valid rows and download the ZIP when you are ready to print or share.",
       ],
@@ -742,12 +763,12 @@ export const en: Dictionary = {
         {
           question: "What CSV format should I use?",
           answer:
-            "Use a header row with url, filename, and optional label. Each row becomes one QR code. The label becomes the frame text when your design uses a label frame.",
+            "Use a header row with type plus the columns for each QR type (url, wifiSsid, lineId, etc.). Leave unused columns empty. Legacy files with only url, filename, and label still work.",
         },
         {
           question: "Is there a limit on how many codes I can create?",
           answer:
-            "Each batch supports up to 50 URL QR codes so export stays fast and reliable on everyday devices, including phones and laptops with about 4 GB of RAM.",
+            "Each batch supports up to 50 QR codes so export stays fast on everyday devices, including phones and laptops with about 4 GB of RAM.",
         },
         {
           question: "Do you store my CSV or QR codes?",

@@ -134,23 +134,25 @@ export const zh: Dictionary = {
   },
   bulkQr: {
     eyebrow: "批量二维码",
-    heading: "一次创建多个网址二维码",
+    heading: "一次创建多个二维码",
     intro:
-      "上传 CSV，应用统一设计，下载 PNG 压缩包。全部在浏览器中完成，每批最多 50 个。",
+      "上传包含 URL、WiFi、LINE、WhatsApp 或 vCard 行的 CSV，应用统一设计并下载 PNG 压缩包。每批最多 50 个，全部在浏览器中完成。",
     step1Title: "1. 上传 CSV",
     step2Title: "2. 自定义设计",
     step3Title: "3. 预览并下载 ZIP",
     csvHint:
-      "CSV 需包含 url、filename 列，label 可选。每批最多 {max} 行。无效行不会包含在 ZIP 中。",
+      "使用 type 列及各类型所需字段（url、wifiSsid、lineId 等）。仅含 url 的旧版 CSV 仍可用。每批最多 {max} 行。",
     csvUpload: "上传 CSV",
     csvSampleDownload: "下载示例 CSV",
     csvSampleFileName: "bulk-qr-sample.csv",
-    csvEmpty: "CSV 中没有可用行。请至少添加一个 URL。",
+    csvEmpty: "CSV 中没有可用行。请至少添加一行有效数据。",
     csvTooMany: "仅加载前 {max} 行。请将更大的列表拆成多批。",
     csvNoUrlColumn: "在 CSV 表头中找不到 url 列。",
+    csvUnsupportedType: "不支持类型 \"{type}\"。请使用 url、wifi、line、whatsapp 或 vcard。",
     csvInvalidType: "请上传 .csv 文件。",
     csvLoaded: "已加载 {name}。",
-    rowColumnUrl: "URL",
+    rowColumnType: "类型",
+    rowColumnContent: "内容",
     rowColumnFile: "文件名",
     rowColumnLabel: "标签",
     rowColumnStatus: "状态",
@@ -175,40 +177,36 @@ export const zh: Dictionary = {
     heading: "批量二维码指南 — 从 CSV 到 ZIP",
     overviewTitle: "这个工具做什么",
     overview: [
-      "批量生成器将网站链接列表一次性转换为多个二维码。上传 CSV，应用统一视觉设计，然后下载包含 PNG 文件的 ZIP，可直接用于打印或数字分发。",
-      "全部在浏览器中完成。我们不会在服务器上存储您的 URL、CSV 文件或导出的图片。无需注册账号。",
-      "每批最多支持 50 个网址二维码，以便在普通笔记本和手机上快速稳定导出，包括约 4 GB 内存的设备。",
+      "批量生成器将 CSV 列表一次性转换为多个二维码。Phase B1 支持：URL、WiFi、LINE、WhatsApp 和 vCard。应用统一设计后下载 PNG 压缩包。",
+      "全部在浏览器中完成。我们不会在服务器上存储 CSV 或导出的图片。无需注册账号。",
+      "每批最多 50 个二维码，以便在普通设备上快速稳定导出，包括约 4 GB 内存的设备。",
     ],
     csvTitle: "CSV 文件格式",
-    csvIntro: "准备逗号分隔文件，每行一个二维码。建议使用表头行；若列按默认顺序排列，也可省略表头。",
+    csvIntro: "包含 type 列及该类型所需字段，未使用的列可留空。仅含 url 的旧版 CSV 仍可使用。",
     csvColumns: [
-      {
-        name: "url",
-        description: "必填。要编码的完整网址，以 https:// 或 http:// 开头。",
-      },
-      {
-        name: "filename",
-        description: "可选但建议填写。用作 ZIP 内 PNG 文件名，无需 .png 后缀。",
-      },
-      {
-        name: "label",
-        description: "可选。当设计使用标签边框时，作为边框文字 — 适用于桌号、房间名或产品标题。",
-      },
+      { name: "type", description: "混合批次必填：url、wifi、line、whatsapp 或 vcard。" },
+      { name: "filename", description: "可选但建议填写。ZIP 内 PNG 文件名。" },
+      { name: "label", description: "可选。使用标签边框时的边框文字。" },
+      { name: "url", description: "type 为 url 时使用，完整 https:// 或 http:// 地址。" },
+      { name: "wifiSsid / wifiPassword / wifiEncryption", description: "type 为 wifi。encryption 为 WPA、WEP 或 nopass。" },
+      { name: "lineId", description: "type 为 line。LINE ID、@官方账号或 line.me URL。" },
+      { name: "whatsappPhone / whatsappMessage", description: "type 为 whatsapp。国际格式电话；消息可选。" },
+      { name: "vcardFirstName / vcardLastName / …", description: "type 为 vcard。至少填写名或姓；电话、邮箱等可选。" },
     ],
     csvExampleTitle: "CSV 示例",
     csvExample:
-      "url,filename,label\nhttps://example.com/menu,table-01,Scan for menu\nhttps://example.com/promo,table-02,Today's special\nhttps://example.com/wifi,lobby-wifi,Free guest WiFi",
+      "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail\nurl,table-01,Scan menu,https://example.com/menu,,,,,,,,,\nwifi,lobby-wifi,Guest WiFi,,GuestNet,welcome123,WPA,,,,,,",
     csvNotes: [
       "可在 Excel、Google 表格等软件中创建，然后导出为 CSV（UTF-8）。",
-      "若 URL 含逗号，请用双引号包裹单元格。",
-      "没有有效 http 或 https URL 的行会标记为无效，不会包含在 ZIP 中。",
+      "若单元格含逗号，请用双引号包裹。",
+      "缺少必填字段或值无效的行会标记为无效，不会包含在 ZIP 中。",
       "超过 50 行的列表会截取前 50 行 — 请将大任务拆成多批。",
     ],
     stepsTitle: "分步操作流程",
     steps: [
       {
         title: "准备并上传 CSV",
-        body: "点击上传 CSV，或先下载示例文件。上传后，预览表会显示每行的 URL、文件名、标签及是否就绪。",
+        body: "点击上传 CSV，或先下载示例文件。上传后，预览表会显示类型、内容、文件名、标签及就绪/无效状态。",
       },
       {
         title: "为整批选择一种设计",
@@ -216,7 +214,7 @@ export const zh: Dictionary = {
       },
       {
         title: "检查有效行",
-        body: "查看右侧摘要。仅标记为“就绪”的行会包含在导出中。若需修正，请在表格中修改 URL 后重新上传。",
+        body: "查看右侧摘要。仅标记为“就绪”的行会包含在导出中。请在表格中修正无效行后重新上传。",
       },
       {
         title: "下载 ZIP",
@@ -224,16 +222,16 @@ export const zh: Dictionary = {
       },
       {
         title: "打印前测试",
-        body: "从 ZIP 中打开几个 PNG，按计划打印尺寸用手机扫描，确认每个链接打开正确页面。",
+        body: "从 ZIP 中打开几个 PNG，按计划打印尺寸用手机扫描，确认 WiFi、链接、LINE/WhatsApp 和 vCard 均正常。",
       },
     ],
     useCasesTitle: "常见使用场景",
     useCases: [
-      "餐厅桌牌 — 每桌一个菜单或促销链接，标签如“12 号桌”。",
-      "酒店房间卡 — 每间房一个 WiFi 或欢迎页链接。",
-      "零售货架标签 — 多个 SKU 的产品详情页，统一品牌风格。",
-      "活动证件或海报 — 多个场次的注册或日程链接。",
-      "营销传单 — 带 UTM 的活动 URL，文件名清晰易辨。",
+      "餐厅 — 每桌菜单 URL，同一 ZIP 可含 WiFi 与 LINE 行。",
+      "酒店 — 每间房 WiFi，文件名如 room-305。",
+      "零售 — 多 SKU 产品 URL，统一品牌设计。",
+      "活动 — WhatsApp 客服码加多场注册链接。",
+      "员工证 — vCard 联系方式，共享边框设计。",
     ],
     tipsTitle: "设计与打印建议",
     tips: [
@@ -248,11 +246,11 @@ export const zh: Dictionary = {
       {
         question: "某行显示无效 — 应检查什么？",
         answer:
-          "确认 URL 以 http:// 或 https:// 开头、无多余空格且为完整网址。若特殊字符异常，请以 UTF-8 重新导出 CSV。",
+          "确认 type 及必填字段：url 需 https://；wifi 需 ssid 和密码（nopass 除外）；line 需 ID 或 line.me URL；whatsapp 需有效国际号码；vcard 至少有名或姓。中文乱码请以 UTF-8 重新导出 CSV。",
       },
       {
         question: "为什么 ZIP 文件数少于 CSV 行数？",
-        answer: "仅导出有效行。无效 URL、空行和超过 50 码限制的行会被排除。",
+        answer: "仅导出有效行。无效行、空行、不支持的 type 及超过 50 码限制的行会被排除。",
       },
       {
         question: "可以在 Windows 上用 Excel 吗？",

@@ -1,3 +1,6 @@
+import type { QrFormValues } from "@/lib/qr/types";
+import type { BatchB1Type } from "@/lib/qr/batch/schema";
+
 /** Maximum QR codes per batch — tuned for ~4 GB RAM client-side export. */
 export const BATCH_MAX_ROWS = 50;
 
@@ -5,9 +8,11 @@ export const BATCH_MAX_ROWS = 50;
 export const BATCH_PREVIEW_ROWS = 8;
 
 export type BatchRowInput = {
-  url: string;
+  type: BatchB1Type;
   fileName: string;
   label?: string;
+  fields: Partial<QrFormValues>;
+  parseError?: string;
 };
 
 export type BatchRowValidated = BatchRowInput & {
@@ -19,3 +24,10 @@ export type BatchRowValidated = BatchRowInput & {
 export type BatchCsvParseResult =
   | { rows: BatchRowInput[]; error?: undefined; truncated?: boolean }
   | { rows: BatchRowInput[]; error: string; truncated?: boolean };
+
+export type BatchCsvMessages = {
+  empty: string;
+  tooMany: string;
+  noUrlColumn: string;
+  unsupportedType: string;
+};

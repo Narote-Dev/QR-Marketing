@@ -135,23 +135,25 @@ export const th: Dictionary = {
   },
   bulkQr: {
     eyebrow: "เครื่องมือสร้างคิวอาร์โค้ดเป็นชุด",
-    heading: "สร้างคิวอาร์โค้ด URL หลายอันพร้อมกัน",
+    heading: "สร้างคิวอาร์โค้ดหลายอันพร้อมกัน",
     intro:
-      "อัปโหลด CSV ใช้ดีไซน์เดียวกันทั้งชุด แล้วดาวน์โหลด ZIP ไฟล์ PNG ทุกอย่างทำงานในเบราว์เซอร์ สูงสุด 50 คิวอาร์โค้ดต่อครั้ง",
+      "อัปโหลด CSV ที่มีแถว URL, WiFi, LINE, WhatsApp หรือ vCard ใช้ดีไซน์เดียวกัน แล้วดาวน์โหลด ZIP — สูงสุด 50 โค้ดต่อครั้ง ทำงานในเบราว์เซอร์",
     step1Title: "1. อัปโหลด CSV",
     step2Title: "2. ปรับแต่งดีไซน์",
     step3Title: "3. ดูตัวอย่างและดาวน์โหลด ZIP",
     csvHint:
-      "ใช้ CSV ที่มีคอลัมน์ url, filename และ label (ไม่บังคับ) สูงสุด {max} แถวต่อครั้ง แถวที่ไม่ถูกต้องจะไม่ถูกใส่ใน ZIP",
+      "ใช้คอลัมน์ type และ field ตามประเภท (url, wifiSsid, lineId ฯลฯ) CSV แบบ url อย่างเดียวยังใช้ได้ สูงสุด {max} แถวต่อครั้ง",
     csvUpload: "อัปโหลด CSV",
     csvSampleDownload: "ดาวน์โหลด CSV ตัวอย่าง",
     csvSampleFileName: "bulk-qr-sample.csv",
-    csvEmpty: "ไฟล์ CSV ไม่มีแถวที่ใช้งานได้ กรุณาใส่ URL อย่างน้อย 1 แถว",
+    csvEmpty: "ไฟล์ CSV ไม่มีแถวที่ใช้งานได้ กรุณาเพิ่มแถวที่ถูกต้องอย่างน้อย 1 แถว",
     csvTooMany: "โหลดเฉพาะ {max} แถวแรก กรุณาแบ่งรายการใหญ่เป็นหลายชุด",
     csvNoUrlColumn: "ไม่พบคอลัมน์ url ใน header ของ CSV",
+    csvUnsupportedType: "ไม่รองรับ type \"{type}\" ใช้ url, wifi, line, whatsapp หรือ vcard",
     csvInvalidType: "กรุณาอัปโหลดไฟล์ .csv",
     csvLoaded: "โหลด {name} แล้ว",
-    rowColumnUrl: "URL",
+    rowColumnType: "ประเภท",
+    rowColumnContent: "เนื้อหา",
     rowColumnFile: "ชื่อไฟล์",
     rowColumnLabel: "ป้ายกรอบ",
     rowColumnStatus: "สถานะ",
@@ -176,35 +178,30 @@ export const th: Dictionary = {
     heading: "คู่มือสร้างคิวอาร์โค้ดเป็นชุด — จาก CSV เป็น ZIP",
     overviewTitle: "เครื่องมือนี้ทำอะไร",
     overview: [
-      "ตัวสร้างแบบ bulk เปลี่ยนรายการลิงก์เว็บไซต์ให้เป็นคิวอาร์โค้ดหลายอันในครั้งเดียว อัปโหลด CSV เลือกดีไซน์เดียวกันทั้งชุด แล้วดาวน์โหลด ZIP ไฟล์ PNG พร้อมนำไปพิมพ์หรือใช้งานดิจิทัล",
-      "ทุกอย่างทำงานในเบราว์เซอร์ เราไม่เก็บ URL, ไฟล์ CSV หรือภาพที่ส่งออกบนเซิร์ฟเวอร์ ไม่ต้องสมัครสมาชิก",
-      "แต่ละชุดรองรับคิวอาร์โค้ด URL สูงสุด 50 รายการ เพื่อให้ส่งออกเร็วและเสถียรบนแล็ปท็อปและมือถือทั่วไป รวมเครื่องที่มี RAM ประมาณ 4 GB",
+      "ตัวสร้างแบบ bulk เปลี่ยน CSV เป็นคิวอาร์โค้ดหลายอันในครั้งเดียว รองรับ URL, WiFi, LINE, WhatsApp และ vCard เลือกดีไซน์เดียวกันแล้วดาวน์โหลด ZIP ไฟล์ PNG",
+      "ทุกอย่างทำงานในเบราว์เซอร์ เราไม่เก็บ CSV หรือภาพที่ส่งออกบนเซิร์ฟเวอร์ ไม่ต้องสมัครสมาชิก",
+      "แต่ละชุดรองรับสูงสุด 50 โค้ด เพื่อให้ส่งออกเร็วบนแล็ปท็อปและมือถือทั่วไป รวมเครื่อง RAM ~4 GB",
     ],
     csvTitle: "รูปแบบไฟล์ CSV",
     csvIntro:
-      "เตรียมไฟล์คั่นด้วยเครื่องหมายจุลภาค หนึ่งคิวอาร์โค้ดต่อหนึ่งแถว แนะนำให้มีแถว header แต่ไม่บังคับถ้าคอลัมน์เรียงตามลำดับมาตรฐาน",
+      "ใส่คอลัมน์ type และ field ตามประเภท คอลัมน์ที่ไม่ใช้ปล่อยว่างได้ CSV แบบ url อย่างเดียวยังใช้ได้",
     csvColumns: [
-      {
-        name: "url",
-        description: "จำเป็น ที่อยู่เว็บเต็มรูปแบบที่จะเข้ารหัส ขึ้นต้นด้วย https:// หรือ http://",
-      },
-      {
-        name: "filename",
-        description: "ไม่บังคับแต่แนะนำ ใช้เป็นชื่อไฟล์ PNG ใน ZIP โดยไม่ต้องใส่ .png",
-      },
-      {
-        name: "label",
-        description:
-          "ไม่บังคับ ใช้เป็นข้อความบนกรอบเมื่อเลือกกรอบแบบมีป้าย — เหมาะกับเลขโต๊ะ ชื่อห้อง หรือชื่อสินค้า",
-      },
+      { name: "type", description: "จำเป็นสำหรับชุดผสม: url, wifi, line, whatsapp หรือ vcard" },
+      { name: "filename", description: "ไม่บังคับแต่แนะนำ ชื่อไฟล์ PNG ใน ZIP" },
+      { name: "label", description: "ไม่บังคับ ข้อความบนกรอบเมื่อใช้กรอบแบบมีป้าย" },
+      { name: "url", description: "สำหรับ type url ที่อยู่ https:// หรือ http://" },
+      { name: "wifiSsid / wifiPassword / wifiEncryption", description: "สำหรับ type wifi ค่า encryption: WPA, WEP หรือ nopass" },
+      { name: "lineId", description: "สำหรับ type line — LINE ID, @OA หรือ URL line.me" },
+      { name: "whatsappPhone / whatsappMessage", description: "สำหรับ type whatsapp เบอร์แบบสากล ข้อความไม่บังคับ" },
+      { name: "vcardFirstName / vcardLastName / …", description: "สำหรับ type vcard ต้องมีชื่อหรือนามสกุลอย่างน้อยหนึ่งค่า" },
     ],
     csvExampleTitle: "ตัวอย่าง CSV",
     csvExample:
-      "url,filename,label\nhttps://example.com/menu,table-01,Scan for menu\nhttps://example.com/promo,table-02,Today's special\nhttps://example.com/wifi,lobby-wifi,Free guest WiFi",
+      "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail\nurl,table-01,Scan menu,https://example.com/menu,,,,,,,,,\nwifi,lobby-wifi,Guest WiFi,,GuestNet,welcome123,WPA,,,,,,",
     csvNotes: [
-      "สร้างไฟล์ใน Excel, Google Sheets หรือโปรแกรมตารางอื่น แล้ว Export เป็น CSV (UTF-8)",
-      "ถ้า URL มีเครื่องหมายจุลภาค ให้ครอบเซลล์ด้วยเครื่องหมายคำพูด \"",
-      "แถวที่ไม่มี URL แบบ http/https ที่ถูกต้องจะแสดง Invalid และไม่ถูกใส่ใน ZIP",
+      "สร้างไฟล์ใน Excel, Google Sheets แล้ว Export เป็น CSV (UTF-8)",
+      "ถ้าเซลล์มีเครื่องหมายจุลภาค ให้ครอบด้วยเครื่องหมายคำพูด \"",
+      "แถวที่ field ไม่ครบหรือค่าไม่ถูกต้องจะแสดง Invalid และไม่ถูกใส่ใน ZIP",
       "รายการเกิน 50 แถวจะถูกตัดเหลือ 50 แถวแรก — แบ่งงานใหญ่เป็นหลายชุด",
     ],
     stepsTitle: "ขั้นตอนการใช้งาน",
@@ -212,7 +209,7 @@ export const th: Dictionary = {
       {
         title: "เตรียมและอัปโหลด CSV",
         body:
-          "กด Upload CSV หรือดาวน์โหลดไฟล์ตัวอย่างก่อน หลังอัปโหลด ตาราง preview จะแสดง URL, ชื่อไฟล์, ป้ายกรอบ และสถานะของแต่ละแถว",
+          "กด Upload CSV หรือดาวน์โหลดไฟล์ตัวอย่างก่อน หลังอัปโหลด ตาราง preview จะแสดงประเภท เนื้อหา ชื่อไฟล์ ป้ายกรอบ และสถานะ Ready/Invalid",
       },
       {
         title: "เลือกดีไซน์เดียวกันทั้งชุด",
@@ -222,7 +219,7 @@ export const th: Dictionary = {
       {
         title: "ตรวจแถวที่พร้อมส่งออก",
         body:
-          "ดูสรุปด้านขวา มีเฉพาะแถวที่แสดง Ready เท่านั้นที่จะอยู่ใน ZIP แก้ URL ในไฟล์แล้วอัปโหลดใหม่ถ้าจำเป็น",
+          "ดูสรุปด้านขวา มีเฉพาะแถว Ready เท่านั้นที่จะอยู่ใน ZIP แก้ข้อมูลในไฟล์แล้วอัปโหลดใหม่ถ้าจำเป็น",
       },
       {
         title: "ดาวน์โหลด ZIP",
@@ -232,16 +229,16 @@ export const th: Dictionary = {
       {
         title: "ทดสอบก่อนพิมพ์",
         body:
-          "เปิด PNG จาก ZIP แล้วสแกนด้วยมือถือในขนาดที่จะพิมพ์ ตรวจว่าแต่ละลิงก์เปิดหน้าที่ถูกต้อง",
+          "เปิด PNG จาก ZIP แล้วสแกนด้วยมือถือในขนาดที่จะพิมพ์ ตรวจ WiFi เข้าได้ LINE/WhatsApp เปิดถูก vCard บันทึกได้",
       },
     ],
     useCasesTitle: "ตัวอย่างการใช้งาน",
     useCases: [
-      "ป้ายโต๊ะร้านอาหาร — ลิงก์เมนูหรือโปรโมชันต่อโต๊ะ พร้อมป้ายเช่น โต๊ะ 12",
-      "การ์ดห้องพักโรงแรม — หน้า WiFi หรือ welcome ต่อหมายเลขห้อง",
-      "ป้ายชั้นวางร้านค้า — หน้ารายละเอียดสินค้าหลาย SKU ด้วยแบรนด์เดียวกัน",
-      "ป้ายอีเวนต์ — ลิงก์ลงทะเบียนหรือตารางงานหลาย session",
-      "ใบปลิวการตลาด — URL ที่มี UTM พร้อมชื่อไฟล์อ่านง่าย",
+      "ร้านอาหาร — URL เมนูต่อโต๊ะ + แถว WiFi + แถว LINE ใน ZIP เดียว",
+      "โรงแรม — WiFi ต่อห้อง ชื่อไฟล์ room-305",
+      "ร้านค้า — URL สินค้าหลาย SKU ดีไซน์เดียวกัน",
+      "อีเวนต์ — WhatsApp สายด่วน + URL ลงทะเบียนหลาย session",
+      "บัตรพนักงาน — แถว vCard ติดต่อทีม ดีไซน์กรอบเดียวกัน",
     ],
     tipsTitle: "เคล็ดลับดีไซน์และการพิมพ์",
     tips: [
@@ -256,12 +253,12 @@ export const th: Dictionary = {
       {
         question: "แถวแสดง Invalid — ควรตรวจอะไร?",
         answer:
-          "ตรวจว่า URL ขึ้นต้นด้วย http:// หรือ https:// ไม่มีช่องว่างเกิน และเป็น URL เต็มรูปแบบ ถ้าตัวอักษรพิเศษผิดปกติ ให้ export CSV เป็น UTF-8",
+          "ตรวจ type และ field ที่จำเป็น: url ต้อง https://; wifi ต้องมี ssid และรหัส (ยกเว้น nopass); line ต้องมี ID หรือ URL line.me; whatsapp ต้องมีเบอร์ + รหัสประเทศ; vcard ต้องมีชื่อหรือนามสกุลอย่างน้อยหนึ่งค่า ถ้าตัวอักษรไทย/จีนผิด ให้ export CSV เป็น UTF-8",
       },
       {
         question: "ทำไม ZIP มีไฟล์น้อยกว่าแถวใน CSV?",
         answer:
-          "ส่งออกเฉพาะแถวที่ valid เท่านั้น URL ไม่ถูกต้อง แถวว่าง และแถวเกิน 50 จะไม่ถูกใส่",
+          "ส่งออกเฉพาะแถว valid เท่านั้น แถว Invalid ว่าง type ไม่รองรับ และเกิน 50 จะไม่ถูกใส่",
       },
       {
         question: "ใช้ Excel บน Windows ได้ไหม?",

@@ -9,6 +9,7 @@ import { TemplateSelector } from "@/components/templates/template-selector";
 import { buildSampleCsv, parseBatchCsv } from "@/lib/qr/batch/csv";
 import { BATCH_MAX_ROWS, BATCH_PREVIEW_ROWS, type BatchRowValidated } from "@/lib/qr/batch/types";
 import { downloadBatchZip, exportBatchZip } from "@/lib/qr/batch/export-zip";
+import { batchRowSummary, batchTypeLabel } from "@/lib/qr/batch/schema";
 import { partitionBatchRows, validateBatchRows } from "@/lib/qr/batch/validate";
 import { defaultQrDesign, type QrDesign } from "@/lib/qr/design";
 import { downloadBlob } from "@/lib/qr/export";
@@ -62,6 +63,7 @@ export function QrBatchGenerator() {
       empty: copy.csvEmpty,
       tooMany: copy.csvTooMany.replace("{max}", String(BATCH_MAX_ROWS)),
       noUrlColumn: copy.csvNoUrlColumn,
+      unsupportedType: copy.csvUnsupportedType,
     });
 
     setCsvTruncated(Boolean(parsed.truncated));
@@ -179,7 +181,8 @@ export function QrBatchGenerator() {
                 <table className="min-w-full text-left text-sm">
                   <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
                     <tr>
-                      <th className="px-3 py-2">{copy.rowColumnUrl}</th>
+                      <th className="px-3 py-2">{copy.rowColumnType}</th>
+                      <th className="px-3 py-2">{copy.rowColumnContent}</th>
                       <th className="px-3 py-2">{copy.rowColumnFile}</th>
                       <th className="px-3 py-2">{copy.rowColumnLabel}</th>
                       <th className="px-3 py-2">{copy.rowColumnStatus}</th>
@@ -188,8 +191,10 @@ export function QrBatchGenerator() {
                   <tbody>
                     {previewRows.map((row) => (
                       <tr key={row.id} className="border-t">
-                        <td className="max-w-[12rem] truncate px-3 py-2 font-mono text-xs">{row.url}</td>
-                        <td className="px-3 py-2">{row.fileName}</td>
+                        <td className="px-3 py-2 font-medium text-slate-800">{batchTypeLabel(row.type)}</td>
+                        <td className="max-w-[12rem] truncate px-3 py-2 font-mono text-xs">
+                          {batchRowSummary(row.type, row.fields)}
+                        </td>
                         <td className="px-3 py-2">{row.label ?? "—"}</td>
                         <td className="px-3 py-2">
                           {row.payload ? (
