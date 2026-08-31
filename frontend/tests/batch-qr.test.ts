@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildLegacyUrlSampleCsv, buildSampleCsv, parseBatchCsv } from "../lib/qr/batch/csv";
+import { buildLegacyUrlSampleCsv, buildMixedTypeSampleCsv, buildSampleCsvForType, parseBatchCsv } from "../lib/qr/batch/csv";
 import { uniqueZipEntryName } from "../lib/qr/batch/export-zip";
 import { validateBatchRows } from "../lib/qr/batch/validate";
 import { BATCH_MAX_ROWS } from "../lib/qr/batch/types";
@@ -23,7 +23,7 @@ test("parseBatchCsv reads legacy headered URL rows", () => {
 });
 
 test("parseBatchCsv reads Phase B1 mixed-type sample", () => {
-  const parsed = parseBatchCsv(buildSampleCsv(), messages);
+  const parsed = parseBatchCsv(buildMixedTypeSampleCsv(), messages);
   assert.equal(parsed.error, undefined);
   assert.equal(parsed.rows.length, 5);
   assert.deepEqual(
@@ -32,6 +32,15 @@ test("parseBatchCsv reads Phase B1 mixed-type sample", () => {
   );
   assert.equal(parsed.rows[1]?.fields.wifiSsid, "GuestNet");
   assert.equal(parsed.rows[2]?.fields.lineId, "@myshop");
+});
+
+test("buildSampleCsvForType keeps wifi columns minimal", () => {
+  const csv = buildSampleCsvForType("wifi");
+  assert.match(csv, /wifiSsid/);
+  assert.doesNotMatch(csv, /whatsappPhone/);
+  const parsed = parseBatchCsv(csv, messages);
+  assert.equal(parsed.rows.length, 2);
+  assert.equal(parsed.rows[0]?.type, "wifi");
 });
 
 test("parseBatchCsv accepts headerless two-column URL rows", () => {

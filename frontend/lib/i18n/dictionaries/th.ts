@@ -142,9 +142,11 @@ export const th: Dictionary = {
     step2Title: "2. ปรับแต่งดีไซน์",
     step3Title: "3. ดูตัวอย่างและดาวน์โหลด ZIP",
     csvHint:
-      "ใช้คอลัมน์ type และ field ตามประเภท (url, wifiSsid, lineId ฯลฯ) CSV แบบ url อย่างเดียวยังใช้ได้ สูงสุด {max} แถวต่อครั้ง",
+      "เลือกประเภท QR ดาวน์โหลด sample ที่ตรง type กรอกแถว แล้วอัปโหลด รวมหลายไฟล์ type ลง batch เดียวได้ สูงสุด {max} แถวต่อครั้ง",
     csvUpload: "อัปโหลด CSV",
     csvSampleDownload: "ดาวน์โหลด CSV ตัวอย่าง",
+    sampleTypeLabel: "คุณจะสร้าง QR ประเภทไหน?",
+    sampleTypeHint: "เลือก type ก่อน — ไฟล์ตัวอย่างจะมีเฉพาะคอลัมน์ที่ใช้กับประเภทนั้น",
     csvSampleFileName: "bulk-qr-sample.csv",
     csvEmpty: "ไฟล์ CSV ไม่มีแถวที่ใช้งานได้ กรุณาเพิ่มแถวที่ถูกต้องอย่างน้อย 1 แถว",
     csvTooMany: "โหลดเฉพาะ {max} แถวแรก กรุณาแบ่งรายการใหญ่เป็นหลายชุด",
@@ -184,7 +186,7 @@ export const th: Dictionary = {
     ],
     csvTitle: "รูปแบบไฟล์ CSV",
     csvIntro:
-      "ใส่คอลัมน์ type และ field ตามประเภท คอลัมน์ที่ไม่ใช้ปล่อยว่างได้ CSV แบบ url อย่างเดียวยังใช้ได้",
+      "เลือกประเภท QR จาก dropdown ด้านบนปุ่มอัปโหลด แล้วดาวน์โหลด sample ที่ตรงกัน (เช่น bulk-qr-sample-wifi.csv) ไฟล์จะมีเฉพาะคอลัมน์ที่ใช้ CSV แบบ url อย่างเดียวยังใช้ได้",
     csvColumns: [
       { name: "type", description: "จำเป็นสำหรับชุดผสม: url, wifi, line, whatsapp หรือ vcard" },
       { name: "filename", description: "ไม่บังคับแต่แนะนำ ชื่อไฟล์ PNG ใน ZIP" },
@@ -195,10 +197,11 @@ export const th: Dictionary = {
       { name: "whatsappPhone / whatsappMessage", description: "สำหรับ type whatsapp เบอร์แบบสากล ข้อความไม่บังคับ" },
       { name: "vcardFirstName / vcardLastName / …", description: "สำหรับ type vcard ต้องมีชื่อหรือนามสกุลอย่างน้อยหนึ่งค่า" },
     ],
-    csvExampleTitle: "ตัวอย่าง CSV",
+    csvExampleTitle: "ตัวอย่าง CSV (WiFi จาก dropdown)",
     csvExample:
-      "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail\nurl,table-01,Scan menu,https://example.com/menu,,,,,,,,,\nwifi,lobby-wifi,Guest WiFi,,GuestNet,welcome123,WPA,,,,,,",
+      "type,filename,label,wifiSsid,wifiPassword,wifiEncryption\nwifi,lobby-wifi,Guest WiFi,GuestNet,welcome123,WPA\nwifi,room-101,Room WiFi,Room101Net,guest456,WPA",
     csvNotes: [
+      "เลือก type ใน dropdown แล้วดาวน์โหลด bulk-qr-sample-url.csv, bulk-qr-sample-wifi.csv ตามประเภทที่ต้องการ",
       "สร้างไฟล์ใน Excel, Google Sheets แล้ว Export เป็น CSV (UTF-8)",
       "ถ้าเซลล์มีเครื่องหมายจุลภาค ให้ครอบด้วยเครื่องหมายคำพูด \"",
       "แถวที่ field ไม่ครบหรือค่าไม่ถูกต้องจะแสดง Invalid และไม่ถูกใส่ใน ZIP",
@@ -209,7 +212,7 @@ export const th: Dictionary = {
       {
         title: "เตรียมและอัปโหลด CSV",
         body:
-          "กด Upload CSV หรือดาวน์โหลดไฟล์ตัวอย่างก่อน หลังอัปโหลด ตาราง preview จะแสดงประเภท เนื้อหา ชื่อไฟล์ ป้ายกรอบ และสถานะ Ready/Invalid",
+          "เลือกประเภท QR จาก dropdown ดาวน์โหลด sample ที่ตรงกัน กรอกแถว แล้วกด Upload CSV หลังอัปโหลด ตาราง preview จะแสดงประเภท เนื้อหา ชื่อไฟล์ ป้ายกรอบ และสถานะ Ready/Invalid",
       },
       {
         title: "เลือกดีไซน์เดียวกันทั้งชุด",

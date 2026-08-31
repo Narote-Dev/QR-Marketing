@@ -147,6 +147,8 @@ export type Dictionary = {
     csvHint: string;
     csvUpload: string;
     csvSampleDownload: string;
+    sampleTypeLabel: string;
+    sampleTypeHint: string;
     csvSampleFileName: string;
     csvEmpty: string;
     csvTooMany: string;

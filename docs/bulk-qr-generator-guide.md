@@ -23,9 +23,15 @@ Create up to **50 static QR codes per batch** from a CSV file. Everything runs i
 
 ## CSV format
 
-### Mixed batch (recommended)
+### Mixed batch (recommended workflow)
 
-One header row with all columns. Leave unused cells empty.
+1. Use the **type dropdown** on the bulk page and download one sample per type you need (`bulk-qr-sample-url.csv`, `bulk-qr-sample-wifi.csv`, …).
+2. Fill each file in Excel/Sheets with only the columns shown.
+3. **Append rows** into one CSV (keep one header row from the first file, or upload files one at a time if you prefer separate exports).
+
+Power users can still use one wide header with all columns — the parser accepts that, but it is not the default sample anymore.
+
+### Mixed batch (wide header — optional)
 
 ```csv
 type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail
@@ -61,9 +67,9 @@ Or headerless two columns: `https://example.com/menu,table-01`
 
 ## Step-by-step
 
-1. **Prepare CSV** in Excel, Google Sheets, or a text editor. Export as **CSV UTF-8**.
-2. Open **Bulk QR generator** → **Upload CSV** (or download the sample first).
-3. Check the preview table: **Type**, **Content**, **Filename**, **Status** (Ready / Invalid).
+1. Open **Bulk QR generator** → choose a **QR type** from the dropdown → **Download sample CSV** for that type.
+2. **Prepare CSV** in Excel, Google Sheets, or a text editor. Fill only the columns in the sample. Export as **CSV UTF-8**.
+3. **Upload CSV** and check the preview table: **Type**, **Content**, **Filename**, **Status** (Ready / Invalid).
 4. Pick a **template** or customize colors, logo, frame, and size (one design for the whole batch).
 5. **Download ZIP** — PNGs render one at a time to stay light on memory (~4 GB RAM friendly).
 6. **Scan test** a few PNGs at print size before a large print run.
@@ -123,20 +129,48 @@ CSV parsing, QR rendering, and ZIP creation run **entirely in your browser**. We
 
 ## รูปแบบ CSV
 
-ใช้คอลัมน์ `type` + field ตามประเภท คอลัมน์ที่ไม่ใช้ปล่อยว่าง  
-ดาวน์โหลด **ตัวอย่าง CSV** จากหน้า bulk ได้เลย
+1. เลือก **ประเภท QR** ในหน้า bulk แล้วดาวน์โหลด sample (`bulk-qr-sample-url.csv`, `bulk-qr-sample-wifi.csv`, …)
+2. กรอกเฉพาะคอลัมน์ที่เห็นในไฟล์นั้น
+3. รวมหลาย type ได้โดย **ต่อแถว** เข้าไฟล์เดียว (ใช้ header ชุดแรก) หรือ export แยกชุด
 
 CSV แบบเก่า (มีแค่ `url,filename,label`) **ยังใช้ได้**
+
+### ไฟล์ตัวอย่างตามประเภท
+
+| เลือกในหน้า bulk | ชื่อไฟล์ที่ดาวน์โหลด | คอลัมน์หลัก |
+|------------------|----------------------|-------------|
+| URL | `bulk-qr-sample-url.csv` | `url`, `filename`, `label` |
+| WiFi | `bulk-qr-sample-wifi.csv` | `type`, `wifiSsid`, `wifiPassword`, … |
+| LINE | `bulk-qr-sample-line.csv` | `type`, `lineId`, … |
+| WhatsApp | `bulk-qr-sample-whatsapp.csv` | `type`, `whatsappPhone`, … |
+| vCard | `bulk-qr-sample-vcard.csv` | `type`, `vcardFirstName`, … |
+
+### ตัวอย่าง WiFi (จาก sample)
+
+```csv
+type,filename,label,wifiSsid,wifiPassword,wifiEncryption
+wifi,lobby-wifi,Guest WiFi,GuestNet,welcome123,WPA
+wifi,room-101,Room WiFi,Room101Net,guest456,WPA
+```
+
+### CSV แบบ URL อย่างเดียว (legacy)
+
+```csv
+url,filename,label
+https://example.com/menu,table-01,Scan for menu
+https://example.com/promo,table-02,Today's special
+```
 
 ---
 
 ## ขั้นตอน
 
-1. เตรียม CSV → Export เป็น **CSV UTF-8**  
-2. อัปโหลด → ดูตาราง preview (ประเภท / เนื้อหา / สถานะ)  
-3. เลือกเทมเพลตหรือปรับดีไซน์ (ชุดเดียวทั้ง batch)  
-4. ดาวน์โหลด ZIP  
-5. สแกนทดสอบก่อนพิมพ์จำนวนมาก  
+1. เปิด **Bulk QR generator** → เลือก **ประเภท QR** จาก dropdown → **ดาวน์โหลด CSV ตัวอย่าง**  
+2. เตรียม CSV กรอกเฉพาะคอลัมน์ใน sample → Export เป็น **CSV UTF-8**  
+3. อัปโหลด → ดูตาราง preview (ประเภท / เนื้อหา / สถานะ)  
+4. เลือกเทมเพลตหรือปรับดีไซน์ (ชุดเดียวทั้ง batch)  
+5. ดาวน์โหลด ZIP  
+6. สแกนทดสอบก่อนพิมพ์จำนวนมาก  
 
 ---
 

@@ -243,8 +243,47 @@ export function parseBatchCsv(text: string, messages: BatchCsvMessages): BatchCs
   return { rows };
 }
 
-/** Step 3: Sample CSV with Phase B1 types for download. */
-export function buildSampleCsv(): string {
+/** Step 3: Minimal sample CSV for one bulk type (spreadsheet-friendly). */
+export function buildSampleCsvForType(type: BatchB1Type): string {
+  switch (type) {
+    case "url":
+      return buildLegacyUrlSampleCsv();
+    case "wifi":
+      return [
+        "type,filename,label,wifiSsid,wifiPassword,wifiEncryption",
+        "wifi,lobby-wifi,Guest WiFi,GuestNet,welcome123,WPA",
+        "wifi,room-101,Room WiFi,Room101Net,guest456,WPA",
+      ].join("\n");
+    case "line":
+      return [
+        "type,filename,label,lineId",
+        "line,counter-line,Add LINE,@myshop",
+        "line,table-tent,Scan to chat,@myshop",
+      ].join("\n");
+    case "whatsapp":
+      return [
+        "type,filename,label,whatsappPhone,whatsappMessage",
+        "whatsapp,order-desk,WhatsApp order,+66812345678,Hello I would like to order",
+        "whatsapp,support,Support chat,+66812345678,",
+      ].join("\n");
+    case "vcard":
+      return [
+        "type,filename,label,vcardFirstName,vcardLastName,vcardPhone,vcardEmail",
+        "vcard,owner-card,Contact owner,Somchai,Shop,+66812345678,hi@example.com",
+        "vcard,staff-01,Staff card,Somying,Shop,+66898765432,staff@example.com",
+      ].join("\n");
+    default:
+      return buildLegacyUrlSampleCsv();
+  }
+}
+
+/** Step 4: Download filename for a type-specific sample CSV. */
+export function bulkSampleFileName(type: BatchB1Type): string {
+  return `bulk-qr-sample-${type}.csv`;
+}
+
+/** Step 5: Wide mixed-type sample (docs/tests only — not the default UI download). */
+export function buildMixedTypeSampleCsv(): string {
   return [
     "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail",
     "url,table-01,Scan for menu,https://example.com/menu,,,,,,,,,",

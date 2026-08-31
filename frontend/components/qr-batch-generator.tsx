@@ -6,10 +6,10 @@ import { useDictionary } from "@/components/i18n-provider";
 import { QrDesigner } from "@/components/qr-designer";
 import { QrPreview } from "@/components/qr-preview";
 import { TemplateSelector } from "@/components/templates/template-selector";
-import { buildSampleCsv, parseBatchCsv } from "@/lib/qr/batch/csv";
+import { buildMixedTypeSampleCsv, buildSampleCsvForType, bulkSampleFileName, parseBatchCsv } from "@/lib/qr/batch/csv";
 import { BATCH_MAX_ROWS, BATCH_PREVIEW_ROWS, type BatchRowValidated } from "@/lib/qr/batch/types";
 import { downloadBatchZip, exportBatchZip } from "@/lib/qr/batch/export-zip";
-import { batchRowSummary, batchTypeLabel } from "@/lib/qr/batch/schema";
+import { batchB1Types, batchRowSummary, batchTypeLabel, type BatchB1Type } from "@/lib/qr/batch/schema";
 import { partitionBatchRows, validateBatchRows } from "@/lib/qr/batch/validate";
 import { defaultQrDesign, type QrDesign } from "@/lib/qr/design";
 import { downloadBlob } from "@/lib/qr/export";
@@ -34,6 +34,7 @@ export function QrBatchGenerator() {
   const [exporting, setExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState<{ done: number; total: number }>();
   const [exportError, setExportError] = useState<string>();
+  const [sampleType, setSampleType] = useState<BatchB1Type>("url");
 
   const { valid, invalid } = useMemo(() => partitionBatchRows(rows), [rows]);
   const previewRows = rows.slice(0, BATCH_PREVIEW_ROWS);
@@ -89,8 +90,8 @@ export function QrBatchGenerator() {
   };
 
   const handleSampleDownload = () => {
-    const blob = new Blob([buildSampleCsv()], { type: "text/csv;charset=utf-8" });
-    downloadBlob(blob, copy.csvSampleFileName);
+    const blob = new Blob([buildSampleCsvForType(sampleType)], { type: "text/csv;charset=utf-8" });
+    downloadBlob(blob, bulkSampleFileName(sampleType));
   };
 
   const handleExportZip = async () => {
@@ -133,6 +134,25 @@ export function QrBatchGenerator() {
               {copy.step1Title}
             </h3>
             <p className="mb-4 text-sm text-slate-600">{copy.csvHint.replace("{max}", String(BATCH_MAX_ROWS))}</p>
+
+            <div className="mb-4 space-y-2">
+              <label htmlFor="bulk-sample-type" className="block text-sm font-semibold text-slate-800">
+                {copy.sampleTypeLabel}
+              </label>
+              <p className="text-sm text-slate-600">{copy.sampleTypeHint}</p>
+              <select
+                id="bulk-sample-type"
+                value={sampleType}
+                onChange={(event) => setSampleType(event.target.value as BatchB1Type)}
+                className="w-full max-w-md rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 shadow-sm focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/30"
+              >
+                {batchB1Types.map((type) => (
+                  <option key={type} value={type}>
+                    {dictionary.types[type]}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className="flex flex-wrap gap-3">
               <button

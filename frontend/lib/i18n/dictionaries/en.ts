@@ -143,9 +143,11 @@ export const en: Dictionary = {
     step2Title: "2. Customize design",
     step3Title: "3. Preview & download ZIP",
     csvHint:
-      "Use a type column plus the fields for each QR type (url, wifiSsid, lineId, and more). Legacy url-only CSV still works. Maximum {max} rows per batch.",
+      "Choose a QR type, download the matching sample CSV, fill your rows, then upload. You can merge several type-specific files into one batch. Maximum {max} rows per export.",
     csvUpload: "Upload CSV",
     csvSampleDownload: "Download sample CSV",
+    sampleTypeLabel: "What are you creating?",
+    sampleTypeHint: "Pick a type first — the sample file includes only the columns you need for that QR type.",
     csvSampleFileName: "bulk-qr-sample.csv",
     csvEmpty: "The CSV file has no usable rows. Add at least one valid row.",
     csvTooMany: "Only the first {max} rows were loaded. Split larger lists into multiple batches.",
@@ -185,7 +187,7 @@ export const en: Dictionary = {
     ],
     csvTitle: "CSV file format",
     csvIntro:
-      "Include a type column and the fields needed for that type. Leave unused columns empty. Legacy CSV files with only url, filename, and label still work.",
+      "Use the type dropdown above the upload button, then download the matching sample (for example bulk-qr-sample-wifi.csv). Each sample includes only the columns you need. Legacy CSV files with only url, filename, and label still work for URL batches.",
     csvColumns: [
       {
         name: "type",
@@ -220,10 +222,11 @@ export const en: Dictionary = {
         description: "For type vcard. At least first or last name required; phone, email, and website optional.",
       },
     ],
-    csvExampleTitle: "Example CSV",
+    csvExampleTitle: "Example CSV (WiFi sample from dropdown)",
     csvExample:
-      "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail\nurl,table-01,Scan menu,https://example.com/menu,,,,,,,,,\nwifi,lobby-wifi,Guest WiFi,,GuestNet,welcome123,WPA,,,,,,",
+      "type,filename,label,wifiSsid,wifiPassword,wifiEncryption\nwifi,lobby-wifi,Guest WiFi,GuestNet,welcome123,WPA\nwifi,room-101,Room WiFi,Room101Net,guest456,WPA",
     csvNotes: [
+      "Pick a type in the dropdown and download bulk-qr-sample-url.csv, bulk-qr-sample-wifi.csv, and so on — one file per type you need.",
       "You can create the file in Excel, Google Sheets, or any spreadsheet app, then export as CSV (UTF-8).",
       "If a cell contains commas, wrap it in double quotes.",
       "Rows with missing required fields or invalid values are marked Invalid and skipped from the ZIP.",
@@ -234,7 +237,7 @@ export const en: Dictionary = {
       {
         title: "Prepare and upload your CSV",
         body:
-          "Click Upload CSV or download the sample file first. After upload, the preview table shows type, content, filename, label, and Ready/Invalid status for each row.",
+          "Choose a QR type from the dropdown, download the matching sample CSV, fill your rows, then click Upload CSV. After upload, the preview table shows type, content, filename, label, and Ready/Invalid status for each row.",
       },
       {
         title: "Choose one design for the whole batch",

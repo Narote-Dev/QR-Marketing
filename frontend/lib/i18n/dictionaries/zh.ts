@@ -141,9 +141,11 @@ export const zh: Dictionary = {
     step2Title: "2. 自定义设计",
     step3Title: "3. 预览并下载 ZIP",
     csvHint:
-      "使用 type 列及各类型所需字段（url、wifiSsid、lineId 等）。仅含 url 的旧版 CSV 仍可用。每批最多 {max} 行。",
+      "先选择二维码类型，下载对应示例 CSV，填写后上传。可将多种类型的 CSV 合并为一批，每批最多 {max} 行。",
     csvUpload: "上传 CSV",
     csvSampleDownload: "下载示例 CSV",
+    sampleTypeLabel: "您要创建哪种二维码？",
+    sampleTypeHint: "请先选择类型 — 示例文件只包含该类型所需的列。",
     csvSampleFileName: "bulk-qr-sample.csv",
     csvEmpty: "CSV 中没有可用行。请至少添加一行有效数据。",
     csvTooMany: "仅加载前 {max} 行。请将更大的列表拆成多批。",
@@ -182,7 +184,8 @@ export const zh: Dictionary = {
       "每批最多 50 个二维码，以便在普通设备上快速稳定导出，包括约 4 GB 内存的设备。",
     ],
     csvTitle: "CSV 文件格式",
-    csvIntro: "包含 type 列及该类型所需字段，未使用的列可留空。仅含 url 的旧版 CSV 仍可使用。",
+    csvIntro:
+      "在页面上方的下拉框中选择二维码类型，然后下载对应的示例文件（如 bulk-qr-sample-wifi.csv）。每个示例只包含该类型所需的列。仅含 url 的旧版 CSV 仍可用于 URL 批次。",
     csvColumns: [
       { name: "type", description: "混合批次必填：url、wifi、line、whatsapp 或 vcard。" },
       { name: "filename", description: "可选但建议填写。ZIP 内 PNG 文件名。" },
@@ -193,10 +196,11 @@ export const zh: Dictionary = {
       { name: "whatsappPhone / whatsappMessage", description: "type 为 whatsapp。国际格式电话；消息可选。" },
       { name: "vcardFirstName / vcardLastName / …", description: "type 为 vcard。至少填写名或姓；电话、邮箱等可选。" },
     ],
-    csvExampleTitle: "CSV 示例",
+    csvExampleTitle: "CSV 示例（下拉框 WiFi 样本）",
     csvExample:
-      "type,filename,label,url,wifiSsid,wifiPassword,wifiEncryption,lineId,whatsappPhone,whatsappMessage,vcardFirstName,vcardLastName,vcardPhone,vcardEmail\nurl,table-01,Scan menu,https://example.com/menu,,,,,,,,,\nwifi,lobby-wifi,Guest WiFi,,GuestNet,welcome123,WPA,,,,,,",
+      "type,filename,label,wifiSsid,wifiPassword,wifiEncryption\nwifi,lobby-wifi,Guest WiFi,GuestNet,welcome123,WPA\nwifi,room-101,Room WiFi,Room101Net,guest456,WPA",
     csvNotes: [
+      "在下拉框中选择类型，下载 bulk-qr-sample-url.csv、bulk-qr-sample-wifi.csv 等对应文件。",
       "可在 Excel、Google 表格等软件中创建，然后导出为 CSV（UTF-8）。",
       "若单元格含逗号，请用双引号包裹。",
       "缺少必填字段或值无效的行会标记为无效，不会包含在 ZIP 中。",
@@ -206,7 +210,7 @@ export const zh: Dictionary = {
     steps: [
       {
         title: "准备并上传 CSV",
-        body: "点击上传 CSV，或先下载示例文件。上传后，预览表会显示类型、内容、文件名、标签及就绪/无效状态。",
+        body: "在下拉框中选择二维码类型，下载对应示例 CSV，填写行数据后点击上传 CSV。上传后，预览表会显示类型、内容、文件名、标签及就绪/无效状态。",
       },
       {
         title: "为整批选择一种设计",
