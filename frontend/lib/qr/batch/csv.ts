@@ -5,7 +5,7 @@ import {
   mapBatchCsvHeader,
   type BatchB1Type,
 } from "@/lib/qr/batch/schema";
-import { BATCH_MAX_ROWS, type BatchCsvParseResult, type BatchRowInput } from "@/lib/qr/batch/types";
+import { BATCH_MAX_ROWS, type BatchCsvMessages, type BatchCsvParseResult, type BatchRowInput } from "@/lib/qr/batch/types";
 import type { QrFormValues } from "@/lib/qr/types";
 
 /** Step 1: Parse one CSV record, honoring quoted commas and escaped quotes. */
@@ -129,12 +129,12 @@ function readMultiTypeRow(
   const type = rawType;
 
   const formFields: Partial<QrFormValues> = {};
-  for (const [key, index] of columnIndexes.entries()) {
-    if (key === "type" || key === "filename" || key === "label") continue;
+  columnIndexes.forEach((index, key) => {
+    if (key === "type" || key === "filename" || key === "label") return;
     const value = (fields[index] ?? "").trim();
-    if (!value) continue;
+    if (!value) return;
     formFields[key as keyof QrFormValues] = value as never;
-  }
+  });
 
   if (type === "url" && !formFields.url?.trim()) {
     return {};
