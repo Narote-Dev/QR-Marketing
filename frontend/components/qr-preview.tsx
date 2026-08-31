@@ -69,21 +69,28 @@ export const QrPreview = forwardRef<QrPreviewHandle, Props>(function QrPreview({
 
   const frameClass =
     design.frame === "label"
-      ? "border-2 border-brand-teal-dark bg-white p-4"
+      ? "border-2 border-brand-teal-dark bg-white p-3 sm:p-4"
       : design.frame === "border"
-        ? "border-8 border-slate-900 bg-white p-3"
-        : "bg-white p-3";
+        ? "border-4 border-slate-900 bg-white p-2 sm:border-8 sm:p-3"
+        : "bg-white p-2 sm:p-3";
 
   return (
-    <div className="space-y-3">
+    <div className="min-w-0 space-y-3">
       <div
-        className="relative flex min-h-[304px] items-center justify-center overflow-hidden rounded-2xl border border-dashed bg-slate-50 p-3"
+        className="relative flex min-h-[240px] w-full min-w-0 items-center justify-center overflow-hidden rounded-2xl border border-dashed bg-slate-50 p-2 sm:min-h-[304px] sm:p-3"
         style={design.backgroundImage ? { backgroundImage: `url(${design.backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
       >
-        <div className={`relative z-10 max-w-full rounded-xl shadow-sm ${frameClass}`}>
-          <div ref={hostRef} aria-label={value ? dictionary.preview.aria : undefined} />
+        <div className={`relative z-10 box-border w-full max-w-full rounded-xl shadow-sm ${frameClass}`}>
+          <div
+            ref={hostRef}
+            aria-label={value ? dictionary.preview.aria : undefined}
+            className="mx-auto w-full max-w-full [&_canvas]:mx-auto [&_canvas]:block [&_canvas]:h-auto [&_canvas]:max-w-full [&_svg]:mx-auto [&_svg]:block [&_svg]:h-auto [&_svg]:max-w-full"
+            style={{ maxWidth: design.size }}
+          />
           {design.frame === "label" && value && (
-            <p className="mt-2 text-center text-sm font-semibold text-slate-800">{design.frameText || dictionary.preview.scanMe}</p>
+            <p className="mt-2 break-words text-center text-sm font-semibold text-slate-800">
+              {design.frameText || dictionary.preview.scanMe}
+            </p>
           )}
         </div>
         {!value && <p className="relative z-10 max-w-52 text-center text-sm text-slate-500">{dictionary.preview.empty}</p>}
