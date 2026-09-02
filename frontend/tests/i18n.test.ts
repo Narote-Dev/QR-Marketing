@@ -66,6 +66,10 @@ test("bulk QR copy is complete and localized labels stay aligned", async () => {
     assert.ok(dictionary.chrome.bulkQrGenerator, `${locale} chrome.bulkQrGenerator`);
     assert.equal(dictionary.bulkQrGuide.steps.length, 5, `${locale} bulk guide steps`);
     assert.equal(dictionary.seo.bulk.faqs.length, 5, `${locale} bulk faqs`);
+    if (locale === "th") {
+      assert.ok(dictionary.bulkQrGuide.csvExtraExamples?.length === 2, "th bulk guide Thai scenario examples");
+      assert.match(dictionary.bulkQrGuide.csvExample, /table-10/);
+    }
   }
 
   assert.equal(dictionaries.en.chrome.bulkQrGenerator, "Bulk QR codes");

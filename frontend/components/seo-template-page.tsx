@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
 import { PopularUseCases } from "@/components/popular-use-cases";
@@ -84,6 +85,8 @@ function RelatedTemplateLinks({
 export function SeoTemplatePage({ page, locale, dictionary }: Props) {
   // Change: Localize featured templates and chrome for template SEO pages.
   const categoryTemplates = localizeTemplates(page.category ? getTemplatesByCategory(page.category) : templates, dictionary);
+  // Change: On menu/wifi hubs, defer the in-flow ad below the guide so mobile download CTAs stay reachable.
+  const deferToolAd = page.slug === "menu" || page.slug === "wifi";
 
   return (
     <>
@@ -91,7 +94,7 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
       <SiteHeader
         locale={locale}
         dictionary={dictionary}
-        currentPath={page.category ? `/templates/${page.category}` : "/templates"}
+        currentPath={page.slug === "templates" ? "/templates" : `/templates/${page.slug}`}
       />
       <main className="mx-auto min-h-screen w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pb-14 lg:px-8">
       <TemplateBreadcrumbs page={page} locale={locale} dictionary={dictionary} />
@@ -101,11 +104,23 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
 
         <div className="mt-8 space-y-3 rounded-2xl border bg-slate-50 p-5">
           <h2 className="text-lg font-bold text-slate-900">{dictionary.chrome.featuredCollection}</h2>
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="grid gap-4 sm:grid-cols-2">
             {categoryTemplates.map((template) => (
-              <li key={template.id} className="rounded-xl border bg-white px-3 py-2 text-sm text-slate-700">
-                <span className="font-semibold text-slate-900">{template.name}</span>
-                <span className="block text-slate-500">{template.description}</span>
+              <li key={template.id} className="overflow-hidden rounded-xl border bg-white">
+                <div className="relative aspect-[4/3] bg-slate-50">
+                  <Image
+                    src={template.previewImage}
+                    alt={`${template.name} — ${template.description}`}
+                    fill
+                    className="object-contain p-4"
+                    sizes="(max-width: 640px) 100vw, 320px"
+                    unoptimized
+                  />
+                </div>
+                <div className="px-3 py-3 text-sm text-slate-700">
+                  <span className="font-semibold text-slate-900">{template.name}</span>
+                  <span className="mt-1 block text-slate-500">{template.description}</span>
+                </div>
               </li>
             ))}
           </ul>
@@ -115,7 +130,7 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
           <QrGenerator initialType={page.recommendedQrType} initialTemplateCategory={page.category} />
         </div>
 
-        <AdSlot placement="seo-after-tool" minHeight={180} />
+        {!deferToolAd ? <AdSlot placement="seo-after-tool" minHeight={180} /> : null}
 
         <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10">
           <div>
@@ -145,6 +160,7 @@ export function SeoTemplatePage({ page, locale, dictionary }: Props) {
               </ol>
             </section>
             <FaqSection page={page} heading={dictionary.chrome.faqs} />
+            {deferToolAd ? <AdSlot placement="seo-after-tool" minHeight={120} className="max-xl:mt-8" /> : null}
             <RelatedTemplateLinks categories={page.related} locale={locale} dictionary={dictionary} />
             {/* Change: Connect template hubs to specialized long-tail use cases. */}
             <PopularUseCases locale={locale} dictionary={dictionary} />

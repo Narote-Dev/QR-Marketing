@@ -9,8 +9,32 @@ import { qrSeoSlugs, type QrSeoSlug } from "@/lib/seo/qr-seo-seed";
 // Change: Rename the public product brand to Build Your QR.
 export const siteName = "Build Your QR";
 // Change: Use the production domain as the SEO fallback when no environment override exists.
+const productionSiteOrigin = "https://genmyqrcode.com";
+
 // Step 1: Keep canonical URLs, structured data, robots, and sitemap on one origin.
-export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://genmyqrcode.com");
+// Change: Tolerate empty or invalid NEXT_PUBLIC_SITE_URL so sitemap.xml never throws at build/runtime.
+export function resolveSiteUrl(rawUrl: string | undefined = process.env.NEXT_PUBLIC_SITE_URL): URL {
+  const trimmed = rawUrl?.trim();
+  if (!trimmed) return new URL(productionSiteOrigin);
+
+  // Step 1: Reject non-HTTP(S) schemes before URL parsing can mis-normalize values like ftp://...
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed) && !/^https?:\/\//i.test(trimmed)) {
+    return new URL(productionSiteOrigin);
+  }
+
+  try {
+    const normalized = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    const parsed = new URL(normalized);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return new URL(productionSiteOrigin);
+    }
+    return parsed;
+  } catch {
+    return new URL(productionSiteOrigin);
+  }
+}
+
+export const siteUrl = resolveSiteUrl();
 
 export type SeoPage = {
   slug: string;

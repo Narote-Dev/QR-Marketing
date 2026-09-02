@@ -186,6 +186,7 @@ export type Dictionary = {
     csvColumns: { name: string; description: string }[];
     csvExampleTitle: string;
     csvExample: string;
+    csvExtraExamples?: { title: string; csv: string }[];
     csvNotes: string[];
     stepsTitle: string;
     steps: { title: string; body: string }[];
@@ -490,6 +491,6 @@ export type Dictionary = {
       SeoPageCopy
     >;
     templatesIndex: TemplateSeoCopy;
-    templates: Record<"restaurant" | "cafe" | "hotel" | "menu" | "wifi", TemplateSeoCopy>;
+    templates: Record<"restaurant" | "cafe" | "hotel" | "menu" | "wifi" | "review", TemplateSeoCopy>;
   };
 };

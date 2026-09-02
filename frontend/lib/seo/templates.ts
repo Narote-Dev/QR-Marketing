@@ -18,19 +18,19 @@ export type TemplateSeoPage = {
   howTo: string[];
   faqs: { question: string; answer: string }[];
   related: TemplateCategory[];
-  recommendedQrType: "url" | "wifi" | "text";
+  recommendedQrType: "url" | "wifi" | "text" | "google-review";
 };
 
 type TemplateSeoMeta = {
   slug: string;
   category?: TemplateCategory;
   related: TemplateCategory[];
-  recommendedQrType: "url" | "wifi" | "text";
+  recommendedQrType: "url" | "wifi" | "text" | "google-review";
 };
 
 const templateIndexMeta: TemplateSeoMeta = {
   slug: "templates",
-  related: ["restaurant", "cafe", "hotel", "menu", "wifi"],
+  related: ["restaurant", "cafe", "hotel", "menu", "wifi", "google-review"],
   recommendedQrType: "url",
 };
 
@@ -40,6 +40,7 @@ const templateCategoryMeta = {
   hotel: { slug: "hotel", category: "hotel" as const, related: ["wifi", "business", "cafe"] as TemplateCategory[], recommendedQrType: "wifi" as const },
   menu: { slug: "menu", category: "menu" as const, related: ["restaurant", "cafe", "wifi"] as TemplateCategory[], recommendedQrType: "url" as const },
   wifi: { slug: "wifi", category: "wifi" as const, related: ["hotel", "cafe", "business"] as TemplateCategory[], recommendedQrType: "wifi" as const },
+  review: { slug: "review", category: "google-review" as const, related: ["restaurant", "retail", "business"] as TemplateCategory[], recommendedQrType: "google-review" as const },
 };
 
 function fromCopy(meta: TemplateSeoMeta, copy: TemplateSeoCopy): TemplateSeoPage {
@@ -70,11 +71,12 @@ export function getTemplateCategoryPages(dictionary: Dictionary) {
     hotel: fromCopy(templateCategoryMeta.hotel, dictionary.seo.templates.hotel),
     menu: fromCopy(templateCategoryMeta.menu, dictionary.seo.templates.menu),
     wifi: fromCopy(templateCategoryMeta.wifi, dictionary.seo.templates.wifi),
+    review: fromCopy(templateCategoryMeta.review, dictionary.seo.templates.review),
   };
 }
 
 export type TemplateSeoSlug = keyof ReturnType<typeof getTemplateCategoryPages>;
-export const templateSeoSlugs = ["restaurant", "cafe", "hotel", "menu", "wifi"] as const satisfies readonly TemplateSeoSlug[];
+export const templateSeoSlugs = ["restaurant", "cafe", "hotel", "menu", "wifi", "review"] as const satisfies readonly TemplateSeoSlug[];
 
 export const templateIndexPage = getTemplateIndexPage(en);
 export const templateCategoryPages = getTemplateCategoryPages(en);

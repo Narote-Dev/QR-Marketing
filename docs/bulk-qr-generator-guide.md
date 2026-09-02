@@ -145,7 +145,39 @@ CSV แบบเก่า (มีแค่ `url,filename,label`) **ยังใ�
 | WhatsApp | `bulk-qr-sample-whatsapp.csv` | `type`, `whatsappPhone`, … |
 | vCard | `bulk-qr-sample-vcard.csv` | `type`, `vcardFirstName`, … |
 
-### ตัวอย่าง WiFi (จาก sample)
+### ตัวอย่าง: QR เมนู 10 โต๊ะ
+
+```csv
+type,filename,label,url
+url,table-01,โต๊ะ 1,https://example.com/menu?table=1
+url,table-02,โต๊ะ 2,https://example.com/menu?table=2
+…
+url,table-10,โต๊ะ 10,https://example.com/menu?table=10
+```
+
+### ตัวอย่าง: สติกเกอร์ LINE 10 ใบ
+
+```csv
+type,filename,label,lineId
+line,line-01,เพิ่มเพื่อน LINE,@YourShop
+line,line-02,สั่งผ่าน LINE,@YourShop
+…
+line,line-10,LINE ที่นี่,@YourShop
+```
+
+### ตัวอย่าง: WiFi ทีละห้อง (10 ห้อง)
+
+```csv
+type,filename,label,wifiSsid,wifiPassword,wifiEncryption
+wifi,room-101,ห้อง 101,Room101Net,guest001,WPA
+wifi,room-102,ห้อง 102,Room102Net,guest002,WPA
+…
+wifi,room-110,ห้อง 110,Room110Net,guest010,WPA
+```
+
+ดูตัวอย่างเต็ม 10 แถวบนหน้า `/th/bulk-qr-generator` ในส่วนคู่มือ
+
+### ตัวอย่าง WiFi (จาก sample dropdown)
 
 ```csv
 type,filename,label,wifiSsid,wifiPassword,wifiEncryption

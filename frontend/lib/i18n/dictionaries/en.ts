@@ -222,11 +222,25 @@ export const en: Dictionary = {
         description: "For type vcard. At least first or last name required; phone, email, and website optional.",
       },
     ],
-    csvExampleTitle: "Example CSV (WiFi sample from dropdown)",
+    csvExampleTitle: "Example CSV: 10 table menu QR codes",
     csvExample:
-      "type,filename,label,wifiSsid,wifiPassword,wifiEncryption\nwifi,lobby-wifi,Guest WiFi,GuestNet,welcome123,WPA\nwifi,room-101,Room WiFi,Room101Net,guest456,WPA",
+      "type,filename,label,url\nurl,table-01,Table 1,https://example.com/menu?table=1\nurl,table-02,Table 2,https://example.com/menu?table=2\nurl,table-03,Table 3,https://example.com/menu?table=3\nurl,table-04,Table 4,https://example.com/menu?table=4\nurl,table-05,Table 5,https://example.com/menu?table=5\nurl,table-06,Table 6,https://example.com/menu?table=6\nurl,table-07,Table 7,https://example.com/menu?table=7\nurl,table-08,Table 8,https://example.com/menu?table=8\nurl,table-09,Table 9,https://example.com/menu?table=9\nurl,table-10,Table 10,https://example.com/menu?table=10",
+    csvExtraExamples: [
+      {
+        title: "Example CSV: 10 LINE counter stickers",
+        csv:
+          "type,filename,label,lineId\nline,line-01,Add LINE,@YourShop\nline,line-02,Order on LINE,@YourShop\nline,line-03,Chat with us,@YourShop\nline,line-04,Shop LINE,@YourShop\nline,line-05,Scan to add,@YourShop\nline,line-06,LINE order,@YourShop\nline,line-07,Contact LINE,@YourShop\nline,line-08,LINE OA,@YourShop\nline,line-09,Add friend,@YourShop\nline,line-10,LINE here,@YourShop",
+      },
+      {
+        title: "Example CSV: WiFi per room (10 hotel rooms)",
+        csv:
+          "type,filename,label,wifiSsid,wifiPassword,wifiEncryption\nwifi,room-101,Room 101,Room101Net,guest001,WPA\nwifi,room-102,Room 102,Room102Net,guest002,WPA\nwifi,room-103,Room 103,Room103Net,guest003,WPA\nwifi,room-104,Room 104,Room104Net,guest004,WPA\nwifi,room-105,Room 105,Room105Net,guest005,WPA\nwifi,room-106,Room 106,Room106Net,guest006,WPA\nwifi,room-107,Room 107,Room107Net,guest007,WPA\nwifi,room-108,Room 108,Room108Net,guest008,WPA\nwifi,room-109,Room 109,Room109Net,guest009,WPA\nwifi,room-110,Room 110,Room110Net,guest010,WPA",
+      },
+    ],
     csvNotes: [
       "Pick a type in the dropdown and download bulk-qr-sample-url.csv, bulk-qr-sample-wifi.csv, and so on — one file per type you need.",
+      "The samples above show 10 real rows each — copy the filename pattern (table-01, line-05, room-305) so print shops know which PNG goes where.",
+      "Merge multiple types into one ZIP by appending rows to a single CSV (keep the first header row) or export separate batches.",
       "You can create the file in Excel, Google Sheets, or any spreadsheet app, then export as CSV (UTF-8).",
       "If a cell contains commas, wrap it in double quotes.",
       "Rows with missing required fields or invalid values are marked Invalid and skipped from the ZIP.",
@@ -262,11 +276,11 @@ export const en: Dictionary = {
     ],
     useCasesTitle: "Common use cases",
     useCases: [
-      "Restaurant — menu URL per table plus one WiFi row and one LINE row in the same ZIP.",
-      "Hotel room cards — WiFi credentials per room with matching filename (room-305).",
-      "Retail shelf tags — product URLs for many SKUs with consistent branding.",
-      "Event materials — WhatsApp support QR plus registration URLs for each session.",
-      "Staff badges — vCard rows for team contacts with shared frame design.",
+      "Thai restaurant — 10 table menu QR codes (table-01 … table-10) linking to a Google Sheet or PDF in one ZIP.",
+      "Shop or cafe — 10 LINE counter stickers (line-01 … line-10) with the same add-friend link and different frame labels.",
+      "Hotel — WiFi per room for 10 rooms (room-101 … room-110) with filenames that match room numbers.",
+      "Restaurant — combine menu URLs plus WiFi and LINE rows in one CSV with a shared frame design.",
+      "Events — WhatsApp support QR plus registration URLs for each session.",
     ],
     tipsTitle: "Design and print tips",
     tips: [
@@ -1412,58 +1426,130 @@ export const en: Dictionary = {
       menu: {
         title: "QR Menu Design Templates",
         description:
-          "Design a menu QR code for restaurants and cafes. Apply a readable board style, link your digital menu URL, and download a print-ready static code.",
+          "Design a menu QR code for restaurants and cafes. Print sizes, scan distance, Thai frame labels, Board Specials preview, and a print-ready static download.",
         h1: "QR menu design templates",
         introduction:
-          "Menu QR design should stay readable from a table edge and obvious in purpose. Board Specials uses a clear border and leafy green palette suited to printed menus.",
+          "Menu QR design should stay readable from a table edge and obvious in purpose. Board Specials uses a clear border and leafy green palette suited to printed menus, table tents, and laminated cards.",
         body: [
-          "Link to a mobile-friendly menu page that loads quickly on cellular networks.",
-          "Avoid putting the entire menu text inside the QR payload — use a URL instead.",
-          "If you laminate the print, leave quiet space around the code so reflections do not hide the edges.",
+          "Link to a mobile-friendly menu page that loads quickly on cellular networks — Google Sheets, Drive PDFs, or your own site all work.",
+          "For printed table tents and laminated cards, aim for a QR code at least 30 mm (about 3 cm) square with 5 mm of quiet space around every edge.",
+          "Guests should be able to scan from roughly 25–40 cm while seated. Test at that distance before you laminate or order bulk prints.",
+          "Set short frame labels guests understand at a glance: View menu, Scan for menu, or in Thai: ดูเมนู, สแกนดูเมนู, เมนูออนไลน์.",
+          "Avoid putting the entire menu text inside the QR payload — use a URL instead so you can update dishes without reprinting when the link stays the same.",
+          "Board Specials pairs a menu-board look with a readable label frame. Replace the placeholder logo with yours before sending files to print.",
         ],
         howTo: [
-          "Select the Board Specials menu template.",
-          "Paste the HTTPS link to your digital menu.",
-          "Download the PNG and place it near the top of the printed menu.",
+          "Select the Board Specials menu template and check the preview image above.",
+          "Paste the HTTPS link to your digital menu (Sheet, PDF, or web page).",
+          "Set a short frame label — English or Thai — that tells guests what happens after the scan.",
+          "Download the PNG, print at least 30 mm square, and test-scan from a seated position before laminating.",
         ],
         faqs: [
           {
+            question: "What print size works on restaurant tables?",
+            answer:
+              "Aim for at least 30 mm (3 cm) square for the QR itself, plus quiet space around it. On A6 table tents (105 × 148 mm), place the code in the upper third so it is not hidden by condiments.",
+          },
+          {
+            question: "How far away should guests be able to scan?",
+            answer:
+              "Test from 25–40 cm — typical seated distance at a table. If the scan fails, increase the QR size or raise error correction before reprinting.",
+          },
+          {
             question: "Can one menu QR serve multiple languages?",
-            answer: "Yes. Point it to a landing page that lets guests choose a language.",
+            answer: "Yes. Point it to a landing page that lets guests choose Thai, English, or other languages.",
           },
           {
             question: "Will updating the online menu break the QR?",
-            answer: "No, as long as the URL stays the same.",
+            answer: "No, as long as the URL stays the same. Change prices on the linked page first; download a new PNG only when the URL changes.",
           },
         ],
       },
       wifi: {
-        title: "WiFi QR Code Templates",
+        title: "WiFi QR Code Templates for Cafes",
         description:
-          "Guest WiFi QR templates for cafes, hotels, and offices. Apply Guest Access styling, enter network details, and download a composite static QR.",
-        h1: "WiFi QR templates",
+          "Guest WiFi QR templates for cafes and counters. Browser-only password handling, print sizes, and Guest Access styling with a print-ready static download.",
+        h1: "WiFi QR templates for cafes and counters",
         introduction:
-          "Sharing WiFi with a QR code removes password typos at the front desk. Guest Access pairs a clear signal mark with a label frame that says exactly what to scan.",
+          "Cafes and coffee counters use WiFi QR codes to stop repeating passwords all day. Guest Access pairs a clear signal mark with a label frame — and your network details are processed only in your browser, never on our servers.",
         body: [
-          "Enter the SSID exactly as devices list it, including capitalization and spaces.",
-          "Prefer WPA/WPA2 for modern networks; open networks should use the No password option.",
-          "Print the downloaded composite with enough quiet space so the frame and code remain distinct.",
+          "Paste your guest network name and password once, then print a small sign by the espresso machine or on the counter card holder.",
+          "SSID, security type, and password are encoded locally in your browser. We do not upload, store, or log WiFi credentials.",
+          "Enter the SSID exactly as phones list it, including spaces and capitalization — Cafe_Guest is not the same as cafe_guest.",
+          "For counter signs, a 50 mm wide sticker or A6 tent (105 × 148 mm) works well. Keep the QR at least 25 mm square with quiet space around it.",
+          "Use WPA/WPA2 for modern routers. Choose No password only for intentional open guest networks.",
+          "Test-scan while standing at the counter before laminating. Steam, cups, and glare near coffee machines can hide QR edges on glossy prints.",
         ],
         howTo: [
-          "Apply the Guest Access WiFi template.",
-          "Switch the QR type to WiFi and enter network name, security, and password.",
-          "Download the PNG and test it on a phone near the access point.",
+          "Apply the Guest Access WiFi template and review the preview above.",
+          "Switch the QR type to WiFi and enter the exact guest network name, WPA security, and password.",
+          "Add a short frame label such as Connect to WiFi or Thai: เชื่อมต่อ WiFi.",
+          "Download the PNG, print at counter size, and test on both iPhone and Android near the router.",
         ],
         faqs: [
           {
             question: "Is the WiFi password stored on your servers?",
             answer:
-              "No. Static WiFi QR creation happens in the browser and is not saved by this app.",
+              "No. Static WiFi QR creation happens entirely in your browser. Nothing is saved by this app or sent to our servers.",
+          },
+          {
+            question: "Why do cafe WiFi codes fail to connect?",
+            answer:
+              "The most common issue is a mismatched SSID or security type. Copy the network name from a phone that already connects, then re-download after fixing typos.",
+          },
+          {
+            question: "What size should a cafe counter WiFi sign be?",
+            answer:
+              "A 50 mm wide sticker or A6 card is enough for most counters. Keep the QR at least 25 mm square and test before laminating.",
           },
           {
             question: "Can I hide the password while typing?",
             answer:
               "Yes. Use the show/hide control on the password field, then download when ready.",
+          },
+        ],
+      },
+      review: {
+        title: "Google Review QR Code Templates",
+        description:
+          "Leave a Review templates for shops and restaurants. Style a Google review link with a framed label, download on mobile, and print counter stickers or receipt inserts.",
+        h1: "Google review QR code templates",
+        introduction:
+          "The Leave a Review template turns your Google Business Profile review link into a framed, print-ready code for counters, receipts, and thank-you cards — designed on your phone with a clear Rate us label.",
+        body: [
+          "Copy the short review link from Google Business Profile and paste it here. The QR opens your public rating page in one scan.",
+          "Unlike a plain screenshot, you can add brand colors, a star-style frame, and short text such as Rate us or ให้คะแนนเรา before downloading.",
+          "Counter stickers around 50 × 50 mm or small tent cards (A6) work well. Keep the QR at least 25 mm square with quiet space around it.",
+          "Place the code where customers finish paying — receipt backs, bag stickers, or a small acrylic stand by the card reader.",
+          "Test-scan on a real phone at arm's length before bulk printing. Glossy laminate can add glare that hides the corners.",
+          "If you move locations or change your business name on Google, generate a fresh code from the updated review link.",
+        ],
+        howTo: [
+          "Select the Leave a Review template and check the preview above.",
+          "Paste your Google review link or switch to the Google Review QR type in the generator.",
+          "Set a short frame label guests understand before they scan.",
+          "Download the PNG, print a sample, and test-scan before ordering stickers or tent cards.",
+        ],
+        faqs: [
+          {
+            question: "Where do I get the Google review link?",
+            answer:
+              "Open Google Business Profile → ask for reviews → copy the share link. Paste that URL here.",
+          },
+          {
+            question: "Can I create this on my phone?",
+            answer:
+              "Yes. The generator runs in the mobile browser. Design, preview, and download without a desktop.",
+          },
+          {
+            question: "What print size works at a checkout counter?",
+            answer:
+              "50 × 50 mm stickers or A6 tent cards are common. Keep the QR at least 25 mm square and test before laminating.",
+          },
+          {
+            question: "Will updating my Google listing break the QR?",
+            answer:
+              "Usually not if the review URL stays the same. If Google issues a new link after a name change, download a fresh PNG.",
           },
         ],
       },

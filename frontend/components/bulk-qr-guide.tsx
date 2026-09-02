@@ -31,11 +31,21 @@ export function BulkQrGuide() {
             </div>
           ))}
         </dl>
-        <div>
-          <p className="mb-2 text-sm font-medium text-slate-800">{guide.csvExampleTitle}</p>
-          <pre className="overflow-x-auto rounded-2xl border bg-slate-950 p-4 text-sm leading-6 text-slate-100">
-            <code>{guide.csvExample}</code>
-          </pre>
+        <div className="space-y-6">
+          <div>
+            <p className="mb-2 text-sm font-medium text-slate-800">{guide.csvExampleTitle}</p>
+            <pre className="overflow-x-auto rounded-2xl border bg-slate-950 p-4 text-sm leading-6 text-slate-100">
+              <code>{guide.csvExample}</code>
+            </pre>
+          </div>
+          {guide.csvExtraExamples?.map((example) => (
+            <div key={example.title}>
+              <p className="mb-2 text-sm font-medium text-slate-800">{example.title}</p>
+              <pre className="overflow-x-auto rounded-2xl border bg-slate-950 p-4 text-sm leading-6 text-slate-100">
+                <code>{example.csv}</code>
+              </pre>
+            </div>
+          ))}
         </div>
         <ul className="list-disc space-y-2 pl-6 text-sm leading-6 text-slate-700">
           {guide.csvNotes.map((note) => (

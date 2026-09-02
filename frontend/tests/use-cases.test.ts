@@ -36,6 +36,20 @@ test("use-case pages are complete in every locale", () => {
         assert.ok(page.faqs.length >= 5);
         assert.ok(page.toolLinks && page.toolLinks.length >= 3);
       }
+      const phase2Slugs = [
+        "thai-restaurant-menu",
+        "cafe-menu",
+        "line-contact",
+        "google-review-shop",
+        "restaurant-table-tent",
+        "hotel-wifi",
+        "free-wifi-no-signup",
+      ] as const;
+      if (phase2Slugs.includes(page.slug as (typeof phase2Slugs)[number])) {
+        assert.ok(page.body.length >= 4, `${page.slug} body`);
+        assert.ok(page.faqs.length >= 4, `${page.slug} faqs`);
+        assert.ok(page.howTo.length >= 4, `${page.slug} howTo`);
+      }
       assert.ok(getTemplateById(page.templateId), `missing template ${page.templateId}`);
       assert.ok(useCaseSlugs.includes(page.slug));
     }

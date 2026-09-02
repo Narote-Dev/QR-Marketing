@@ -5,47 +5,51 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "thai-restaurant-menu": {
     title: "QR Menu Design for Thai Restaurants",
     description:
-      "Free QR menu design for Thai restaurants. Link a Google Sheet, PDF, or web menu, customize the look, and download a print-ready code—no signup.",
+      "Free QR menu design for Thai restaurants. Link a Google Sheet, PDF on Drive, or web menu—not an ordering system. Customize the frame and download a print-ready code.",
     h1: "QR menu design for Thai restaurants",
     introduction:
-      "Design a scannable menu QR so guests open your Thai-language menu on their phone instead of flipping paper pages. Ideal for Thai restaurants that update dishes, lunch sets, and seasonal prices often.",
-    promise: "Free in the browser. No account. Works with Thai links and frame text.",
+      "Design a scannable menu QR so guests open your Thai-language menu on their phone. This links to a digital menu page (Sheet, PDF, or website)—it does not take orders or replace POS systems like Yumzi or ThaiQROrder.",
+    promise: "Free in the browser. No account. Sheet, Drive, and Thai frame labels supported.",
     body: [
-      "QR menu design lowers reprint costs and lets you refresh prices by updating the linked page, then printing a new code only when the URL changes.",
-      "This page targets restaurant-menu and QR menu design searches instead of competing only on broad QR generator keywords.",
-      "Most Thai restaurants start with a Google Sheet, PDF on Drive, or a simple menu page on their website. Paste that mobile-friendly link here, pick a menu template, and test-scan before laminating table cards.",
-      "For bilingual service, link to a Thai/English menu page or separate lunch and dinner URLs. Pair this with a LINE add-friend QR on the counter if guests order through chat.",
+      "Most Thai restaurants start with a Google Sheet, a PDF on Drive, or a simple menu page on their website. Paste that mobile-friendly link here, pick a menu template, and test-scan before laminating table cards.",
+      "This QR opens a menu for guests to read—it is not a table-ordering system, kitchen ticket flow, or payment checkout. Use LINE or your existing POS for orders; use this code only to show the menu.",
+      "QR menu design lowers reprint costs. Update prices on the linked Sheet or page first; download a new PNG only when the URL changes.",
+      "For printed table tents, aim for a QR at least 30 mm (3 cm) square with 5 mm quiet space. Guests should scan comfortably from 25–40 cm while seated.",
+      "Set short Thai frame labels guests understand: ดูเมนู, สแกนดูเมนู, เมนูออนไลน์, or English View menu. Pair with a LINE add-friend QR at the counter for chat orders.",
     ],
     examples: [
-      "Google Sheet or website menu pages",
-      "Menu PDFs hosted on Drive or your site",
-      "Lunch-set, seasonal specials, or bilingual menu pages",
+      "Google Sheet menus shared as a view link",
+      "Menu PDFs on Google Drive or your website",
+      "Bilingual Thai/English menu pages or lunch-set specials",
     ],
     howTo: [
-      "Prepare a mobile-friendly digital menu link that loads quickly on 4G",
-      "Paste the URL, choose a menu template, and set Thai frame text such as View menu",
-      "Test-scan from seated distance, then print on table tents or laminated cards",
+      "Publish a mobile-friendly menu link (Google Sheet, Drive PDF, or web page)",
+      "Paste the URL, choose a menu template, and set Thai frame text such as ดูเมนู",
+      "Download the PNG at least 30 mm square and test-scan from a seated distance",
+      "Laminate or print on table tents only after a successful scan test",
     ],
     faqs: [
       {
+        question: "Is this a food ordering or POS system?",
+        answer:
+          "No. The QR only opens a digital menu link (Sheet, PDF, or web). It does not send orders to the kitchen or replace systems like Yumzi or ThaiQROrder.",
+      },
+      {
         question: "Do I need my own website?",
-        answer: "No. You can link to Google Docs, Drive, Notion, or another digital menu host.",
-      },
-      {
-        question: "Does it support Thai text?",
-        answer: "Yes. Links and frame labels can be fully Thai.",
-      },
-      {
-        question: "How do I update prices without reprinting everything?",
-        answer: "Edit the linked menu page first. If the URL stays the same, the printed QR still works. If the URL changes, download a new PNG.",
+        answer: "No. Google Sheets, Drive PDFs, Notion, and other menu hosts work fine.",
       },
       {
         question: "What print size works on restaurant tables?",
-        answer: "Make the QR large enough to scan from a seated guest, with quiet space around it and a short Thai label under the code.",
+        answer:
+          "At least 30 mm (3 cm) for the QR with quiet space around it. On A6 tents (105 × 148 mm), place the code in the upper third.",
       },
       {
-        question: "Is signup required?",
-        answer: "No. Create and download immediately with no server-side save of your content.",
+        question: "How far away should guests be able to scan?",
+        answer: "Test from 25–40 cm at seated height before laminating or bulk printing.",
+      },
+      {
+        question: "How do I update prices without reprinting?",
+        answer: "Edit the Sheet or linked page. If the URL stays the same, the printed QR still works.",
       },
     ],
     helperHint: "Paste your Thai digital menu link and keep the frame label short.",
@@ -60,57 +64,80 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "cafe-menu": {
     title: "Cafe QR Menu Design — Free",
     description:
-      "Free cafe QR menu design with no signup. Build a scannable menu QR for drinks, desserts, and counter promotions.",
+      "Free cafe QR menu design with print sizes and frame labels. Link drinks and desserts, apply a cafe template, and download a print-ready PNG—no signup.",
     h1: "Free cafe QR menu design",
     introduction:
-      "Design a cafe menu QR so customers open drinks and desserts from the table or counter. Apply a cafe-ready style and download a print-ready PNG.",
-    promise: "Free, no signup, with cafe templates and live preview.",
+      "Design a cafe menu QR so customers open drinks and desserts from the table or counter. Board-style and mint cafe templates include readable frames for ดูเมนู or Cafe menu labels.",
+    promise: "Free, no signup, with cafe templates, print-size guidance, and live preview.",
     body: [
-      "Cafes change seasonal drinks often. A menu QR design helps you switch the linked page without reprinting every sheet.",
-      "Use separate campaign links for morning deals or member menus when needed.",
+      "Cafes change seasonal drinks often. A menu QR links to one page you can update without reprinting every sheet when the URL stays the same.",
+      "Link to a mobile-friendly menu—not a full ordering app. For chat orders, pair a menu QR on the table with a LINE QR at the counter.",
+      "For counter cards, keep the QR at least 25 mm square on a 50 mm sticker or A6 tent (105 × 148 mm). Test-scan from seated or standing distance before laminating.",
+      "Use short frame text: Cafe menu, View drinks, or Thai เมนูเครื่องดื่ม. See the menu template gallery for Board Specials and Morning Brew styles.",
     ],
-    examples: ["Drink and dessert web menus", "Morning promo pages", "Preorder or table-booking links"],
+    examples: ["Drink and dessert web menus", "Google Sheet or Drive PDF drink lists", "Morning promo or member menu pages"],
     howTo: [
-      "Prepare a cafe menu link that opens well on phones",
-      "Choose a cafe template and paste the URL",
-      "Test-scan, then place the code on tables or the counter",
+      "Prepare a cafe menu link that opens quickly on phones",
+      "Choose a cafe or menu template and paste the URL",
+      "Set a short frame label and download at least 25 mm square",
+      "Test-scan on the table or counter, then print or laminate",
     ],
     faqs: [
       {
+        question: "What print size works on cafe tables?",
+        answer: "At least 25–30 mm for the QR on table stickers or A6 tents. Leave quiet space around the code.",
+      },
+      {
         question: "Can I use this for seasonal menus?",
-        answer: "Yes. Update the destination page or create a new QR when the URL changes.",
+        answer: "Yes. Update the linked page; download a new PNG only when the URL changes.",
+      },
+      {
+        question: "Does this take orders?",
+        answer: "No. It opens a menu link only. Use LINE or your POS for ordering.",
       },
       {
         question: "Do customers need an app?",
         answer: "No. Phone cameras and browsers are enough.",
       },
     ],
-    helperHint: "Use a fast-loading cafe menu link so guests can order quickly.",
+    helperHint: "Use a fast-loading cafe menu link so guests can browse drinks quickly.",
     frameText: "Cafe menu",
     downloadFileName: "qr-cafe-menu.png",
+    toolLinks: [
+      { label: "Menu template gallery", barePath: "/templates/menu" },
+      { label: "Cafe template gallery", barePath: "/templates/cafe" },
+      { label: "Cafe WiFi QR", barePath: "/use-cases/free-wifi-no-signup" },
+    ],
   },
   "free-wifi-no-signup": {
     title: "Free WiFi QR Code — No Signup",
     description:
-      "Create a free WiFi QR code with no signup. Guests join your network without typing the password. Supports WPA and open networks.",
+      "Create a free WiFi QR code for cafes and shops. Password processed in your browser only—never stored on our servers. No signup.",
     h1: "Free WiFi QR Code — No Signup",
     introduction:
-      "Share WiFi with one scan instead of repeating the password. Ideal for cafes, offices, and shops that want faster guest access.",
+      "Share cafe or shop guest WiFi with one scan instead of repeating the password. Network details are encoded locally in your browser—nothing is uploaded or saved on our servers.",
     promise: "No signup. Passwords stay in your browser. Nothing is saved on our servers.",
     body: [
-      "A WiFi QR encodes the network name and password. Share it only with people allowed on the network.",
-      "This page matches people searching for a free WiFi QR without creating an account.",
+      "A WiFi QR encodes the network name and password for guests who are allowed on the network. Share the printed code only in your shop.",
+      "SSID, security type, and password are processed entirely in your browser. We do not upload, store, or log WiFi credentials.",
+      "Cafes often print a 50 mm wide counter sticker or A6 card (105 × 148 mm). Keep the QR at least 25 mm square with quiet space around it.",
+      "Enter the SSID exactly as phones list it. Test-scan near the router on both iPhone and Android before laminating—the steam and glare near espresso machines can hide QR edges.",
     ],
-    examples: ["Cafe guest WiFi", "Office visitor WiFi", "Home guest access"],
+    examples: ["Cafe guest WiFi at the counter", "Small shop visitor WiFi", "Home guest network"],
     howTo: [
-      "Enter the exact network name shown on devices",
-      "Choose the security type and password if required",
-      "Test-scan near the router, then download for your counter",
+      "Enter the exact guest network name shown on devices",
+      "Choose WPA security and the password (processed only in your browser)",
+      "Pick a WiFi template, download, and test-scan at the counter",
+      "Print a 50 mm sticker or A6 sign after a successful scan test",
     ],
     faqs: [
       {
         question: "Do you store my WiFi password?",
-        answer: "No. Generation happens only in your browser.",
+        answer: "No. Generation happens only in your browser. Nothing is sent to our servers.",
+      },
+      {
+        question: "What size should a cafe counter sign be?",
+        answer: "A 50 mm wide sticker or A6 card works well. Keep the QR at least 25 mm square.",
       },
       {
         question: "Do I need an account?",
@@ -118,7 +145,7 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
       },
       {
         question: "Can someone read the password from the QR?",
-        answer: "The password is inside the QR payload, so share the code only with trusted guests.",
+        answer: "Yes—the password is in the QR payload. Share the code only with trusted guests.",
       },
     ],
     helperHint: "Double-check the SSID and security type before downloading.",
@@ -128,29 +155,40 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "hotel-wifi": {
     title: "Hotel QR Code for Guest WiFi",
     description:
-      "Create a free hotel QR code for guest WiFi so visitors join room or lobby internet without asking the front desk. No signup.",
+      "Create a free hotel QR code for guest WiFi on room cards and lobby signs. Browser-only password handling. Separate guest network—no signup.",
     h1: "Hotel QR code for guest WiFi",
     introduction:
-      "Use a hotel QR code on room cards, welcome packs, or lobby signs so guests connect themselves and front-desk WiFi questions drop.",
-    promise: "Hospitality-ready styling. Ready immediately. No signup.",
+      "Use a hotel QR code on room cards, welcome packs, or lobby signs so guests connect to the guest network themselves—never the staff WiFi. Credentials are processed only in your browser.",
+    promise: "Hospitality-ready styling. Guest network only. Ready immediately. No signup.",
     body: [
-      "Hotel QR code searches often mean guest WiFi, room cards, and lobby signs—not a generic generator page.",
-      "Use a guest network and test Android and iOS scans before large print runs.",
+      "Hotel guests expect WiFi on room cards (often credit-card size, 85 × 55 mm) or A6 welcome inserts (105 × 148 mm). Keep the QR at least 25 mm square.",
+      "Use a dedicated guest SSID—not the staff or back-office network. Anyone with the printed card can read the password from the QR payload.",
+      "WiFi details are encoded locally in your browser. We do not upload or store hotel network credentials on our servers.",
+      "Test-scan inside a real room on both Android and iOS before printing hundreds of room cards. Replace the QR when the guest password rotates.",
     ],
-    examples: ["In-room WiFi cards", "Lobby signs", "Welcome booklet inserts"],
+    examples: ["In-room WiFi cards on the desk", "Lobby standing signs", "Welcome booklet inserts"],
     howTo: [
-      "Use the guest network name and password",
-      "Choose a hotel template and a short frame label",
-      "Test in a real room before printing",
+      "Enter the guest network name and password (browser-only processing)",
+      "Choose a hotel template and a short frame label such as Guest WiFi",
+      "Download and test-scan inside a guest room",
+      "Print on room cards or lobby signs after a successful scan test",
     ],
     faqs: [
       {
         question: "Should guests use the staff network?",
-        answer: "No. Use a separate guest network and refresh the QR when the password changes.",
+        answer: "No. Create a separate guest SSID and refresh the QR when that password changes.",
       },
       {
-        question: "Can I print these for every room?",
-        answer: "Yes. Download the PNG and place it on room cards or stickers.",
+        question: "What size fits a room card?",
+        answer: "Credit-card inserts (85 × 55 mm) or A6 cards work. QR at least 25 mm square with quiet space.",
+      },
+      {
+        question: "Is the WiFi password stored on your servers?",
+        answer: "No. Static WiFi QR creation happens entirely in the browser.",
+      },
+      {
+        question: "Can I print one QR for every room?",
+        answer: "Yes, if every room shares the same guest network. Use per-room URLs only when each room has a different portal.",
       },
     ],
     helperHint: "Use a dedicated guest network and test-scan in the room.",
@@ -160,25 +198,37 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "google-review-shop": {
     title: "Google Review QR Code for Shops",
     description:
-      "Create a free Google Review QR code for your shop. Link customers straight to your rating page after checkout.",
+      "Create a Google Review QR on your phone with a styled frame. Google's own QR has no custom label—build yours here for counter stickers. Free, no signup.",
     h1: "Google Review QR Code for Shops",
     introduction:
-      "Place a QR near the cashier or on receipts so happy customers can open your Google review page in one scan.",
-    promise: "Direct review links, customizable design, no signup.",
+      "Google Business Profile gives you a review link customers scan with their phone in-store—but that default code has no branded frame. Here you paste the same link, add a Rate us label, and download a print-ready PNG from your mobile browser.",
+    promise: "Mobile-friendly design. Framed review link. No signup.",
     body: [
-      "Local shops benefit from real reviews. A QR removes the friction of searching for your business.",
-      "Use the short review link from Google Business Profile and recreate the code if you move locations.",
+      "The review link from Google Business Profile opens your public rating page when scanned with a phone camera—ideal for checkout counters and receipts.",
+      "Google's built-in QR download is a plain code without your shop colors or a short call-to-action. This tool lets you style the frame, add Rate us or ให้คะแนนเรา, and download on your phone before printing.",
+      "Counter stickers around 50 × 50 mm or small A6 tents work well. Keep the QR at least 25 mm square with quiet space.",
+      "Place the code where customers finish paying. Test-scan at arm's length before bulk printing—glossy laminate can glare on the corners.",
     ],
-    examples: ["Checkout counter stickers", "Thank-you cards", "Receipts and packaging"],
+    examples: ["Checkout counter stickers (50 × 50 mm)", "Thank-you cards on receipts", "Bag stickers after payment"],
     howTo: [
-      "Copy the review link from Google Business Profile",
-      "Paste it here and choose a review template",
-      "Test-scan and place it where customers finish paying",
+      "Copy the review link from Google Business Profile on your phone or desktop",
+      "Paste it here, choose the Leave a Review template, and set a short frame label",
+      "Download the PNG and print one sample sticker",
+      "Test-scan before ordering hundreds of counter stickers",
     ],
     faqs: [
       {
+        question: "How is this different from Google's own review QR?",
+        answer:
+          "Same review link, but you can add brand colors, a frame, and short text—and create or download it on your phone. Google's default file is a plain QR without a styled label.",
+      },
+      {
         question: "Where do I get the Google review link?",
-        answer: "From your Google Business Profile share options for ratings.",
+        answer: "Google Business Profile → ask for reviews → copy the share link.",
+      },
+      {
+        question: "What print size works at the counter?",
+        answer: "50 × 50 mm stickers or A6 tent cards. QR at least 25 mm square. Test before laminating.",
       },
       {
         question: "Can I require a review?",
@@ -288,16 +338,16 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "line-contact": {
     title: "LINE OA QR Code for Shops and Restaurants",
     description:
-      "Create a free LINE Official Account QR code for Thai shops. Paste your add-friend URL, style the frame, and download for counters, receipts, and menus.",
+      "Style a LINE add-friend QR from your OA link—counter stickers and tent cards. Does not replace LINE OA Manager; paste the URL you already copied.",
     h1: "LINE OA QR code for shops and restaurants",
     introduction:
-      "Let customers scan to add your LINE Official Account without searching your shop name. Built for Thai stores that take orders, bookings, and promotions through LINE.",
-    promise: "Built for LINE-first shops. No signup on this site. Style the frame to match your print materials.",
+      "Copy your add-friend URL from LINE Official Account Manager, paste it here, and download a styled QR for counters and receipts. This decorates your existing LINE link—it does not manage broadcasts, coupons, or OA settings.",
+    promise: "Paste your OA add-friend link. Style the frame for print. No signup on this site.",
     body: [
-      "Many Thai shops take orders on LINE. A direct add-friend QR removes search friction at the counter, on receipts, and beside menu cards.",
-      "Copy the add-friend URL from LINE Official Account Manager, paste it below, and test-scan with a phone that already has LINE installed.",
-      "Need more than LINE alone? Link to a contact hub page with phone, maps, and chat options, or pair this code with a Thai restaurant menu QR on the table.",
-      "For @handles, you can also use the dedicated LINE QR generator page if you prefer entering an Official Account ID instead of a full URL.",
+      "LINE Official Account Manager still owns your OA, menus, and broadcasts. This page only turns the add-friend URL you copy there into a printable QR with your colors and frame text.",
+      "Typical print sizes: 50 × 50 mm counter stickers, A6 tent cards (105 × 148 mm), or receipt footers. Keep the QR at least 25 mm square with quiet space.",
+      "Set short frame labels: Add LINE, แอด LINE, or Chat with us. Test-scan with a phone that already has LINE installed.",
+      "Many Thai restaurants pair a menu QR on the table with a LINE QR at the counter for orders and promotions.",
     ],
     examples: [
       "LINE OA add-friend links from Official Account Manager",
@@ -306,29 +356,31 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
     ],
     howTo: [
       "Open LINE Official Account Manager and copy the add-friend URL",
-      "Paste the link here, set a short frame label such as Add LINE, and preview the design",
-      "Print for the counter, receipt footer, or packaging, then test-scan before bulk printing",
+      "Paste the link here, set a short frame label such as Add LINE or แอด LINE, and preview",
+      "Download for a 50 mm sticker or A6 counter tent",
+      "Test-scan before bulk printing on receipts or packaging",
     ],
     faqs: [
       {
-        question: "Can I use an official LINE OA link?",
-        answer: "Yes. Paste the add-friend URL from LINE Official Account Manager into the link field.",
+        question: "Does this replace LINE Official Account Manager?",
+        answer:
+          "No. Manage your OA, broadcasts, and rich menus in LINE's tools. Here you only style and print the add-friend QR from the URL you copy.",
       },
       {
-        question: "How is this different from LINE’s built-in QR?",
-        answer: "You can style the frame, colors, and template to match your shop and combine it with other print materials.",
+        question: "What sticker or counter sizes work?",
+        answer: "50 × 50 mm stickers and A6 tents (105 × 148 mm) are common. QR at least 25 mm square.",
+      },
+      {
+        question: "How is this different from LINE's built-in QR?",
+        answer: "You can match brand colors, frame text, and templates to your shop print materials.",
       },
       {
         question: "Should restaurants use this with a menu QR?",
-        answer: "Yes. Many Thai restaurants keep a menu QR on the table and a LINE QR at the counter for orders and promotions.",
-      },
-      {
-        question: "Can I enter an @handle instead of a URL?",
-        answer: "Yes. Use the LINE QR generator page if you want to type an @Official Account or LINE ID directly.",
+        answer: "Yes. Menu QR on the table, LINE QR at the counter for orders and promos.",
       },
       {
         question: "Does the scanner need the LINE app?",
-        answer: "Yes. Opening a LINE profile or add-friend page requires LINE on the scanning phone.",
+        answer: "Yes. Opening a LINE add-friend page requires LINE on the scanning phone.",
       },
     ],
     helperHint: "Paste your LINE OA add-friend link or a contact hub URL.",
@@ -343,29 +395,41 @@ const copy: Record<UseCaseSlug, UseCaseCopy> = {
   "restaurant-table-tent": {
     title: "Table Tent QR Menu Design",
     description:
-      "Create table-tent QR menu design for restaurants. Open a menu, WiFi, or review page from the table—free, no signup.",
+      "Table-tent QR sizes in cm and mm—A6 tents, 30 mm QR minimum. Test-scan before laminating acrylic stands. Free, no signup.",
     h1: "Table tent QR menu design",
     introduction:
-      "Design a table-tent QR for acrylic stands or folded cards so guests can open the menu, join WiFi, or leave a review without calling staff.",
-    promise: "Sized for small table cards with clear frame text. No signup.",
+      "Design a table-tent QR for acrylic stands or folded A6 cards (105 × 148 mm). One clear destination per tent—menu, WiFi, or review—and always test-scan before laminating.",
+    promise: "Print dimensions in mm. One link per tent. No signup.",
     body: [
-      "Table-tent QR menu design works best with one clear destination per card instead of packing many actions into one scan.",
-      "Restaurants can separate menu and review cards, or use a hub page when multiple actions are required.",
+      "Standard folded table tents use A6 (105 × 148 mm) or DL (99 × 210 mm). Place the QR in the upper third at least 30 mm square with 5 mm quiet space on all sides.",
+      "Guests scan from roughly 25–40 cm while seated. Print one real-size sample, place it on the table, and scan before ordering bulk tents or laminating.",
+      "One destination per tent is clearest: a menu link, guest WiFi, or Google review page. Use separate tents or a hub page if you need multiple actions.",
+      "Glossy laminate and acrylic holders can add glare. Test after lamination—not just on plain paper.",
     ],
-    examples: ["Acrylic menu stands", "Folded cards with menu and WiFi", "Thank-you cards with review links"],
+    examples: ["A6 acrylic menu stands", "Folded cards with a single menu URL", "Separate WiFi or review tents"],
     howTo: [
-      "Choose whether the tent should open a menu, WiFi, or review page",
-      "Create the QR with a restaurant template and short label",
-      "Print a real-size sample on the table before bulk ordering",
+      "Choose one goal: menu, WiFi, or review link",
+      "Create the QR with a restaurant template and a short label (ดูเมนู, Guest WiFi, Rate us)",
+      "Print an A6 sample at full size and test-scan from a seated position",
+      "Laminate or order bulk tents only after a successful scan test",
     ],
     faqs: [
       {
-        question: "How many links should one tent include?",
-        answer: "One destination is clearest. Use a hub page if you need several options.",
+        question: "What size should a table tent QR be?",
+        answer:
+          "On an A6 tent (105 × 148 mm), make the QR at least 30 mm square with quiet space. Folded DL tents need similar proportions.",
       },
       {
-        question: "What size works on a table tent?",
-        answer: "Large enough to scan from a seated position, with short text under the code.",
+        question: "Should I laminate before testing?",
+        answer: "No. Print plain paper first, test-scan, then laminate or order acrylic holders.",
+      },
+      {
+        question: "How many links should one tent include?",
+        answer: "One destination is clearest. Use a hub page only when you truly need multiple options.",
+      },
+      {
+        question: "What scanning distance should work?",
+        answer: "Test from 25–40 cm at seated height—the typical reach from a restaurant chair.",
       },
     ],
     helperHint: "Pick one table-tent goal, such as menu or WiFi, so guests are not confused.",
