@@ -7,6 +7,7 @@ import { useCasesZh } from "@/lib/seo/use-cases/zh";
 import type { UseCasePage, UseCaseSlug } from "@/lib/seo/use-cases/types";
 import { useCaseSlugs } from "@/lib/seo/use-cases/types";
 import { buildLocaleAlternates } from "@/lib/seo/hreflang";
+import { isUseCaseIndexed } from "@/lib/seo/indexing";
 import { siteName } from "@/lib/seo/site";
 
 export * from "@/lib/seo/use-cases/types";
@@ -40,9 +41,12 @@ export function getUseCaseMetadata(locale: Locale, slug: UseCaseSlug): Metadata 
   const { canonical, languages } = buildLocaleAlternates(barePath, locale);
 
   // Step 2: Publish intent-specific metadata for long-tail discovery.
+  // Change: Phase A — thin zero-click use-cases stay reachable but noindex.
+  const noindex = !isUseCaseIndexed(slug);
   return {
     title: page.title,
     description: page.description,
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical, languages },
     openGraph: {
       title: page.title,
@@ -61,9 +65,8 @@ export function getUseCaseMetadata(locale: Locale, slug: UseCaseSlug): Metadata 
 }
 
 export function getFeaturedUseCasePages(locale: Locale, limit = 6): UseCasePage[] {
-  // Step 1: Surface a short featured set, leading with Gmail/email because Search Console already shows that intent.
+  // Step 1: Surface a short featured set from indexable hubs (Phase A dropped gmail-email / event-poster).
   const featuredSlugs: UseCaseSlug[] = [
-    "gmail-email",
     "thai-restaurant-menu",
     "free-wifi-no-signup",
     "google-review-shop",
@@ -71,6 +74,7 @@ export function getFeaturedUseCasePages(locale: Locale, limit = 6): UseCasePage[
     "line-contact",
     "business-contact-card",
     "hotel-wifi",
+    "restaurant-table-tent",
   ];
   return featuredSlugs.slice(0, limit).map((slug) => getUseCasePage(locale, slug));
 }

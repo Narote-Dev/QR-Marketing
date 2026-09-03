@@ -44,12 +44,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const headerStore = await headers();
   const requestedLocale = headerStore.get("x-locale") ?? defaultLocale;
   const locale = isLocale(requestedLocale) ? requestedLocale : defaultLocale;
+  // Change: Skip AdSense script entirely when middleware marks the page ads-off (Auto ads + slots).
+  const allowAds = headerStore.get("x-allow-ads") !== "0";
 
   return (
     <html lang={htmlLang[locale]} suppressHydrationWarning className={plusJakartaSans.variable}>
       <body className="font-sans">
         <ConsentModeScript />
-        <AdSenseScript />
+        {allowAds ? <AdSenseScript /> : null}
         <GoogleAnalytics />
         <AppProviders>{children}</AppProviders>
       </body>

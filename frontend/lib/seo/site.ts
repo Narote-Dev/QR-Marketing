@@ -4,6 +4,7 @@ import { en } from "@/lib/i18n/dictionaries/en";
 import { pagePathForSlug } from "@/lib/i18n/paths";
 import type { Dictionary, SeoPageCopy } from "@/lib/i18n/types";
 import { buildLocaleAlternates } from "@/lib/seo/hreflang";
+import { isQrSeoIndexed } from "@/lib/seo/indexing";
 import { qrSeoSlugs, type QrSeoSlug } from "@/lib/seo/qr-seo-seed";
 
 // Change: Rename the public product brand to Build Your QR.
@@ -127,10 +128,14 @@ export const qrPages = getQrPages(en);
 export function getPageMetadata(page: SeoPage, locale: Locale = defaultLocale): Metadata {
   const bare = pagePathForSlug(page.slug);
   const { canonical, languages } = buildLocaleAlternates(bare, locale);
+  // Change: Phase A — thin social/core QR SEO hubs stay reachable but must notIndex.
+  const isQrTypePage = page.slug !== "qr-code-generator" && page.slug !== "bulk-qr-generator";
+  const noindex = isQrTypePage && !isQrSeoIndexed(page.slug);
 
   return {
     title: page.title,
     description: page.description,
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical, languages },
     openGraph: {
       type: "website",

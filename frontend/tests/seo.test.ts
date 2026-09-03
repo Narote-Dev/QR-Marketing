@@ -6,6 +6,7 @@ import { locales } from "../lib/i18n/config";
 import { localizedPath } from "../lib/i18n/paths";
 import { hreflangKeys } from "../lib/seo/hreflang";
 import { generatorPage, bulkPage, getPageMetadata, qrPages, resolveSiteUrl, siteUrl } from "../lib/seo/site";
+import { isQrSeoIndexed, isUseCaseIndexed, noindexQrSeoSlugs, noindexUseCaseSlugs } from "../lib/seo/indexing";
 import { getTemplatePageBarePath, getTemplatePageMetadata, templateCategoryPages, templateIndexPage } from "../lib/seo/templates";
 import { useCasePathForSlug, useCaseSlugs } from "../lib/seo/use-cases";
 
@@ -60,19 +61,37 @@ test("sitemap contains curated QR and template pages for every locale", () => {
   const barePaths = [
     "/qr-code-generator",
     "/bulk-qr-generator",
-    ...Object.values(qrPages).map((page) => `/qr-code/${page.slug}`),
+    ...Object.values(qrPages)
+      .filter((page) => isQrSeoIndexed(page.slug))
+      .map((page) => `/qr-code/${page.slug}`),
     "/templates",
     ...Object.values(templateCategoryPages).map((page) => `/templates/${page.slug}`),
     "/privacy-policy",
     "/terms-of-service",
     "/about",
     "/contact",
-    ...useCaseSlugs.map((slug) => useCasePathForSlug(slug)),
+    ...useCaseSlugs.filter((slug) => isUseCaseIndexed(slug)).map((slug) => useCasePathForSlug(slug)),
   ];
   const expected = barePaths.flatMap((bare) => locales.map((locale) => new URL(localizedPath(locale, bare), siteUrl).toString()));
+  // Change: Phase A removes 12 QR types × 3 locales + 2 use-cases × 3 = 42 URLs (132 → 90).
   assert.equal(entries.length, expected.length);
-  assert.equal(entries.length, 132);
+  assert.equal(entries.length, 90);
+  assert.equal(noindexQrSeoSlugs.length, 12);
+  assert.equal(noindexUseCaseSlugs.length, 2);
   assert.deepEqual(entries.map((entry) => entry.url).sort(), expected.slice().sort());
+  for (const slug of noindexQrSeoSlugs) {
+    assert.equal(entries.some((entry) => entry.url.includes(`/qr-code/${slug}`)), false);
+  }
+  for (const slug of noindexUseCaseSlugs) {
+    assert.equal(entries.some((entry) => entry.url.includes(`/use-cases/${slug}`)), false);
+  }
+});
+
+test("thin QR SEO hubs publish noindex while core hubs stay indexable", () => {
+  const tiktok = getPageMetadata(qrPages.tiktok, "en");
+  const wifi = getPageMetadata(qrPages.wifi, "en");
+  assert.deepEqual(tiktok.robots, { index: false, follow: true });
+  assert.equal(wifi.robots, undefined);
 });
 
 test("robots allows public pages and points to the sitemap", () => {

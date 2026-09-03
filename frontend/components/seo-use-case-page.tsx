@@ -12,6 +12,7 @@ import {
   useCasePathForSlug,
   type UseCasePage,
 } from "@/lib/seo/use-cases";
+import { allowsAdsOnBarePath } from "@/lib/seo/indexing";
 import { siteName, siteUrl } from "@/lib/seo/site";
 
 type Props = {
@@ -56,6 +57,8 @@ function UseCaseJsonLd({ page, locale }: { page: UseCasePage; locale: Locale }) 
 export function SeoUseCasePage({ page, locale, dictionary }: Props) {
   // Step 1: Resolve related long-tail pages for cluster internal linking.
   const related = getRelatedUseCasePages(locale, page.slug);
+  // Change: Phase B — noindex/thin use-cases must not show slots or Auto ads.
+  const allowAds = allowsAdsOnBarePath(useCasePathForSlug(page.slug));
 
   // Step 2: Render an intent-matched landing page around the shared generator.
   return (
@@ -103,9 +106,9 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
           />
         </div>
 
-        <AdSlot placement="seo-after-tool" minHeight={180} />
+        {allowAds ? <AdSlot placement="seo-after-tool" minHeight={180} /> : null}
 
-        <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10">
+        <div className={allowAds ? "xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10" : undefined}>
           <div>
             <section className="mt-12 max-w-3xl space-y-4" aria-labelledby="why-heading">
               <h2 id="why-heading" className="text-2xl font-bold tracking-tight">
@@ -185,9 +188,11 @@ export function SeoUseCasePage({ page, locale, dictionary }: Props) {
               </div>
             </section>
           </div>
-          <div className="hidden xl:block">
-            <AdSlot placement="seo-sidebar" minHeight={600} />
-          </div>
+          {allowAds ? (
+            <div className="hidden xl:block">
+              <AdSlot placement="seo-sidebar" minHeight={600} />
+            </div>
+          ) : null}
         </div>
       </article>
       <SiteFooter locale={locale} dictionary={dictionary} />

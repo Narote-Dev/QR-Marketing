@@ -66,6 +66,11 @@ test("use-case metadata publishes canonical and hreflang URLs", () => {
       assert.equal(metadata.openGraph?.url, canonical);
       assertHreflangLanguages(metadata.alternates?.languages as Record<string, string> | undefined);
       assert.equal(getUseCasePage(locale, slug).related.length >= 2, true);
+      if (slug === "event-poster" || slug === "gmail-email") {
+        assert.deepEqual(metadata.robots, { index: false, follow: true });
+      } else {
+        assert.equal(metadata.robots, undefined);
+      }
     }
   }
 });

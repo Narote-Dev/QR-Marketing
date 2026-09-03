@@ -10,6 +10,7 @@ import { SiteHeader } from "@/components/site-header";
 import type { Locale } from "@/lib/i18n/config";
 import { pagePathForSlug } from "@/lib/i18n/paths";
 import type { Dictionary } from "@/lib/i18n/types";
+import { allowsAdsOnBarePath } from "@/lib/seo/indexing";
 import type { SeoPage } from "@/lib/seo/site";
 import type { PaymentProvider, QrType, SocialNetwork } from "@/lib/qr/types";
 
@@ -31,10 +32,14 @@ export function SeoQrPage({
   dictionary,
 }: Props) {
   // Change: Locale-aware chrome, links, and generator copy for SEO QR pages.
+  // Change: Phase B — do not render ad slots on thin /qr-code/[type] hubs (Auto ads also gated in layout).
+  const barePath = pagePathForSlug(page.slug);
+  const allowAds = allowsAdsOnBarePath(barePath);
+
   return (
     <>
       <SeoJsonLd page={page} locale={locale} />
-      <SiteHeader locale={locale} dictionary={dictionary} currentPath={pagePathForSlug(page.slug)} />
+      <SiteHeader locale={locale} dictionary={dictionary} currentPath={barePath} />
       <main className="mx-auto min-h-screen w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pb-14 lg:px-8">
       <Breadcrumbs page={page} locale={locale} dictionary={dictionary} />
       <article>
@@ -47,8 +52,8 @@ export function SeoQrPage({
             initialPaymentProvider={initialPaymentProvider}
           />
         </div>
-        <AdSlot placement="seo-after-tool" minHeight={180} />
-        <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10">
+        {allowAds ? <AdSlot placement="seo-after-tool" minHeight={180} /> : null}
+        <div className={allowAds ? "xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10" : undefined}>
           <div>
             <section className="mt-12 max-w-3xl" aria-labelledby="how-to-heading">
               <h2 id="how-to-heading" className="text-2xl font-bold tracking-tight">
@@ -70,9 +75,11 @@ export function SeoQrPage({
             {/* Change: Link hub pages into long-tail use-case clusters for crawl depth. */}
             <PopularUseCases locale={locale} dictionary={dictionary} />
           </div>
-          <div className="hidden xl:block">
-            <AdSlot placement="seo-sidebar" minHeight={600} />
-          </div>
+          {allowAds ? (
+            <div className="hidden xl:block">
+              <AdSlot placement="seo-sidebar" minHeight={600} />
+            </div>
+          ) : null}
         </div>
       </article>
       <SiteFooter locale={locale} dictionary={dictionary} />

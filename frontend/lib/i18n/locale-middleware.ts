@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { defaultLocale, isLocale, localeCookieName, type Locale } from "@/lib/i18n/config";
 import { resolvePreferredLocale } from "@/lib/i18n/detect";
 import { isExemptPath, localizedPath, stripLocaleFromPath } from "@/lib/i18n/paths";
+import { allowsAdsOnBarePath, barePathFromLocalizedPathname } from "@/lib/seo/indexing";
 
 const CANONICAL_HOST = "genmyqrcode.com";
 
@@ -36,14 +37,34 @@ function setLocaleCookie(response: NextResponse, locale: Locale): NextResponse {
   return response;
 }
 
-/** Step 1: Expose the resolved locale to the root layout for SSR html lang. */
-function setRequestLocaleHeader(response: NextResponse, locale: Locale): NextResponse {
+/**
+ * Step 1: Forward locale + ads gate on the *request* so root layout can read them via headers().
+ * Change: Response-only headers do not stop Auto ads; the layout must skip AdSenseScript.
+ */
+function nextWithContext(request: NextRequest, locale: Locale, barePath: string): NextResponse {
+  const allowAds = allowsAdsOnBarePath(barePath);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-locale", locale);
+  requestHeaders.set("x-allow-ads", allowAds ? "1" : "0");
+
+  const response = NextResponse.next({
+    request: { headers: requestHeaders },
+  });
+  // Change: Keep response mirrors for debugging / edge consumers.
   response.headers.set("x-locale", locale);
-  return response;
+  response.headers.set("x-allow-ads", allowAds ? "1" : "0");
+  return setLocaleCookie(response, locale);
 }
 
-function withLocaleContext(response: NextResponse, locale: Locale): NextResponse {
-  return setRequestLocaleHeader(setLocaleCookie(response, locale), locale);
+function redirectWithContext(
+  response: NextResponse,
+  locale: Locale,
+  barePath: string,
+): NextResponse {
+  const allowAds = allowsAdsOnBarePath(barePath);
+  response.headers.set("x-locale", locale);
+  response.headers.set("x-allow-ads", allowAds ? "1" : "0");
+  return setLocaleCookie(response, locale);
 }
 
 /** Shared locale/canonical routing used by root middleware (with or without Clerk). */
@@ -58,12 +79,13 @@ export function runLocaleMiddleware(request: NextRequest): NextResponse {
         country: requestCountry(request),
         acceptLanguage: request.headers.get("accept-language"),
       });
-      return withLocaleContext(NextResponse.next(), preferred);
+      return nextWithContext(request, preferred, "/r/unavailable");
     }
     if (request.nextUrl.hostname === `www.${CANONICAL_HOST}`) {
       return redirectPermanent(request, pathname);
     }
-    return NextResponse.next();
+    // Change: Sitemap/robots/ads.txt never load Auto ads.
+    return nextWithContext(request, defaultLocale, pathname);
   }
 
   const { locale: pathLocale, path } = stripLocaleFromPath(pathname);
@@ -76,22 +98,25 @@ export function runLocaleMiddleware(request: NextRequest): NextResponse {
 
   if (pathname === "/" || pathname === "") {
     const target = localizedPath(preferred, "/qr-code-generator");
-    return withLocaleContext(redirectTemporary(request, target), preferred);
+    return redirectWithContext(redirectTemporary(request, target), preferred, "/qr-code-generator");
   }
 
   if (!pathLocale) {
-    const target = localizedPath(defaultLocale, path === "/" ? "/qr-code-generator" : path);
-    return withLocaleContext(redirectPermanent(request, target), defaultLocale);
+    const bare = path === "/" ? "/qr-code-generator" : path;
+    const target = localizedPath(defaultLocale, bare);
+    return redirectWithContext(redirectPermanent(request, target), defaultLocale, bare);
   }
 
   if (!isLocale(pathLocale)) {
     const target = localizedPath(defaultLocale, path);
-    return withLocaleContext(redirectPermanent(request, target), defaultLocale);
+    return redirectWithContext(redirectPermanent(request, target), defaultLocale, path);
   }
+
+  const barePath = barePathFromLocalizedPathname(pathname) || path;
 
   if (request.nextUrl.hostname === `www.${CANONICAL_HOST}`) {
-    return withLocaleContext(redirectPermanent(request, pathname), pathLocale);
+    return redirectWithContext(redirectPermanent(request, pathname), pathLocale, barePath);
   }
 
-  return withLocaleContext(NextResponse.next(), pathLocale);
+  return nextWithContext(request, pathLocale, barePath);
 }
