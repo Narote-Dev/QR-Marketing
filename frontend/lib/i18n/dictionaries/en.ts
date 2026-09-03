@@ -13,6 +13,7 @@ export const en: Dictionary = {
     featuredCollection: "Featured in this collection",
     aboutTemplates: "About these templates",
     howToUseTemplate: "How to use this template",
+    aboutThisTool: "About this QR tool",
     relatedTemplates: "Related templates",
     browseCategory: "Browse templates in this category.",
     faqs: "Frequently asked questions",
@@ -806,52 +807,90 @@ export const en: Dictionary = {
     },
     qr: {
       url: {
-        title: "URL QR Code Generator",
+        title: "URL QR Code Generator — Print-Ready Link Codes",
         description:
-          "Create a free URL QR code for a website, landing page, menu, or campaign link. Customize it and preview it instantly.",
+          "Create a free URL QR code for menus, campaigns, and posters. Print sizes, scan tips, static vs Dynamic, and a browser-only download — no signup.",
         h1: "Create a QR code for any URL",
         introduction:
-          "Turn a web address into a scannable QR code that helps people reach a page without typing a long link. It is useful for posters, product packaging, business cards, event signs, and printed menus.",
+          "Turn a web address into a scannable QR code so people reach a page without typing a long link. Use it on posters, packaging, business cards, event signs, and printed menus — then test-scan before you print.",
+        body: [
+          "Paste a full https:// address that opens quickly on a phone. Short, stable URLs scan more reliably than long tracking links with many parameters.",
+          "For printed materials, aim for a QR at least 25–30 mm (about 2.5–3 cm) square with 5 mm of quiet space around every edge so cameras can lock on the code.",
+          "Test-scan from the real viewing distance — posters often need 50–100 cm; table cards work at 25–40 cm. If the scan fails, enlarge the code or raise error correction before a bulk print run.",
+          "A static URL code encodes the link itself: it never expires on our side, but it cannot change after printing. If the destination URL changes, download a new PNG or use Dynamic QR when you need to edit after print.",
+          "Add a short frame label such as Visit website, Scan for menu, or in Thai ดูเว็บ / สแกนดูเมนู so people know what happens after they scan.",
+          "Everything runs in your browser for static codes — we do not store the URL you typed. Prefer high contrast (dark dots on a light background) when printing on glossy stock.",
+        ],
         howTo: [
           "Paste a complete website address, including https://.",
-          "Check the live QR preview and adjust its appearance if needed.",
-          "Test-scan the code with a phone before using it in print.",
+          "Customize colors, frame text, and size; keep strong contrast for print.",
+          "Download the PNG and test-scan at the size and distance you will actually use.",
+          "Print or laminate only after a successful phone scan.",
         ],
         faqs: [
           {
             question: "Will this QR code expire?",
             answer:
-              "No. A static URL QR code continues to work as long as the linked website remains available.",
+              "No. A static URL QR code continues to work as long as the linked website remains available at the same address.",
           },
           {
             question: "Can I change the destination later?",
             answer:
-              "A static QR code cannot be changed after it is printed. If you need an editable destination, switch to Dynamic mode in the generator or open our Dynamic QR guide.",
+              "Not with a static code after it is printed. Switch to Dynamic mode in the generator or open our Dynamic QR guide if you need an editable short link.",
+          },
+          {
+            question: "What print size should I use?",
+            answer:
+              "Use at least 25–30 mm for the QR itself on handouts and cards. Larger posters need a proportionally larger code so people can scan from farther away.",
+          },
+          {
+            question: "Do you store the URL I enter?",
+            answer:
+              "No for static URL codes. Creation and download run in your browser. Dynamic QR is different — short links are stored so you can edit the destination after sign-in.",
           },
         ],
       },
       wifi: {
-        title: "WiFi QR Code Generator",
+        title: "WiFi QR Code Generator — Guest Network Cards",
         description:
-          "Create a free WiFi QR code so guests can join your network without typing the password. Supports WPA, WEP, and open networks.",
+          "Create a free WiFi QR code for cafes and hotels. Browser-only password handling, print sizes, WPA tips, and guest vs staff networks — no signup.",
         h1: "Share WiFi access with a QR code",
         introduction:
-          "Let guests connect to a wireless network by scanning a code instead of reading or entering a password. This is especially helpful for cafés, homes, hotels, and reception desks.",
+          "Let guests connect by scanning instead of typing a password. Built for café counters, hotel room cards, and reception desks — with credentials processed only in your browser for static codes.",
+        body: [
+          "Enter the SSID exactly as phones list it, including capital letters and spaces. Cafe_Guest is not the same as cafe_guest — a mismatch is the most common reason a WiFi QR fails.",
+          "Choose WPA/WPA2 for modern routers. Use No password only for networks you intentionally leave open. The password is encoded in the QR payload, so treat the printed code like a shared secret.",
+          "Static WiFi creation runs entirely in your browser. We do not upload, store, or log the network name or password on our servers.",
+          "Counter stickers about 50 mm wide or A6 cards (105 × 148 mm) work well. Keep the QR at least 25 mm square with quiet space, and test-scan while standing at the counter before laminating.",
+          "Prefer a dedicated guest SSID for printed codes. Do not put your staff or admin password on a public tent card.",
+          "Steam, glare, and glass near espresso machines can hide QR corners — print matte when possible and re-test after the sign is in place.",
+        ],
         howTo: [
-          "Enter the WiFi network name exactly as it appears on a device.",
-          "Select the matching security type and enter the password, if one is required.",
-          "Scan it on a phone near the network to confirm the connection prompt.",
+          "Enter the WiFi network name exactly as it appears on a connected phone.",
+          "Select WPA (or the matching security type) and enter the guest password if required.",
+          "Set a short frame label such as Connect to WiFi or เชื่อมต่อ WiFi.",
+          "Download, print a counter-size sample, and confirm both iPhone and Android join the network.",
         ],
         faqs: [
           {
             question: "Does the QR code reveal my WiFi password?",
             answer:
-              "The password is encoded in the QR data, so only share the code with people who may access the network.",
+              "Yes — anyone who can scan or photograph the code can read the password from the payload. Share printed codes only with people allowed on that network.",
+          },
+          {
+            question: "Do you store my WiFi password?",
+            answer:
+              "No. Static WiFi QR generation happens in your browser only. This app does not save or transmit the password to our servers.",
           },
           {
             question: "Which security type should I choose?",
             answer:
-              "Most modern networks use WPA or WPA2. Choose WEP only for older networks, or No password for open networks.",
+              "Most guest networks use WPA or WPA2. Choose WEP only for legacy routers, or No password for intentionally open networks.",
+          },
+          {
+            question: "What size works on a café counter?",
+            answer:
+              "A 50 mm sticker or A6 card is enough for most counters. Keep the QR at least 25 mm square and test-scan before laminating.",
           },
         ],
       },
@@ -928,27 +967,46 @@ export const en: Dictionary = {
         ],
       },
       vcard: {
-        title: "vCard QR Code Generator",
+        title: "vCard QR Code Generator — Digital Business Cards",
         description:
-          "Create a free vCard QR code that saves your name, phone, email, and website to a phone contact list. Ideal for business cards and networking events.",
+          "Create a free vCard QR code for name, phone, email, and website. Print sizes for cards and badges, save-to-contacts tips, and a browser-only download.",
         h1: "Share a digital contact card with a QR code",
         introduction:
-          "A vCard QR code lets someone add your contact details with one scan. Put it on a business card, badge, or booth sign so people save the right phone number and email without retyping.",
+          "A vCard QR code lets someone save your contact details with one scan. Put it on a business card, badge, or booth sign so people store the right phone and email without retyping.",
+        body: [
+          "Enter at least a first or last name. Add organization, phone, email, and website only if you want them saved — shorter cards often scan more reliably on older phones.",
+          "Most devices understand vCard 3.0, but the save screen differs by camera app and OS. Always test on both iPhone and Android before ordering printed cards.",
+          "On a business card, keep the QR at least 20–25 mm square with quiet space. For badges and booth posters, 30 mm or larger is safer at arm’s length.",
+          "This is a static code: if your phone or email changes, you must create and print a new PNG. Dynamic QR is for editable web links, not for rewriting vCard payloads after print.",
+          "Use a short frame label such as Save contact, Add me, or in Thai บันทึกเบอร์ / นามบัตร so people know the scan adds a contact rather than opening a website.",
+          "Generation runs in your browser. We do not store the contact fields you type for a static vCard download.",
+        ],
         howTo: [
           "Enter at least a first or last name for the contact card.",
           "Add optional organization, phone, email, and website details.",
-          "Scan the preview and confirm the phone offers to save the contact.",
+          "Set a short frame label and download a PNG sized for your card or badge.",
+          "Test-scan on iPhone and Android and confirm the phone offers to save the contact.",
         ],
         faqs: [
           {
             question: "Will every phone save the contact the same way?",
             answer:
-              "Most phones understand vCard 3.0, but the save screen can differ by device and camera app.",
+              "Most phones understand vCard 3.0, but the save screen can differ by device and camera app. Test on the phones your customers actually use.",
           },
           {
             question: "Can I update the details after printing?",
             answer:
               "No. This is a static QR code. If your details change, create and print a new code.",
+          },
+          {
+            question: "How large should the QR be on a business card?",
+            answer:
+              "Aim for at least 20–25 mm square with quiet space around it. Smaller codes often fail under soft indoor lighting.",
+          },
+          {
+            question: "Do you store my phone number or email?",
+            answer:
+              "No for static vCard codes. Fields stay in your browser until you download the image.",
           },
         ],
       },
@@ -977,40 +1035,68 @@ export const en: Dictionary = {
         ],
       },
       line: {
-        title: "LINE QR Code Generator",
+        title: "LINE QR Code Generator — Official Account Signs",
         description:
-          "Create a free LINE QR code for a LINE ID, Official Account, or profile URL. Help customers add you on LINE from print materials.",
+          "Create a free LINE QR code from an @OA, LINE ID, or line.me URL. Sticker and counter sizes, add-friend flow tips — styles your sign, does not replace LINE OA Manager.",
         h1: "Open a LINE profile with a QR code",
         introduction:
-          "LINE is widely used across Thailand and East Asia. Encode an Official Account (@handle), LINE ID, or full line.me link so scanners can add your chat without typing the ID.",
+          "LINE is widely used across Thailand and East Asia. Encode an Official Account (@handle), LINE ID, or full line.me link so scanners can add your chat without typing the ID — then style a printable sign for your counter.",
+        body: [
+          "Paste the add-friend URL or @Official Account you already copied from LINE OA Manager. This tool styles a printable QR from that link; it does not replace LINE’s own OA Manager or analytics.",
+          "Typical print sizes: 50 × 50 mm counter stickers, A6 tents (105 × 148 mm), or receipt footers. Keep the QR at least 25 mm square with quiet space around it.",
+          "Set short frame labels customers understand: Add LINE, แอด LINE, สั่งผ่าน LINE, or Chat with us. Test-scan with a phone that already has LINE installed.",
+          "Opening a LINE profile requires the LINE app on the scanning phone. Without LINE installed, the scan may only show a web fallback depending on the device.",
+          "Pair a LINE counter sticker with a separate menu or WiFi QR when needed — one clear job per printed code scans more reliably than a crowded poster.",
+          "Static LINE codes are built in your browser. If you change your OA invite URL later, download and reprint a new PNG.",
+        ],
         howTo: [
-          "Enter an @Official Account, LINE ID, or paste a full https://line.me URL.",
-          "Check the live preview after changing the ID or design.",
-          "Scan with a phone that has LINE installed to confirm the profile opens.",
+          "Enter an @Official Account, LINE ID, or paste a full https://line.me URL from OA Manager.",
+          "Choose a template or colors and set a short Thai or English frame label.",
+          "Download a PNG sized for a 50 mm sticker or A6 counter tent.",
+          "Test-scan with LINE installed, then print or laminate after a successful add-friend flow.",
         ],
         faqs: [
           {
             question: "What should I enter for an Official Account?",
-            answer: "Use the @handle format, for example @yourshop, or paste the official LINE invite URL.",
+            answer: "Use the @handle format, for example @yourshop, or paste the official LINE invite URL from OA Manager.",
           },
           {
             question: "Does the scanner need the LINE app?",
             answer:
-              "Yes. Opening a LINE profile requires the LINE app on the device that scans the code.",
+              "Yes. Opening a LINE profile or add-friend page requires the LINE app on the device that scans the code.",
+          },
+          {
+            question: "Does this replace LINE OA Manager?",
+            answer:
+              "No. Create and manage your Official Account in LINE’s tools, then paste the add-friend link here only to design a printable QR sign.",
+          },
+          {
+            question: "What sticker size works on a shop counter?",
+            answer:
+              "50 × 50 mm stickers and A6 tents (105 × 148 mm) are common. Keep the QR at least 25 mm square and test before laminating.",
           },
         ],
       },
       "google-review": {
-        title: "Google Review QR Code Generator",
+        title: "Google Review QR Code Generator — Phone + Frame",
         description:
-          "Create a free Google review QR code from your Maps or review share link. Make it easy for customers to leave feedback after a visit.",
+          "Create a free Google review QR on your phone with a styled frame. Google’s own QR is a plain code — add Rate us labels and print counter stickers here.",
         h1: "Collect Google reviews with a QR code",
         introduction:
-          "Place a review QR code on receipts, table tents, or checkout counters. Customers scan and land on your Google review or Maps page without searching for your business name.",
+          "Place a review QR on receipts, table tents, or checkout counters. Customers scan and open your Google review page — with your colors and a short Rate us / ให้คะแนนเรา label, created from a mobile browser.",
+        body: [
+          "Copy the short review or “Ask for reviews” link from Google Business Profile, then paste the full https:// URL here. The QR opens that public rating page in one scan.",
+          "Google’s built-in QR download is usually a plain code without your shop colors or a call-to-action. Here you style the frame, add Rate us or ให้คะแนนเรา, and download on your phone before printing.",
+          "Counter stickers around 50 × 50 mm or small A6 tents work well. Keep the QR at least 25 mm square with quiet space, and place it where receipts and condiments will not cover the corners.",
+          "This encodes your review URL as a static code. If Google changes the share link, create a new PNG — or use Dynamic QR when you need to edit the destination after printing.",
+          "Test-scan at the counter with the phone camera customers actually use. Soft lighting and reflective laminate can reduce scan success if the code is too small.",
+          "Static generation runs in the browser. We do not need a Google login; you only paste the public review link you already own.",
+        ],
         howTo: [
           "Copy your Google review or Maps share URL from Google Business Profile.",
-          "Paste the full https link into the generator.",
-          "Test-scan the code and confirm the review page opens before printing.",
+          "Paste the full https link, then choose colors and a short Rate us frame label.",
+          "Download on your phone and test-scan at counter distance.",
+          "Print stickers or tents only after the review page opens correctly.",
         ],
         faqs: [
           {
@@ -1019,9 +1105,19 @@ export const en: Dictionary = {
               "Open Google Business Profile or Google Maps, then copy the share or “Ask for reviews” link provided for your location.",
           },
           {
+            question: "How is this different from Google’s own QR?",
+            answer:
+              "Same review link destination, but you can add brand colors, a frame, and short text — and create or download it on your phone. Google’s default file is a plain QR without a styled label.",
+          },
+          {
             question: "Is this a dynamic QR code?",
             answer:
               "No. The review URL is encoded directly in a static QR code. If the link changes, create a new code or see our Dynamic QR page for editable destinations.",
+          },
+          {
+            question: "What size works on a checkout counter?",
+            answer:
+              "50 × 50 mm stickers or A6 tent cards. Keep the QR at least 25 mm square and test before laminating.",
           },
         ],
       },

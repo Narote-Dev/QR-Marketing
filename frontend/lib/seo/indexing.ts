@@ -31,8 +31,23 @@ export const noindexUseCaseSlugs = ["event-poster", "gmail-email"] as const sati
 
 export type NoindexUseCaseSlug = (typeof noindexUseCaseSlugs)[number];
 
+/**
+ * Phase C — QR hubs thickened to menu-template depth (body + howTo + FAQs).
+ * Ads may run only on these indexed thick type pages among /qr-code/[type].
+ */
+export const thickQrSeoSlugs = [
+  "url",
+  "wifi",
+  "line",
+  "google-review",
+  "vcard",
+] as const satisfies readonly QrSeoSlug[];
+
+export type ThickQrSeoSlug = (typeof thickQrSeoSlugs)[number];
+
 const noindexQrSet = new Set<string>(noindexQrSeoSlugs);
 const noindexUseCaseSet = new Set<string>(noindexUseCaseSlugs);
+const thickQrSet = new Set<string>(thickQrSeoSlugs);
 
 /** Step 1: QR type SEO pages that remain in the sitemap and stay indexable. */
 export function isQrSeoIndexed(slug: string): boolean {
@@ -44,17 +59,21 @@ export function isUseCaseIndexed(slug: string): boolean {
   return !noindexUseCaseSet.has(slug);
 }
 
+/** Step 3: QR type hubs that reached Phase C content depth. */
+export function isQrSeoThick(slug: string): boolean {
+  return thickQrSet.has(slug);
+}
+
 /**
- * Step 3: Whether AdSense (slots + Auto ads script) may run on this bare path.
- * Change: Noindex/thin QR type hubs never show ads; templates/bulk/indexed use-cases may.
+ * Step 4: Whether AdSense (slots + Auto ads script) may run on this bare path.
+ * Change: Noindex/thin QR type hubs never show ads; Phase C thick hubs may.
  */
 export function allowsAdsOnBarePath(barePath: string): boolean {
   const normalized = barePath.replace(/\/+$/, "") || "/";
 
   const qrMatch = normalized.match(/^\/qr-code\/([^/]+)$/);
   if (qrMatch) {
-    // Change: All /qr-code/[type] pages are still thin until Phase C — block ads page-wide.
-    return false;
+    return isQrSeoThick(qrMatch[1]);
   }
 
   const useCaseMatch = normalized.match(/^\/use-cases\/([^/]+)$/);
@@ -65,7 +84,7 @@ export function allowsAdsOnBarePath(barePath: string): boolean {
   return true;
 }
 
-/** Step 4: Resolve bare path after locale prefix for middleware / layout ads gating. */
+/** Step 5: Resolve bare path after locale prefix for middleware / layout ads gating. */
 export function barePathFromLocalizedPathname(pathname: string): string {
   const match = pathname.match(/^\/(en|th|zh)(\/.*)?$/);
   if (!match) return pathname.split("?")[0] || "/";

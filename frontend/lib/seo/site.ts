@@ -43,6 +43,7 @@ export type SeoPage = {
   description: string;
   h1: string;
   introduction: string;
+  body?: string[];
   howTo: string[];
   faqs: { question: string; answer: string }[];
   related: string[];
@@ -83,6 +84,7 @@ function fromCopy(slug: string, copy: SeoPageCopy, related: string[]): SeoPage {
     description: copy.description,
     h1: copy.h1,
     introduction: copy.introduction,
+    body: copy.body,
     howTo: copy.howTo,
     faqs: copy.faqs,
     related,

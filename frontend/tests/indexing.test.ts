@@ -4,9 +4,11 @@ import {
   allowsAdsOnBarePath,
   barePathFromLocalizedPathname,
   isQrSeoIndexed,
+  isQrSeoThick,
   isUseCaseIndexed,
   noindexQrSeoSlugs,
   noindexUseCaseSlugs,
+  thickQrSeoSlugs,
 } from "../lib/seo/indexing";
 import { qrSeoSlugs } from "../lib/seo/qr-seo-seed";
 
@@ -30,9 +32,15 @@ test("Phase A noindex use-cases exclude event-poster and gmail-email only", () =
   assert.equal(isUseCaseIndexed("event-poster"), false);
 });
 
-test("Phase B ads gate blocks all /qr-code type hubs and noindex use-cases", () => {
-  assert.equal(allowsAdsOnBarePath("/qr-code/url"), false);
+test("Phase C thick QR hubs allow ads; thin/noindex hubs stay blocked", () => {
+  assert.deepEqual([...thickQrSeoSlugs], ["url", "wifi", "line", "google-review", "vcard"]);
+  for (const slug of thickQrSeoSlugs) {
+    assert.equal(isQrSeoThick(slug), true);
+    assert.equal(allowsAdsOnBarePath(`/qr-code/${slug}`), true);
+  }
   assert.equal(allowsAdsOnBarePath("/qr-code/tiktok"), false);
+  assert.equal(allowsAdsOnBarePath("/qr-code/whatsapp"), false);
+  assert.equal(allowsAdsOnBarePath("/qr-code/email"), false);
   assert.equal(allowsAdsOnBarePath("/use-cases/event-poster"), false);
   assert.equal(allowsAdsOnBarePath("/use-cases/gmail-email"), false);
   assert.equal(allowsAdsOnBarePath("/use-cases/thai-restaurant-menu"), true);

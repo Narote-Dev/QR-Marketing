@@ -32,9 +32,11 @@ export function SeoQrPage({
   dictionary,
 }: Props) {
   // Change: Locale-aware chrome, links, and generator copy for SEO QR pages.
-  // Change: Phase B — do not render ad slots on thin /qr-code/[type] hubs (Auto ads also gated in layout).
   const barePath = pagePathForSlug(page.slug);
   const allowAds = allowsAdsOnBarePath(barePath);
+  // Change: Phase C — defer in-flow ads below guide copy so download CTAs stay reachable.
+  const hasGuideBody = Boolean(page.body && page.body.length > 0);
+  const showToolAdInline = allowAds && !hasGuideBody;
 
   return (
     <>
@@ -52,9 +54,21 @@ export function SeoQrPage({
             initialPaymentProvider={initialPaymentProvider}
           />
         </div>
-        {allowAds ? <AdSlot placement="seo-after-tool" minHeight={180} /> : null}
+        {showToolAdInline ? <AdSlot placement="seo-after-tool" minHeight={180} /> : null}
         <div className={allowAds ? "xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-10" : undefined}>
           <div>
+            {hasGuideBody ? (
+              <section className="mt-12 max-w-3xl space-y-4" aria-labelledby="about-tool-heading">
+                <h2 id="about-tool-heading" className="text-2xl font-bold tracking-tight">
+                  {dictionary.chrome.aboutThisTool}
+                </h2>
+                {page.body!.map((paragraph) => (
+                  <p key={paragraph} className="leading-7 text-slate-700">
+                    {paragraph}
+                  </p>
+                ))}
+              </section>
+            ) : null}
             <section className="mt-12 max-w-3xl" aria-labelledby="how-to-heading">
               <h2 id="how-to-heading" className="text-2xl font-bold tracking-tight">
                 {dictionary.chrome.howToCreate}
@@ -71,6 +85,7 @@ export function SeoQrPage({
               </ol>
             </section>
             <FaqSection page={page} heading={dictionary.chrome.faqs} />
+            {allowAds && hasGuideBody ? <AdSlot placement="seo-after-tool" minHeight={120} className="max-xl:mt-8" /> : null}
             <RelatedQrTools slugs={page.related} locale={locale} dictionary={dictionary} />
             {/* Change: Link hub pages into long-tail use-case clusters for crawl depth. */}
             <PopularUseCases locale={locale} dictionary={dictionary} />

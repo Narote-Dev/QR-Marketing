@@ -5,6 +5,8 @@ export type SeoPageCopy = {
   description: string;
   h1: string;
   introduction: string;
+  /** Optional guide paragraphs — Phase C thick QR hubs use body like template menu pages. */
+  body?: string[];
   howTo: string[];
   faqs: { question: string; answer: string }[];
 };
@@ -25,6 +27,7 @@ export type Dictionary = {
     featuredCollection: string;
     aboutTemplates: string;
     howToUseTemplate: string;
+    aboutThisTool: string;
     relatedTemplates: string;
     browseCategory: string;
     faqs: string;

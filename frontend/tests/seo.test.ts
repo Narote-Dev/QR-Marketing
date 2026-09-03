@@ -94,6 +94,23 @@ test("thin QR SEO hubs publish noindex while core hubs stay indexable", () => {
   assert.equal(wifi.robots, undefined);
 });
 
+test("Phase C thick QR hubs meet menu-depth copy in en/th/zh", async () => {
+  const { getDictionary } = await import("../lib/i18n/get-dictionary");
+  const { getQrPages } = await import("../lib/seo/site");
+  const { thickQrSeoSlugs } = await import("../lib/seo/indexing");
+
+  for (const locale of locales) {
+    const dictionary = await getDictionary(locale);
+    const pages = getQrPages(dictionary);
+    for (const slug of thickQrSeoSlugs) {
+      const page = pages[slug];
+      assert.ok((page.body?.length ?? 0) >= 4, `${locale}/${slug} body`);
+      assert.ok(page.howTo.length >= 4, `${locale}/${slug} howTo`);
+      assert.ok(page.faqs.length >= 4, `${locale}/${slug} faqs`);
+    }
+  }
+});
+
 test("robots allows public pages and points to the sitemap", () => {
   const policy = robots();
   assert.deepEqual(policy.rules, {
