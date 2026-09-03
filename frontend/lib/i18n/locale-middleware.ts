@@ -3,6 +3,7 @@ import { defaultLocale, isLocale, localeCookieName, type Locale } from "@/lib/i1
 import { resolvePreferredLocale } from "@/lib/i18n/detect";
 import { isExemptPath, localizedPath, stripLocaleFromPath } from "@/lib/i18n/paths";
 import { allowsAdsOnBarePath, barePathFromLocalizedPathname } from "@/lib/seo/indexing";
+import { resolveLegalBarePath } from "@/lib/legal/types";
 
 const CANONICAL_HOST = "genmyqrcode.com";
 
@@ -113,6 +114,13 @@ export function runLocaleMiddleware(request: NextRequest): NextResponse {
   }
 
   const barePath = barePathFromLocalizedPathname(pathname) || path;
+  const canonicalBare = resolveLegalBarePath(barePath);
+
+  // Change: Phase D — `/terms` must resolve to Terms of Service (not a 404 after locale prefix).
+  if (canonicalBare !== barePath) {
+    const target = localizedPath(pathLocale, canonicalBare);
+    return redirectWithContext(redirectPermanent(request, target), pathLocale, canonicalBare);
+  }
 
   if (request.nextUrl.hostname === `www.${CANONICAL_HOST}`) {
     return redirectWithContext(redirectPermanent(request, pathname), pathLocale, barePath);

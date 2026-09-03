@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ContactMailtoForm } from "@/components/contact-mailto-form";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Locale } from "@/lib/i18n/config";
@@ -23,8 +24,22 @@ export function CompanyPage({ locale, dictionary, document }: Props) {
           "@type": "Organization",
           name: siteName,
           url: siteUrl.toString(),
-          email: document.email?.address,
+          email: document.email?.address ?? "support@genmyqrcode.com",
           description: document.description,
+          // Change: Phase D — name a real operator, not brand-only.
+          ...(document.operator
+            ? {
+                founder: {
+                  "@type": "Person",
+                  name: document.operator.name,
+                  jobTitle: document.operator.role,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: document.operator.location,
+                  },
+                },
+              }
+            : {}),
         }
       : {
           "@context": "https://schema.org",
@@ -33,6 +48,7 @@ export function CompanyPage({ locale, dictionary, document }: Props) {
           url: pageUrl,
           inLanguage: locale,
           description: document.description,
+          email: document.email?.address ?? "support@genmyqrcode.com",
         };
 
   return (
@@ -43,63 +59,117 @@ export function CompanyPage({ locale, dictionary, document }: Props) {
       />
       <SiteHeader locale={locale} dictionary={dictionary} currentPath={`/${document.slug}`} />
       <main className="mx-auto min-h-screen max-w-5xl px-5 pb-8 pt-8 sm:px-8 sm:pb-12">
+        <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
+          <Link
+            href={localizedPath(locale, "/qr-code-generator")}
+            className="font-medium text-brand-teal-dark hover:text-brand-coral hover:underline"
+          >
+            {dictionary.chrome.home}
+          </Link>
+          <span className="px-2" aria-hidden="true">
+            /
+          </span>
+          <span aria-current="page">{document.title}</span>
+        </nav>
 
-      <nav aria-label={dictionary.chrome.breadcrumbsAria} className="mb-6 text-sm text-slate-600">
-        <Link
-          href={localizedPath(locale, "/qr-code-generator")}
-          className="font-medium text-brand-teal-dark hover:text-brand-coral hover:underline"
-        >
-          {dictionary.chrome.home}
-        </Link>
-        <span className="px-2" aria-hidden="true">/</span>
-        <span aria-current="page">{document.title}</span>
-      </nav>
+        <article className="rounded-3xl border bg-white px-5 py-7 shadow-sm sm:px-10 sm:py-10">
+          <header className="border-b pb-7">
+            <p className="text-sm font-semibold text-brand-teal-dark">
+              {document.websiteLabel}: genmyQRCode.com
+            </p>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight text-brand-ink sm:text-4xl">
+              {document.title}
+            </h1>
+            <p className="mt-5 max-w-3xl leading-7 text-slate-700">{document.introduction}</p>
+            {document.operator ? (
+              <dl className="mt-6 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm sm:grid-cols-3">
+                <div>
+                  <dt className="font-semibold text-slate-500">{document.operator.nameLabel}</dt>
+                  <dd className="mt-1 font-bold text-brand-ink">{document.operator.name}</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-slate-500">{document.operator.roleLabel}</dt>
+                  <dd className="mt-1 text-slate-800">{document.operator.role}</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-slate-500">{document.operator.locationLabel}</dt>
+                  <dd className="mt-1 text-slate-800">{document.operator.location}</dd>
+                </div>
+              </dl>
+            ) : null}
+          </header>
 
-      <article className="rounded-3xl border bg-white px-5 py-7 shadow-sm sm:px-10 sm:py-10">
-        <header className="border-b pb-7">
-          <p className="text-sm font-semibold text-brand-teal-dark">
-            {document.websiteLabel}: genmyQRCode.com
-          </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-brand-ink sm:text-4xl">
-            {document.title}
-          </h1>
-          <p className="mt-5 max-w-3xl leading-7 text-slate-700">
-            {document.introduction}
-          </p>
-        </header>
+          {document.email && (
+            <div className="mt-8 rounded-2xl border border-brand-teal/30 bg-brand-teal-light/10 px-5 py-5">
+              <p className="text-sm font-semibold text-brand-teal-dark">{document.email.label}</p>
+              <a
+                href={`mailto:${document.email.address}`}
+                className="mt-1 inline-block text-lg font-bold text-brand-teal-dark underline underline-offset-2 hover:text-brand-coral"
+              >
+                {document.email.address}
+              </a>
+            </div>
+          )}
 
-        {document.email && (
-          <div className="mt-8 rounded-2xl border border-brand-teal/30 bg-brand-teal-light/10 px-5 py-5">
-            <p className="text-sm font-semibold text-brand-teal-dark">{document.email.label}</p>
-            <a
-              href={`mailto:${document.email.address}`}
-              className="mt-1 inline-block text-lg font-bold text-brand-teal-dark underline underline-offset-2 hover:text-brand-coral"
-            >
-              {document.email.address}
-            </a>
+          {document.form ? <ContactMailtoForm copy={document.form} /> : null}
+
+          <div className="mt-8 space-y-9">
+            {document.sections.map((section) => (
+              <section key={section.title}>
+                <h2 className="text-xl font-bold text-brand-ink">{section.title}</h2>
+                <div className="mt-3 space-y-3 leading-7 text-slate-700">
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                  {section.bullets && (
+                    <ul className="list-disc space-y-2 pl-6">
+                      {section.bullets.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </section>
+            ))}
           </div>
-        )}
 
-        <div className="mt-8 space-y-9">
-          {document.sections.map((section) => (
-            <section key={section.title}>
-              <h2 className="text-xl font-bold text-brand-ink">{section.title}</h2>
-              <div className="mt-3 space-y-3 leading-7 text-slate-700">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                {section.bullets && (
-                  <ul className="list-disc space-y-2 pl-6">
-                    {section.bullets.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                )}
-              </div>
-            </section>
-          ))}
-        </div>
-      </article>
-      <SiteFooter locale={locale} dictionary={dictionary} />
-    </main>
+          {/* Change: Phase D — cross-link Trust pages so Terms/Privacy/Contact stay discoverable. */}
+          <nav
+            className="mt-10 flex flex-wrap gap-x-5 gap-y-2 border-t pt-6 text-sm"
+            aria-label={dictionary.chrome.footerNavAria}
+          >
+            {document.slug !== "about" ? (
+              <Link
+                href={localizedPath(locale, "/about")}
+                className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+              >
+                {dictionary.chrome.about}
+              </Link>
+            ) : null}
+            {document.slug !== "contact" ? (
+              <Link
+                href={localizedPath(locale, "/contact")}
+                className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+              >
+                {dictionary.chrome.contact}
+              </Link>
+            ) : null}
+            <Link
+              href={localizedPath(locale, "/privacy-policy")}
+              className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+            >
+              {dictionary.chrome.privacyPolicy}
+            </Link>
+            <Link
+              href={localizedPath(locale, "/terms-of-service")}
+              className="font-semibold text-brand-teal-dark hover:text-brand-coral hover:underline"
+            >
+              {dictionary.chrome.termsOfService}
+            </Link>
+          </nav>
+        </article>
+        <SiteFooter locale={locale} dictionary={dictionary} />
+      </main>
     </>
   );
 }

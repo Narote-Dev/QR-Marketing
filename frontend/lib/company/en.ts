@@ -1,44 +1,60 @@
 import type { CompanyDocument } from "@/lib/company/types";
 
-// Change: English company copy for the About and Contact pages.
+// Change: English company copy for the About and Contact pages (Phase D trust).
 export const companyEn: Record<CompanyDocument["slug"], CompanyDocument> = {
   about: {
     slug: "about",
     title: "About Us",
     description:
-      "Meet the team behind genmyQRCode.com, a free and private QR code generator built for real-world use.",
+      "About genmyQRCode.com — operated by Narote Nilsukhum in Thailand. A free, privacy-first QR code generator for real-world print and menus.",
     introduction:
-      "genmyQRCode.com is a free QR code generator that runs entirely in your browser. We built it so anyone can create a clean, scannable QR code for a menu, WiFi network, contact card, or promotion without installing software or creating an account.",
+      "genmyQRCode.com is a free QR code generator that runs in your browser. It is operated by Narote Nilsukhum in Thailand so anyone can create a clean, scannable QR code for a menu, WiFi network, contact card, or promotion — without installing software for static codes.",
     websiteLabel: "Website",
+    operator: {
+      name: "Narote Nilsukhum",
+      role: "Founder and operator",
+      location: "Thailand",
+      nameLabel: "Operator",
+      roleLabel: "Role",
+      locationLabel: "Location",
+    },
+    email: { label: "Support email", address: "support@genmyqrcode.com" },
     sections: [
+      {
+        title: "Who runs this site",
+        paragraphs: [
+          "genmyQRCode.com is built and operated by Narote Nilsukhum (Thailand). There is a real person behind the product — not only a brand name — who maintains the generator, hosting, and support inbox.",
+          "For questions, bug reports, or feature ideas, use the Contact page or email support@genmyqrcode.com. We aim to reply within a few business days.",
+        ],
+      },
       {
         title: "What we do",
         paragraphs: [
-          "We provide static QR codes for URLs, plain text, WiFi access, email, phone numbers, and SMS. You can customize colors, dot and eye styles, add a logo or frame, and download a ready-to-print PNG.",
-          "Everything is generated on your device. Your QR content is never uploaded to or stored on our servers.",
+          "We provide static QR codes for URLs, plain text, WiFi access, email, phone numbers, SMS, vCard, WhatsApp, LINE, Google reviews, and more. You can customize colors, styles, logos, and frames, then download a ready-to-print PNG.",
+          "Static QR content is generated on your device and is not uploaded to our servers. Dynamic QR (when enabled with an account) stores short links so destinations can change after printing.",
         ],
       },
       {
         title: "Our privacy-first approach",
         paragraphs: [
-          "We do not require sign-up, and we do not ask for your name, email, or account to use the generator. The content you enter stays in your browser and is processed locally.",
+          "Static generation does not require sign-up. We do not ask for your name or email to download a static PNG. Content you type for static codes stays in your browser.",
         ],
         bullets: [
-          "No account or sign-in required",
-          "QR content is processed client-side and never saved",
-          "No selling or sharing of your personal information",
+          "No account required for static QR downloads",
+          "Static QR content is processed client-side and not saved on our servers",
+          "We do not sell your personal information",
         ],
       },
       {
         title: "Why the core tool is free",
         paragraphs: [
-          "The generator is free because it costs almost nothing to run and we want it to stay useful to as many people as possible. To cover hosting and maintenance, the website may display unobtrusive advertising on supporting pages. The QR creator itself stays ad-free.",
+          "The generator is free because we want it useful for as many people as possible. Hosting and maintenance may be supported by unobtrusive advertising on selected pages. Legal pages and trust information stay easy to find in the site footer.",
         ],
       },
       {
-        title: "Get in touch",
+        title: "Policies",
         paragraphs: [
-          "We welcome feedback, bug reports, and feature ideas. Use the contact page to reach us, and we will do our best to reply promptly.",
+          "Please read our Privacy Policy and Terms of Service for how we handle data and acceptable use. Both are linked in the footer on every page.",
         ],
       },
     ],
@@ -47,16 +63,30 @@ export const companyEn: Record<CompanyDocument["slug"], CompanyDocument> = {
     slug: "contact",
     title: "Contact Us",
     description:
-      "Get in touch with the genmyQRCode.com team for support, feedback, or questions about the QR code generator.",
+      "Contact Narote Nilsukhum / genmyQRCode.com support at support@genmyqrcode.com — send feedback, bug reports, or questions about the QR generator.",
     introduction:
-      "Have a question, found a bug, or want to suggest a feature? We read every message and aim to respond as quickly as we can.",
+      "Have a question, found a bug, or want to suggest a feature? Email support@genmyqrcode.com or use the form below. Messages go to the operator of genmyQRCode.com, Narote Nilsukhum.",
     websiteLabel: "Website",
-    email: { label: "Email us", address: "support@genmyqrcode.com" },
+    email: { label: "Email us directly", address: "support@genmyqrcode.com" },
+    form: {
+      title: "Send a message",
+      intro:
+        "Fill in your message (and optional reply email). Your email app opens with a draft to support@genmyqrcode.com — review it before sending.",
+      emailLabel: "Your email (optional)",
+      emailPlaceholder: "you@example.com",
+      messageLabel: "Message",
+      messagePlaceholder: "What happened, or what would you like help with?",
+      send: "Open email to send",
+      messageRequired: "Enter a message before sending.",
+      mailtoHint: "Sending opens your email app addressed to support@genmyqrcode.com.",
+      mailSubject: "genmyQRCode.com contact",
+      replyLine: "Reply to",
+    },
     sections: [
       {
         title: "How to reach us",
         paragraphs: [
-          "The fastest way to reach us is by email. Send your message to the address above and include enough detail so we can help you without a long back-and-forth.",
+          "The fastest way is email to support@genmyqrcode.com, or the form on this page which opens a pre-filled draft in your mail app. Include enough detail so we can help without a long back-and-forth.",
         ],
       },
       {
@@ -71,7 +101,13 @@ export const companyEn: Record<CompanyDocument["slug"], CompanyDocument> = {
       {
         title: "Response time",
         paragraphs: [
-          "We typically reply within a few business days. Support for account, billing, or advertising questions may take a little longer.",
+          "We typically reply within a few business days. Questions about accounts, billing, or advertising may take a little longer.",
+        ],
+      },
+      {
+        title: "Legal",
+        paragraphs: [
+          "For data practices and site rules, see the Privacy Policy and Terms of Service linked in the footer.",
         ],
       },
     ],

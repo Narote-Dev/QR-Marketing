@@ -15,6 +15,15 @@ test("company documents are complete in every locale", () => {
       assert.ok(document.sections.length >= 3);
       if (slug === "contact") {
         assert.equal(document.email?.address, "support@genmyqrcode.com");
+        assert.ok(document.form);
+        assert.ok((document.form?.title.length ?? 0) > 2);
+        assert.ok((document.form?.mailSubject.length ?? 0) > 2);
+      }
+      if (slug === "about") {
+        assert.ok(document.operator);
+        assert.match(document.operator!.name, /Narote Nilsukhum/i);
+        assert.equal(document.email?.address, "support@genmyqrcode.com");
+        assert.ok(document.introduction.includes("Narote") || document.introduction.includes("นโรตม์"));
       }
     }
   }

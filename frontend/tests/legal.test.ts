@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { locales } from "../lib/i18n/config";
-import { getLegalDocument, getLegalMetadata, legalSlugs } from "../lib/legal";
+import { getLegalDocument, getLegalMetadata, legalSlugs, resolveLegalBarePath } from "../lib/legal";
 import { hreflangKeys } from "../lib/seo/hreflang";
 import { siteUrl } from "../lib/seo/site";
 
@@ -32,4 +32,11 @@ test("legal metadata publishes canonical and hreflang URLs", () => {
       assert.deepEqual(Object.keys(languages).sort(), [...hreflangKeys].sort());
     }
   }
+});
+
+test("Phase D /terms alias resolves to terms-of-service", () => {
+  assert.equal(resolveLegalBarePath("/terms"), "/terms-of-service");
+  assert.equal(resolveLegalBarePath("/terms/"), "/terms-of-service");
+  assert.equal(resolveLegalBarePath("/terms-of-service"), "/terms-of-service");
+  assert.equal(resolveLegalBarePath("/privacy-policy"), "/privacy-policy");
 });
