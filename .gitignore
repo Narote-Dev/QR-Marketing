@@ -12,3 +12,5 @@ backend/**/obj/
 Thumbs.db
 .vscode/
 .vercel
+.secrets/
+reports/google-monitor/
