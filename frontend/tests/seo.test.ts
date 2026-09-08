@@ -88,10 +88,29 @@ test("sitemap contains curated QR and template pages for every locale", () => {
 });
 
 test("thin QR SEO hubs publish noindex while core hubs stay indexable", () => {
-  const tiktok = getPageMetadata(qrPages.tiktok, "en");
-  const wifi = getPageMetadata(qrPages.wifi, "en");
-  assert.deepEqual(tiktok.robots, { index: false, follow: true });
-  assert.equal(wifi.robots, undefined);
+  for (const locale of locales) {
+    for (const page of Object.values(qrPages)) {
+      const metadata = getPageMetadata(page, locale);
+      assert.deepEqual(metadata.robots, isQrSeoIndexed(page.slug) ? undefined : { index: false, follow: true });
+    }
+  }
+});
+
+test("sitemap omits unverified dates and publishes reciprocal indexable alternates", () => {
+  const entries = sitemap();
+  const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
+  assert.equal(byUrl.size, entries.length);
+  for (const entry of entries) {
+    assert.equal(entry.lastModified, undefined, entry.url);
+    const languages = entry.alternates?.languages as Record<string, string> | undefined;
+    assertHreflangLanguages(languages);
+    assert.ok(Object.values(languages!).includes(entry.url), `${entry.url} must reference itself`);
+    for (const alternateUrl of Object.values(languages!)) {
+      const alternate = byUrl.get(alternateUrl);
+      assert.ok(alternate, `${alternateUrl} must be indexable and included`);
+      assert.deepEqual(alternate.alternates?.languages, languages);
+    }
+  }
 });
 
 test("Phase C thick QR hubs meet menu-depth copy in en/th/zh", async () => {

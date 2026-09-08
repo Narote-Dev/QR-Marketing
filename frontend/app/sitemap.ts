@@ -8,8 +8,6 @@ import { getTemplatePageBarePath, templateCategoryPages, templateIndexPage } fro
 import { useCasePathForSlug, useCaseSlugs } from "@/lib/seo/use-cases";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
   // Step 1: Publish indexable locale URLs only — Phase A drops noindex QR/use-case hubs.
   const barePaths = [
     "/qr-code-generator",
@@ -34,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return locales.map((locale) => ({
       url: new URL(localizedPath(locale, bare), siteUrl).toString(),
-      lastModified: now,
+      // Omit lastModified until a verified content-modification date is available.
       changeFrequency: (bare.includes("generator") || bare === "/templates" ? "weekly" : "monthly") as "weekly" | "monthly",
       priority: bare === "/qr-code-generator" ? 1 : bare === "/bulk-qr-generator" ? 0.95 : bare === "/templates" ? 0.9 : 0.8,
       alternates: { languages },
