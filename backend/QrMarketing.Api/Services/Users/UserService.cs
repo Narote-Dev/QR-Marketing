@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using QrMarketing.Api.Data;
 using QrMarketing.Api.Data.Entities;
 using QrMarketing.Api.Services.Entitlements;
@@ -61,7 +62,7 @@ public sealed class UserService(QrMarketingDbContext dbContext) : IUserService
         dbContext.Users.Add(user);
 
         var periodEnd = now.AddYears(1);
-        dbContext.UserSubscriptions.Add(new UserSubscription
+        var subscription = new UserSubscription
         {
             Id = Guid.NewGuid(),
             UserId = user.Id,
@@ -72,9 +73,24 @@ public sealed class UserService(QrMarketingDbContext dbContext) : IUserService
             CurrentPeriodEnd = periodEnd,
             CreatedAt = now,
             UpdatedAt = now,
-        });
+        };
+        dbContext.UserSubscriptions.Add(subscription);
 
-        await dbContext.SaveChangesAsync(cancellationToken);
+        try
+        {
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException ex) when (ex.InnerException is PostgresException
+        {
+            SqlState: PostgresErrorCodes.UniqueViolation,
+            ConstraintName: "IX_users_AuthProviderId",
+        })
+        {
+            // Another first request created this account. SaveChanges rolled back both inserts.
+            dbContext.Entry(subscription).State = EntityState.Detached;
+            dbContext.Entry(user).State = EntityState.Detached;
+            return await dbContext.Users.SingleAsync(x => x.AuthProviderId == authProviderId, cancellationToken);
+        }
         return user;
     }
 }

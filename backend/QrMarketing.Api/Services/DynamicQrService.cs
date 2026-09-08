@@ -64,6 +64,8 @@ public sealed class DynamicQrService(
         Guid userId,
         CancellationToken cancellationToken)
     {
+        // Serialize quota check and insert across all writers for this account.
+        await using var transaction = await UserQuotaTransaction.BeginAsync(dbContext, userId, cancellationToken);
         // Step 1: Enforce plan quota before create.
         var entitlement = await entitlementService.CanCreateDynamicQrAsync(userId, cancellationToken);
         if (!entitlement.Allowed)
@@ -101,6 +103,7 @@ public sealed class DynamicQrService(
         dbContext.DynamicQrs.Add(entity);
         await dbContext.SaveChangesAsync(cancellationToken);
 
+        if (transaction is not null) await transaction.CommitAsync(cancellationToken);
         return ToCreateResponse(entity, manageToken: string.Empty);
     }
 
@@ -137,33 +140,22 @@ public sealed class DynamicQrService(
             return RedirectLookupResult.Inactive();
         }
 
-        // Step 2: Decide whether scan logging is allowed (legacy rows without user always log).
-        var shouldLog = true;
+        var scanLogged = false;
         var quotaExceeded = false;
-        if (entity.UserId is Guid userId)
+        try
         {
-            var entitlement = await entitlementService.CanLogScanAsync(userId, cancellationToken);
-            shouldLog = entitlement.Allowed;
-            quotaExceeded = !entitlement.Allowed;
+            scanLogged = await LogScanAsync(entity, userAgent, country, referrer, cancellationToken);
+            quotaExceeded = !scanLogged;
         }
-
-        if (shouldLog)
+        catch (Exception ex)
         {
-            // Step 3: Best-effort logging — redirect must not fail if DB write fails.
-            try
-            {
-                await LogScanAsync(entity, userAgent, country, referrer, cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                logger.LogWarning(ex, "Scan logging failed for short code {ShortCode}", shortCode);
-            }
+            logger.LogWarning(ex, "Scan logging failed for short code {ShortCode}", shortCode);
         }
 
         return RedirectLookupResult.Found(new RedirectResolution
         {
             DestinationUrl = entity.DestinationUrl,
-            ScanLogged = shouldLog,
+            ScanLogged = scanLogged,
             QuotaExceeded = quotaExceeded,
         });
     }
@@ -203,14 +195,22 @@ public sealed class DynamicQrService(
         UpdateDynamicQrRequest request,
         CancellationToken cancellationToken)
     {
+        await using var transaction = await UserQuotaTransaction.BeginAsync(dbContext, userId, cancellationToken);
         var entity = await FindOwnedByUserAsync(shortCode, userId, cancellationToken);
         if (entity is null)
         {
             return null;
         }
 
+        if (transaction is not null) await dbContext.Entry(entity).ReloadAsync(cancellationToken);
+        if (request.IsActive == true && !entity.IsActive)
+        {
+            var entitlement = await entitlementService.CanCreateDynamicQrAsync(userId, cancellationToken);
+            if (!entitlement.Allowed) throw new QuotaExceededException(entitlement);
+        }
         ApplyUpdates(entity, request);
         await dbContext.SaveChangesAsync(cancellationToken);
+        if (transaction is not null) await transaction.CommitAsync(cancellationToken);
         return ToDetails(entity);
     }
 
@@ -254,34 +254,52 @@ public sealed class DynamicQrService(
         }).ToList();
     }
 
-    private async Task LogScanAsync(
+    private async Task<bool> LogScanAsync(
         DynamicQr entity,
         string? userAgent,
         string? country,
         string? referrer,
         CancellationToken cancellationToken)
     {
-        // Step 1: Track attached entity for counter updates.
-        var tracked = await dbContext.DynamicQrs.FirstAsync(x => x.Id == entity.Id, cancellationToken);
+        await using var transaction = await UserQuotaTransaction.BeginAsync(dbContext, entity.UserId, cancellationToken);
+        if (entity.UserId is Guid ownerId)
+        {
+            var entitlement = await entitlementService.CanLogScanAsync(ownerId, cancellationToken);
+            if (!entitlement.Allowed) return false;
+        }
+
+        var now = DateTimeOffset.UtcNow;
         var scan = new ScanEvent
         {
-            QrId = tracked.Id,
-            ScannedAt = DateTimeOffset.UtcNow,
+            QrId = entity.Id,
+            ScannedAt = now,
             DeviceType = DeviceTypeParser.FromUserAgent(userAgent),
             Country = NormalizeCountry(country),
             Referrer = Truncate(referrer, 255),
         };
         dbContext.ScanEvents.Add(scan);
-        tracked.ScanCountCached += 1;
-        tracked.UpdatedAt = DateTimeOffset.UtcNow;
+        if (dbContext.Database.IsNpgsql())
+        {
+            // Atomic even for legacy rows which have no user lock.
+            await dbContext.DynamicQrs.Where(x => x.Id == entity.Id)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(x => x.ScanCountCached, x => x.ScanCountCached + 1)
+                    .SetProperty(x => x.UpdatedAt, now), cancellationToken);
+        }
+        else
+        {
+            var tracked = await dbContext.DynamicQrs.FirstAsync(x => x.Id == entity.Id, cancellationToken);
+            tracked.ScanCountCached += 1;
+            tracked.UpdatedAt = now;
+        }
 
-        // Step 2: Increment user quota meter when owned by an account.
-        if (tracked.UserId is Guid userId)
+        if (entity.UserId is Guid userId)
         {
             await quotaCounterService.IncrementScanLoggedAsync(userId, cancellationToken);
         }
-
         await dbContext.SaveChangesAsync(cancellationToken);
+        if (transaction is not null) await transaction.CommitAsync(cancellationToken);
+        return true;
     }
 
     private async Task<string> AllocateShortCodeAsync(CancellationToken cancellationToken)

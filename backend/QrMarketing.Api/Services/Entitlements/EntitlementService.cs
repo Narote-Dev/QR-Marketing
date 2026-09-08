@@ -103,7 +103,7 @@ public sealed class EntitlementService(
 
         var periodUnit = "year";
         if (!string.IsNullOrWhiteSpace(periodJson)
-            && JsonSerializer.Deserialize<ScanQuotaPeriodConfig>(periodJson, JsonOptions) is { } periodConfig)
+            && JsonSerializer.Deserialize<ScanQuotaPeriod.ScanQuotaPeriodConfig>(periodJson, JsonOptions) is { } periodConfig)
         {
             periodUnit = periodConfig.Unit ?? periodUnit;
         }
@@ -183,50 +183,9 @@ public sealed class EntitlementService(
         return row?.ValueJson;
     }
 
-    private async Task<(DateTimeOffset Start, DateTimeOffset End)> GetScanPeriodAsync(
-        Guid userId,
-        string planCode,
-        CancellationToken cancellationToken)
-    {
-        var subscription = await dbContext.UserSubscriptions
-            .AsNoTracking()
-            .Where(x => x.UserId == userId
-                && (x.Status == SubscriptionStatuses.Active
-                    || x.Status == SubscriptionStatuses.Trialing
-                    || x.Status == SubscriptionStatuses.PastDue
-                    || x.Status == SubscriptionStatuses.Grace))
-            .OrderByDescending(x => x.StartedAt)
-            .FirstOrDefaultAsync(cancellationToken);
-
-        if (subscription is not null)
-        {
-            var end = subscription.CurrentPeriodEnd ?? subscription.CurrentPeriodStart.AddYears(1);
-            return (subscription.CurrentPeriodStart, end);
-        }
-
-        var periodJson = await GetJsonEntitlementAsync(planCode, EntitlementKeys.ScanQuotaPeriod, cancellationToken);
-        var unit = "year";
-        var length = 1;
-        if (!string.IsNullOrWhiteSpace(periodJson)
-            && JsonSerializer.Deserialize<ScanQuotaPeriodConfig>(periodJson, JsonOptions) is { } config)
-        {
-            unit = config.Unit ?? unit;
-            length = config.Length <= 0 ? 1 : config.Length;
-        }
-
-        var now = DateTimeOffset.UtcNow;
-        var start = unit switch
-        {
-            "month" => new DateTimeOffset(now.Year, now.Month, 1, 0, 0, 0, TimeSpan.Zero),
-            _ => new DateTimeOffset(now.Year, 1, 1, 0, 0, 0, TimeSpan.Zero),
-        };
-        var endFallback = unit switch
-        {
-            "month" => start.AddMonths(length),
-            _ => start.AddYears(length),
-        };
-        return (start, endFallback);
-    }
+    private Task<(DateTimeOffset Start, DateTimeOffset End)> GetScanPeriodAsync(
+        Guid userId, string planCode, CancellationToken cancellationToken) =>
+        ScanQuotaPeriod.ResolveAsync(dbContext, userId, planCode, cancellationToken);
 
     private static string? SuggestUpgrade(string planCode) => planCode switch
     {
@@ -236,30 +195,28 @@ public sealed class EntitlementService(
         _ => null,
     };
 
-    private sealed class ScanQuotaPeriodConfig
-    {
-        public string? Unit { get; set; }
-        public int Length { get; set; } = 1;
-    }
+
 }
 
 public sealed class QuotaCounterService(QrMarketingDbContext dbContext) : IQuotaCounterService
 {
     public async Task IncrementScanLoggedAsync(Guid userId, CancellationToken cancellationToken)
     {
-        // Step 1: Resolve billing period from active subscription.
-        var subscription = await dbContext.UserSubscriptions
-            .Where(x => x.UserId == userId
-                && (x.Status == SubscriptionStatuses.Active
-                    || x.Status == SubscriptionStatuses.Trialing
-                    || x.Status == SubscriptionStatuses.PastDue
-                    || x.Status == SubscriptionStatuses.Grace))
-            .OrderByDescending(x => x.StartedAt)
-            .FirstOrDefaultAsync(cancellationToken);
+        var (periodStart, periodEnd) = await ScanQuotaPeriod.ResolveAsync(
+            dbContext, userId, null, cancellationToken);
 
-        var periodStart = subscription?.CurrentPeriodStart
-            ?? new DateTimeOffset(DateTimeOffset.UtcNow.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
-        var periodEnd = subscription?.CurrentPeriodEnd ?? periodStart.AddYears(1);
+        if (dbContext.Database.IsNpgsql())
+        {
+            var updatedAt = DateTimeOffset.UtcNow;
+            await dbContext.Database.ExecuteSqlInterpolatedAsync($"""
+                INSERT INTO user_quota_usage ("UserId", "QuotaKey", "PeriodStart", "PeriodEnd", "UsedAmount", "UpdatedAt")
+                VALUES ({userId}, {QuotaKeys.ScanLogged}, {periodStart}, {periodEnd}, 1, {updatedAt})
+                ON CONFLICT ("UserId", "QuotaKey", "PeriodStart")
+                DO UPDATE SET "UsedAmount" = user_quota_usage."UsedAmount" + 1,
+                              "UpdatedAt" = EXCLUDED."UpdatedAt"
+                """, cancellationToken);
+            return;
+        }
 
         // Step 2: Upsert usage counter for scan.logged.
         var usage = await dbContext.UserQuotaUsages
@@ -301,5 +258,68 @@ public sealed class QuotaCounterService(QrMarketingDbContext dbContext) : IQuota
                 x => x.UserId == userId && x.QuotaKey == quotaKey && x.PeriodStart == periodStart,
                 cancellationToken);
         return usage?.UsedAmount ?? 0;
+    }
+}
+
+// Both quota checks and writes must use the same billing-period boundaries.
+internal static class ScanQuotaPeriod
+{
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+
+    internal static async Task<(DateTimeOffset Start, DateTimeOffset End)> ResolveAsync(
+        QrMarketingDbContext dbContext,
+        Guid userId,
+        string? planCode,
+        CancellationToken cancellationToken)
+    {
+        var subscription = await dbContext.UserSubscriptions
+            .AsNoTracking()
+            .Where(x => x.UserId == userId
+                && (x.Status == SubscriptionStatuses.Active
+                    || x.Status == SubscriptionStatuses.Trialing
+                    || x.Status == SubscriptionStatuses.PastDue
+                    || x.Status == SubscriptionStatuses.Grace))
+            .OrderByDescending(x => x.StartedAt)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (subscription is not null)
+        {
+            var end = subscription.CurrentPeriodEnd ?? subscription.CurrentPeriodStart.AddYears(1);
+            return (subscription.CurrentPeriodStart, end);
+        }
+
+        planCode ??= await dbContext.Users.AsNoTracking()
+            .Where(x => x.Id == userId).Select(x => x.PlanCode)
+            .FirstOrDefaultAsync(cancellationToken) ?? "free";
+        var periodJson = await dbContext.PlanEntitlements.AsNoTracking()
+            .Where(x => x.PlanCode == planCode && x.EntitlementKey == EntitlementKeys.ScanQuotaPeriod)
+            .Select(x => x.ValueJson).FirstOrDefaultAsync(cancellationToken);
+        var unit = "year";
+        var length = 1;
+        if (!string.IsNullOrWhiteSpace(periodJson)
+            && JsonSerializer.Deserialize<ScanQuotaPeriod.ScanQuotaPeriodConfig>(periodJson, JsonOptions) is { } config)
+        {
+            unit = config.Unit ?? unit;
+            length = config.Length <= 0 ? 1 : config.Length;
+        }
+
+        var now = DateTimeOffset.UtcNow;
+        var start = unit switch
+        {
+            "month" => new DateTimeOffset(now.Year, now.Month, 1, 0, 0, 0, TimeSpan.Zero),
+            _ => new DateTimeOffset(now.Year, 1, 1, 0, 0, 0, TimeSpan.Zero),
+        };
+        var endFallback = unit switch
+        {
+            "month" => start.AddMonths(length),
+            _ => start.AddYears(length),
+        };
+        return (start, endFallback);
+    }
+
+    internal sealed class ScanQuotaPeriodConfig
+    {
+        public string? Unit { get; set; }
+        public int Length { get; set; } = 1;
     }
 }

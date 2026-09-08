@@ -1,3 +1,4 @@
+using QrMarketing.Api.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
@@ -23,8 +24,7 @@ public sealed class RedirectController(
         }
 
         var userAgent = Request.Headers.UserAgent.ToString();
-        var country = Request.Headers["CF-IPCountry"].FirstOrDefault()
-            ?? Request.Headers["X-Country-Code"].FirstOrDefault();
+        var country = RequestProtection.GetCountry(HttpContext);
         var referrer = Request.Headers.Referer.ToString();
 
         var lookup = await dynamicQrService.ResolveRedirectAsync(

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -50,13 +51,17 @@ builder.Services.AddScoped<IQuotaCounterService, QuotaCounterService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
 
+var requestProtection = builder.Configuration.GetSection(RequestProtectionOptions.SectionName).Get<RequestProtectionOptions>() ?? new RequestProtectionOptions();
+var countryHeaderKnownProxies = RequestProtection.ParseCountryHeaderKnownProxies(requestProtection);
+builder.Services.Configure<ForwardedHeadersOptions>(options => RequestProtection.ConfigureForwarding(options, requestProtection));
+
 // Step 3: Basic rate limits for write/create and public redirect.
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
     options.AddPolicy("api-write", httpContext =>
     {
-        var userId = httpContext.Items[CurrentUserAccessor.UserIdItemKey]?.ToString() ?? "anon";
+        var userId = RequestProtection.WritePartition(httpContext);
         return RateLimitPartition.GetFixedWindowLimiter(
             userId,
             _ => new FixedWindowRateLimiterOptions
@@ -111,14 +116,20 @@ if (databaseOptions.MigrateOnStartup)
 }
 
 if (app.Environment.IsDevelopment()) { app.UseSwagger(); app.UseSwaggerUI(); }
+app.Use(async (context, next) =>
+{
+    RequestProtection.CaptureCountry(context, requestProtection, countryHeaderKnownProxies);
+    await next(context);
+});
+app.UseForwardedHeaders();
 app.UseCors("Frontend");
-app.UseRateLimiter();
 if (!string.IsNullOrWhiteSpace(authOptions.ClerkAuthority))
 {
     app.UseAuthentication();
     app.UseAuthorization();
 }
 app.UseCurrentUser();
+app.UseRateLimiter();
 app.MapHealthChecks("/health", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
 app.MapControllers();

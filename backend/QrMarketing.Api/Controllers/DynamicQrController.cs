@@ -13,7 +13,8 @@ namespace QrMarketing.Api.Controllers;
 public sealed class DynamicQrController(
     IDynamicQrService dynamicQrService,
     ICurrentUserAccessor currentUser,
-    IOptions<DynamicQrOptions> options) : ControllerBase
+    IOptions<DynamicQrOptions> options,
+    IHostEnvironment environment) : ControllerBase
 {
     public const string OwnerTokenHeader = "X-Owner-Token";
 
@@ -55,7 +56,7 @@ public sealed class DynamicQrController(
             }
 
             // Step 2: Legacy owner-token flow for local MVP only.
-            if (!options.Value.AllowLegacyOwnerToken)
+            if (!LegacyOwnerTokenAllowed)
             {
                 return Unauthorized(new { error = "auth.required", message = "Authentication is required." });
             }
@@ -106,6 +107,7 @@ public sealed class DynamicQrController(
     }
 
     [HttpPatch("{shortCode}")]
+    [EnableRateLimiting("api-write")]
     public async Task<ActionResult<DynamicQrDetailsResponse>> Update(
         string shortCode,
         [FromBody] UpdateDynamicQrRequest request,
@@ -131,6 +133,10 @@ public sealed class DynamicQrController(
 
             var updated = await dynamicQrService.UpdateAsync(shortCode, token, request, cancellationToken);
             return updated is null ? NotFound() : Ok(updated);
+        }
+        catch (QuotaExceededException ex)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new { error = ex.Result.ErrorCode, message = ex.Result.Message, limit = ex.Result.Limit, used = ex.Result.Used, upgradePlan = ex.Result.UpgradePlan });
         }
         catch (ArgumentException ex)
         {
@@ -163,9 +169,11 @@ public sealed class DynamicQrController(
         return stats is null ? NotFound() : Ok(stats);
     }
 
+    private bool LegacyOwnerTokenAllowed => environment.IsDevelopment() && options.Value.AllowLegacyOwnerToken;
+
     private bool TryGetOwnerToken(out string token)
     {
         token = Request.Headers[OwnerTokenHeader].FirstOrDefault() ?? string.Empty;
-        return !string.IsNullOrWhiteSpace(token);
+        return LegacyOwnerTokenAllowed && !string.IsNullOrWhiteSpace(token);
     }
 }
