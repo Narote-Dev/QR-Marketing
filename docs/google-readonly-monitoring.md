@@ -74,7 +74,7 @@ Do not enable scheduled account monitoring until the manual command returns both
 
 Scheduled task should:
 
-1. Run monitor once daily at 09:00 Asia/Bangkok.
+1. Run monitor once daily at 10:00 Asia/Bangkok.
 2. Compare current report with prior report.
 3. Notify on AdSense state change, new alert/policy issue, sitemap error, failed inspection, material traffic change, or credential/API failure.
 4. Run deeper product/revenue review each Monday.

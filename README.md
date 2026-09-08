@@ -156,7 +156,7 @@ npm test --prefix .\frontend
 
 ## Known limitations
 
-- No migrations or tables exist yet because no persistent domain model has been introduced.
+- Dynamic QR persistence uses EF Core migrations for users, subscriptions, entitlements, QR codes, and scan events. See `docs/development-handoff.md` for current verification and release limitations.
 - Template demo assets are local placeholders, not production brand photography.
 - Only six template SEO routes are published; remaining categories stay available inside the generator UI.
-- Docker Desktop is required to run PostgreSQL locally.
+- Local PostgreSQL can run natively or through Docker Compose. PostgreSQL integration tests use `QR_TEST_POSTGRES` on a disposable server and create isolated test databases; the login requires `CREATEDB`.
