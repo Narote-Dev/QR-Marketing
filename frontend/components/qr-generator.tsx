@@ -39,9 +39,11 @@ type Props = {
   initialFrameText?: string;
   downloadFileName?: string;
   helperHint?: string;
+  // Change: Landing CTAs (e.g. "Create Dynamic QR") can preselect the mode; ignored when Dynamic QR is off.
+  initialMode?: GeneratorMode;
 };
 
-type GeneratorMode = "static" | "dynamic";
+export type GeneratorMode = "static" | "dynamic";
 
 export function QrGenerator({
   initialType = "url",
@@ -52,6 +54,7 @@ export function QrGenerator({
   initialFrameText,
   downloadFileName,
   helperHint,
+  initialMode = "static",
 }: Props) {
   const dictionary = useDictionary();
   const locale = useLocale();
@@ -87,7 +90,7 @@ export function QrGenerator({
   const [starterDownloadName, setStarterDownloadName] = useState<string>();
   const [downloading, setDownloading] = useState<"png" | "svg" | false>(false);
   const [downloadError, setDownloadError] = useState<string>();
-  const [mode, setMode] = useState<GeneratorMode>("static");
+  const [mode, setMode] = useState<GeneratorMode>(() => (dynamicEnabled ? initialMode : "static"));
   const [dynamicShortUrl, setDynamicShortUrl] = useState<string>();
   // Change: Keep customize collapsed by default for fast create; open when a landing template is preselected.
   const [customizeOpen, setCustomizeOpen] = useState(() => Boolean(initialTemplateId));

@@ -48,6 +48,172 @@ export const en: Dictionary = {
     trustNoSignup: "No signup required",
     trustBrowserOnly: "Created in your browser",
     trustLocalized: "Works with local language content",
+    navDynamicQr: "Dynamic QR",
+    navPricing: "Pricing",
+    navCreateCta: "Create QR code",
+    footerProduct: "Product",
+    footerCompany: "Company",
+    footerTagline: "Free QR code generator with Dynamic QR codes you can edit after printing.",
+  },
+  home: {
+    hero: {
+      eyebrow: "Free QR code generator · No signup for static codes",
+      subheadline:
+        "Generate customized QR codes for websites, WiFi, contact cards, WhatsApp, LINE, social profiles, payments, and more. Preview live, download PNG or SVG, and upgrade to Dynamic QR when you need to change the destination after printing.",
+      primaryCta: "Create QR code",
+      secondaryCta: "Explore Dynamic QR",
+      bullets: ["Free static QR codes, no account", "Runs in your browser — nothing is uploaded", "Dynamic QR with scan counts included"],
+      mockup: {
+        title: "QR editor",
+        typeChips: ["URL", "WiFi", "vCard", "WhatsApp"],
+        inputLabel: "Website address",
+        inputValue: "https://genmyqrcode.com",
+        colorsLabel: "Colors & style",
+        previewLabel: "Live preview",
+        downloadLabel: "Download PNG",
+        frameText: "Scan me",
+      },
+    },
+    valueStrip: [
+      { title: "Free QR generator", description: "Static codes are free with no limits." },
+      { title: "No signup for static QR", description: "Open the page and download." },
+      { title: "Customizable design", description: "Colors, logo, frame, and patterns." },
+      { title: "High-resolution export", description: "PNG for print, SVG for vector editing." },
+      { title: "Dynamic QR available", description: "Edit the destination after printing." },
+    ],
+    generatorSection: {
+      eyebrow: "Start here",
+      heading: "Create your QR code",
+      flow: ["Choose QR type", "Enter content", "Customize", "Preview", "Download"],
+    },
+    types: {
+      eyebrow: "QR code types",
+      heading: "One generator for every use case",
+      intro:
+        "Pick the content type that matches what people should do after scanning. Every type below is available in the free generator.",
+      guideLabel: "Guide & generator",
+      openLabel: "Open in generator",
+    },
+    dynamic: {
+      eyebrow: "Static vs Dynamic",
+      heading: "Dynamic QR codes you can edit after printing",
+      intro:
+        "A static QR code stores the content inside the image forever. A Dynamic QR code stores a short link on genmyqrcode.com, so the printed code stays the same while you change where it goes.",
+      staticTitle: "Static QR",
+      staticPoints: [
+        "Content is encoded directly in the image",
+        "Free, unlimited, no account",
+        "Best for WiFi, vCard, and permanent links",
+        "Cannot be edited or tracked after printing",
+      ],
+      dynamicTitle: "Dynamic QR",
+      dynamicPoints: [
+        "Encodes a short link such as genmyqrcode.com/r/yourCode",
+        "Change the destination URL any time",
+        "Pause and reactivate without reprinting",
+        "See scan counts in your dashboard",
+      ],
+      benefits: [
+        { title: "Change destination without reprinting", description: "Update menus, campaigns, and packaging links in seconds.", status: "available" },
+        { title: "Track scans", description: "Total scan counts per code, plus your plan usage.", status: "available" },
+        { title: "Manage QR codes", description: "Label, edit, and download your codes again from one dashboard.", status: "available" },
+        { title: "Enable or disable codes", description: "Pause a code and scanners see a friendly unavailable page.", status: "available" },
+        { title: "Scan analytics breakdown", description: "Device, country, and time-series views of your scans.", status: "planned" },
+        { title: "Campaign management", description: "Group codes by campaign and compare performance.", status: "planned" },
+      ],
+      primaryCta: "Create Dynamic QR",
+      secondaryCta: "Learn about Dynamic QR",
+    },
+    analytics: {
+      eyebrow: "Scan insights",
+      heading: "Know how your QR codes perform",
+      intro:
+        "Every Dynamic QR scan is counted on our servers. Your dashboard shows totals per code and your plan usage today; richer breakdowns are on the roadmap.",
+      sampleBadge: "Sample data",
+      metrics: [
+        { label: "Total scans", value: "1,284", hint: "Per Dynamic QR code", status: "available" },
+        { label: "Active codes", value: "4 / 6", hint: "Free plan quota", status: "available" },
+        { label: "Scans this period", value: "2,930", hint: "Against your plan limit", status: "available" },
+        { label: "Devices", value: "iOS · Android", hint: "Breakdown by device type", status: "planned" },
+        { label: "Countries", value: "TH · US · JP", hint: "Where scans happen", status: "planned" },
+        { label: "Scans over time", value: "Daily chart", hint: "Trends and peaks", status: "planned" },
+      ],
+      plannedNote:
+        "Items marked Planned are not available yet. Numbers shown are illustrative, not live data.",
+    },
+    customization: {
+      eyebrow: "Customization",
+      heading: "Make the QR code match your brand",
+      intro:
+        "Everything in the customize step works for both static and Dynamic QR codes and is rendered in your browser.",
+      features: [
+        { title: "Colors & gradients", description: "Foreground, background, and linear or radial gradients." },
+        { title: "Logo", description: "Upload your logo or pick a preset, with automatic clear space." },
+        { title: "Frame & label", description: "Border or label frame with your own call-to-action text." },
+        { title: "Dot & eye patterns", description: "Rounded, dots, classy, square, and more." },
+        { title: "Background presets", description: "Ready-made backgrounds and industry templates." },
+        { title: "Error correction & size", description: "Choose L/M/Q/H reliability and export size." },
+      ],
+      variants: ["Brand teal", "Coral gradient", "Classic with label"],
+      cta: "Open the customize step",
+    },
+    roadmap: {
+      eyebrow: "Built for business",
+      heading: "From a single QR code to a QR platform",
+      intro:
+        "GenMyQRCode starts free and grows with you. Here is what works today and what we are building next.",
+      items: [
+        { title: "Dynamic QR management", description: "Create, edit, pause, and download codes from your account.", status: "available" },
+        { title: "Bulk QR generation", description: "Up to 50 static codes from one CSV with a shared design.", status: "available" },
+        { title: "QR templates", description: "Restaurant, cafe, hotel, retail, event, and review presets.", status: "available" },
+        { title: "Scan analytics", description: "Device, country, and time breakdowns for Dynamic QR.", status: "planned" },
+        { title: "Team management", description: "Share codes and roles across your organization.", status: "planned" },
+        { title: "API access", description: "Create and manage Dynamic QR codes programmatically.", status: "planned" },
+        { title: "D365FO / ERP integration", description: "Generate and track QR codes from Dynamics 365 Finance & Operations.", status: "planned" },
+      ],
+    },
+    pricing: {
+      eyebrow: "Plans",
+      heading: "Free to start. Upgrade when you grow.",
+      intro:
+        "Static QR codes stay free forever. Dynamic QR starts on the Free plan; paid plans are being finalized.",
+      comingSoon: "Coming soon",
+      freePrice: "Free",
+      perMonth: "/month",
+      dynamicQrFeature: "{count} active Dynamic QR codes",
+      scansPerYearFeature: "{count} scans per year",
+      scansPerMonthFeature: "{count} scans per month",
+      apiFeature: "API access",
+      plans: {
+        free: {
+          name: "Free",
+          tagline: "For personal use and small businesses.",
+          extras: ["Unlimited static QR codes", "Templates and customization", "Bulk CSV export"],
+          cta: "Start free",
+        },
+        pro: {
+          name: "Pro",
+          tagline: "For marketers who run campaigns.",
+          extras: ["Everything in Free", "Priority support"],
+          cta: "Notify me",
+        },
+        business: {
+          name: "Business",
+          tagline: "For teams, bulk operations, and integrations.",
+          extras: ["Everything in Pro", "Team management (planned)", "ERP integration (planned)"],
+          cta: "Contact us",
+        },
+      },
+      note: "Plan limits are indicative and may change before paid plans launch. No payment is collected today.",
+    },
+    statusAvailable: "Available",
+    statusPlanned: "Planned",
+    finalCta: {
+      heading: "Create your QR code in seconds.",
+      subheading: "Free static codes, no account. Sign in only when you want Dynamic QR.",
+      primaryCta: "Create QR code for free",
+      secondaryCta: "Explore Dynamic QR",
+    },
   },
   relatedToolBlurbs: {
     url: "Create a QR code for a website link.",
@@ -739,29 +905,56 @@ export const en: Dictionary = {
       title: "Free QR Code Generator — No Signup",
       description:
         "Free QR code generator in your browser—no signup for static codes. Create URL, WiFi, vCard, WhatsApp, and LINE codes, or sign in for Dynamic QR codes you can edit after printing. Customize, download, bulk CSV, or templates.",
-      h1: "Free QR code generator — no signup",
+      // Change: Homepage hero H1 keeps the primary keyword and adds the SaaS promise.
+      h1: "Free QR code generator — create QR codes simple, fast & free",
       introduction:
         "Create a practical, static QR code in your browser for free. Choose the content type, enter the details, customize the visual design, and test the live preview before sharing it. Need editable short links after print? Switch to Dynamic mode or open our Dynamic QR guide. Need many URL codes? Use bulk CSV. Prefer a ready look? Start from templates.",
+      body: [
+        "GenMyQRCode is a free QR code generator that runs entirely in your browser. Static QR codes for URLs, WiFi, vCard contacts, WhatsApp, LINE, Google reviews, payments, and social profiles are generated on your device, so nothing you type is uploaded or stored. You can customize colors, patterns, logo, and frame, then download a print-ready PNG or a scalable SVG.",
+        "When you need a QR code that keeps working after the destination changes, create a Dynamic QR code. It encodes a short link on genmyqrcode.com that redirects to your current URL, so you can update menus, campaign pages, or packaging links without reprinting. Dynamic QR codes require a free account so you can manage them, pause them, and review scan counts.",
+        "The same custom QR code design tools apply to both modes, and bulk CSV export lets you create up to 50 static codes with one shared look. Use the guides linked below for type-specific tips on WiFi, vCard, Google Review, LINE, and payment QR codes.",
+      ],
       howTo: [
         "Choose the QR type that matches what people should do after scanning.",
         "Enter the required details and review the live preview.",
         "Customize colors, eyes, logo, frame, size, and error correction, then test-scan it.",
+        "Download PNG for print or SVG for editing. For editable links, switch to Dynamic mode and sign in.",
       ],
       faqs: [
+        {
+          question: "Is GenMyQRCode free?",
+          answer:
+            "Yes. Static QR codes are free with no limits, no watermark, and no account. Dynamic QR codes are included on the Free plan with a quota of active codes and scans; paid plans for higher limits are coming soon.",
+        },
         {
           question: "Do I need an account to create a static QR code?",
           answer:
             "No. Static QR code creation is available without signing in and the entered content is not saved.",
         },
         {
-          question: "What can I encode?",
+          question: "Do QR codes expire?",
           answer:
-            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, and social profiles. For many URL codes at once, use the bulk CSV generator. For ready-made designs, browse templates.",
+            "Static QR codes never expire because the content lives inside the image. Dynamic QR codes keep redirecting as long as the code is active in your account; you can pause or reactivate them at any time.",
         },
         {
-          question: "What is Dynamic QR and do I need an account?",
+          question: "What is the difference between static and Dynamic QR?",
           answer:
-            "Dynamic QR codes encode a short link on genmyqrcode.com so you can change the destination after printing. Sign in and switch to Dynamic mode in the generator, or read our Dynamic QR guide. Static codes remain free with no account.",
+            "Static QR stores the payload in the image and cannot be changed after printing. Dynamic QR encodes a short link on genmyqrcode.com so you can change the destination, pause the code, and see scan counts. Sign in and switch to Dynamic mode in the generator, or read our Dynamic QR guide.",
+        },
+        {
+          question: "Can I customize my QR code?",
+          answer:
+            "Yes. Change foreground and background colors, add a gradient, upload a logo or choose a preset, pick dot and eye patterns, add a border or label frame, choose background presets and templates, and set error correction and export size.",
+        },
+        {
+          question: "Can I use the QR codes commercially?",
+          answer:
+            "Yes. QR codes you create here can be used for business, print, packaging, and marketing. You are responsible for the content you link to and for complying with the terms of any third-party services.",
+        },
+        {
+          question: "What can I encode?",
+          answer:
+            "You can create codes for URLs, plain text, WiFi, email, phone, SMS, vCard contacts, WhatsApp, LINE, Google review links, locations, events, Telegram, social profiles, and payment links. For many URL codes at once, use the bulk CSV generator. For ready-made designs, browse templates.",
         },
       ],
     },

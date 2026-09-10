@@ -2,7 +2,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdSlot } from "@/components/ad-slot";
 import { FaqSection } from "@/components/faq-section";
 import { PopularUseCases } from "@/components/popular-use-cases";
-import { QrGenerator } from "@/components/qr-generator";
+import { QrGenerator, type GeneratorMode } from "@/components/qr-generator";
 import { RelatedQrTools } from "@/components/related-qr-tools";
 import { SeoJsonLd } from "@/components/seo-json-ld";
 import { SiteFooter } from "@/components/site-footer";
@@ -19,6 +19,8 @@ type Props = {
   initialType?: QrType;
   initialSocialNetwork?: SocialNetwork;
   initialPaymentProvider?: PaymentProvider;
+  // Change: Dynamic QR guide page opens the generator in Dynamic mode.
+  initialMode?: GeneratorMode;
   locale: Locale;
   dictionary: Dictionary;
 };
@@ -28,6 +30,7 @@ export function SeoQrPage({
   initialType = "url",
   initialSocialNetwork,
   initialPaymentProvider,
+  initialMode,
   locale,
   dictionary,
 }: Props) {
@@ -52,6 +55,7 @@ export function SeoQrPage({
             initialType={initialType}
             initialSocialNetwork={initialSocialNetwork}
             initialPaymentProvider={initialPaymentProvider}
+            initialMode={initialMode}
           />
         </div>
         {showToolAdInline ? <AdSlot placement="seo-after-tool" minHeight={180} /> : null}

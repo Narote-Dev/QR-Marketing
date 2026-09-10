@@ -48,6 +48,161 @@ export const zh: Dictionary = {
     trustNoSignup: "无需注册",
     trustBrowserOnly: "在您的浏览器中创建",
     trustLocalized: "支持本地语言内容",
+    navDynamicQr: "动态二维码",
+    navPricing: "价格",
+    navCreateCta: "创建二维码",
+    footerProduct: "产品",
+    footerCompany: "公司",
+    footerTagline: "免费二维码生成器，支持印刷后仍可修改目标的动态二维码。",
+  },
+  home: {
+    hero: {
+      eyebrow: "免费二维码生成器 · 静态码无需注册",
+      subheadline:
+        "为网站、WiFi、名片、WhatsApp、LINE、社交主页、付款等生成自定义二维码。实时预览，下载 PNG 或 SVG；需要印刷后更改目标时，可升级为动态二维码。",
+      primaryCta: "创建二维码",
+      secondaryCta: "了解动态二维码",
+      bullets: ["静态二维码免费，无需账号", "在浏览器中运行，不上传任何内容", "动态二维码含扫描计数"],
+      mockup: {
+        title: "二维码编辑器",
+        typeChips: ["URL", "WiFi", "vCard", "WhatsApp"],
+        inputLabel: "网址",
+        inputValue: "https://genmyqrcode.com",
+        colorsLabel: "颜色与样式",
+        previewLabel: "实时预览",
+        downloadLabel: "下载 PNG",
+        frameText: "扫一扫",
+      },
+    },
+    valueStrip: [
+      { title: "免费二维码生成器", description: "静态码免费且不限数量。" },
+      { title: "静态码无需注册", description: "打开页面即可下载。" },
+      { title: "可自定义设计", description: "颜色、标志、边框和图案。" },
+      { title: "高分辨率导出", description: "PNG 用于印刷，SVG 用于矢量编辑。" },
+      { title: "提供动态二维码", description: "印刷后仍可修改目标。" },
+    ],
+    generatorSection: {
+      eyebrow: "从这里开始",
+      heading: "创建您的二维码",
+      flow: ["选择类型", "填写内容", "自定义", "预览", "下载"],
+    },
+    types: {
+      eyebrow: "二维码类型",
+      heading: "一个生成器，覆盖所有场景",
+      intro: "选择与扫码后操作匹配的内容类型。以下所有类型均可在免费生成器中使用。",
+      guideLabel: "指南与生成器",
+      openLabel: "在生成器中打开",
+    },
+    dynamic: {
+      eyebrow: "静态 vs 动态",
+      heading: "印刷后仍可编辑的动态二维码",
+      intro:
+        "静态二维码把内容永久存放在图像中；动态二维码则存放 genmyqrcode.com 上的短链，印刷出的码保持不变，而您可以随时更改它指向的位置。",
+      staticTitle: "静态二维码",
+      staticPoints: ["内容直接编码在图像中", "免费、不限数量、无需账号", "适合 WiFi、名片和永久链接", "印刷后无法编辑或追踪"],
+      dynamicTitle: "动态二维码",
+      dynamicPoints: [
+        "编码短链，例如 genmyqrcode.com/r/yourCode",
+        "随时更改目标网址",
+        "无需重印即可暂停和重新启用",
+        "在仪表板中查看扫描次数",
+      ],
+      benefits: [
+        { title: "无需重印即可更改目标", description: "几秒内更新菜单、活动和包装上的链接。", status: "available" },
+        { title: "追踪扫描", description: "每个码的总扫描次数以及套餐用量。", status: "available" },
+        { title: "管理二维码", description: "在一个仪表板中命名、编辑并重新下载您的码。", status: "available" },
+        { title: "启用或停用", description: "暂停后扫码者会看到友好的不可用页面。", status: "available" },
+        { title: "扫描分析明细", description: "按设备、国家和时间查看扫描。", status: "planned" },
+        { title: "活动管理", description: "按活动分组并比较表现。", status: "planned" },
+      ],
+      primaryCta: "创建动态二维码",
+      secondaryCta: "了解动态二维码",
+    },
+    analytics: {
+      eyebrow: "扫描洞察",
+      heading: "了解您的二维码表现",
+      intro: "每次动态二维码扫描都在我们的服务器上计数。仪表板目前显示每个码的总数与套餐用量；更详细的分析已在规划中。",
+      sampleBadge: "示例数据",
+      metrics: [
+        { label: "总扫描", value: "1,284", hint: "每个动态二维码", status: "available" },
+        { label: "启用中的码", value: "4 / 6", hint: "免费套餐配额", status: "available" },
+        { label: "本周期扫描", value: "2,930", hint: "对比套餐上限", status: "available" },
+        { label: "设备", value: "iOS · Android", hint: "按设备类型细分", status: "planned" },
+        { label: "国家/地区", value: "TH · US · JP", hint: "扫描来自哪里", status: "planned" },
+        { label: "扫描趋势", value: "每日图表", hint: "趋势与峰值", status: "planned" },
+      ],
+      plannedNote: "标记为“规划中”的项目尚不可用。所示数字仅为示例，不是实时数据。",
+    },
+    customization: {
+      eyebrow: "自定义",
+      heading: "让二维码匹配您的品牌",
+      intro: "自定义步骤中的所有功能同时适用于静态和动态二维码，并在您的浏览器中渲染。",
+      features: [
+        { title: "颜色与渐变", description: "前景色、背景色，以及线性或径向渐变。" },
+        { title: "标志", description: "上传标志或选择预设，自动留白。" },
+        { title: "边框与标签", description: "边框或标签式外框，可自定义行动号召文字。" },
+        { title: "点与定位点图案", description: "圆角、圆点、优雅、方形等。" },
+        { title: "预设背景", description: "现成背景与行业模板。" },
+        { title: "纠错级别与尺寸", description: "选择 L/M/Q/H 可靠性和导出尺寸。" },
+      ],
+      variants: ["品牌青绿", "珊瑚渐变", "经典带标签"],
+      cta: "打开自定义步骤",
+    },
+    roadmap: {
+      eyebrow: "面向企业",
+      heading: "从一个二维码到二维码平台",
+      intro: "GenMyQRCode 免费起步，与您一同成长。以下是现已可用与正在开发的功能。",
+      items: [
+        { title: "动态二维码管理", description: "在账户中创建、编辑、暂停和下载您的码。", status: "available" },
+        { title: "批量生成", description: "从一个 CSV 生成最多 50 个共享设计的静态码。", status: "available" },
+        { title: "二维码模板", description: "餐厅、咖啡馆、酒店、零售、活动和评价预设。", status: "available" },
+        { title: "扫描分析", description: "动态二维码的设备、国家和时间细分。", status: "planned" },
+        { title: "团队管理", description: "在组织内共享码与角色。", status: "planned" },
+        { title: "API 访问", description: "以编程方式创建和管理动态二维码。", status: "planned" },
+        { title: "D365FO / ERP 集成", description: "从 Dynamics 365 Finance & Operations 生成并追踪二维码。", status: "planned" },
+      ],
+    },
+    pricing: {
+      eyebrow: "套餐",
+      heading: "免费起步，按需升级",
+      intro: "静态二维码永久免费。动态二维码从免费套餐开始；付费套餐正在最终确定。",
+      comingSoon: "即将推出",
+      freePrice: "免费",
+      perMonth: "/月",
+      dynamicQrFeature: "{count} 个启用中的动态二维码",
+      scansPerYearFeature: "每年 {count} 次扫描",
+      scansPerMonthFeature: "每月 {count} 次扫描",
+      apiFeature: "API 访问",
+      plans: {
+        free: {
+          name: "Free",
+          tagline: "适合个人和小型企业。",
+          extras: ["不限数量的静态二维码", "模板与自定义", "CSV 批量导出"],
+          cta: "免费开始",
+        },
+        pro: {
+          name: "Pro",
+          tagline: "适合运营活动的营销人员。",
+          extras: ["包含 Free 全部功能", "优先支持"],
+          cta: "上线时通知我",
+        },
+        business: {
+          name: "Business",
+          tagline: "适合团队、批量操作和系统集成。",
+          extras: ["包含 Pro 全部功能", "团队管理（规划中）", "ERP 集成（规划中）"],
+          cta: "联系我们",
+        },
+      },
+      note: "套餐限额仅供参考，付费套餐上线前可能调整。目前不收取任何费用。",
+    },
+    statusAvailable: "已可用",
+    statusPlanned: "规划中",
+    finalCta: {
+      heading: "几秒钟创建您的二维码。",
+      subheading: "静态码免费且无需账号；只有在需要动态二维码时才登录。",
+      primaryCta: "免费创建二维码",
+      secondaryCta: "了解动态二维码",
+    },
   },
   relatedToolBlurbs: {
     url: "为网站链接创建二维码。",
@@ -687,28 +842,55 @@ export const zh: Dictionary = {
       title: "免费二维码生成器（无需注册）",
       description:
         "免费二维码生成器，静态码无需注册，支持网址、WiFi、名片、WhatsApp、LINE 等；登录后可创建印刷后可改目标的动态二维码。可自定义下载，也可使用 CSV 批量生成与模板。",
-      h1: "免费二维码生成器，无需注册",
+      // Change: Homepage hero H1 keeps the primary keyword and adds the SaaS promise.
+      h1: "免费二维码生成器 — 简单、快速、免费创建二维码",
       introduction:
         "在浏览器中免费创建实用的静态二维码，无需账号。选择内容类型、填写详情、自定义视觉设计，并在分享前测试实时预览。需要印刷后仍可修改的短链？切换到 Dynamic 模式或阅读动态二维码指南。需要多个网址码请用 CSV 批量生成；想要现成外观可从模板开始。",
+      body: [
+        "GenMyQRCode 是一款完全在浏览器中运行的免费二维码生成器。网址、WiFi、vCard 名片、WhatsApp、LINE、Google 评价、付款和社交主页的静态二维码都在您的设备上生成，输入的内容不会被上传或保存。您可以自定义颜色、图案、标志和边框，然后下载可印刷的 PNG 或可缩放的 SVG。",
+        "当您需要一个在目标变化后仍能使用的二维码时，请创建动态二维码。它编码 genmyqrcode.com 上的短链并跳转到您当前的网址，因此无需重印即可更新菜单、活动页面或包装链接。动态二维码需要免费账号，以便管理、暂停并查看扫描次数。",
+        "同一套自定义设计工具适用于两种模式；CSV 批量导出可用一种设计一次创建最多 50 个静态码。下方链接的指南提供 WiFi、vCard、Google 评价、LINE 和付款二维码的类型专属技巧。",
+      ],
       howTo: [
         "选择与扫码后操作匹配的二维码类型。",
         "填写必填信息并查看实时预览。",
         "自定义颜色、定位点、标志、边框、尺寸和纠错级别，然后试扫验证。",
+        "下载 PNG 用于印刷或 SVG 用于编辑。需要可编辑链接时，切换到 Dynamic 模式并登录。",
       ],
       faqs: [
+        {
+          question: "GenMyQRCode 免费吗？",
+          answer:
+            "免费。静态二维码不限数量、无水印、无需账号。动态二维码包含在免费套餐中，并有启用码数与扫描次数配额；更高限额的付费套餐即将推出。",
+        },
         {
           question: "创建静态二维码需要账号吗？",
           answer: "不需要。无需登录即可创建静态二维码，输入内容也不会被保存。",
         },
         {
-          question: "可以编码哪些内容？",
+          question: "二维码会过期吗？",
           answer:
-            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram 和社交主页创建二维码。如需一次创建多个网址码，请使用 CSV 批量生成器；现成设计请浏览模板。",
+            "静态二维码永不过期，因为内容就在图像中。动态二维码只要在您的账户中处于启用状态就会持续跳转；您可以随时暂停或重新启用。",
         },
         {
-          question: "什么是动态二维码？需要账号吗？",
+          question: "静态与动态二维码有何区别？",
           answer:
-            "动态二维码编码 genmyqrcode.com 上的短链，印刷后仍可更改目标网址。登录后在生成器中切换到 Dynamic 模式，或阅读动态二维码指南。静态码仍可免费使用且无需账号。",
+            "静态二维码把数据存放在图像中，印刷后无法更改。动态二维码编码 genmyqrcode.com 上的短链，因此可以更改目标、暂停码并查看扫描次数。登录后在生成器中切换到 Dynamic 模式，或阅读动态二维码指南。",
+        },
+        {
+          question: "可以自定义二维码吗？",
+          answer:
+            "可以。更改前景色和背景色、添加渐变、上传标志或选择预设、挑选点与定位点图案、添加边框或标签外框、选择预设背景和模板，并设置纠错级别与导出尺寸。",
+        },
+        {
+          question: "可以商用吗？",
+          answer:
+            "可以。在此创建的二维码可用于商业、印刷、包装和营销。您需对所链接的内容负责，并遵守任何第三方服务的条款。",
+        },
+        {
+          question: "可以编码哪些内容？",
+          answer:
+            "可为网址、纯文本、WiFi、电子邮件、电话、短信、vCard 名片、WhatsApp、LINE、Google 评价链接、位置、活动、Telegram、社交主页和付款链接创建二维码。如需一次创建多个网址码，请使用 CSV 批量生成器；现成设计请浏览模板。",
         },
       ],
     },

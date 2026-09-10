@@ -33,6 +33,8 @@ export default async function QrCodeTypePage({ params }: Props) {
       initialType={seed.initialType}
       initialSocialNetwork={seed.initialSocialNetwork}
       initialPaymentProvider={seed.initialPaymentProvider}
+      // Change: Homepage "Create Dynamic QR" CTA lands here with Dynamic mode preselected.
+      initialMode={type === "dynamic" ? "dynamic" : undefined}
       locale={locale}
       dictionary={dictionary}
     />

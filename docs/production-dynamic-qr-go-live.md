@@ -2,6 +2,8 @@
 
 Requires **Phase 1–4 complete** on staging. See [`plan-dynamic-qr-integrated-roadmap.md`](./plan-dynamic-qr-integrated-roadmap.md) and [`spec-dynamic-qr-v1-accounts-scale.md`](./spec-dynamic-qr-v1-accounts-scale.md).
 
+**Status:** Phase 5 completed 2026-08-31. For later patches onto the **existing** Railway/Vercel production, use [`production-release-checklist.md`](./production-release-checklist.md) instead of repeating this first-time go-live.
+
 ## Current production map
 
 | Piece | Where |
@@ -9,7 +11,7 @@ Requires **Phase 1–4 complete** on staging. See [`plan-dynamic-qr-integrated-r
 | Frontend | Vercel `build-your-qr` → https://genmyqrcode.com |
 | DNS | Cloudflare `genmyqrcode.com` → Vercel |
 | Auth | Clerk (Phase 2+) |
-| API + Postgres | Neon + Railway (Phase 1+) — **not live until Phase 5** |
+| API + Postgres | Neon + Railway — **live since Phase 5** (`https://qr-api-production-fb1c.up.railway.app`) |
 
 ---
 

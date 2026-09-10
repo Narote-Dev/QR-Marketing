@@ -15,6 +15,105 @@ export type TemplateSeoCopy = SeoPageCopy & {
   body: string[];
 };
 
+/** Change: Feature availability badge used by homepage sections. */
+export type FeatureStatus = "available" | "planned";
+
+export type HomeFeatureItem = {
+  title: string;
+  description: string;
+  status: FeatureStatus;
+};
+
+/** Change: Homepage (qr-code-generator hub) marketing copy. Values only; no layout data. */
+export type HomeCopy = {
+  hero: {
+    eyebrow: string;
+    subheadline: string;
+    primaryCta: string;
+    secondaryCta: string;
+    bullets: string[];
+    mockup: {
+      title: string;
+      typeChips: string[];
+      inputLabel: string;
+      inputValue: string;
+      colorsLabel: string;
+      previewLabel: string;
+      downloadLabel: string;
+      frameText: string;
+    };
+  };
+  valueStrip: { title: string; description: string }[];
+  generatorSection: {
+    eyebrow: string;
+    heading: string;
+    flow: string[];
+  };
+  types: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    guideLabel: string;
+    openLabel: string;
+  };
+  dynamic: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    staticTitle: string;
+    staticPoints: string[];
+    dynamicTitle: string;
+    dynamicPoints: string[];
+    benefits: HomeFeatureItem[];
+    primaryCta: string;
+    secondaryCta: string;
+  };
+  analytics: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    sampleBadge: string;
+    metrics: { label: string; value: string; hint: string; status: FeatureStatus }[];
+    plannedNote: string;
+  };
+  customization: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    features: { title: string; description: string }[];
+    variants: string[];
+    cta: string;
+  };
+  roadmap: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    items: HomeFeatureItem[];
+  };
+  pricing: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    comingSoon: string;
+    freePrice: string;
+    perMonth: string;
+    dynamicQrFeature: string;
+    scansPerYearFeature: string;
+    scansPerMonthFeature: string;
+    apiFeature: string;
+    plans: Record<"free" | "pro" | "business", { name: string; tagline: string; extras: string[]; cta: string }>;
+    note: string;
+  };
+  statusAvailable: string;
+  statusPlanned: string;
+  finalCta: {
+    heading: string;
+    subheading: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
+};
+
 export type Dictionary = {
   site: {
     name: string;
@@ -62,7 +161,16 @@ export type Dictionary = {
     trustNoSignup: string;
     trustBrowserOnly: string;
     trustLocalized: string;
+    // Change: SaaS navigation additions (homepage redesign).
+    navDynamicQr: string;
+    navPricing: string;
+    navCreateCta: string;
+    footerProduct: string;
+    footerCompany: string;
+    footerTagline: string;
   };
+  /** Change: Homepage marketing sections (server-rendered copy). */
+  home: HomeCopy;
   relatedToolBlurbs: Record<
     | "url"
     | "wifi"

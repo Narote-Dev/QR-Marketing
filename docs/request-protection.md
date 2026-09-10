@@ -22,6 +22,8 @@ Country collection is separately opt-in. The immediate peer must overwrite/remov
 
 ## Preview checks before release
 
+Full production patch sequence (CI → Preview/Clerk → proxy → approval → deploy → smoke): [`production-release-checklist.md`](./production-release-checklist.md).
+
 1. Confirm two authenticated users have independent write limits, and POST plus PATCH consume the same user's allowance.
 2. Confirm two real clients behind the deployment route obtain distinct redirect partitions.
 3. Send spoofed forwarded IP/country headers through both entry points; they must not override verified client identity/country.
