@@ -130,6 +130,14 @@ Before starting work, confirm whether the two local commits should be pushed and
 - Verification: `npm test --prefix .\\frontend` passed 98/98 after rerun outside the sandbox because the sandbox hit Node `uv_os_get_passwd ... ENOMEM`; `npm run build --prefix .\\frontend` passed with 149 generated pages; `git diff --check` passed.
 - Deployment decision: Vercel Preview may proceed after commit/push. Production release still requires the checklist gates: authenticated Preview smoke with two users, proxy/request-protection verification, and a clear commit-specific production release approval. Railway production remains on `efcbb75` until those gates pass.
 
+### 2026-09-10 - Codex - Commit and Vercel Preview deployment
+
+- Commit: `8a76384` (`feat(frontend): redesign homepage as SaaS landing page`) was rebased onto remote preview-refresh commits `f76ef27` and `98fd9bb`, then pushed to `origin/feature/dynamic-qr`.
+- Vercel Preview: deployment `dpl_6gncnkzJJkTB2PH4DqpYiJMkThYb` reached `READY` for commit `8a76384`; preview URL is `https://build-your-iy1aty05w-narote-devs-projects.vercel.app`.
+- Preview smoke: `/en/qr-code-generator` 200 HTML, `/en/sign-in` 200 HTML, `/sitemap.xml` 200 XML, and `/api/me/quota` 401 JSON without auth. GitHub combined status exposed a successful Vercel check; the available workflow-run wrapper returned no push-triggered run.
+- Railway read-only check: existing `qr-marketing-api` Production service `qr-api` and Postgres are Online at `https://qr-api-production-fb1c.up.railway.app`; latest listed successful deployment is `a1e62961-5259-40cb-8040-0efe48baaf20` on 2026-08-31. No Railway production deploy was performed.
+- Remaining release gates: authenticated Preview journey with two users, proxy/request-protection validation, and commit-specific owner approval for Railway/Vercel Production. User-owned `.cursor/skills/` and `docs/SESSION_HANDOFF.md` remain uncommitted.
+
 ### 2026-09-10 - Cursor - Handoff refresh for homepage redesign + GSC/AdSense guidance
 
 - Owner asked whether Google Search Console or AdSense account settings need updates after the homepage UI redesign, and to record the UI change inventory in this handoff.
