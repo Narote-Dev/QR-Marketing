@@ -138,6 +138,16 @@ Before starting work, confirm whether the two local commits should be pushed and
 - Railway read-only check: existing `qr-marketing-api` Production service `qr-api` and Postgres are Online at `https://qr-api-production-fb1c.up.railway.app`; latest listed successful deployment is `a1e62961-5259-40cb-8040-0efe48baaf20` on 2026-08-31. No Railway production deploy was performed.
 - Remaining release gates: authenticated Preview journey with two users, proxy/request-protection validation, and commit-specific owner approval for Railway/Vercel Production. User-owned `.cursor/skills/` and `docs/SESSION_HANDOFF.md` remain uncommitted.
 
+### 2026-09-10 - Codex - Approved Railway and Vercel Production release
+
+- Authorization: owner reported Gate B/C manual tests passed, explicitly approved the Production release, and completed the Vercel CLI device authorization. No production environment variables, secrets, DNS, or account settings changed.
+- Release commit: `e30af00` on `feature/dynamic-qr` (homepage application changes are in parent `8a76384`).
+- Railway: deployed existing Production service `qr-api`; deployment `f338d97b-fbe1-4ada-84b1-cd1b7d093890` reached `SUCCESS` at 2026-09-10 10:22:59 +07:00. `/health` and `/health/ready` both returned `200 Healthy`.
+- Vercel: promoted the verified Preview artifact to Production deployment `dpl_6egR3HgHMCxgx7iqtMSFJaWkyoLn`, `READY`, commit `e30af00`.
+- Production smoke (unauthenticated): `https://genmyqrcode.com/` and `/en/qr-code-generator` returned 200 HTML; same-origin `/api/me/quota` returned 401 JSON; the Railway health endpoints remained 200 Healthy.
+- Observability: Vercel runtime-error scan for the prior hour returned none; Railway error-log query for the new deployment returned no error entries. Railway marks the prior deployment `a1e62961-5259-40cb-8040-0efe48baaf20` removed after the new deploy; if rollback is needed, redeploy known prior commit `efcbb75` (resolves locally) or use the documented Dynamic QR kill-switch, then smoke again.
+- Remaining: owner/tester should perform the authenticated production J0–J2/quota journey; monitor Railway/Vercel errors, new registrations, and redirect behavior for 24–48 hours. User-owned `.cursor/skills/` and `docs/SESSION_HANDOFF.md` remain uncommitted.
+
 ### 2026-09-10 - Cursor - Handoff refresh for homepage redesign + GSC/AdSense guidance
 
 - Owner asked whether Google Search Console or AdSense account settings need updates after the homepage UI redesign, and to record the UI change inventory in this handoff.
